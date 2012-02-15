@@ -1,0 +1,66 @@
+#{extends 'main.html' /} #{form @Application.account_save()}
+<table>
+	<tr>
+		<td class=section width=15%>Name</td>
+		<td>
+			<table>
+				<tr>
+					<td><label>First:</label></td>
+					<td><input type=text name=update.first_name
+						value="${user.first_name}" />
+					</td>
+				</tr>
+				<tr>
+					<td><label>Middle:</label></td>
+					<td><input type=text name=update.middle_name
+						value="${user.middle_name}" />
+					</td>
+				</tr>
+				<tr>
+					<td><label>Last:</label></td>
+					<td><input type=text name=update.last_name
+						value="${user.last_name}" />
+					</td>
+				</tr>
+			</table></td>
+	</tr>
+	<tr>
+		<td><label>Username: 
+		</td>
+		<td><input type=text name=update.username
+			value="${user.username}" />
+		</td>
+	</tr>
+	<tr>
+		<td><label>Email: 
+		</td>
+		<td><input type=text name=update.email value="${user.email}" />
+		</td>
+	</tr>
+	<tr>
+		<td><label>New password: 
+		</td>
+		<td><input type=password name=update.password />
+		</td>
+	</tr>
+	</tr>
+	<td colspan=3><label>To save these settings, please enter
+			your password: 
+	</tr>
+	<tr>
+		<td><label>Password:</label>
+		</td>
+		<td><input type=password name=old_password /></td>
+	</tr>
+	<tr>
+		<td colspan=3><input type=submit value=Save> <input
+			type=submit value=Cancel /> 
+			#{ifErrors}
+			<ul style="color:red">
+			#{errors}<li>${error}</li> #{/errors} 
+			</ul>
+			#{/ifErrors}
+		</td>
+	</tr>
+</table>
+#{/form}

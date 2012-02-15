@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>OpenBook</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.playframework.playclipse.playNature</nature>
+	</natures>
+	<linkedResources><link><name>secure</name><type>2</type><location>/Applications/play/modules/secure/app</location></link>
+<link><name>conf/secure</name><type>2</type><location>/Applications/play/modules/secure/conf</location></link>
+<link><name>public/secure</name><type>2</type><location>/Applications/play/modules/secure/public</location></link>
+</linkedResources>
+</projectDescription>
