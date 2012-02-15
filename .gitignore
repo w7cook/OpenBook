@@ -6,4 +6,5 @@
 /eclipse
 .classpath
 /.settings
+*.swp
 *~
