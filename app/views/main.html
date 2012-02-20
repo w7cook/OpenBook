@@ -12,6 +12,7 @@
 	<div id="header">
 		<a href="@{Application.news()}"><span id=logo class="logo">openbook</span> <input type=text name=query /></a>
     <a href="@{Application.account()}"> ${UserID} </a>
+    <a style="float:right" href="@{Secure.logout()}">Logout</a>
 	</div>
 	<div id="main">#{doLayout /}</div>
 
