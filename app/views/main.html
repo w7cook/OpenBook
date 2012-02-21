@@ -10,9 +10,12 @@
 </head>
 <body>
 	<div id="header">
-		<a href="@{Application.news()}"><span id="logo" class="logo">Openbook</span></a>
+		<a href="@{Application.news()}">
+		  <span id="logo" class="logo">Openbook</span>
+	  </a>
 		<input type="text" name="query" />
-    <a href="@{Application.account()}"> ${UserID} </a>
+    Hello 
+    <a href="@{Application.account()}">${user.first_name} ${user.last_name}</a>!
     <a style="float:right" href="@{Secure.logout()}">Logout</a>
 	</div>
 	<div id="main">#{doLayout /}</div>
