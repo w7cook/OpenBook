@@ -3,7 +3,7 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import controllers.Secure;
+import controllers.Security;
 
 import play.db.jpa.*;
 
@@ -56,7 +56,7 @@ public class Post extends Model {
 	}
 	
 	public boolean byCurrentUser() {
-		return author.email.equals( Secure.Security.connected() );
+		return author.email.equals( Security.connected() );
 	}
 		
 }
