@@ -10,35 +10,44 @@ import play.data.validation.*;
 public class Status extends Model {
     
     @Required
-    public User author;
+    public User author; // The user who authored the status update
     
     @Lob
     @Required
     @MaxSize(1000)
-    public String message;
+    public String message; // The status update text
     
     @Required
-    public Date update_time;
+    public Date update_time; // The time when submitted
     
-    @Required
-    public String type; // Text, Link, Location(Check in), Poll
+    // ############## TO BE IMPLEMENTED #######################################
     
-    //@OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-	//public List<Comment> comments;
+    // public Status share;  // Think Retweet
+    
+    // @Required
+    // public String type; // Text, Link, Location(Check in), Poll
+    
+    // @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+	// public List<Comment> comments;
     
     // @OneToMany(mappedBy="status", cascade=CascadeType.ALL)
-    // public ArrayList<Like> likes;
+    // public List<Like> likes;
     
     // @ManyToMany(cascade=CascadeType.PERSIST)
     // public Set<Tag> tags;
     
+    // @ManyToMany(cascade=CascadeType.PERSIST)
+    //public List<User> mentions;
+    
     public Status(User author, String message) {
-        //this.comments = new ArrayList<Comment>();
+        // this.comments = new ArrayList<Comment>();
         // this.likes = new ArrayList<Like>();
         // this.tags = new ArrayList<Tag>();
+        // this.mentions = someFunction(...message parsing...);
         this.author = author;
         this.message = message;
         this.update_time = new Date();
+        // this.share = someFuntion(...message parsing...);
     }
     
     /*
