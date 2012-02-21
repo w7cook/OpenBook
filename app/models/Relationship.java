@@ -11,6 +11,7 @@ public class Relationship extends Model {
 
 	@ManyToOne
 	public User from;
+	
 	@ManyToOne
 	public User to;
 }
