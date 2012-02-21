@@ -1,5 +1,19 @@
 #{extends 'main.html' /}
-
+<script type="text/javascript">
+     function addFriend(id)
+     {
+     	
+     	if (document.getElementById("friend-button").innerHTML == "true") {
+     		document.getElementById("friend-button").innerHTML = "false";
+     	}
+     	else {
+     		document.getElementById("friend-button").innerHTML = "true";
+     	}
+     	
+     	document.getElementById("friend-button").innerHTML = "e" + Application.updateFriends(id);
+     	
+     }
+</script>
 <table>
   <tr>
   <td>
@@ -16,7 +30,8 @@
      #{/list}
   </td>
   <td>
-     <h1>${user.name}</h1>
+     <h1>${user.name}</h1> 
+     <a id="friend-button" href="@{Application.updateFriends(user.id)}">${user.checkFriendship(user.id)}</a>
      #{list items:user.news(), as:'item'}
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,

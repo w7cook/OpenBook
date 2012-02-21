@@ -37,6 +37,24 @@ public class Application extends Controller {
 	private static boolean given(String val) {
 		return val != null && val.length() > 0;
 	}
+	
+	public static void updateFriends(Long id) {
+		User current = Application.user();
+		User other = User.find("id = ?", id).first();
+		Relationship r = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, other).first();
+			
+		if (r != null) {
+			System.out.println("" + r.accepted);
+			r.accepted = !r.accepted;
+		}
+		else {
+			current.friends.add(new Relationship(current, other, true));
+			System.out.println("" + current + other);
+		}
+		current.save();
+		r.save();
+		news(id);
+	}
 
 	public static void account_save(User update, String old_password) {
 		User currentUser = user();
