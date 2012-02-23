@@ -14,4 +14,14 @@ public class Relationship extends Model {
 	
 	@ManyToOne
 	public User to;
+	
+	public boolean accepted;
+	public boolean requested;
+	
+	public Relationship(User from, User to, boolean requested) {
+		this.from = from;
+		this.to = to;
+		this.requested = accepted;
+		this.accepted = false;
+	}
 }
