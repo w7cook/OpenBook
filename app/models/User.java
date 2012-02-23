@@ -89,5 +89,38 @@ public class User extends Model {
 				"SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?",
 				this.id).fetch();
 	}
+	
+	public String checkFriendship(Long id) {
+		User current = Application.user();
+		if (Application.user().id == id) {
+			return "";
+		}
+		Relationship r = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
+		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", current, this).first();
+		
+		return "from accepted: " + r1.accepted + "to accepted: " + r2.accepted + "from req: " + r1.requested + "from requested: " + r2.requested;
+	}
+	
+	public String addFriendship(Long id) {
+		User current = Application.user();
+		if (Application.user().id == id) {
+			return "";
+		}
+		Relationship r = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
+			
+		if (r != null) {
+			System.out.println("" + r.accepted);
+			r.accepted = !r.accepted;
+		}
+		else {
+			friends.add(new Relationship(current, this, true));
+			System.out.println("" + current + this);
+		}
+
+		System.out.println("" + r.accepted);
+		save();
+		r.save();
+		return "" ;
+	}
 
 }
