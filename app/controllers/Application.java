@@ -45,7 +45,7 @@ public class Application extends Controller {
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
 		
 		if (r2 != null) {
-			if (r1 != null) {
+			if (r1 == null) {
 				r1 = new Relationship(user, other, true);
 			}
 			
@@ -65,9 +65,15 @@ public class Application extends Controller {
 			}
 		}
 		// If the user has already made a request for friendship, do nothing
-		else if (r1 != null && r1.requested) {
-			news(id);
-			return;
+		else if (r1 != null) {
+			if (r1.requested) {
+				news(id);
+				return;
+			} else {
+				r1.requested = true;
+				news(id);
+				return;
+			}
 		} else {
 			r1 = new Relationship(user, other, true);
 		}
@@ -88,7 +94,10 @@ public class Application extends Controller {
 			r2.accepted = false;
 			r1.requested = false;
 			r2.requested = false;
+			r1.save();
+			r2.save();
 		}
+		news(id);
 	}
 
 	public static void account_save(User update, String old_password) {
