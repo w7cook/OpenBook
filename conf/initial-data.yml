@@ -49,6 +49,7 @@ Relationship(r1):
 Relationship(r3):
     from:   alice
     to:     jeff
+    accepted: true
 
 Relationship(r4):
     from:   jeff
