@@ -56,8 +56,8 @@ public class Application extends Controller {
 			}
 		}
 		else {
-			r1 = new Relationship(user, other, false);
-			r2 = new Relationship(other, user, true);
+			r1 = new Relationship(user, other, true);
+			r2 = new Relationship(other, user, false);
 			user.friends.add(r1);
 			other.friendedBy.add(r2);
 		}

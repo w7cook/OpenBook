@@ -40,6 +40,25 @@ Relationship(s2):
 Relationship(s3):
     from:   jeff
     to:     jeff
+  
+Relationship(r1):
+    from:   bob
+    to:     jeff
+    accepted: true
+
+Relationship(r3):
+    from:   alice
+    to:     jeff
+
+Relationship(r4):
+    from:   jeff
+    to:     alice
+    accepted: true
+
+Relationship(r5):
+    from:   jeff
+    to:     bob
+    accepted: true
     
 Post(firstBobPost):
     title:          About the model layer
