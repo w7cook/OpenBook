@@ -24,12 +24,12 @@
 	 #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
 	 	Friendship Requested
 	 #{/elseif}
-	 #{else}
+	 #{elseif user.checkFriendship(user.id) == 'Friends'}
 	 	Friends :) 
 	 	<a id="friend-button" href="@{Application.removeFriends(user.id)}">
 		  	Remove friend
 		</a>
-	#{/else}
+	#{/elseif}
      #{list items:user.news(), as:'item'}
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
