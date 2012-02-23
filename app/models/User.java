@@ -97,8 +97,8 @@ public class User extends Model {
 		}
 		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", current, this).first();
-		if (r2 != null) {
-			if (r2.accepted) {
+		if (r1 != null) {
+			if (r1.accepted) {
 				return "Friends";
 			}
 			if (r1.requested){
@@ -108,26 +108,8 @@ public class User extends Model {
 		return "Request Friendship";
 	}
 	
-	public String addFriendship(Long id) {
-		User current = Application.user();
-		if (Application.user().id == id) {
-			return "";
-		}
-		Relationship r = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
-			
-		if (r != null) {
-			System.out.println("" + r.accepted);
-			r.accepted = !r.accepted;
-		}
-		else {
-			friends.add(new Relationship(current, this, true));
-			System.out.println("" + current + this);
-		}
-
-		System.out.println("" + r.accepted);
-		save();
-		r.save();
-		return "" ;
+	public List<Relationship> confirmedFriends() {
+		return Relationship.find("SELECT r FROM Relationship r where r.from = ? and r.accepted = true", this).fetch();
 	}
 
 }
