@@ -38,6 +38,11 @@ public class Application extends Controller {
 		return val != null && val.length() > 0;
 	}
 	
+	
+	/** Request to be friends with a given user, changing appropriate Relationship flags where necessary. 
+	 * 
+	 * @param id the user to request friendship with
+	 */
 	public static void requestFriends(Long id) {
 		User user = user();
 		User other = User.find("id = ?", id).first();
@@ -83,6 +88,10 @@ public class Application extends Controller {
 		news(id);
 	}
 	
+	/** Attempt to end a relationship with a user, changing appropriate Relationship flags where necessary
+	 * 
+	 * @param id the user to remove
+	 */
 	public static void removeFriends(Long id) {
 		User user = user();
 		User other = User.find("id = ?", id).first();

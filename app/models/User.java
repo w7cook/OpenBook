@@ -7,6 +7,10 @@ import controllers.Application;
 
 import play.db.jpa.*;
 
+/**
+ * @author Elliot Kramer
+ *
+ */
 @Entity
 public class User extends Model {
 
@@ -90,6 +94,11 @@ public class User extends Model {
 				this.id, this.id).fetch();
 	}
 	
+	/** Checks the status of a friendship
+	 * 
+	 * @param id the user to check friendship status with
+	 * @return a string representing the status
+	 */
 	public String checkFriendship(Long id) {
 		User current = Application.user();
 		if (Application.user().id == id) {
@@ -108,10 +117,19 @@ public class User extends Model {
 		return "Request Friendship";
 	}
 	
+	/** Get any confirmed friends
+	 * 
+	 * @return a list of relationships for confirmed friends
+	 */
 	public List<Relationship> confirmedFriends() {
 		return Relationship.find("SELECT r FROM Relationship r where r.from = ? and r.accepted = true", this).fetch();
 	}
 	
+	
+	/** Get a list of any users who have requested to be friends
+	 * 
+	 * @return a list of relationships related to incoming friend requests
+	 */
 	public List<Relationship> requestedFriends() {
 		return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
 	}
