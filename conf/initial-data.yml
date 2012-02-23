@@ -40,26 +40,6 @@ Relationship(s2):
 Relationship(s3):
     from:   jeff
     to:     jeff
-  
-Relationship(r1):
-    from:   bob
-    to:     jeff
-
-Relationship(r2):
-    from:   bob
-    to:     alice
-
-Relationship(r3):
-    from:   alice
-    to:     jeff
-
-Relationship(r4):
-    from:   jeff
-    to:     alice
-
-Relationship(r5):
-    from:   jeff
-    to:     bob
     
 Post(firstBobPost):
     title:          About the model layer
