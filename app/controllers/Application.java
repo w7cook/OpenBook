@@ -44,15 +44,18 @@ public class Application extends Controller {
 		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
 		
-		// Update the user making the request 
 		if (r2 != null) {
-			r1 = new Relationship(user, other, true);
+			if (r1 != null) {
+				r1 = new Relationship(user, other, true);
+			}
 			
-			// If the other user has requested, this request should make them friends
+			// If the other user has already requested, this request should make them friends
 			if (r2.requested) {
-				r2.accepted = true;
+				r1.requested = false;
 				r2.requested = false;
 				r1.accepted = true;
+				r2.accepted = true;
+				r1.save();
 				r2.save();
 			} else if (r2.accepted){
 				news(id);
@@ -60,7 +63,9 @@ public class Application extends Controller {
 			} else {
 				r1.requested = true;
 			}
-		} else if (r1 != null && r1.requested) {
+		}
+		// If the user has already made a request for friendship, do nothing
+		else if (r1 != null && r1.requested) {
 			news(id);
 			return;
 		} else {
@@ -70,6 +75,20 @@ public class Application extends Controller {
 		other.save();
 		r1.save();
 		news(id);
+	}
+	
+	public static void removeFriends(Long id) {
+		User user = user();
+		User other = User.find("id = ?", id).first();
+		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
+		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
+		
+		if (r1 != null & r2 != null) {
+			r1.accepted = false;
+			r2.accepted = false;
+			r1.requested = false;
+			r2.requested = false;
+		}
 	}
 
 	public static void account_save(User update, String old_password) {
