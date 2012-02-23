@@ -86,8 +86,8 @@ public class User extends Model {
 
 	public List<Post> news() {
 		return Post.find(
-				"SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?",
-				this.id).fetch();
+				"SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?)",
+				this.id, this.id).fetch();
 	}
 	
 	public String checkFriendship(Long id) {
