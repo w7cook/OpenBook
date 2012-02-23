@@ -95,10 +95,11 @@ public class User extends Model {
 		if (Application.user().id == id) {
 			return "";
 		}
-		Relationship r = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
+		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", current, this).first();
-		
-		return "from accepted: " + r1.accepted + "to accepted: " + r2.accepted + "from req: " + r1.requested + "from requested: " + r2.requested;
+		if (r2 != null)
+			return "from accepted: " + r1.accepted + "to accepted: " + r2.accepted + "from req: " + r1.requested + "from requested: " + r2.requested;
+		return "request";
 	}
 	
 	public String addFriendship(Long id) {

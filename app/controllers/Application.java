@@ -51,11 +51,13 @@ public class Application extends Controller {
 				r2.accepted = true;
 				r1.accepted = true;
 				r2.requested = false;
+			} else {
+				r1.requested = true;
 			}
 		}
 		else {
-			r1 = new Relationship(current, other, false);
-			r2 = new Relationship(other, current, true);
+			r1 = new Relationship(user, other, false);
+			r2 = new Relationship(other, user, true);
 			user.friends.add(r1);
 			other.friendedBy.add(r2);
 		}

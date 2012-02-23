@@ -17,12 +17,7 @@
   <td>
      <h1>${user.name}</h1> 
      <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-	     #{if user.checkFriendship(user.id) == 'true'}
-	     	Friends :)
-	     #{/if}
-	     #{else}
-	     	NOT FRIENDS
-	     #{/else}
+	  	${user.checkFriendship(user.id)}
 	     </a>
      #{list items:user.news(), as:'item'}
         <div class="post">
