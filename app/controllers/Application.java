@@ -38,21 +38,31 @@ public class Application extends Controller {
 		return val != null && val.length() > 0;
 	}
 	
-	public static void updateFriends(Long id) {
-		User current = Application.user();
+	public static void requestFriends(Long id) {
+		User user = user();
 		User other = User.find("id = ?", id).first();
-		Relationship r = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, other).first();
-			
-		if (r != null) {
-			System.out.println("" + r.accepted);
-			r.accepted = !r.accepted;
+		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
+		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
+		
+		// Update the user making the request 
+		if (r1 != null) {
+			// If the other user has requested, this request should make them friends
+			if (r2.requested) {
+				r2.accepted = true;
+				r1.accepted = true;
+				r2.requested = false;
+			}
 		}
 		else {
-			current.friends.add(new Relationship(current, other, true));
-			System.out.println("" + current + other);
+			r1 = new Relationship(current, other, false);
+			r2 = new Relationship(other, current, true);
+			user.friends.add(r1);
+			other.friendedBy.add(r2);
 		}
-		current.save();
-		r.save();
+		user.save();
+		other.save();
+		r1.save();
+		r2.save();
 		news(id);
 	}
 

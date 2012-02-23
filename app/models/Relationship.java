@@ -21,7 +21,7 @@ public class Relationship extends Model {
 	public Relationship(User from, User to, boolean requested) {
 		this.from = from;
 		this.to = to;
-		this.requested = accepted;
+		this.requested = requested;
 		this.accepted = false;
 	}
 }

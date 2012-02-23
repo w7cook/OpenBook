@@ -16,7 +16,7 @@
   </td>
   <td>
      <h1>${user.name}</h1> 
-     <a id="friend-button" href="@{Application.updateFriends(user.id)}">
+     <a id="friend-button" href="@{Application.requestFriends(user.id)}">
 	     #{if user.checkFriendship(user.id) == 'true'}
 	     	Friends :)
 	     #{/if}
