@@ -45,26 +45,30 @@ public class Application extends Controller {
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
 		
 		// Update the user making the request 
-		if (r1 != null) {
+		if (r2 != null) {
+			r1 = new Relationship(user, other, true);
+			
 			// If the other user has requested, this request should make them friends
 			if (r2.requested) {
 				r2.accepted = true;
-				r1.accepted = true;
 				r2.requested = false;
+				r1.accepted = true;
+				r2.save();
+			} else if (r2.accepted){
+				news(id);
+				return;
 			} else {
 				r1.requested = true;
 			}
-		}
-		else {
+		} else if (r1 != null && r1.requested) {
+			news(id);
+			return;
+		} else {
 			r1 = new Relationship(user, other, true);
-			r2 = new Relationship(other, user, false);
-			user.friends.add(r1);
-			other.friendedBy.add(r2);
 		}
 		user.save();
 		other.save();
 		r1.save();
-		r2.save();
 		news(id);
 	}
 
