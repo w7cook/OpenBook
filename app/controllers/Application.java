@@ -48,11 +48,12 @@ public class Application extends Controller {
 		User other = User.findById(id);
 		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
+
+		if (r1 == null) {
+			r1 = new Relationship(user, other, true);
+		}
 		
 		if (r2 != null) {
-			if (r1 == null) {
-				r1 = new Relationship(user, other, true);
-			}
 			
 			// If the other user has already requested, this request should make them friends
 			if (r2.requested) {
@@ -76,14 +77,11 @@ public class Application extends Controller {
 				return;
 			} else {
 				r1.requested = true;
+				r1.save();
 				news(id);
 				return;
 			}
-		} else {
-			r1 = new Relationship(user, other, true);
 		}
-		user.save();
-		other.save();
 		r1.save();
 		news(id);
 	}
@@ -94,16 +92,18 @@ public class Application extends Controller {
 	 */
 	public static void removeFriends(Long id) {
 		User user = user();
-		User other = User.find("id = ?", id).first();
+		User other = User.findById(id);
 		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
 		
-		if (r1 != null & r2 != null) {
-			r1.accepted = false;
-			r2.accepted = false;
+		if (r1 != null) { 
 			r1.requested = false;
-			r2.requested = false;
+			r1.accepted = false;
 			r1.save();
+		}
+		if (r2 != null) {
+			r2.accepted = false;
+			r2.requested = false;
 			r2.save();
 		}
 		news(id);
