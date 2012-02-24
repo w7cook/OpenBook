@@ -13,8 +13,7 @@ public class Application extends Controller {
   @Before
   static void setConnectedUser() {
     if (Security.isConnected()) {
-      User u = user();
-      renderArgs.put("user", u);
+      renderArgs.put("currentUser", user());
     }
   }
 
@@ -29,14 +28,12 @@ public class Application extends Controller {
 
   public static void about(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
-    renderArgs.put("renderingUser", user);
-    render();
+    render(user);
   }
 
   public static void news(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
-    renderArgs.put("renderingUser", user);
-    render();
+    render(user);
   }
 
   public static void account() {
@@ -104,10 +101,10 @@ public class Application extends Controller {
     // not implemented yet
   }
 
-  public static void deleteComment(Long id, Long page) {
+  public static void deleteComment(Long id, Long userId) {
     Comment c = Comment.findById(id);
     c.delete();
-    news(page);
+    news(userId);
   }
 
   public static void postComment(Long postId, String author, String content) {

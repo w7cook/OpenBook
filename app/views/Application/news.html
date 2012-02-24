@@ -4,20 +4,20 @@
   <tr>
   <td>
      [Picture]
-     ${renderingUser.email}
+     ${user.email}
  
     <br>
     <a href="@{Application.news()}">news</a>
     <br>
     <a href="@{Application.about()}">about</a>
     <br>friends:<br>
-     #{list items:renderingUser.friends, as:'friendship'}
+     #{list items:user.friends, as:'friendship'}
      <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
      #{/list}
   </td>
   <td>
-     <h1>${renderingUser.name}</h1>
-     #{list items:renderingUser.news(), as:'item'}
+     <h1>${user.name}</h1>
+     #{list items:user.news(), as:'item'}
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
         <span class="post-date">${item.date.format('dd MMM yy')}</span>
@@ -30,7 +30,7 @@
                     <span class="comment-author">by ${comment.author},</span>
                     <span class="comment-date">
                         ${comment.date.format('dd MMM yy')}
-                    <a class=button href="@{Application.deleteComment(comment.id,1)}">delete</a>
+                    <a class=button href="@{Application.deleteComment(comment.id,user.id)}">delete</a>
                     </span>
                 </div>
                 <div class="comment-content">
