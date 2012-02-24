@@ -3,3 +3,4 @@
 require:
    - play -> secure
    - play -> crud
+   - play -> logisimayml 1.8

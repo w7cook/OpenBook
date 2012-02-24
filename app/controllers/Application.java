@@ -2,10 +2,20 @@ package controllers;
 
 import java.util.*;
 
+import play.*;
+import play.mvc.*;
+import controllers.Secure;
 import models.*;
 
 @With(Secure.class)
 public class Application extends Controller {
+
+  @Before
+  static void setConnectedUser() {
+    if (Security.isConnected()) {
+      renderArgs.put("currentUser", user());
+    }
+  }
 
   @Before
   static void addDefaults() {
@@ -34,7 +44,6 @@ public class Application extends Controller {
   private static boolean given(String val) {
     return val != null && val.length() > 0;
   }
-
 
   /** Request to be friends with a given user, changing appropriate Relationship flags where necessary.
    * 
@@ -113,7 +122,8 @@ public class Application extends Controller {
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
     validation.isTrue(currentUser.password.equals(old_password)).message(
-    "Password does not match");
+        "Password does not match");
+    
     if (validation.hasErrors()) {
       User user = update;
       renderTemplate("Application/account.html", user);
@@ -126,24 +136,21 @@ public class Application extends Controller {
       }
       if (given(update.middle_name)) {
         user.middle_name = update.middle_name;
-        if (given(name)) {
+        if (given(name))
           name += " ";
-        }
         name += user.first_name;
       }
       if (given(update.last_name)) {
         user.last_name = update.last_name;
-        if (given(name)) {
+        if (given(name))
           name += " ";
-        }
         name += user.first_name;
       }
       user.name = name;
       user.username = update.username;
       user.email = update.email;
-      if (given(update.password)) {
+      if (given(update.password))
         user.password = update.password;
-      }
       user.save();
       account();
     }
@@ -164,11 +171,11 @@ public class Application extends Controller {
   public static void search(String query) {
     // not implemented yet
   }
-
-  public static void deleteComment(Long id, Long page) {
+  
+  public static void deleteComment(Long id, Long userId) {
     Comment c = Comment.findById(id);
     c.delete();
-    news(page);
+    news(userId);
   }
 
   public static void postComment(Long postId, String author, String content) {

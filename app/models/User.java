@@ -1,7 +1,11 @@
 package models;
 
 import java.util.*;
+import javax.persistence.*;
+
 import controllers.Application;
+
+import play.db.jpa.*;
 
 @Entity
 public class User extends Model {
