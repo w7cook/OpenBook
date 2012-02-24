@@ -7,10 +7,6 @@ import controllers.Application;
 
 import play.db.jpa.*;
 
-/**
- * @author Elliot Kramer
- *
- */
 @Entity
 public class User extends Model {
 

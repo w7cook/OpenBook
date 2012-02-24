@@ -45,7 +45,7 @@ public class Application extends Controller {
 	 */
 	public static void requestFriends(Long id) {
 		User user = user();
-		User other = User.find("id = ?", id).first();
+		User other = User.findById(id);
 		Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
 		Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
 		
