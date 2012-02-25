@@ -8,6 +8,8 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
+GET    /stylesheets/main.css                    Application.stylesheet
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

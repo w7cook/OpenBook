@@ -104,4 +104,11 @@ public class Application extends Controller {
 		Post post = Post.findById(postId);
 		post.addComment(author, content);
 	}
+	
+	public static void stylesheet() {
+		User user = user();
+		Skin skin = user.skin;
+		renderTemplate("stylesheets/main.css", skin);
+	}
+	
 }

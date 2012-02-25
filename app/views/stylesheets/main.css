@@ -9,7 +9,7 @@ body {
 }
 
 #logo {
-	font: ${user.skin.logoFontSize}pt;
+	font: ${skin.logoFontSize}pt;
 	color: white;
 	padding: 0px 10px 0px 20px;
 }
@@ -20,7 +20,7 @@ body {
 }
 
 #header {
-	background-color: #${user.skin.backgroundColor};
+	background-color: #${skin.backgroundColor};
   padding: 0;
 }
 

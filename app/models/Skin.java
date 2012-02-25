@@ -34,6 +34,7 @@ import play.db.jpa.*;
 public class Skin extends Model {
 
 	public String name;//name of the skin
+	public String fontType;
 	public int logoFontSize;
 	public String backgroundColor;
 	/**
@@ -60,17 +61,9 @@ public class Skin extends Model {
 		this.name = "DEFAULT";
 		this.logoFontSize = 30;
 		this.backgroundColor = "000000";//"CC5500";
+		this.fontType = "Sans"; //Options: Helvetica, Arial, Sans !important
 	}
 	
-	/**
-	 * Skin specified constructor
-	 * @param title (name of the skin upon creation)
-	 */
-	public Skin(String title) {
-		this.allClients = new ArrayList<User>();
-		this.name = title;
-		this.logoFontSize = 18;
-	}
 
 	/**
 	 * addClient
@@ -95,17 +88,9 @@ public class Skin extends Model {
 		return Skin.find("Count(*)").first();
 	}
 	
-	/**
-	 * clientIsCurrentUser
-	 * @return boolean (whether or not the currentUser is using this skin)
-	 */
-	public boolean clientIsCurrentUser() {
-		User client = User.find("skin = ? AND email = ?", this, Security.connected()).first();
-		if(client == null)
-			return false;
-		else
-			return true;
-			
+	public void setFont()
+	{
+		
 	}
 		
 }

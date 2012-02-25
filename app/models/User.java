@@ -62,6 +62,9 @@ public class User extends Model {
 																			// partnership
 	public String religion; // The user's religion
 
+	@ManyToOne
+	public Skin skin;//Skin (StyleSheet) used by this User
+	
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 	public List<Employment> work; // A list of the user's work history
 
@@ -72,11 +75,17 @@ public class User extends Model {
 
 	@OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
 	public List<Relationship> friendedBy; // A list of the user's work history
-
+	
+	public User()
+	{
+		this.skin = new Skin();
+	}
+	
 	public User(String email, String password, String username) {
 		this.email = email;
 		this.password = password;
 		this.username = username;
+		this.skin = new Skin();
 		// this.education = new ArrayList<Enrollment>();
 	}
 
@@ -89,5 +98,7 @@ public class User extends Model {
 				"SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?",
 				this.id).fetch();
 	}
+	
+	
 
 }
