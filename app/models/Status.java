@@ -22,7 +22,7 @@ public class Status extends Model {
     
     // ############## TO BE IMPLEMENTED #######################################
     
-    // public Status share;  // Think Retweet
+    // public Status linked_status;  // Think Retweet
     
     // @Required
     // public String type; // Text, Link, Location(Check in), Poll
@@ -47,7 +47,7 @@ public class Status extends Model {
         this.author = author;
         this.message = message;
         this.update_time = new Date();
-        // this.share = someFuntion(...message parsing...);
+        // this.linked_status = someFuntion(...message parsing...);
     }
     
     /*
