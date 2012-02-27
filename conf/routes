@@ -12,14 +12,18 @@ GET     /about                                  Application.about
 GET     /account                                Application.account
 
 # Photos
-GET     /photos                                 Application.photos(id:null)
-POST    /photos                                 Application.addPhoto
-GET     /photos/{<[0-9]+>id}                    Application.getPhoto
-DELETE  /photos/{<[0-9]+>id}                    Application.removePhoto
-GET     /users/{<[0-9]+>id}/photos              Application.photos
+GET     /photos/?                               Photos.photos(ownerId:'null')
+POST    /photos                                 Photos.addPhoto
+GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
+DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
+GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+
+
+*       /photos/{anything}                      Application.notFound
+*       /users/{anything}/photos/?              Application.notFound
 
 # Ignore favicon requests
-GET     /favicon.ico                            404
+GET     /favicon.ico                            Application.notFound
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
