@@ -8,7 +8,13 @@ import play.data.validation.*;
 
 @Entity
 public class Status extends Model {
-  
+/*
+* The reason status messages did not replace post is because post can still be
+* used as a blog post for a user. The idea is to use status messages as quick
+* news message.
+*/
+
+ 
   @Required
   @ManyToOne
   public User author; // The User who authored the status update
@@ -16,13 +22,17 @@ public class Status extends Model {
   @Lob
   @Required
   @MaxSize(1000)
-  public String message; // The status update text
+  public String content; // The status update text
+  
+  private String unlinked_content;
   
   public Date date; // The time when submitted
   
   // ############## TO BE IMPLEMENTED #######################################
   
   // public Status linked_status;  // Think Retweet
+  
+  // public Post linked_post;
   
   // @Required
   // public String type; // Text, Link, Location(Check in), Poll
@@ -41,18 +51,31 @@ public class Status extends Model {
   
   // ########################################################################
   
-  public Status(User author, String message) {
+  public Status(User author, String content) {
     // this.comments = new ArrayList<Comment>();
     // this.likes = new ArrayList<Like>();
     // this.tags = new ArrayList<Tag>();
-    // this.mentions = someFunction(...message parsing...);
     this.author = author;
-    this.message = message;
+    this.unlinked_content = content;
+    this.content = parseContent(unlinked_content);
     this.date = new Date();
+    // this.mentions = someFunction(...message parsing...);
+    // this.linked_post = someFunction(...message parsing...);
     // this.linked_status = someFuntion(...message parsing...);
   }
+
+  private String parseContent(String unlinked_content){
+    // TODO implement a string parser that pulls out @ and # tags
+    return unlinked_content;
+  }
   
-  /*
+  /* TODO
+  private static someFunction(...message parsing...){
+    
+  }
+  */
+  
+  /* TODO
   public Status addComment(String author, String content){
     Comment newComment = new Comment(this, author, content).save();
     this.comments.add(newComment);
@@ -61,7 +84,7 @@ public class Status extends Model {
   }
   */
   
-  /*
+  /* TODO
   public Status addLike(...){
     Like newLike = new Like(...).save();
     this.likes.add(newLike);
@@ -69,14 +92,6 @@ public class Status extends Model {
     return this;
   }
   */
-      
-  /**
-  *A method that will be useful in later versions when parsing mentions and tags. Use instead of status.message when you want human readable messages.
-  *@return A human readble string of a message that contains @User.id and #tags with link and name intact.
-  */
-  public String messageToString(){
-    return message;
-  }
 
   public Status previous() {
     return Post.find("update_time < ? order by update_time asc", date).first();
@@ -86,17 +101,18 @@ public class Status extends Model {
     return Post.find("update_time > ? order by update_time asc", date).first();
   }
   
-  /*
+  /* TODO
   public List<Comment> comments() {
     return comments;
   }
   */
   
-  /*
+  /* TODO
   public static List<Status> findTaggedWith(String... tags) {
     return Status.fin(
             "select distiinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.message, p.update_time having count(t.id) = :size"
     ).bind("tags", tags).bind("size", tags.length).fetch();
   }
   */
+
 }

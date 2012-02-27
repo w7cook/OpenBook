@@ -24,4 +24,5 @@ public class Statuses extends Controller {
     Status status = new Status(Application.user(), content).save();
     Application.news(Application.user().id);
   }
+  
 }

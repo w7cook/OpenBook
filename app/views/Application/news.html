@@ -30,7 +30,7 @@
 		  	Remove friend
 		</a>
 	#{/elseif}
-	#{form @Statuses.postStatus(save?.id)}
+	#{form @Statuses.postStatus()}
      
         #{ifErrors}
             <p class="error">
@@ -40,11 +40,11 @@
          
      
         <p>
-            #{field 'message'}
-            <label>Write here:</label>
-            <textarea name="${field.name}">
+            #{field 'content'}
+            <label>Update Status :</label>
+            <input type="text" name="${field.name}">
               
-            </textarea>
+            </input>
             <span class="error">#{error 'post.title' /}</span>
             #{/field}
         </p>
@@ -80,29 +80,6 @@
         
     </div>
     #{/list}
-    <h3>Status Updates</h3>
-    #{list status:user.status(), as:'item'}
-      <div class="status">
-      <span class="status-author"><a href="@{Application.news(item.author.id)}">${item.author.name}</a></span>
-      <span class="status_date">${item.date.format('dd MMM yy')}</span>
-      <div class="status_message">
-        ${item.message.nl2br()}
-      </div>
-      #{list items:item.comments(), as:'comment'}
-        <div class="comment">
-          <div class="comment-metadata">
-            <span class="comment-author">by ${comment.author},</span>
-            <span class="comment-date">
-                ${comment.date.format('dd MMM yy')}
-            <a class=button href="@{Application.deleteComment(comment.id,user.id)}">delete</a>
-            </span>
-          </div>
-          <div class="comment-content">
-            ${comment.content.escape().nl2br()}
-          </div>
-        </div>
-      #{/list}
-    #{/list}  
   </td>
   </tr>
 </table>
