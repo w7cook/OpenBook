@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+<ul class=photo-list>
+  #{list items:photos, as:'photo' }
+    <li>
+      <img src=@{Application.getPhoto(photo.id)} />
+      #{form @Application.removePhoto(photo.id)}
+        <input type="submit" name="submit" value="Delete" />
+      #{/form}
+    </li>
+  #{/list}
+</ul>
+
+#{form @Application.addPhoto(), enctype:'multipart/form-data'}
+    <input type="file" name="photo.image" />
+    <input type="submit" name="submit" value="Upload" />
+#{/form}

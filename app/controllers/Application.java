@@ -177,9 +177,39 @@ public class Application extends Controller {
     c.delete();
     news(userId);
   }
-
+  
   public static void postComment(Long postId, String author, String content) {
     Post post = Post.findById(postId);
     post.addComment(author, content);
+  }
+
+  public static void photos(Long id) {
+    List<Photo> photos;
+    if (id == null) {
+      photos = Photo.findAll();
+    }
+    else {
+      User user = User.findById(id);
+      photos = Photo.find("byOwner", user).fetch();
+    }
+    render(photos);
+  }
+  
+  public static void getPhoto(Long id) {
+    Photo photo = Photo.findById(id);
+    response.setContentTypeIfNotSet(photo.image.type());
+    renderBinary(photo.image.get());
+  }
+  
+  public static void addPhoto(Photo photo) {
+    photo.owner = user();
+    photo.save();
+    redirect("/photos");
+  }
+
+  public static void removePhoto(Long id) {
+    Photo photo = Photo.findById(id);
+    photo.delete();
+    redirect("/photos");
   }
 }
