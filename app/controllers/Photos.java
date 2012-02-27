@@ -41,8 +41,7 @@ public class Photos extends Controller {
   public static void getPhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
     if (photo == null) {
-      response.status = Http.StatusCode.NOT_FOUND;
-      renderText("");
+      Application.notFound();
     }
     else {
       response.setContentTypeIfNotSet(photo.image.type());
@@ -51,13 +50,14 @@ public class Photos extends Controller {
   }
 
   public static void addPhoto(Photo photo) {
-    if (photo.image == null);{
-      redirect("/photos");
+    User current = user();
+    if (photo.image == null) {
+      redirect("/users/" + current.id + "/photos");
     }
-    photo.owner = user();
+    photo.owner = current;
     photo.postedAt = new Date();
     photo.save();
-    redirect("/photos");
+    redirect("/users/" + current.id + "/photos");
   }
 
   public static void removePhoto(Long photoId) {

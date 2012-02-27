@@ -23,7 +23,7 @@ GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 *       /users/{anything}/photos/?              Application.notFound
 
 # Ignore favicon requests
-GET     /favicon.ico                            Application.notFound
+GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

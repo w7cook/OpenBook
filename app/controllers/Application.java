@@ -177,7 +177,7 @@ public class Application extends Controller {
     c.delete();
     news(userId);
   }
-  
+
   public static void postComment(Long postId, String author, String content) {
     Post post = Post.findById(postId);
     post.addComment(author, content);
