@@ -6,9 +6,8 @@ import play.db.jpa.*;
 
 @Entity
 public class Photo extends Model {
-    
-    public Blob image;
+  public Blob image;
 
-    @ManyToOne
-	public User owner;
+  @ManyToOne
+  public User owner;
 }
