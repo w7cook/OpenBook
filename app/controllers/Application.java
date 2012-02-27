@@ -32,7 +32,8 @@ public class Application extends Controller {
   }
 
   public static void news(Long id) {
-    User user = id == null ? user() : (User) User.findById(id);
+    User user = id == null ? user() : (User) User.findById(id); 
+    List<Status> status = Status.find("byAuthor", user).fetch(10);
     render(user);
   }
 
