@@ -105,6 +105,39 @@ public class BasicTest extends UnitTest {
 		assertEquals("I knew that !", secondComment.content);
 		assertNotNull(secondComment.date);
 	}
+	
+	@Test
+	public void postStatus() {
+	  // Create a new user and save it
+		User bob = new User("bob@gmail.com", "secret", "Bob").save();
+		User jeff = new User("jeff@gmail.com", "secret", "Jeff").save();
+		
+		// Create a new status message
+		Status bobstatus1 = new Status(bob, "I just had lunch").save();
+		Status bobstatus2 = new Status(bob, "It wasn't too good").save();
+		
+		Status jeffstatus = new Status(jeff, "Dude, I agree!").save();
+		
+		// Retrieve all status updates
+		List<Status> allStatus = Status.findAll();
+		
+		// Retrieve all bob's status updates
+		List<Status> bobStatuses = Status.find("byAuthor", bob).fetch();
+		
+		// Retrieve all jeff's status updates
+		List<Status> jeffStatuses = Status.find("byAuthor", jeff).fetch();
+		
+		//Tests
+		assertEquals(2, bobStatuses.size());
+		assertEquals(1, jeffStatuses.size());
+		assertEquals(3, allStatus.size());
+		
+		Status bobfirst = bobStatuses.get(0);
+		assertNotNull(bobfirst);
+		assertEquals("Bob", bobfirst.author.username);
+		assertEquals("I just had lunch", bobfirst.content);
+		assertNotNull(bobfirst.date);
+	}
 
 	@Test
 	public void useTheCommentsRelation() {

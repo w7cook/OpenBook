@@ -79,8 +79,8 @@ public class Skin extends Model {
 	{
 		this.name = name;
 		this.logoFontSize = 30;
-		this.backgroundColor = "000000";//"CC5500";
-		this.fontType = "Arial"; //Options: Helvetica, Arial, Sans !important
+		//this.backgroundColor = "000000";//"CC5500";
+		//this.fontType = "Arial"; //Options: Helvetica, Arial, Sans !important
 		this.save();
 	}
 	

@@ -30,6 +30,8 @@
 		  	Remove friend
 		</a>
 	#{/elseif}
+
+     <h3>Blog Posts</h3>
      #{list items:user.news(), as:'item'}
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
@@ -53,7 +55,7 @@
         #{/list}
         
     </div>
-    #{/list}  
+    #{/list}
   </td>
   </tr>
 </table>
