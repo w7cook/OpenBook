@@ -46,7 +46,7 @@ public class Application extends Controller {
   }
 
   /** Request to be friends with a given user, changing appropriate Relationship flags where necessary.
-   * 
+   *
    * @param id the user to request friendship with
    */
   public static void requestFriends(Long id) {
@@ -93,7 +93,7 @@ public class Application extends Controller {
   }
 
   /** Attempt to end a relationship with a user, changing appropriate Relationship flags where necessary
-   * 
+   *
    * @param id the user to remove
    */
   public static void removeFriends(Long id) {
@@ -123,7 +123,7 @@ public class Application extends Controller {
     validation.required(update.email).message("Email is required");
     validation.isTrue(currentUser.password.equals(old_password)).message(
         "Password does not match");
-    
+
     if (validation.hasErrors()) {
       User user = update;
       renderTemplate("Application/account.html", user);
@@ -171,7 +171,7 @@ public class Application extends Controller {
   public static void search(String query) {
     // not implemented yet
   }
-  
+
   public static void deleteComment(Long id, Long userId) {
     Comment c = Comment.findById(id);
     c.delete();
@@ -181,5 +181,10 @@ public class Application extends Controller {
   public static void postComment(Long postId, String author, String content) {
     Post post = Post.findById(postId);
     post.addComment(author, content);
+  }
+
+  public static void notFound() {
+    response.status = Http.StatusCode.NOT_FOUND;
+    renderText("");
   }
 }
