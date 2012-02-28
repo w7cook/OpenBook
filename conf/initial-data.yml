@@ -1,4 +1,9 @@
 # Test data
+Skin(DEFAULT):
+    name:            DEFAULT
+    fontType:        Arial
+    logoFontSize:    30
+    backgroundColor: CC5500
 
 User(bob):
     first_name:     Bob
@@ -8,6 +13,7 @@ User(bob):
     email:          bob@gmail.com
     password:       secret
     isAdmin:        true
+    skin:           DEFAULT
 
 User(alice):
     first_name:     Alice
@@ -18,6 +24,7 @@ User(alice):
     password:       secret
     #significant_other: jeff
     anniversary:    2010-12-2
+    skin:           DEFAULT
     
 User(jeff):
     first_name:     Jeff
@@ -28,6 +35,7 @@ User(jeff):
     password:       secret
     significant_other: alice
     anniversary:    2010-12-2
+    skin:           DEFAULT
 
 Relationship(s1):
     from:   bob
@@ -122,4 +130,4 @@ Comment(c3):
                     This post is useless ?
     date:       2009-04-05
     post:           secondBobPost    
-                 
+    

@@ -4,7 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
-
+import controllers.Skins;
 import play.db.jpa.*;
 
 @Entity
@@ -81,7 +81,8 @@ public class User extends Model {
     this.email = email;
     this.password = password;
     this.username = username;
-    this.skin = new Skin();
+    this.skin = Skins.getSkin("DEFAULT");//set skin as default skin
+
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -134,6 +135,6 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
-
+  
 
 }

@@ -20,7 +20,7 @@ body {
 }
 
 #header {
-	background-color: #${skin.backgroundColor};
+	background-color: #${skin.headerBGColor};
   padding: 0;
 }
 

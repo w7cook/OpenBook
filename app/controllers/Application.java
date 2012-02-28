@@ -9,7 +9,8 @@ import models.*;
 
 @With(Secure.class)
 public class Application extends Controller {
-
+ 
+  
   @Before
   static void setConnectedUser() {
     if (Security.isConnected()) {
@@ -19,6 +20,7 @@ public class Application extends Controller {
 
   @Before
   static void addDefaults() {
+    
   }
 
   public static User user() {
@@ -183,9 +185,4 @@ public class Application extends Controller {
     post.addComment(author, content);
   }
   
-  public static void stylesheet() {
-		User user = user();
-		Skin skin = user.skin;
-		renderTemplate("stylesheets/main.css", skin);
-	}
 }

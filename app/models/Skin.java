@@ -34,63 +34,63 @@ import play.db.jpa.*;
 public class Skin extends Model {
 
 	public String name;//name of the skin
-	public String fontType;
-	public int logoFontSize;
-	public String backgroundColor;
-	/**
-	 * allClients:
-	 * Users currently working with this skin
-	 */
-	@OneToMany(mappedBy = "skin", cascade = CascadeType.ALL)
-	public List<User> allClients;
+	
+	//logo
+	public int logoFontSize;// >= 0
+	public String logoColor;//white, black, etc
+	public String logoFontBold;//bold
+	public String logoFontItalic;//italic
+	public String logoFontType;// Helvetica, Arial, Sans !important;
+	
+	//header
+	public String headerBGColor;//000000 (BLACK)
+	
+	//footer
+	public String footerTextAlign;//center..
+	public int footerFontSize;// >= 0
+	public String footerColor;//white, black, gray, etc
+	public String footerFontBold;//bold
+	public String footerFontItalic;//Italic
+	
+	
+	//section
+	public String sectionAlign;//top
+	
+	//label
+	public String labelFontSize;
+	public String labelColor;
+	public String labelFontBold;
+	public String labelFontItalic;
+	
+	//comment
+  public String commentFontSize;
+  public String commentColor;
+  public String commentFontBold;
+  public String commentFontItalic;
+  public int commentBorderSize;//px size
+  public String commentBorderColor;
+  public String commentBGColor;
+  
+	//button
+  
+	
 
-	/**
-	 * clients()
-	 * @return List(User) 
-	 * 
-	 * returns list of users using this skin
-	 * 
-	 */
-	public List<User> clients() {
-		return User.find("skin = ?", this).fetch();
-	}
-
-	public Skin()
+	public Skin(String name)
 	{
-		this.allClients = new ArrayList<User>();
-		this.name = "DEFAULT";
+		this.name = name;
 		this.logoFontSize = 30;
 		this.backgroundColor = "000000";//"CC5500";
-		this.fontType = "Sans"; //Options: Helvetica, Arial, Sans !important
+		this.fontType = "Arial"; //Options: Helvetica, Arial, Sans !important
+		this.save();
 	}
 	
 
-	/**
-	 * addClient
-	 * @param User client
-	 * @return Skin 
-	 * 
-	 * adds User client to the list of clients for this skin
-	 * returns the skin that the client requested
-	 */
-	public Skin addClient(User client) {
-		this.allClients.add(client);
-		this.save();
-		return this;
-	}
-
-	/**
-	 * numClients
-	 * @return (long) number of clients using this skin
-	 * 
-	 */
-	public long numClients() {
-		return Skin.find("Count(*)").first();
-	}
 	
 	public void setFont()
 	{
 		
 	}
+	
+	
 		
 }
