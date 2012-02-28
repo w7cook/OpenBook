@@ -23,7 +23,7 @@ public class Application extends Controller {
 
   public static User user() {
     assert Secure.Security.connected() != null;
-    return User.find("byEmail", Secure.Security.connected()).first();
+    return User.getUser(Secure.Security.connected());
   }
 
   public static void about(Long id) {

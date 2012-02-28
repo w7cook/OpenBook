@@ -80,8 +80,12 @@ public class User extends Model {
     // this.education = new ArrayList<Enrollment>();
   }
 
-  public static User connect(String email, String password) {
-    return find("byEmailAndPassword", email, password).first();
+  public static User connect(String login, String password) {
+    return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1 and u.password = ?2", login, password).first();
+  }
+
+  public static User getUser(String login) {
+    return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1", login).first();
   }
 
   public List<Post> news() {
@@ -91,7 +95,7 @@ public class User extends Model {
   }
 
   /** Checks the status of a friendship
-   * 
+   *
    * @param id the user to check friendship status with
    * @return a string representing the status
    */
@@ -114,7 +118,7 @@ public class User extends Model {
   }
 
   /** Get any confirmed friends
-   * 
+   *
    * @return a list of relationships for confirmed friends
    */
   public List<Relationship> confirmedFriends() {
@@ -123,7 +127,7 @@ public class User extends Model {
 
 
   /** Get a list of any users who have requested to be friends
-   * 
+   *
    * @return a list of relationships related to incoming friend requests
    */
   public List<Relationship> requestedFriends() {
