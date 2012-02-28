@@ -61,6 +61,12 @@ Relationship(r5):
     to:     bob
     accepted: true
     
+Status(firstBobStatus):
+    date:     2011-06-14
+    author:         bob
+    message:        >
+                    Short sweet twitter like messages that will have inline @mentions and #tags.
+    
 Post(firstBobPost):
     title:          About the model layer
     date:       2009-06-14

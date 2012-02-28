@@ -30,6 +30,32 @@
 		  	Remove friend
 		</a>
 	#{/elseif}
+	#{form @Application.postStatus()}
+     
+        #{ifErrors}
+            <p class="error">
+                Please correct these errors.
+            </p>
+        #{/ifErrors}
+         
+     
+        <p>
+            #{field 'content'}
+            <label>Update Status :</label>
+            <input type="text" name="${field.name}">
+              
+            </input>
+            <span class="error">#{error 'post.title' /}</span>
+            #{/field}
+        </p>
+        
+        <p>
+            <input type="submit" value="Update status" />
+        </p>
+        
+    #{/form}
+
+     <h3>Blog Posts</h3>
      #{list items:user.news(), as:'item'}
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
@@ -53,7 +79,7 @@
         #{/list}
         
     </div>
-    #{/list}  
+    #{/list}
   </td>
   </tr>
 </table>
