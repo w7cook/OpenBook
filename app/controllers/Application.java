@@ -6,7 +6,6 @@ import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
-import play.data.validation.*;
 
 @With(Secure.class)
 public class Application extends Controller {
@@ -182,12 +181,5 @@ public class Application extends Controller {
   public static void postComment(Long postId, String author, String content) {
     Post post = Post.findById(postId);
     post.addComment(author, content);
-  }
-  
-  public static void postStatus(
-    @Required(message="A message is required") String content) 
-  {
-    Status status = new Status(Application.user(), content).save();
-    Application.news(Application.user().id);
   }
 }
