@@ -10,7 +10,7 @@ import play.db.jpa.*;
 @Entity
 public class UserPage extends Model {
 	public String title;
-	public Long Admin;
+	public Long admin;
 	public String info;
 	public ArrayList<Comment> comments;
 	
@@ -24,17 +24,17 @@ public class UserPage extends Model {
 	public UserPage(User admin, String name, String info){
 		this.comments = new ArrayList<Comment>();
 		this.title = name;
-		this.Admin = admin.id;
+		this.admin = admin.id;
 		this.info = info;
 	}
 	
 	public void setData(User admin, String title, String info){
 		this.title = title;
-		this.Admin = admin.id;
+		this.admin = admin.id;
 		this.info = info;
 	}
-
-	public void setInfo(String nInfo){
-		this.info = nInfo;
+	
+	public void update(String info){
+		this.info = info;
 	}
 }

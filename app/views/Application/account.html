@@ -1,4 +1,5 @@
-#{extends 'main.html' /} #{form @Application.account_save()}
+#{extends 'main.html' /} 
+#{form @Application.account_save()}
 <table>
 	<tr>
 		<td class=section width=15%>Name</td>
@@ -58,9 +59,20 @@
 			#{ifErrors}
 			<ul style="color:red">
 			#{errors}<li>${error}</li> #{/errors} 
-			</ul>
+			</ul>                     
 			#{/ifErrors}
 		</td>
 	</tr>
 </table>
 #{/form}
+
+<div id="myPages">
+
+			#{list items:pages, as:'page'}
+			<a href = "@{Page.display(page)}">${page.title}
+		#{/list}
+
+	#{else}
+		<a href="@{Page.newPage()}"> Create a Page!
+	#{/else}
+</div>

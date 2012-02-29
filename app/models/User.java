@@ -42,6 +42,9 @@ public class User extends Model {
   public Date anniversary; // date of anniversary
   public String website; // The URL of the user's personal website
 
+  @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+  public List<UserPage> pages; // The user's languages
+  
   // not implemented yet!!
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   public List<UserLanguage> languages; // The user's languages
