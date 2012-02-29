@@ -8,6 +8,10 @@ body {
 	 margin: 0;
 }
 
+a {
+	text-decoration: none;
+}
+
 #logo {
 	font: 18pt;
 	color: white;
@@ -19,9 +23,23 @@ body {
   font-family: helvetica;
 }
 
-#header {
+#orange_bar {
 	background-color: #CC5500;
-  padding: 0;
+}
+
+#header {
+	margin: auto;
+	padding: 2px 0 2px 0;
+	width: 1040px;
+}
+
+#header a {
+	color: white;
+}
+
+div#content{
+	margin: auto;
+	width: 1040px;
 }
 
 #main {
@@ -64,5 +82,3 @@ a.button:active {color:black;}  /* selected link */
 .post {
 	 padding: 10px 0px 0px 0px;
 }
-}
-
