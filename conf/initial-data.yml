@@ -113,19 +113,18 @@ Comment(c1):
     content:        >
                     You are right !
     date:       2009-06-14
-    post:           firstBobPost
+    parentObj:           firstBobPost
     
 Comment(c2):
     author:         Mike
     content:        >
                     I knew that ...
     date:       2009-06-15
-    post:           firstBobPost    
+    parentObj:           firstBobPost    
     
 Comment(c3):
     author:         Tom
     content:        >
                     This post is useless ?
     date:       2009-04-05
-    post:           secondBobPost    
-                 
+    parentObj:           secondBobPost    
