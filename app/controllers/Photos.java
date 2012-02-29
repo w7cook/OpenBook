@@ -1,17 +1,17 @@
 package controllers;
-
-
 import java.util.*;
-
-import controllers.Secure;
-
-
 import play.*;
 import play.mvc.*;
-import controllers.Secure;
 import models.*;
 
-public class Photos extends OBController {
+@With(Secure.class)
+public class Photos extends OBApplication {
+
+  /* All possible image mime types in a single regex. */
+  public static String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
+
+  /* Maximum image size in bytes */
+  public static int MAX_FILE_SIZE = 200 * 1024;
 
   public static void photos(Long ownerId) {
     List<Photo> photos;
@@ -38,7 +38,9 @@ public class Photos extends OBController {
 
   public static void addPhoto(Photo photo) {
     User current = user();
-    if (photo.image == null) {
+    if (photo.image == null ||
+        photo.image.length() > MAX_FILE_SIZE ||
+        !photo.image.type().matches(IMAGE_TYPE)) {
       redirect("/users/" + current.id + "/photos");
     }
     photo.owner = current;
