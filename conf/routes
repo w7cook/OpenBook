@@ -19,6 +19,10 @@ DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
 
+# Checkin
+GET     /checkin                                Checkin.checkin
+GET     /checkin/at                             Checkin.at
+
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
 
