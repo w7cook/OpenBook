@@ -1,0 +1,15 @@
+#{extends 'main.html' /} 
+#{form @Page.savePage()}
+<div id = "page">
+		<div width=15%>Title:</div>
+		<div><input type=text name=title value="" /></div>
+		<div><label>Info:</label></div>
+		<div>
+			<textarea name=info cols="60" rows="10" value = "">				
+			</textarea>
+		</div>		
+		<div><input type=submit value=Save> <input
+			type=submit value=Cancel /> 
+		</div>
+</div>
+#{/form}

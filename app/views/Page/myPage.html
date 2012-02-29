@@ -1,0 +1,18 @@
+#{extends 'main.html' /}
+
+<div id = "page">
+		<div width=15% name="title">${page.title}</div>
+		<div name="fan" ahref>view as fan</div>
+		<div><label>Info:</label></div>
+		<div>
+			<textarea name=info cols="60" rows="10" value="${page.info}">
+				${page.info}
+			</textarea>
+		</div>		
+		<div>
+		<input type=submit value=Update onclick="${page.update(page.info)}"> 
+			<input type=submit value=Cancel /> 
+		</div>
+</div>
+
+
