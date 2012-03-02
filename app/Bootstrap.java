@@ -14,11 +14,11 @@ public class Bootstrap extends Job {
         // Check if the database is empty
         if(User.count() == 0) {
             Fixtures.loadModels("initial-data.yml");
-        }
-        List<User> users= User.findAll();
-        for(User u : users) {
-          u.password = Crypto.passwordHash(u.password);
-          u.save();
+            List<User> users= User.findAll();
+            for(User u : users) {
+              u.password = Crypto.passwordHash(u.password);
+              u.save();
+            }
         }
     }
 
