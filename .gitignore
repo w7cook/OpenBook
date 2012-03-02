@@ -6,4 +6,8 @@
 /eclipse
 .classpath
 /.settings
+*.swp
 *~
+*.log
+data/
+.project

@@ -3,12 +3,12 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import controllers.Secure;
+import controllers.Security;
 
 import play.db.jpa.*;
 
 @Entity
-public class Post extends Model {
+public class Post extends Commentable {
 
 	public String title;
 	public Date date;
@@ -19,11 +19,10 @@ public class Post extends Model {
 	@ManyToOne
 	public User author;
 
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-	public List<Comment> allComments;
+
 
 	public List<Comment> comments() {
-		return Comment.find("post = ? AND approved=FALSE", this).fetch();
+		return Comment.find("parentObj = ? AND approved=FALSE", this).fetch();
 	}
 
 	public Post(User author, String title, String content) {
@@ -34,12 +33,6 @@ public class Post extends Model {
 		this.date = new Date();
 	}
 
-	public Post addComment(String author, String content) {
-		Comment newComment = new Comment(this, author, content).save();
-		this.allComments.add(newComment);
-		this.save();
-		return this;
-	}
 
 	public Post previous() {
 		return Post.find("author = ? AND date < ? order by date desc",
@@ -56,7 +49,7 @@ public class Post extends Model {
 	}
 	
 	public boolean byCurrentUser() {
-		return author.email.equals( Secure.Security.connected() );
+		return author.email.equals( Security.connected() );
 	}
 		
 }
