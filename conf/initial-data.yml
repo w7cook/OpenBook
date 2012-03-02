@@ -29,12 +29,12 @@ Skin(DEFAULT):
 Skin(SEA):
     name:            SEA
     bodyBGColor:     DodgerBlue 
-    logoFontSize:    40
+    logoFontSize:    50
     logoColor:       white
     logoFontType:    Helvetica
     headerBGColor:   1E90FF
     footerTextAlign: right
-    footerFontSize:  15
+    footerFontSize:  10
     footerColor:     gray
     sectionAlign:    top
     labelFontSize:   15
