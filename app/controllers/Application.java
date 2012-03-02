@@ -7,24 +7,7 @@ import play.mvc.*;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
-public class Application extends Controller {
-
-  @Before
-  static void setConnectedUser() {
-    if (Security.isConnected()) {
-      renderArgs.put("currentUser", user());
-    }
-  }
-
-  @Before
-  static void addDefaults() {
-  }
-
-  public static User user() {
-    assert Secure.Security.connected() != null;
-    return User.find("byEmail", Secure.Security.connected()).first();
-  }
+public class Application extends OBController {
 
   public static void about(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
@@ -178,9 +161,9 @@ public class Application extends Controller {
     news(userId);
   }
 
-  public static void postComment(Long postId, String author, String content) {
-    Post post = Post.findById(postId);
-    post.addComment(author, content);
+  public static void postComment(Long commentableId, String author, String content) {
+    Commentable parent = Commentable.findById(commentableId);
+    parent.addComment(author, content);
   }
 
   public static void notFound() {
