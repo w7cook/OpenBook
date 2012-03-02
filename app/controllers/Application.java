@@ -180,9 +180,9 @@ public class Application extends Controller {
     news(userId);
   }
 
-  public static void postComment(Long postId, String author, String content) {
-    Post post = Post.findById(postId);
-    post.addComment(author, content);
+  public static void postComment(Long commentableId, String author, String content) {
+    Commentable parent = Commentable.findById(commentableId);
+    parent.addComment(author, content);
   }
 
 
