@@ -6,6 +6,7 @@ import javax.persistence.*;
 import controllers.Application;
 
 import play.db.jpa.*;
+import play.libs.Crypto;
 
 @Entity
 public class User extends Model {
@@ -75,13 +76,13 @@ public class User extends Model {
 
   public User(String email, String password, String username) {
     this.email = email;
-    this.password = password;
+    this.password = Crypto.passwordHash(password);
     this.username = username;
     // this.education = new ArrayList<Enrollment>();
   }
 
   public static User connect(String login, String password) {
-    return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1 and u.password = ?2", login, password).first();
+    return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1 and u.password = ?2", login, Crypto.passwordHash(password)).first();
   }
 
   public static User getUser(String login) {
