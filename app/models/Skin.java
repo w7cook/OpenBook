@@ -37,14 +37,17 @@ public class Skin extends Model {
 	
 	//logo
 	public int logoFontSize;// >= 0
-	public String logoColor;//white, black, etc
-	public String logoFontBold;//bold
 	public String logoFontItalic;//italic
-	public String logoFontType;// Helvetica, Arial, Sans !important;
 	
+	public String logoColor;//white, black, etc
+	/*
+	public String logoFontBold;//bold
+	
+	public String logoFontType;// Helvetica, Arial, Sans !important;
+	*/
 	//header
 	public String headerBGColor;//000000 (BLACK)
-	
+	/*
 	//footer
 	public String footerTextAlign;//center..
 	public int footerFontSize;// >= 0
@@ -71,16 +74,81 @@ public class Skin extends Model {
   public String commentBorderColor;
   public String commentBGColor;
   
-	//button
+  //button
+  public int buttonBorderRadius;//4
+  public int buttonBorderSize;//1
+  public String buttonBorderColor;//black
+  public String buttonBoxShadowColor;//888888;
+  public String buttonBGColor;//white;
+  public String buttonTextDec;//none;
+  public String buttonLinkUnvisitedColor;//black    
+  public String buttonLinkVicistedColor;//black  
+  public String buttonLinkHoverColor;//#E0E0FF;} 
+  public String buttonLinkSelectedColor;//black;} 
+  */
   
-	
 
 	public Skin(String name)
 	{
 		this.name = name;
+	
+		//logo
 		this.logoFontSize = 30;
-		//this.backgroundColor = "000000";//"CC5500";
-		//this.fontType = "Arial"; //Options: Helvetica, Arial, Sans !important
+		
+		this.logoFontItalic = "";//" italic"
+		
+		this.logoColor = "white";
+		/*
+		this.logoFontBold = "bold;";//? 
+		this.logoFontType = "helvetica";// Helvetica, Arial, Sans !important;
+		*/
+		//header
+		this.headerBGColor = "CC5500";//000000 (BLACK) or CC5500 (orange)
+		/*
+		//footer
+		this.footerTextAlign = "center";//center..
+		this.footerFontSize = 10;// >= 0
+		this.footerFontItalic = " italic";//Italic
+		this.footerColor = "gray";//white, black, gray, etc
+		
+		
+		this.footerFontBold;//bold
+		
+		
+		
+		//section
+		this.sectionAlign;//top
+		
+		//label
+		this.labelFontSize;
+		this.labelColor;
+		this.labelFontBold;
+		this.labelFontItalic;
+		
+		//comment
+	  this.commentFontSize;
+	  this.commentColor;
+	  this.commentFontBold;
+	  this.commentFontItalic;
+	  this.commentBorderSize;//px size
+	  this.commentBorderColor;
+	  this.commentBGColor;
+	  
+	  //button
+	  this.buttonBorderRadius;//4
+	  this.buttonBorderSize;//1
+	  this.buttonBorderColor;//black
+	  this.buttonBoxShadowColor;//888888;
+	  this.buttonBGColor;//white;
+	  this.buttonTextDec;//none;
+	  this.buttonLinkUnvisitedColor;//black   
+	  this.buttonLinkVicistedColor;//black 
+	  this.buttonLinkHoverColor;//#E0E0FF;} 
+	  this.buttonLinkSelectedColor;//black;}
+	  */
+	  
+	  
+		
 		this.save();
 	}
 	

@@ -9,8 +9,8 @@ body {
 }
 
 #logo {
-	font: ${skin.logoFontSize}pt;
-	color: white;
+	font: ${skin.logoFontSize}pt${skin.logoFontItalic};
+	color: ${skin.logoColor};
 	padding: 0px 10px 0px 20px;
 }
 

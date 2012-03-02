@@ -1,9 +1,8 @@
 # Test data
 Skin(DEFAULT):
     name:            DEFAULT
-    fontType:        Arial
     logoFontSize:    30
-    backgroundColor: CC5500
+    headerBGColor:   CC5500
 
 User(bob):
     first_name:     Bob
