@@ -7,7 +7,7 @@
 	<tr>
 		<td><label>I Am:</label>
 		</td>
-		<td>#{select 'gender', value:user.gender} #{option
+		<td>#{select 'gender', value:user.getProfile().gender} #{option
 			'Male'}Male#{/option} #{option 'Female'}Female#{/option} #{/select}</td>
 		<!--  Show my sex on my timeline  -->
 	</tr>
@@ -15,7 +15,14 @@
 		<td><label>Birthday:</label>
 		</td>
 		<td><input type=text name=birthday
-			value="${user.birthday ? user.birthday.format('MMM dd ') : ''}">
+			value="${user.getProfile().birthday ? user.getProfile().birthday.format('MMM dd ') : ''}">
+		</td>
+	</tr>
+	<tr>
+		<td><label>Education:</label>
+		</td>
+		<td><input type=text name=education>
+		    
 		</td>
 	</tr>
 	<tr>
