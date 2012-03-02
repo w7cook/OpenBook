@@ -9,6 +9,8 @@
     <a href="@{Application.news()}">news</a>
     <br>
     <a href="@{Application.about()}">about</a>
+    <br>
+    <a href="@{Checkin.checkin()}">Checkin</a>
     <br>friends:<br>
      #{list items:user.confirmedFriends(), as:'friendship'}
      <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
@@ -30,6 +32,8 @@
 		  	Remove friend
 		</a>
 	#{/elseif}
+
+     <h3>Blog Posts</h3>
      #{list items:user.news(), as:'item'}
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
@@ -53,7 +57,7 @@
         #{/list}
         
     </div>
-    #{/list}  
+    #{/list}
   </td>
   </tr>
 </table>
