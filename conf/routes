@@ -28,10 +28,6 @@ GET     /checkin/at                             Checkin.at
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9087aee42b23ac8ae80f4fd87124e419f957a47e
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

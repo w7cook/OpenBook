@@ -1,22 +1,14 @@
-# Test data
-Skin(DEFAULTTest):
-    name:            DEFAULTTest
-    fontType:        Arial
-    logoFontSize:    30
-    backgroundColor: CC5500
-    
+# Test data 
 User(bob):
     email:          bob@gmail.com
     password:       secret
     fullname:       Bob
     isAdmin:        true
-    skin:           DEFAULTTest
     
 User(jeff):
     email:          jeff@gmail.com
     password:       secret
-    fullname:       Jeff   
-    skin:           DEFAULTTest 
+    fullname:       Jeff
     
 Post(firstBobPost):
     title:          About the model layer

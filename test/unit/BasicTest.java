@@ -1,9 +1,6 @@
 package unit;
 
 import org.junit.*;
-
-import controllers.Application;
-
 import java.util.*;
 import play.test.*;
 import models.*;
