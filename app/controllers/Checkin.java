@@ -10,8 +10,7 @@ import play.mvc.*;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
-public class Checkin extends Application {
+public class Checkin extends OBController {
 
   public static void checkin() {
     render();

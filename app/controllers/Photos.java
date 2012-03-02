@@ -12,19 +12,7 @@ import controllers.Secure;
 import models.*;
 
 @With(Secure.class)
-public class Photos extends Controller {
-
-  @Before
-  static void setConnectedUser() {
-    if (Security.isConnected()) {
-      renderArgs.put("currentUser", user());
-    }
-  }
-
-  public static User user() {
-    assert Secure.Security.connected() != null;
-    return User.find("byEmail", Secure.Security.connected()).first();
-  }
+public class Photos extends OBController {
 
   public static void photos(Long ownerId) {
     List<Photo> photos;
