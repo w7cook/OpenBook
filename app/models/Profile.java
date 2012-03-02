@@ -44,6 +44,9 @@ public class Profile extends Model {
   public List<Enrollment> education; // A list of the user's education
   // history
   
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+  public List<Employment> work; // A list of the user's work history
+  
   public Date updated_time; // The last time the user's profile was updated;
   // changes to the
   // languages, link, timezone, verified,
