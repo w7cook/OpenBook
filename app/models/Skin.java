@@ -28,6 +28,12 @@ import play.db.jpa.*;
  * From discussion with Professor: No other templates will be added. 
  * The only changes in Skin will be to variables within main.css
  * 
+ * 
+ * For colors in HTML: look at http://www.w3schools.com/html/html_colornames.asp
+ * 
+ * We have some built in Skins in initial-data.yml. Note: if the Skin field is not 
+ * set to something in the initial-data.yml, that field is set to null.
+ * 
  *
  */
 @Entity
@@ -35,129 +41,100 @@ public class Skin extends Model {
 
 	public String name;//name of the skin
 	
+	//body (of the page)
+	public String bodyBGColor;
+	
 	//logo
 	public int logoFontSize;// >= 0
-	public String logoFontItalic;//italic
-	
 	public String logoColor;//white, black, etc
-	/*
-	public String logoFontBold;//bold
-	
 	public String logoFontType;// Helvetica, Arial, Sans !important;
-	*/
+	
 	//header
 	public String headerBGColor;//000000 (BLACK)
-	/*
+	
 	//footer
 	public String footerTextAlign;//center..
 	public int footerFontSize;// >= 0
 	public String footerColor;//white, black, gray, etc
-	public String footerFontBold;//bold
-	public String footerFontItalic;//Italic
 	
 	
 	//section
 	public String sectionAlign;//top
 	
 	//label
-	public String labelFontSize;
+	public int labelFontSize;
 	public String labelColor;
-	public String labelFontBold;
-	public String labelFontItalic;
 	
 	//comment
-  public String commentFontSize;
-  public String commentColor;
-  public String commentFontBold;
-  public String commentFontItalic;
-  public int commentBorderSize;//px size
-  public String commentBorderColor;
-  public String commentBGColor;
+  	public String commentFontSize;
+  	public String commentColor;
+  	public int commentBorderSize;//px size
+  	public String commentBorderColor;
+  	public String commentBGColor;
   
-  //button
-  public int buttonBorderRadius;//4
-  public int buttonBorderSize;//1
-  public String buttonBorderColor;//black
-  public String buttonBoxShadowColor;//888888;
-  public String buttonBGColor;//white;
-  public String buttonTextDec;//none;
-  public String buttonLinkUnvisitedColor;//black    
-  public String buttonLinkVicistedColor;//black  
-  public String buttonLinkHoverColor;//#E0E0FF;} 
-  public String buttonLinkSelectedColor;//black;} 
-  */
+  	//button
+  	public int buttonBorderRadius;//4
+  	public int buttonBorderSize;//1
+  	public String buttonBorderColor;//black
+  	public String buttonBoxShadowColor;//888888;
+  	public String buttonBGColor;//white;
+  	public String buttonTextDec;//none;
+  	public String buttonLinkUnvisitedColor;//black    
+  	public String buttonLinkVisitedColor;//black  
+  	public String buttonLinkHoverColor;//#E0E0FF;} 
+  	public String buttonLinkSelectedColor;//black;} 
+  
   
 
 	public Skin(String name)
 	{
 		this.name = name;
 	
+		//body
+		this.bodyBGColor = "none";
+		
 		//logo
 		this.logoFontSize = 30;
-		
-		this.logoFontItalic = "";//" italic"
-		
 		this.logoColor = "white";
-		/*
-		this.logoFontBold = "bold;";//? 
 		this.logoFontType = "helvetica";// Helvetica, Arial, Sans !important;
-		*/
+		
 		//header
 		this.headerBGColor = "CC5500";//000000 (BLACK) or CC5500 (orange)
-		/*
+		
 		//footer
 		this.footerTextAlign = "center";//center..
 		this.footerFontSize = 10;// >= 0
-		this.footerFontItalic = " italic";//Italic
 		this.footerColor = "gray";//white, black, gray, etc
-		
-		
-		this.footerFontBold;//bold
-		
-		
-		
+				
 		//section
-		this.sectionAlign;//top
+		this.sectionAlign = "top";//top
 		
 		//label
-		this.labelFontSize;
-		this.labelColor;
-		this.labelFontBold;
-		this.labelFontItalic;
+		this.labelFontSize = 10;
+		this.labelColor = "black";
 		
 		//comment
-	  this.commentFontSize;
-	  this.commentColor;
-	  this.commentFontBold;
-	  this.commentFontItalic;
-	  this.commentBorderSize;//px size
-	  this.commentBorderColor;
-	  this.commentBGColor;
+		this.commentBorderSize = 2;//px size
+		this.commentBorderColor = "white";
+		this.commentBGColor = "EEEEEE";
+			
 	  
-	  //button
-	  this.buttonBorderRadius;//4
-	  this.buttonBorderSize;//1
-	  this.buttonBorderColor;//black
-	  this.buttonBoxShadowColor;//888888;
-	  this.buttonBGColor;//white;
-	  this.buttonTextDec;//none;
-	  this.buttonLinkUnvisitedColor;//black   
-	  this.buttonLinkVicistedColor;//black 
-	  this.buttonLinkHoverColor;//#E0E0FF;} 
-	  this.buttonLinkSelectedColor;//black;}
-	  */
+		//button
+		this.buttonBorderRadius = 4;//4
+		this.buttonBorderSize = 1;//1
+		this.buttonBorderColor = "black";//black
+		this.buttonBoxShadowColor = "888888";//888888;
+		this.buttonBGColor = "white";//white;
+		this.buttonTextDec = "none";//none, underline, overline, line-through, blink
+		this.buttonLinkUnvisitedColor = "black";//black   
+		this.buttonLinkVisitedColor = "black";//black 
+		this.buttonLinkHoverColor = "E0E0FF";//#E0E0FF;} 
+		this.buttonLinkSelectedColor = "black";//black;}
 	  
-	  
-		
 		this.save();
 	}
 	
 
-	
-	public void setFont()
-	{
-		
-	}
 	
 	
 		

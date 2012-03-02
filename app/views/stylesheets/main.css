@@ -6,17 +6,18 @@ html, body {
 
 body {
 	 margin: 0;
+	 background-color: ${skin.bodyBGColor}
 }
 
 #logo {
-	font: ${skin.logoFontSize}pt${skin.logoFontItalic};
+	font: ${skin.logoFontSize}pt;
 	color: ${skin.logoColor};
 	padding: 0px 10px 0px 20px;
 }
 
 .logo {
   font-weight: bold;
-  font-family: helvetica;
+  font-family: ${skin.logoFontType};
 }
 
 #header {
@@ -29,37 +30,39 @@ body {
 }
 
 #footer {
-	text-align: center;
-	font: 10pt italic;
-	color: gray;
+	text-align: ${skin.footerTextAlign};
+	font: ${skin.footerFontSize}pt italic;
+	color: ${skin.footerColor};
 }
 
 .section {
-	vertical-align: top;
+	vertical-align: ${skin.sectionAlign};
 	padding: 5px 0px 0px 0px;
 }
 
 label {
+  font: ${skin.labelFontSize}pt;
+  color: ${skin.labelColor};
 }
 
 .comment {
-	border: 2px solid white;
-	background-color: #EEEEEE;
+	border: ${skin.commentBorderSize}px solid ${skin.commentBorderColor};
+	background-color: #${skin.commentBGColor};
 }
 
 .button {
-  border-radius:4px;
-	border: 1px solid black;
-	box-shadow: 1px 1px 2px #888888;
-  background-color: white;
-  text-decoration:none;
+  border-radius:${skin.buttonBorderRadius}px;
+	border: {skin.buttonBorderSize}px solid ${skin.buttonBorderColor};
+	box-shadow: 1px 1px 2px #${skin.buttonBoxShadowColor};
+  background-color: ${skin.buttonBGColor};
+  text-decoration: ${skin.buttonTextDec};
   padding: 0px 2px 0px 2px; // left and right padding
 }
     
-a.button:link {color:black;}      /* unvisited link */
-a.button:visited {color:black;}  /* visited link */
-a.button:hover {background-color:#E0E0FF;}  /* mouse over link */
-a.button:active {color:black;}  /* selected link */  
+a.button:link {color:${skin.buttonLinkUnvisitedColor};}      /* unvisited link */
+a.button:visited {color:${skin.buttonLinkVisitedColor};}  /* visited link */
+a.button:hover {background-color:#${skin.buttonLinkHoverColor};}  /* mouse over link */
+a.button:active {color:${skin.buttonLinkSelectedColor};}  /* selected link */  
 
 .post {
 	 padding: 10px 0px 0px 0px;

@@ -9,15 +9,11 @@ import models.*;
 
 @With(Secure.class)
 public class Skins extends Controller {
-  public static Skin defaultSkin;
-  
-  @Before
-  static void addDefaults() {
-    defaultSkin = Skin.find("name = ?", "DEFAULT").first();
-   
-  }
-
-  
+  /**
+   * stylesheet()
+   * called by main.html
+   * renders the appropriate stylesheet skin for the current user
+   */
   public static void stylesheet() {
     User user = Application.user(); 
     Skin skin = user.skin;
@@ -27,33 +23,24 @@ public class Skins extends Controller {
   /**
    * setSkin
    * @param calling client who wants this skin
-   * @return Skin that the client wanted or default if it hasn't been created yet
+   * @return true if the skin has been sucessfully set, false otherwise
+   * Sets the client's skin to the skin of skin name and returns true
+   * If the skin name is not found, does not reset and returns false
+   * 
    */
-  public static Skin getSkin(String skinName)
+  public static boolean setSkin(User u, String skinName)
   {
     //find skin
-    Skin mySkin = Skin.find("name = ?", skinName).first();
+    Skin changeSkin = Skin.find("name = ?", skinName).first();
     
-    if(mySkin == null)//name hasn't been added so skin doesn't exist
-      mySkin = Skin.find("name = ?","DEFAULT").first();//get default String should be set by addDefaults
-        
+    if(changeSkin == null)//name hasn't been added so skin doesn't exist
+      return false;
+    else
+    {
+      u.skin = changeSkin;
+      u.save();//made a change in the database so need to save it
+      return true;
+    }
     
-    return mySkin;
-    
-    
-    
-    
-    /*
-     
-  //  if(isClient == null)// not yet a client so add to list of clients
-    //  mySkin.addClient(client);
-    
-    if(client.skin != null)//need to remove client from previous skin if it existed
-      client.skin.removeClient(client);
-    
-    //set mySkin as the new skin for the client
-    client.skin = mySkin;
-    client.save();//save change
-       */
   }
 }

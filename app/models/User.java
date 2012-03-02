@@ -81,7 +81,7 @@ public class User extends Model {
     this.email = email;
     this.password = password;
     this.username = username;
-    this.skin = Skins.getSkin("DEFAULT");//set skin as default skin
+    Skins.setSkin(this,"DEFAULT");//set skin as default skin
 
     // this.education = new ArrayList<Enrollment>();
   }

@@ -1,8 +1,57 @@
 # Test data
 Skin(DEFAULT):
     name:            DEFAULT
+    bodyBGColor:     none
     logoFontSize:    30
+    logoColor:       white
+    logoFontType:    Helvetica
     headerBGColor:   CC5500
+    footerTextAlign: center
+    footerFontSize:  10
+    footerColor:     gray
+    sectionAlign:    top
+    labelFontSize:   10
+    labelColor:      black
+    commentBorderSize: 2
+    commentBorderColor: white
+    commentBGColor:  EEEEEE
+    buttonBorderRadius: 4
+    buttonBorderSize: 1
+    buttonBorderColor: black
+    buttonBoxShadowColor: 888888
+    buttonBGColor:    white
+    buttonTextDec:  none
+    buttonLinkUnvisitedColor: black
+    buttonLinkVisitedColor:  black
+    buttonLinkHoverColor: E0E0FF
+    buttonLinkSelectedColor: black
+    
+Skin(SEA):
+    name:            SEA
+    bodyBGColor:     DodgerBlue 
+    logoFontSize:    40
+    logoColor:       white
+    logoFontType:    Helvetica
+    headerBGColor:   1E90FF
+    footerTextAlign: right
+    footerFontSize:  15
+    footerColor:     gray
+    sectionAlign:    top
+    labelFontSize:   15
+    labelColor:      gray
+    commentBorderSize: 2
+    commentBorderColor: gray
+    commentBGColor:  E0FFFF 
+    buttonBorderRadius: 3
+    buttonBorderSize: 1
+    buttonBorderColor: gray
+    buttonBoxShadowColor: 4169E1
+    buttonBGColor:    white
+    buttonTextDec:  none
+    buttonLinkUnvisitedColor: DarkBlue
+    buttonLinkVisitedColor:  DarkBlue
+    buttonLinkHoverColor: E0FFFF
+    buttonLinkSelectedColor: DarkBlue    
 
 User(bob):
     first_name:     Bob
@@ -12,7 +61,7 @@ User(bob):
     email:          bob@gmail.com
     password:       secret
     isAdmin:        true
-    skin:           DEFAULT
+    skin:           SEA
 
 User(alice):
     first_name:     Alice
