@@ -14,43 +14,43 @@ public class Status extends Model {
 * news message.
 */
 
- 
+
   @Required
   @ManyToOne
   public User author; // The User who authored the status update
-  
+
   @Lob
   @Required
   @MaxSize(1000)
   public String content; // The status update text
-  
+
   private String unlinked_content;
-  
+
   public Date date; // The time when submitted
-  
+
   // ############## TO BE IMPLEMENTED #######################################
-  
+
   // public Status linked_status;  // Think Retweet
-  
+
   // public Post linked_post;
-  
+
   // @Required
   // public String type; // Text, Link, Location(Check in), Poll
-  
+
   // @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
   // public List<Comment> comments;
-  
+
   // @OneToMany(mappedBy="status", cascade=CascadeType.ALL)
   // public List<Like> likes;
-  
+
   // @ManyToMany(cascade=CascadeType.PERSIST)
   // public Set<Tag> tags;
-  
+
   // @ManyToMany(cascade=CascadeType.PERSIST)
   //public List<User> mentions;
-  
+
   // ########################################################################
-  
+
   public Status(User author, String content) {
     // this.comments = new ArrayList<Comment>();
     // this.likes = new ArrayList<Like>();
@@ -68,13 +68,13 @@ public class Status extends Model {
     // TODO implement a string parser that pulls out @ and # tags
     return unlinked_content;
   }
-  
+
   /* TODO
   private static someFunction(...message parsing...){
-    
+
   }
   */
-  
+
   /* TODO
   public Status addComment(String author, String content){
     Comment newComment = new Comment(this, author, content).save();
@@ -83,7 +83,7 @@ public class Status extends Model {
     return this;
   }
   */
-  
+
   /* TODO
   public Status addLike(...){
     Like newLike = new Like(...).save();
@@ -96,17 +96,17 @@ public class Status extends Model {
   public Status previous() {
     return Post.find("update_time < ? order by update_time asc", date).first();
   }
-  
+
   public Status next() {
     return Post.find("update_time > ? order by update_time asc", date).first();
   }
-  
+
   /* TODO
   public List<Comment> comments() {
     return comments;
   }
   */
-  
+
   /* TODO
   public static List<Status> findTaggedWith(String... tags) {
     return Status.fin(
@@ -114,5 +114,4 @@ public class Status extends Model {
     ).bind("tags", tags).bind("size", tags.length).fetch();
   }
   */
-
 }
