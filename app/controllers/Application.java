@@ -9,7 +9,6 @@ import models.*;
 import play.libs.Crypto;
 
 public class Application extends OBController {
-
   public static void about(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
     render(user);
@@ -166,6 +165,7 @@ public class Application extends OBController {
     Commentable parent = Commentable.findById(commentableId);
     parent.addComment(author, content);
   }
+
 
   public static void notFound() {
     response.status = Http.StatusCode.NOT_FOUND;
