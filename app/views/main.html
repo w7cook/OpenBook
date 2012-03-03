@@ -1,38 +1,10 @@
 <!DOCTYPE html >
 <html>
-<<<<<<< HEAD
-<head>
-<title>#{get 'title' /}</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" media="screen"
-	href="@{Skins.stylesheet()}" />
-<link rel="shortcut icon" type="image/png"
-	href="@{'/public/images/favicon.png'}" />
-</head>
-<body>
-	<div id="header">
-		<a href="@{Application.news()}">
-		  <span id="logo" class="logo">Openbook</span>
-	  </a>
-		<input type="text" name="query" />
-    Hello 
-    <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
-    <a style="float:right" href="@{Secure.logout()}">Logout</a>
-	</div>
-	<div id="main">#{doLayout /}</div>
-	<hr>
-	<div id="footer">
-		<span class=logo>openbook</span> is a <a
-			href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class
-			project</a> to create a simple social networking web site
-	</div>
-</body>
-=======
   <head>
-    <title>Openbook</title>
+    <title>#{get 'title' /}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" media="screen"
-          href="@{'/public/stylesheets/main.css'}" />
+          href="@{Skins.stylesheet()}" />
     <link rel="shortcut icon" type="image/png"
           href="@{'/public/images/favicon.png'}" />
   </head>
@@ -54,5 +26,4 @@
       to create a simple social networking web site
     </footer>
   </body>
->>>>>>> cleanup
 </html>
