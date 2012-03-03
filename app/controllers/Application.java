@@ -106,7 +106,7 @@ public class Application extends OBController {
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
     validation.isTrue(currentUser.password.equals(Crypto.passwordHash(old_password))).message(
-        "Password does not match");
+                                                                                              "Password does not match");
 
     if (validation.hasErrors()) {
       User user = update;

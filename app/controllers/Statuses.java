@@ -18,7 +18,7 @@ public class Statuses extends OBController {
   }
 
   public static void postStatus(
-    @Required(message="A message is required") String content)
+                                @Required(message="A message is required") String content)
   {
 
     Status status = new Status(Application.user(), content).save();

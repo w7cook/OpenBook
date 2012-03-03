@@ -25,5 +25,4 @@ public class Checkin extends OBController {
       redirect("/checkin");
     }
   }
-
 }
