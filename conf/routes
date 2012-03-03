@@ -11,6 +11,8 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
+GET    /stylesheets/main.css                    Skins.stylesheet
+
 # Photos
 GET     /photos/?                               Photos.photos(ownerId:'null')
 POST    /photos                                 Photos.addPhoto
@@ -25,6 +27,7 @@ GET     /checkin/at                             Checkin.at
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
