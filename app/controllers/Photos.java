@@ -11,7 +11,6 @@ import play.mvc.*;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
 public class Photos extends OBController {
 
   public static void photos(Long ownerId) {
