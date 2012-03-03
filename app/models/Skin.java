@@ -2,9 +2,7 @@ package models;
 
 import java.util.*;
 import javax.persistence.*;
-
 import controllers.Security;
-
 import play.db.jpa.*;
 
 

@@ -1,9 +1,11 @@
 # Test data 
+
 User(bob):
     email:          bob@gmail.com
     password:       secret
     fullname:       Bob
     isAdmin:        true
+
     
 User(jeff):
     email:          jeff@gmail.com

@@ -9,7 +9,8 @@ import models.*;
 
 @With(Secure.class)
 public class Application extends Controller {
-
+ 
+  
   @Before
   static void setConnectedUser(){
     if (Security.isConnected()) {
@@ -19,6 +20,7 @@ public class Application extends Controller {
   
   @Before
   static void addDefaults() {
+    
   }
 
   public static User user() {
@@ -182,6 +184,7 @@ public class Application extends Controller {
     Commentable parent = Commentable.findById(commentableId);
     parent.addComment(author, content);
   }
+
 
   public static void notFound() {
     response.status = Http.StatusCode.NOT_FOUND;

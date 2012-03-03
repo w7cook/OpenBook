@@ -29,7 +29,7 @@ Skin(DEFAULT):
 Skin(SEA):
     name:            SEA
     bodyBGColor:     DodgerBlue 
-    logoFontSize:    50
+    logoFontSize:    40
     logoColor:       white
     logoFontType:    Helvetica
     headerBGColor:   1E90FF
@@ -183,5 +183,4 @@ Comment(c3):
     content:        >
                     This post is useless ?
     date:       2009-04-05
-    parentObj:           secondBobPost    
-
+    parentObj:           secondBobPost
