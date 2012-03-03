@@ -6,6 +6,7 @@ import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import play.libs.Crypto;
 
 public class Application extends OBController {
 
@@ -104,7 +105,7 @@ public class Application extends OBController {
     validation.required(update.first_name).message("First name is required");
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
-    validation.isTrue(currentUser.password.equals(old_password)).message(
+    validation.isTrue(currentUser.password.equals(Crypto.passwordHash(old_password))).message(
         "Password does not match");
 
     if (validation.hasErrors()) {
@@ -133,7 +134,7 @@ public class Application extends OBController {
       user.username = update.username;
       user.email = update.email;
       if (given(update.password))
-        user.password = update.password;
+        user.password = Crypto.passwordHash(update.password);
       user.save();
       account();
     }
