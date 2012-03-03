@@ -86,7 +86,7 @@ public class User extends Model {
   }
 
   public static User connect(String login, String password) {
-    return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1 and u.password = ?2", login, Crypto.passwordHash(password)).first();
+    return find("SELECT u FROM User u WHERE (u.email = ?1 OR u.username = ?1) and u.password = ?2", login, Crypto.passwordHash(password)).first();
   }
 
   public static User getUser(String login) {
