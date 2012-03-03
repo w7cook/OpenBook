@@ -1,131 +1,131 @@
 # Test data
 Skin(DEFAULT):
-    name:            DEFAULT
-    bodyBGColor:     none
-    logoFontSize:    30
-    logoColor:       white
-    logoFontType:    Helvetica
-    headerBGColor:   CC5500
-    footerTextAlign: center
-    footerFontSize:  10
-    footerColor:     gray
-    sectionAlign:    top
-    labelFontSize:   10
-    labelColor:      black
-    commentBorderSize: 2
-    commentBorderColor: white
-    commentBGColor:  EEEEEE
-    buttonBorderRadius: 4
-    buttonBorderSize: 1
-    buttonBorderColor: black
-    buttonBoxShadowColor: 888888
-    buttonBGColor:    white
-    buttonTextDec:  none
-    buttonLinkUnvisitedColor: black
-    buttonLinkVisitedColor:  black
-    buttonLinkHoverColor: E0E0FF
-    buttonLinkSelectedColor: black
+    name:                       DEFAULT
+    bodyBGColor:                none
+    logoFontSize:               30
+    logoColor:                  white
+    logoFontType:               Helvetica
+    headerBGColor:              CC5500
+    footerTextAlign:            center
+    footerFontSize:             10
+    footerColor:                gray
+    sectionAlign:               top
+    labelFontSize:              10
+    labelColor:                 black
+    commentBorderSize:          2
+    commentBorderColor:         white
+    commentBGColor:             EEEEEE
+    buttonBorderRadius:         4
+    buttonBorderSize:           1
+    buttonBorderColor:          black
+    buttonBoxShadowColor:       888888
+    buttonBGColor:              white
+    buttonTextDec:              none
+    buttonLinkUnvisitedColor:   black
+    buttonLinkVisitedColor:     black
+    buttonLinkHoverColor:       E0E0FF
+    buttonLinkSelectedColor:    black
     
 Skin(SEA):
-    name:            SEA
-    bodyBGColor:     DodgerBlue 
-    logoFontSize:    40
-    logoColor:       white
-    logoFontType:    Helvetica
-    headerBGColor:   1E90FF
-    footerTextAlign: right
-    footerFontSize:  10
-    footerColor:     gray
-    sectionAlign:    top
-    labelFontSize:   15
-    labelColor:      gray
-    commentBorderSize: 2
-    commentBorderColor: gray
-    commentBGColor:  E0FFFF 
-    buttonBorderRadius: 3
-    buttonBorderSize: 1
-    buttonBorderColor: gray
-    buttonBoxShadowColor: 4169E1
-    buttonBGColor:    white
-    buttonTextDec:  none
-    buttonLinkUnvisitedColor: DarkBlue
-    buttonLinkVisitedColor:  DarkBlue
-    buttonLinkHoverColor: E0FFFF
-    buttonLinkSelectedColor: DarkBlue    
+    name:                       SEA
+    bodyBGColor:                DodgerBlue 
+    logoFontSize:               40
+    logoColor:                  white
+    logoFontType:               Helvetica
+    headerBGColor:              1E90FF
+    footerTextAlign:            right
+    footerFontSize:             10
+    footerColor:                gray
+    sectionAlign:               top
+    labelFontSize:              15
+    labelColor:                 gray
+    commentBorderSize:          2
+    commentBorderColor:         gray
+    commentBGColor:             E0FFFF 
+    buttonBorderRadius:         3
+    buttonBorderSize:           1
+    buttonBorderColor:          gray
+    buttonBoxShadowColor:       4169E1
+    buttonBGColor:              white
+    buttonTextDec:              none
+    buttonLinkUnvisitedColor:   DarkBlue
+    buttonLinkVisitedColor:     DarkBlue
+    buttonLinkHoverColor:       E0FFFF
+    buttonLinkSelectedColor:    DarkBlue    
 
 User(bob):
-    first_name:     Bob
-    last_name:      Thomson
-    name:           Bob Thomson
-    username:       b3bob
-    email:          bob@gmail.com
-    password:       secret
-    isAdmin:        true
-    skin:           SEA
+    first_name:         Bob
+    last_name:          Thomson
+    name:               Bob Thomson
+    username:           b3bob
+    email:              bob@gmail.com
+    password:           secret
+    isAdmin:            true
+    skin:               SEA
 
 User(alice):
-    first_name:     Alice
-    last_name:      Xu
-    name:       Alice Xu
-    username:       axu
-    email:          alice@gmail.com
-    password:       secret
+    first_name:         Alice
+    last_name:          Xu
+    name:               Alice Xu
+    username:           axu
+    email:              alice@gmail.com
+    password:           secret
     #significant_other: jeff
-    anniversary:    2010-12-2
-    skin:           DEFAULT
+    anniversary:        2010-12-2
+    skin:               DEFAULT
     
 User(jeff):
-    first_name:     Jeff
-    last_name:      Jones
-    username:       jj99
-    name:       Jeff Jones
-    email:          jeff@gmail.com
-    password:       secret
-    significant_other: alice
-    anniversary:    2010-12-2
-    skin:           DEFAULT
+    first_name:         Jeff
+    last_name:          Jones
+    username:           jj99
+    name:               Jeff Jones
+    email:              jeff@gmail.com
+    password:           secret
+    significant_other:  alice
+    anniversary:        2010-12-2
+    skin:               DEFAULT
 
 Relationship(s1):
-    from:   bob
-    to:     bob
+    from:       bob
+    to:         bob
 
 Relationship(s2):
-    from:   alice
-    to:     alice
+    from:       alice
+    to:         alice
 
 Relationship(s3):
-    from:   jeff
-    to:     jeff
+    from:       jeff
+    to:         jeff
   
 Relationship(r1):
-    from:   bob
-    to:     jeff
-    accepted: true
+    from:       bob
+    to:         jeff
+    accepted:   true
 
 Relationship(r3):
-    from:   alice
-    to:     jeff
-    accepted: true
+    from:       alice
+    to:         jeff
+    accepted:   true
 
 Relationship(r4):
-    from:   jeff
-    to:     alice
-    accepted: true
+    from:       jeff
+    to:         alice
+    accepted:   true
 
 Relationship(r5):
-    from:   jeff
-    to:     bob
-    accepted: true
+    from:       jeff
+    to:         bob
+    accepted:   true
     
 Status(firstBobStatus):
-    date:     2011-06-14
-    author:         bob
-    message:        >
-                    Short sweet twitter like messages that will have inline @mentions and #tags.
+    date:       2011-06-14
+    author:     bob
+    message:    >
+                Short sweet twitter like messages that will have inline @mentions and #tags.
     
 Post(firstBobPost):
     title:          About the model layer
-    date:       2009-06-14
+    date:           2009-06-14
     author:         bob
     content:        >
                     The model has a central position in a Play! application. It is the domain-specific 
@@ -140,14 +140,14 @@ Post(firstBobPost):
 
 Post(secondBobPost):
     title:          Just a test of YABE
-    date:       2009-03-25
+    date:           2009-03-25
     author:         bob
     content:        >
                     Well, it's just a test.
                     
 Post(jeffPost):
     title:          The MVC application
-    date:       2009-06-06
+    date:           2009-06-06
     author:         jeff
     content:        >
                     A Play! application follows the MVC architectural pattern as applied to the 
@@ -159,7 +159,7 @@ Post(jeffPost):
 
 Post(jeffPost2):
     title:          The MVC application
-    date:       2009-06-07
+    date:           2009-06-07
     author:         jeff
     content:        >
                     More stuff
@@ -168,19 +168,19 @@ Comment(c1):
     author:         Guest
     content:        >
                     You are right !
-    date:       2009-06-14
-    parentObj:           firstBobPost
+    date:           2009-06-14
+    parentObj:      firstBobPost
     
 Comment(c2):
     author:         Mike
     content:        >
                     I knew that ...
-    date:       2009-06-15
-    parentObj:           firstBobPost    
+    date:           2009-06-15
+    parentObj:      firstBobPost    
     
 Comment(c3):
     author:         Tom
     content:        >
                     This post is useless ?
-    date:       2009-04-05
-    parentObj:           secondBobPost
+    date:           2009-04-05
+    parentObj:      secondBobPost
