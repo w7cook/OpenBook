@@ -91,8 +91,8 @@ public class User extends Model {
 
   public List<Post> news() {
     return Post.find(
-        "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?)",
-        this.id, this.id).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?)",
+                     this.id, this.id).fetch();
   }
 
   /** Checks the status of a friendship
@@ -134,5 +134,4 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
-
 }
