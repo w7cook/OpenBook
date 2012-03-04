@@ -4,7 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
-
+import controllers.Skins;
 import play.db.jpa.*;
 
 @Entity
@@ -62,6 +62,9 @@ public class User extends Model {
   // partnership
   public String religion; // The user's religion
 
+  @ManyToOne
+	public Skin skin;//Skin (StyleSheet) used by this User
+	
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   public List<Employment> work; // A list of the user's work history
 
@@ -77,6 +80,7 @@ public class User extends Model {
     this.email = email;
     this.password = password;
     this.username = username;
+    Skins.setSkin(this,"DEFAULT");//set skin as default skin
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -129,5 +133,7 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+  
+
 
 }
