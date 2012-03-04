@@ -3,6 +3,9 @@
   <tr>
     <td>
       [Picture]
+      #{if user != NULL}
+      
+      
       ${user.email}
       
       <br>
@@ -11,6 +14,7 @@
       <a href="@{Application.about()}">about</a>
       <br>
       <a href="@{Checkin.checkin()}">Checkin</a>
+      <br>Inbox
       <br>friends:<br>
       #{list items:user.confirmedFriends(), as:'friendship'}
         <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
@@ -57,6 +61,7 @@
           #{/list}
         </div>
       #{/list}
+      #{/if}
     </td>
   </tr>
 </table>
