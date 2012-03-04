@@ -11,6 +11,21 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
+# Photos
+GET     /photos/?                               Photos.photos(ownerId:'null')
+POST    /photos                                 Photos.addPhoto
+GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
+DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
+GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+
+
+# Checkin
+GET     /checkin                                Checkin.checkin
+GET     /checkin/at                             Checkin.at
+
+*       /photos/{anything}                      Application.notFound
+*       /users/{anything}/photos/?              Application.notFound
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

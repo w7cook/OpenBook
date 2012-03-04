@@ -9,6 +9,8 @@
     <a href="@{Application.news()}">news</a>
     <br>
     <a href="@{Application.about()}">about</a>
+    <br>
+    <a href="@{Checkin.checkin()}">Checkin</a>
     <br>friends:<br>
      #{list items:user.confirmedFriends(), as:'friendship'}
      <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
@@ -30,6 +32,7 @@
 		  	Remove friend
 		</a>
 	#{/elseif}
+<<<<<<< HEAD
 	#{form @Statuses.postStatus()}
      
         #{ifErrors}
@@ -54,6 +57,8 @@
         </p>
         
     #{/form}
+=======
+>>>>>>> 097f386f4e19b387caa0ee49884b819cc43d1291
 
      <h3>Blog Posts</h3>
      #{list items:user.news(), as:'item'}
