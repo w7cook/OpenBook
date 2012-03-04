@@ -15,11 +15,12 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.playframework.playclipse.playNature</nature>
 	</natures>
-	<linkedResources><link><name>secure</name><type>2</type><location>/home/amshali/docs/academic/CS378/play-1.2.4/modules/secure/app</location></link>
-<link><name>conf/secure</name><type>2</type><location>/home/amshali/docs/academic/CS378/play-1.2.4/modules/secure/conf</location></link>
-<link><name>public/secure</name><type>2</type><location>/home/amshali/docs/academic/CS378/play-1.2.4/modules/secure/public</location></link>
-<link><name>crud</name><type>2</type><location>/home/amshali/src/play-1.2.4/modules/crud/app</location></link>
-<link><name>conf/crud</name><type>2</type><location>/home/amshali/src/play-1.2.4/modules/crud/conf</location></link>
-<link><name>public/crud</name><type>2</type><location>/home/amshali/src/play-1.2.4/modules/crud/public</location></link>
+	<linkedResources><link><name>crud</name><type>2</type><location>C:/play-1.2.4/modules/crud/app</location></link>
+<link><name>conf/crud</name><type>2</type><location>C:/play-1.2.4/modules/crud/conf</location></link>
+<link><name>public/crud</name><type>2</type><location>C:/play-1.2.4/modules/crud/public</location></link>
+<link><name>logisimayml-1.8</name><type>2</type><location>C:/Users/Anthony/workspace/OpenBook/modules/logisimayml-1.8/app</location></link>
+<link><name>secure</name><type>2</type><location>C:/play-1.2.4/modules/secure/app</location></link>
+<link><name>conf/secure</name><type>2</type><location>C:/play-1.2.4/modules/secure/conf</location></link>
+<link><name>public/secure</name><type>2</type><location>C:/play-1.2.4/modules/secure/public</location></link>
 </linkedResources>
 </projectDescription>
