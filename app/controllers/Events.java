@@ -60,7 +60,7 @@ public class Events extends Controller{
 				Date start = e.startDate;
 				Date end = e.endDate;
 				render(name, location, start, end);
-
+		}
 			public static void displayEvent() {
 				render();
 
