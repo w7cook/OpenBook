@@ -120,8 +120,20 @@ Relationship(r5):
 Status(firstBobStatus):
     date:     2011-06-14
     author:         bob
-    message:        >
+    content:        >
                     Short sweet twitter like messages that will have inline @mentions and #tags.
+                    
+Status(firstJeffStatus):
+    date:     2011-06-14
+    author:         jeff
+    content:        >
+                    Hey @b3bob hope you like #MassEffect3
+                    
+Status(secondBobStatus):
+    date:     2011-06-14
+    author:         bob
+    content:        >
+                    @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
     
 Post(firstBobPost):
     title:          About the model layer

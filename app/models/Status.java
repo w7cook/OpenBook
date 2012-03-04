@@ -28,7 +28,7 @@ public class Status extends Commentable {
   
   public Date date; // The time when submitted
   
-  public Object linked_object;  // Think Retweet
+  public Status linked_object;  // Think Retweet
   
   @ManyToMany(cascade=CascadeType.PERSIST)
   public Set<Tag> tags;
@@ -36,13 +36,9 @@ public class Status extends Commentable {
   @ManyToMany
   public List<User> mentions;
   
-  public Status(User author, String content) {
-    this.tags = new ArrayList<Tag>();
-    this.mentions = new ArrayList<User>();
+  public Status(User author) {
     this.author = author;
-    this.content = parseContent(content);
     this.date = new Date();
-    this.linked_object = someFunction(...message parsing...);
   }
 
   private String parseContent(String unlinked_content){
@@ -71,6 +67,22 @@ public class Status extends Commentable {
     
   }
   */
+  
+  public Commentable addComment(String author, String content) {
+		Comment newComment = new Comment(this, author, content).save();
+		this.allComments.add(newComment);
+		this.save();
+		return this;
+	}
+	
+	/*
+	public Commentable addLike( ){
+	  Like newLike = new Like( ).save();
+	  this.addLike.add(newLike);
+	  this.save();
+	  return this;
+	}
+	*/
 
   public Status previous() {
     return Post.find("update_time < ? order by update_time asc", date).first();
