@@ -121,13 +121,13 @@ public class Application extends OBController {
         user.middle_name = update.middle_name;
         if (given(name))
           name += " ";
-        name += user.first_name;
+        name += user.middle_name;
       }
       if (given(update.last_name)) {
         user.last_name = update.last_name;
         if (given(name))
           name += " ";
-        name += user.first_name;
+        name += user.last_name;
       }
       user.name = name;
       user.username = update.username;
