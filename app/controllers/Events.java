@@ -54,7 +54,7 @@ public class Events extends Controller{
 			events(userId);
 		}
 			
-			public static void editEvent() {
+			public static void displayEvent() {
 				//Event event = Event.findById(id);
 				render();
 			}
@@ -128,7 +128,7 @@ public class Events extends Controller{
 					//upload event photos
 					//upload newsfeed
 					
-					editEvent();
+					displayEvent();
 				}
 			}
 
