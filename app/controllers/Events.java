@@ -52,7 +52,7 @@ public class Events extends Controller{
 			events(userId);
 		}
 			
-<<<<<<< HEAD
+
 			public static void displayEvent(Long id){//displayEvent(String name, String location, Date startDate, Date  endDate) {
 				Event e = Event.findById(id);
 				String name = e.eventName;
@@ -60,10 +60,10 @@ public class Events extends Controller{
 				Date start = e.startDate;
 				Date end = e.endDate;
 				render(name, location, start, end);
-=======
+
 			public static void displayEvent() {
 				render();
->>>>>>> de03b50414cafe7648767360f1262ebc42c4a8b8
+
 			}
 
 			public static void event_create(Event curEvent) {
@@ -117,7 +117,7 @@ public class Events extends Controller{
 					*/
 					
 					event.save();
-<<<<<<< HEAD
+
 					//this should pull up to an extended events page
 					//add a Locatiom
 					//invite guests
@@ -125,9 +125,9 @@ public class Events extends Controller{
 					//upload newsfeed
 					displayEvent(event.id);
 					//displayEvent(event.eventName, event.eventLocation, event.startDate, event.endDate);
-=======
+
 					displayEvent();
->>>>>>> de03b50414cafe7648767360f1262ebc42c4a8b8
+
 				}
 			}
 
