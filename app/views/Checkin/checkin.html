@@ -1,6 +1,7 @@
 #{extends 'main.html' /}
 <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
-  type="text/javascript"></script>
+        type="text/javascript">
+</script>
 
 <style type="text/css">
   body {
@@ -15,7 +16,7 @@
 </style>
 
 <script type="text/javascript">
-// http://code.google.com/apis/maps/documentation/javascript/examples/places-autocomplete.html
+  // http://code.google.com/apis/maps/documentation/javascript/examples/places-autocomplete.html
   function initialize() {
     var mapOptions = {
       center: new google.maps.LatLng(30.2733,-97.7421),
@@ -82,4 +83,3 @@
   <input id="searchTextField" type="text" size="50">
 </div>
 <div id="map_canvas"></div>
-

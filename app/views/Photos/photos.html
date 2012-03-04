@@ -3,14 +3,16 @@
   #{list items:photos, as:'photo' }
     <li>
       <img src=@{Photos.getPhoto(photo.id)} />
-      #{form @Photos.removePhoto(photo.id)}
-        <input type="submit" name="submit" value="Delete" />
-      #{/form}
+      #{if currentUser.equals(photo.owner)}
+        #{form @Photos.removePhoto(photo.id)}
+          <input type="submit" name="submit" value="Delete" />
+        #{/form}
+      #{/if}
     </li>
   #{/list}
 </ul>
 
 #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
-    <input type="file" name="photo.image" />
-    <input type="submit" name="submit" value="Upload" />
+  <input type="file" name="photo.image" />
+  <input type="submit" name="submit" value="Upload" />
 #{/form}

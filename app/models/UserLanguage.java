@@ -8,6 +8,6 @@ import play.db.jpa.*;
 
 @Entity
 public class UserLanguage extends Model {
-	User user;
-	Language language;
+  public User user;
+  public Language language;
 }

@@ -11,20 +11,7 @@ import play.mvc.*;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
-public class Photos extends Controller {
-
-  @Before
-  static void setConnectedUser() {
-    if (Security.isConnected()) {
-      renderArgs.put("currentUser", user());
-    }
-  }
-
-  public static User user() {
-    assert Secure.Security.connected() != null;
-    return User.find("byEmail", Secure.Security.connected()).first();
-  }
+public class Photos extends OBController {
 
   public static void photos(Long ownerId) {
     List<Photo> photos;
@@ -62,7 +49,8 @@ public class Photos extends Controller {
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    photo.delete();
+    if (photo.owner.equals(user()))
+      photo.delete();
     redirect("/photos");
   }
 }
