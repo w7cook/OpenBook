@@ -235,8 +235,19 @@ public class BasicTest extends UnitTest {
 		Event bobEvent = new Event(bob, "Bob's Birthday Party", "There might be cake", "Bob's House").save();
 		Event anotherBobEvent = new Event(bob, "Board Game Night", "There might be board games", "Bob's Girlfriend's House").save();
 		
+		//Assert there are two events
+		assertEquals(2, Event.count());
+		
 		//Create new user guest and save it
 		User jeff = new User("jeff@gmail.com", "secret", "Jeff").save();
 		bobEvent.newEventInvite(jeff);
+		
+		//Assert number of users and eventInvites
+		assertEquals(2, User.count());
+		assertEquals(1, EventInvite.count());
+		
+		//Delete an event
+		anotherBobEvent.delete();
+		assertEquals(1, Event.count());
 	}
 }

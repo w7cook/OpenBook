@@ -54,14 +54,14 @@ public class Events extends Controller{
 				Event event = Event.findById(eventId);
 				event.newEventInvite(guest);
 			}
-			
-			public static void deleteEvent(Long eventId, Long page) {
-				Event event = Event.findById(eventId);
-				event.delete();
-				//meow?
-				render("events.html");
-			}
-			
+		
+		public static void deleteEvent(Long eventId, Long userId) {
+			Event event = Event.findById(eventId);
+			event.delete();
+			//meow?
+			//render("events.html");
+			events(userId);
+		}
 			
 			public static void editEvent() {
 				//Event event = Event.findById(id);
