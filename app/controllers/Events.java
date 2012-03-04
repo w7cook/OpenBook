@@ -24,13 +24,6 @@ public class Events extends Controller{
 	    return User.find("byEmail", Secure.Security.connected()).first();
 	  }
 	  
-		public static void newEventInvite(Long eventId, User curGuest) {
-			Event event = Event.findById(eventId);
-			EventInvite myEventInvite = new EventInvite(event, curGuest).save();
-			//this.allInvitedUsers.add(curGuest);
-			event.save();
-			
-		}
 		
 		public static void addEventEndDate(Long eventId, Calendar endDate) {
 			Event event = Event.findById(eventId);
@@ -58,7 +51,8 @@ public class Events extends Controller{
 
 		public static void addEventInvite(Long eventId, Long guestId){
 				User guest = User.findById(guestId);
-				newEventInvite(eventId, guest);
+				Event event = Event.findById(eventId);
+				event.newEventInvite(guest);
 			}
 			
 			public static void deleteEvent(Long eventId, Long page) {

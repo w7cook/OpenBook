@@ -55,7 +55,7 @@ public class Event extends Model {
 	//or possibly add on .getGuest() before .find()...
 	*/
 	
-	public Event(User author, String eventName, String eventScript, String eventLocation, Calendar startDate){
+	public Event(User author, String eventName, String eventScript, String eventLocation){//, Calendar startDate){
 	
 		//this.allInvitedUsers = new ArrayList<CUser>();
 		//this.attendingUsers = new ArrayList<CUser>();
@@ -65,7 +65,7 @@ public class Event extends Model {
 		this.author = author;
 		this.eventName = eventName;
 		this.eventScript = eventScript;
-		this.startDate = startDate;
+		//this.startDate = startDate;
 		this.eventLocation = eventLocation;
 		
 		/*
@@ -82,12 +82,7 @@ public class Event extends Model {
 	
 //moved to controllers Events.java	
 	/*
-	public Event newEventInvite(User curGuest) {
-		EventInvite myEventInvite = new EventInvite(this, curGuest).save();
-		//this.allInvitedUsers.add(curGuest);
-		this.save();
-		return this;
-	}
+
 	
 	public Event addEventEndDate(Calendar endDate) {
 		this.endDate = endDate;
@@ -95,5 +90,12 @@ public class Event extends Model {
 		return this;
 	}
 	*/
+	public EventInvite newEventInvite(User curGuest) {
+		//Event event = Event.findById(eventId);
+		EventInvite myEventInvite = new EventInvite(this, curGuest).save();
+		//this.allInvitedUsers.add(curGuest);
+		this.save();
+		return myEventInvite;
+	}
 	
 }
