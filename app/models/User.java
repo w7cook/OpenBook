@@ -138,4 +138,14 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+
+  public boolean equals(Object obj) {
+    if (obj == null)
+      return false;
+    if (obj == this)
+      return true;
+    if (obj.getClass() != getClass())
+      return false;
+    return username.equals(((User) obj).username);
+  }
 }
