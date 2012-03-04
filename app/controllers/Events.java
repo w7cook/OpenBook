@@ -9,8 +9,6 @@ import play.mvc.*;
 import controllers.Secure;
 import models.*;;
 
-//<td colspan=3><a class=button  href="@{Events.editEvent()}">Create </a>
-
 
 @With(Secure.class)
 public class Events extends Controller{
@@ -55,7 +53,6 @@ public class Events extends Controller{
 		}
 			
 			public static void displayEvent() {
-				//Event event = Event.findById(id);
 				render();
 			}
 
@@ -68,9 +65,7 @@ public class Events extends Controller{
 				validation.isTrue(!curEvent.startMonth.equals("-1")).message("Event start month is required");	
 				validation.isTrue(!curEvent.startDay.equals("-1")).message("Event start day is required");	
 				validation.isTrue(!curEvent.startTime.equals("-1")).message("Event start time is required");
-				//validation.required(curEvent.startDate).message("Event start date and time are required");		
-				//validation.required(curEvent.open || curEvent.friends || curEvent.invite).message("Event privacy is required");
-
+			
 				if (validation.hasErrors()) {
 					Event thisEvent = curEvent;
 					renderTemplate("Events/addEvent.html", thisEvent);
@@ -85,10 +80,8 @@ public class Events extends Controller{
 					event.startDay = curEvent.startDay;
 					event.startTime = curEvent.startTime;
 					event.setStartDate();
-					
 
-					//event.startDate = curEvent.startDate;
-				
+					//optional: set end date of Event
 					if (!curEvent.endDay.equals("-1") && !curEvent.endMonth.equals("-1") && !curEvent.endTime.equals("-1")) {
 						event.endDay = curEvent.endDay;
 						event.endMonth = curEvent.endMonth;
@@ -96,7 +89,7 @@ public class Events extends Controller{
 						event.setEndDate();
 					}
 					
-					
+					//privacy settings of Event
 					if (curEvent.p.equals("open")){
 						event.open = true;
 					}
@@ -107,27 +100,13 @@ public class Events extends Controller{
 						event.inviteOnly = true;
 					}
 					
-//					System.out.println(event.startDate);
-//					System.out.println(event.endDate);
-//					System.out.println(event.open + " " + event.friends + " " + event.inviteOnly);
+					/* testing
+					System.out.println(event.startDate);
+					System.out.println(event.endDate);
+					System.out.println(event.open + " " + event.friends + " " + event.inviteOnly);
+					*/
 					
-//					if (given(curEvent.open)) {
-//						event.open = TRUE;
-//					}
-//					if (given(curEvent.friends)) {
-//						event.friends = TRUE;
-//					}
-//					if (given(curEvent.invite)) {
-//						event.invite = TRUE;
-//					}
-
 					event.save();
-					//this should pull up to an extended events page
-					//add a Locatiom
-					//invite guests
-					//upload event photos
-					//upload newsfeed
-					
 					displayEvent();
 				}
 			}
