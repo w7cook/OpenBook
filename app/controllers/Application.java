@@ -178,9 +178,9 @@ public class Application extends Controller {
     news(userId);
   }
 
-  public static void postComment(Long commentableId, String author, String content) {
-    Commentable parent = Commentable.findById(commentableId);
-    parent.addComment(author, content);
+  public static void postComment(Long commentableId, Long userId, String content) {
+    ((Commentable) Commentable.findById(commentableId)).addComment(user().first_name, content);
+    news(userId);
   }
 
   public static void notFound() {

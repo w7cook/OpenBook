@@ -55,7 +55,10 @@
                 </div>
             </div>
         #{/list}
-        
+        #{form @Application.postComment(item.id, user.id)}
+        	<textarea name="content" id="content"></textarea>
+        	<input type="submit" value="Comment" />
+		#{/form}
     </div>
     #{/list}
   </td>
