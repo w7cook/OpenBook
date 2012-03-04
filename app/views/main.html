@@ -13,7 +13,9 @@
       <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
       <input type="text" name="query" />
       Hello 
+      #{if currentUser != NULL}
       <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
+      #{/if}
       <a style="float:right" href="@{Secure.logout()}">Logout</a>
     </header>
     <section id="main">
