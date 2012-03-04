@@ -54,9 +54,13 @@ public class Events extends Controller{
 			events(userId);
 		}
 			
-			public static void displayEvent() {
-				//Event event = Event.findById(id);
-				render();
+			public static void displayEvent(Long id){//displayEvent(String name, String location, Date startDate, Date  endDate) {
+				Event e = Event.findById(id);
+				String name = e.eventName;
+				String location = e.eventLocation;
+				Date start = e.startDate;
+				Date end = e.endDate;
+				render(name, location, start, end);
 			}
 
 			public static void event_create(Event curEvent) {
@@ -127,8 +131,8 @@ public class Events extends Controller{
 					//invite guests
 					//upload event photos
 					//upload newsfeed
-					
-					displayEvent();
+					displayEvent(event.id);
+					//displayEvent(event.eventName, event.eventLocation, event.startDate, event.endDate);
 				}
 			}
 
