@@ -20,6 +20,12 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+#Account
+#GET     /users/?                                #Get a list of all users
+#POST    /users/?                                #Add / update a user
+#GET     /users/{<[0-9]+>userId}                 #Get account info for a specific user
+#DELETE  /users/{<[0-9]+>userId}                 #Delete a user
+
 #Posts
 #GET     /posts/?                                #Get all posts
 #POST    /posts/?                                #Add/update post
