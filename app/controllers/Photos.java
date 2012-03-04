@@ -5,13 +5,12 @@ import play.mvc.*;
 import models.*;
 
 @With(Secure.class)
-public class Photos extends OBApplication {
+public class Photos extends OBController {
 
   /* All possible image mime types in a single regex. */
   public static String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
 
-  /* Maximum image size in bytes */
-  public static int MAX_FILE_SIZE = 200 * 1024;
+  public static int MAX_FILE_SIZE = 200 * 1024;  /* Max size in bytes. */
 
   public static void photos(Long ownerId) {
     List<Photo> photos;
