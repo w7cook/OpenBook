@@ -22,20 +22,26 @@ public class Event extends Model {
 	//possible friends to invite handled in EventInvite
 	*/
 	public String startMonth;
+	public String startDay;
+	public String startTime;
+	
 	public String endMonth;
+	public String endDay;
+	public String endTime;
 	
 	public String eventName;
 	public String eventScript;
-	public Calendar startDate;
-	public Calendar endDate;
+	public Date startDate;
+	public Date endDate;
 	
 	public String eventLocation;
 	
 	
 	//future additions
-	public boolean open;
-	public boolean friends;
-	public boolean invite;
+	public String p;
+	public boolean open = false;
+	public boolean friends = false;
+	public boolean inviteOnly = false;
 	//public Location eventVenue;
 	
 	
@@ -67,37 +73,44 @@ public class Event extends Model {
 		this.author = author;
 		this.eventName = eventName;
 		this.eventScript = eventScript;
-		//this.startDate = startDate;
 		this.eventLocation = eventLocation;
-		
-		/*
-		this.endDate = endDate;
-		this.open = open;
-		this.friends = friends;
-		this.invite = invite;
-		*/
-		
-		//this.open = TRUE;
-		//this.secret = secret;
-		//this.eventVenue = eventVenue;
-	}
-	
-//moved to controllers Events.java	
-	/*
 
-	
-	public Event addEventEndDate(Calendar endDate) {
-		this.endDate = endDate;
-		this.save();
-		return this;
+
 	}
-	*/
+	
+
 	public EventInvite newEventInvite(User curGuest) {
 		//Event event = Event.findById(eventId);
 		EventInvite myEventInvite = new EventInvite(this, curGuest).save();
 		//this.allInvitedUsers.add(curGuest);
 		this.save();
 		return myEventInvite;
+	}
+	
+	public void setStartDate(){
+		int minutes = 0;
+		int hours = 0;
+		if(startTime.length() == 4){
+			minutes = Integer.parseInt(startTime.substring(2,4));
+			hours = Integer.parseInt(startTime.substring(0,2));
+		}
+		else{
+			hours = Integer.parseInt(startTime);
+		}
+		startDate = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, Integer.parseInt(startMonth), Integer.parseInt(startDay), hours, minutes);	
+	}
+	
+	public void setEndDate(){
+		int minutes = 0;
+		int hours = 0;
+		if(endTime.length() == 4){
+			minutes = Integer.parseInt(endTime.substring(2,4));
+			hours = Integer.parseInt(endTime.substring(0,2));
+		}
+		else{
+			hours = Integer.parseInt(endTime);
+		}
+		endDate = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, Integer.parseInt(endMonth), Integer.parseInt(endDay), hours, minutes);	
 	}
 	
 }

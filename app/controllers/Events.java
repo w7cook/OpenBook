@@ -32,20 +32,6 @@ public class Events extends Controller{
 		  }
 	  
 		
-		public static void addEventEndDate(Long eventId, Calendar endDate) {
-			Event event = Event.findById(eventId);
-			event.endDate = endDate;
-			event.save();
-			
-		}
-		
-		public static void addEventPrivacy(Long eventId, boolean open, boolean friends, boolean invite){
-			Event event = Event.findById(eventId);
-			event.open = open;
-			event.friends = friends;
-			event.invite = invite;
-			event.save();
-		}
 		
 		  public static void events(Long id) {
 				User user = id == null ? user() : (User) User.findById(id);
@@ -80,6 +66,8 @@ public class Events extends Controller{
 				validation.required(curEvent.eventScript).message("Event description is required");
 				validation.required(curEvent.eventLocation).message("Event location is required");
 				validation.isTrue(!curEvent.startMonth.equals("-1")).message("Event start month is required");	
+				validation.isTrue(!curEvent.startDay.equals("-1")).message("Event start day is required");	
+				validation.isTrue(!curEvent.startTime.equals("-1")).message("Event start time is required");
 				//validation.required(curEvent.startDate).message("Event start date and time are required");		
 				//validation.required(curEvent.open || curEvent.friends || curEvent.invite).message("Event privacy is required");
 
@@ -94,13 +82,35 @@ public class Events extends Controller{
 					event.eventScript = curEvent.eventScript;
 					event.eventLocation = curEvent.eventLocation;
 					event.startMonth = curEvent.startMonth;
+					event.startDay = curEvent.startDay;
+					event.startTime = curEvent.startTime;
+					event.setStartDate();
 					
+
 					//event.startDate = curEvent.startDate;
-					/*
-					if (given(curEvent.endDate)) {
-						event.endDate = curEvent.endDate;
+				
+					if (!curEvent.endDay.equals("-1") && !curEvent.endMonth.equals("-1") && !curEvent.endTime.equals("-1")) {
+						event.endDay = curEvent.endDay;
+						event.endMonth = curEvent.endMonth;
+						event.endTime = curEvent.endTime;
+						event.setEndDate();
 					}
-					*/
+					
+					
+					if (curEvent.p.equals("open")){
+						event.open = true;
+					}
+					else if (curEvent.p.equals("friends")){
+						event.friends = true;
+					}
+					else if (curEvent.p.equals("inviteOnly")){
+						event.inviteOnly = true;
+					}
+					
+//					System.out.println(event.startDate);
+//					System.out.println(event.endDate);
+//					System.out.println(event.open + " " + event.friends + " " + event.inviteOnly);
+					
 //					if (given(curEvent.open)) {
 //						event.open = TRUE;
 //					}
