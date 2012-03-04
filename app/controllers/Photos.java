@@ -49,7 +49,8 @@ public class Photos extends OBController {
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    photo.delete();
+    if (photo.owner.equals(user()))
+      photo.delete();
     redirect("/photos");
   }
 }
