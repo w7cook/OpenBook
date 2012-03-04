@@ -3,7 +3,7 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import controllers.Application;
+import controllers.Events;
 
 import play.db.jpa.*;
 

@@ -2,8 +2,10 @@ package models;
 
 import java.util.*;
 import javax.persistence.*;
+//necessary?
+import play.data.validation.*;
 
-import controllers.Application;
+import controllers.Events;
 
 import play.db.jpa.*;
 
@@ -21,7 +23,6 @@ public class Event extends Model {
 	*/
 	public String StartMonth;
 	public String eventName;
-	//@Lob ??
 	public String eventScript;
 	public Calendar startDate;
 	public Calendar endDate;
@@ -54,12 +55,7 @@ public class Event extends Model {
 	//or possibly add on .getGuest() before .find()...
 	*/
 	
-	public Event(){
-		
-	}
-	
 	public Event(User author, String eventName, String eventScript, String eventLocation, Calendar startDate){
-		//add arguments of (boolean secret, Location eventLocation)
 	
 		//this.allInvitedUsers = new ArrayList<CUser>();
 		//this.attendingUsers = new ArrayList<CUser>();
@@ -70,18 +66,22 @@ public class Event extends Model {
 		this.eventName = eventName;
 		this.eventScript = eventScript;
 		this.startDate = startDate;
-		this.endDate = endDate;
 		this.eventLocation = eventLocation;
+		
+		/*
+		this.endDate = endDate;
 		this.open = open;
 		this.friends = friends;
 		this.invite = invite;
+		*/
 		
 		//this.open = TRUE;
 		//this.secret = secret;
 		//this.eventVenue = eventVenue;
 	}
 	
-	
+//moved to controllers Events.java	
+	/*
 	public Event newEventInvite(User curGuest) {
 		EventInvite myEventInvite = new EventInvite(this, curGuest).save();
 		//this.allInvitedUsers.add(curGuest);
@@ -94,5 +94,6 @@ public class Event extends Model {
 		this.save();
 		return this;
 	}
+	*/
 	
 }
