@@ -16,11 +16,10 @@ public class Event extends Model {
 	public User author;
 	
 	/*
-	//invitations list
 	@OneToMany
 	public EventInvite invitedUsers;
-	//possible friends to invite handled in EventInvite
 	*/
+	
 	public String startMonth;
 	public String startDay;
 	public String startTime;
@@ -35,58 +34,30 @@ public class Event extends Model {
 	public Date endDate;
 	
 	public String eventLocation;
-	
-	
-	//future additions
-	public String p;
+	public String p; //privacy settings
 	public boolean open = false;
 	public boolean friends = false;
 	public boolean inviteOnly = false;
 	//public Location eventVenue;
 	
 	
-	/*
-	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-	public List<User> allInvitedUsers;
-	
-	public List<User> attendingUsers() {
-		return User.find("event = ? AND isAttending=TRUE", this).fetch();
-	}
-	public List<User> maybeAttendingUsers() {
-		return User.find("event = ? AND maybeAttending=TRUE", this).fetch();
-	}
-	public List<User> notAttendingUsers() {
-		return User.find("event = ? AND declinedAttending=TRUE", this).fetch();
-	}
-	
-	//should all of this be taking a list of EventInvite
-	//or possibly add on .getGuest() before .find()...
-	*/
-	
-	public Event(User author, String eventName, String eventScript, String eventLocation){//, Calendar startDate){
-	
-		//this.allInvitedUsers = new ArrayList<CUser>();
-		//this.attendingUsers = new ArrayList<CUser>();
-		//this.maybeAttendingUsers = new ArrayList<CUser>();
-		//this.notAttendingUsers = new ArrayList<CUser>();
-		
+	public Event(User author, String eventName, String eventScript, String eventLocation){		
 		this.author = author;
 		this.eventName = eventName;
 		this.eventScript = eventScript;
 		this.eventLocation = eventLocation;
-
-
 	}
 	
 
 	public EventInvite newEventInvite(User curGuest) {
-		//Event event = Event.findById(eventId);
 		EventInvite myEventInvite = new EventInvite(this, curGuest).save();
-		//this.allInvitedUsers.add(curGuest);
 		this.save();
 		return myEventInvite;
 	}
 	
+	/*
+	 * Set starting date of the event
+	 */
 	public void setStartDate(){
 		int minutes = 0;
 		int hours = 0;
@@ -100,6 +71,9 @@ public class Event extends Model {
 		startDate = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, Integer.parseInt(startMonth), Integer.parseInt(startDay), hours, minutes);	
 	}
 	
+	/*
+	 * Set ending date if the event (optional call)
+	 */
 	public void setEndDate(){
 		int minutes = 0;
 		int hours = 0;
