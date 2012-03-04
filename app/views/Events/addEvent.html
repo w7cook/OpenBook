@@ -160,7 +160,7 @@ To Do: form to create event:
 				<td></td>
 					<td><label>Date:</label></td>
 					
-					<td><select name = curEvent.endDate>
+					<td><select name = curEvent.endMonth>
 							<option value="-1" selected="selected"> </option>
 							<option value="0">Jan</option>
 							<option value="1">Feb</option>
@@ -289,7 +289,8 @@ To Do: form to create event:
 
 <tr>
 
-<td colspan=3><a class=button  href="@{Events.editEvent()}">Create </a>
+<td colspan=3><input type=submit value=Create> <input
+			type=submit value=Cancel /> 
 			#{ifErrors}
 			<ul style="color:red">
 			#{errors}<li>${error}</li> #{/errors} 

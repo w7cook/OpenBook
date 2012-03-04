@@ -21,7 +21,9 @@ public class Event extends Model {
 	public EventInvite invitedUsers;
 	//possible friends to invite handled in EventInvite
 	*/
-	public String StartMonth;
+	public String startMonth;
+	public String endMonth;
+	
 	public String eventName;
 	public String eventScript;
 	public Calendar startDate;
