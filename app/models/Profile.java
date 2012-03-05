@@ -40,7 +40,7 @@ public class Profile extends Model {
   // partnership
   public String religion; // The user's religion
   
-  // @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
   public List<Enrollment> education; // A list of the user's education
   // history
   
