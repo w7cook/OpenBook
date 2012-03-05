@@ -27,7 +27,7 @@ GET     /checkin/at                             Checkin.at
 *       /users/{anything}/photos/?              Application.notFound
 
 # Comments
-GET		/										Comments.comments
+GET		/                                       Comments.comments
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
