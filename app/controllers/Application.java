@@ -121,13 +121,13 @@ public class Application extends OBController {
         user.middle_name = update.middle_name;
         if (given(name))
           name += " ";
-        name += user.first_name;
+        name += user.middle_name;
       }
       if (given(update.last_name)) {
         user.last_name = update.last_name;
         if (given(name))
           name += " ";
-        name += user.first_name;
+        name += user.last_name;
       }
       user.name = name;
       user.username = update.username;
@@ -138,7 +138,7 @@ public class Application extends OBController {
       account();
     }
   }
-
+  
   public static void edit_basic() {
     long userID = 1;
     User user = User.findById(userID);
@@ -154,18 +154,6 @@ public class Application extends OBController {
   public static void search(String query) {
     // not implemented yet
   }
-
-  public static void deleteComment(Long id, Long userId) {
-    Comment c = Comment.findById(id);
-    c.delete();
-    news(userId);
-  }
-
-  public static void postComment(Long commentableId, String author, String content) {
-    Commentable parent = Commentable.findById(commentableId);
-    parent.addComment(author, content);
-  }
-
 
   public static void notFound() {
     response.status = Http.StatusCode.NOT_FOUND;

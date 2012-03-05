@@ -11,7 +11,7 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
-GET    /stylesheets/main.css                    Skins.stylesheet
+GET     /stylesheets/main.css                   Skins.stylesheet
 
 # Photos
 GET     /photos/?                               Photos.photos(ownerId:'null')
@@ -20,14 +20,38 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+#Account
+#GET     /users/?                                #Get a list of all users
+#POST    /users/?                                #Add / update a user
+#GET     /users/{<[0-9]+>userId}                 #Get account info for a specific user
+#DELETE  /users/{<[0-9]+>userId}                 #Delete a user
+
+#Posts
+#GET     /posts/?                                #Get all posts
+#POST    /posts/?                                #Add/update post
+#GET     /posts/{<[0-9]+>postId}                 #Get a specific post
+#DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
+#GET     /users/{<[0-9]+>userId}/posts/?         #get all posts by a user
+
+#Comments
+#GET     /comment/?                              #Get all comments
+#GET     /comment/{<[0-9]+>commentId}            #Get a specific comment
+#DELETE  /comment/{<[0-9]+>commentId}            #Delete a comment
+#GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
+#POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
+#GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
+
+
 
 # Checkin
 GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at
+GET     /checkin/at                             Checkin.at #what is this?  maybe should be post
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
 
+# Comments
+GET		/                                       Comments.comments
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

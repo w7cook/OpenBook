@@ -85,6 +85,16 @@ User(jeff):
     anniversary:        2010-12-2
     skin:               DEFAULT
 
+User(gparker):
+    first_name:         Geoffrey
+    last_name:          Parker
+    username:           gparker
+    name:               Geoffrey Parker
+    email:              grp@gparker.co
+    password:           password
+    isAdmin:            true
+    skin:               DEFAULT
+
 Relationship(s1):
     from:       bob
     to:         bob
