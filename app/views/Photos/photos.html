@@ -1,4 +1,11 @@
 #{extends 'main.html' /}
+#{ifErrors}
+<ul class="errors">
+  #{errors}
+    <li>${error}</li>
+  #{/errors}
+</ul>
+#{/ifErrors}
 <ul class="photo-list">
   #{list items:photos, as:'photo' }
     <li>

@@ -3,6 +3,7 @@ package controllers;
 import java.util.*;
 import java.io.*;
 import play.*;
+import play.data.validation.Error;
 import play.libs.*;
 import play.mvc.*;
 import play.db.jpa.*;
@@ -55,21 +56,22 @@ public class Photos extends OBController {
   public static void addPhoto(File image) throws FileNotFoundException {
     Photo photo = fileToPhoto(image);
 
-    if (!photo.image.type().matches(IMAGE_TYPE)) {
-      redirect("/users/" + photo.owner.id + "/photos");
-    }
-    if (photo.image.length() > MAX_FILE_SIZE) {
-      redirect("/users/" + photo.owner.id + "/photos");
-    }
+    validation.match(photo.image.type(), IMAGE_TYPE);
+    validation.max(photo.image.length(), MAX_FILE_SIZE);
 
-    photo.save();
+    if (validation.hasErrors()) {
+      validation.keep(); /* Remember errors after redirect. */
+    } else {
+      photo.save();
+    }
     redirect("/users/" + photo.owner.id + "/photos");
   }
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    if (photo.owner.equals(user()))
+    if (photo.owner.equals(user())) {
       photo.delete();
+    }
     redirect("/photos");
   }
 }
