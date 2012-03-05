@@ -5,8 +5,8 @@
 /logs
 /eclipse
 /data
-/.settings
 /.classpath
+/.settings
 /.project
 *.swp
 *~
