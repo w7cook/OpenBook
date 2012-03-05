@@ -50,6 +50,8 @@ GET     /checkin/at                             Checkin.at
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
 
+# Comments
+GET		/                                       Comments.comments
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
