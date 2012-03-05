@@ -1,4 +1,9 @@
+package unit;
+
 import org.junit.*;
+
+import controllers.Application;
+
 import java.util.*;
 import play.test.*;
 import models.*;
@@ -109,11 +114,10 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 		User jeff = new User("jeff@gmail.com", "secret", "Jeff").save();
 		
-		// Create a new status message
-		Status bobstatus1 = new Status(bob, "I just had lunch").save();
-		Status bobstatus2 = new Status(bob, "It wasn't too good").save();
+		new Status(bob, "I just had lunch").save();
+		new Status(bob, "It wasn't too good").save();
 		
-		Status jeffstatus = new Status(jeff, "Dude, I agree!").save();
+		new Status(jeff, "Dude, I agree!").save();
 		
 		// Retrieve all status updates
 		List<Status> allStatus = Status.findAll();
@@ -214,8 +218,11 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 
 		// Create a new post
-		Post bobPost = new Post(bob, "My first post", "Hello world").save();
-		Post anotherBobPost = new Post(bob, "Hop", "Hello world").save();
+		new Post(bob, "My first post", "Hello world").save();
+		new Post(bob, "Hop", "Hello world").save();
+		
+		List<Post> bobPosts = Post.find("byAuthor", bob).fetch();
+		assertEquals(2, bobPosts.size());
 
 	}
 }

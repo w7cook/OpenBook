@@ -1,38 +1,24 @@
 #{extends 'main.html' /} 
 #{form @Application.account_save()}
 <table>
+  <tr>
+    <td class=section width=15%>Name</td>
+    <td>
+      <table>
 	<tr>
-		<td class=section width=15%>Name</td>
-		<td>
-			<table>
-				<tr>
-					<td><label>First:</label></td>
-					<td><input type=text name=update.first_name
-						value="${currentUser.first_name}" />
-					</td>
-				</tr>
-				<tr>
-					<td><label>Middle:</label></td>
-					<td><input type=text name=update.middle_name
-						value="${currentUser.middle_name}" />
-					</td>
-				</tr>
-				<tr>
-					<td><label>Last:</label></td>
-					<td><input type=text name=update.last_name
-						value="${currentUser.last_name}" />
-					</td>
-				</tr>
-			</table></td>
+	  <td><label>First:</label></td>
+	  <td><input type=text name=update.first_name
+		     value="${currentUser.first_name}" />
+	  </td>
 	</tr>
 	<tr>
-		<td><label>Username: 
-		</td>
-		<td><input type=text name=update.username
-			value="${currentUser.username}" />
-		</td>
+	  <td><label>Middle:</label></td>
+	  <td><input type=text name=update.middle_name
+		     value="${currentUser.middle_name}" />
+	  </td>
 	</tr>
 	<tr>
+<<<<<<< HEAD
 		<td><label>Email: 
 		</td>
 		<td><input type=text name=update.email value="${currentUser.email}" />
@@ -62,7 +48,53 @@
 			</ul>                     
 			#{/ifErrors}
 		</td>
+=======
+	  <td><label>Last:</label></td>
+	  <td><input type=text name=update.last_name
+		     value="${currentUser.last_name}" />
+	  </td>
+>>>>>>> 2d3bdaea0404763e429397212b42f6da3aad3c34
 	</tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><label>Username: 
+    </td>
+    <td><input type=text name=update.username
+	       value="${currentUser.username}" />
+    </td>
+  </tr>
+  <tr>
+    <td><label>Email: 
+    </td>
+    <td><input type=text name=update.email value="${currentUser.email}" />
+    </td>
+  </tr>
+  <tr>
+    <td><label>New password: 
+    </td>
+    <td><input type=password name=update.password />
+    </td>
+  </tr>
+</tr>
+<td colspan=3><label>To save these settings, please enter
+    your password: 
+</tr>
+<tr>
+  <td><label>Password:</label>
+  </td>
+  <td><input type=password name=old_password /></td>
+</tr>
+<tr>
+  <td colspan=3><input type=submit value=Save> <input
+			                          type=submit value=Cancel /> 
+    #{ifErrors}
+    <ul style="color:red">
+      #{errors}<li>${error}</li> #{/errors} 
+    </ul>
+    #{/ifErrors}
+  </td>
+</tr>
 </table>
 #{/form}
 

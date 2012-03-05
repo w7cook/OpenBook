@@ -9,32 +9,22 @@ import play.db.jpa.*;
 
 @Entity
 public class UserPage extends Model {
-	public String title;
-	public Long admin;
-	public String info;
-	public ArrayList<Comment> comments;
 	
+	@ManyToOne
+	public Page page;
 
-	//public List<User> fans;
+	@ManyToOne
+	public User fan;
+	
+	public UserPage(Page pagina, User user){
+		this.page = pagina;
+		this.fan = user;
+	}
 	
 	public UserPage(){
-		this.comments = new ArrayList<Comment>();
 	}
 	
-	public UserPage(User admin, String name, String info){
-		this.comments = new ArrayList<Comment>();
-		this.title = name;
-		this.admin = admin.id;
-		this.info = info;
-	}
-	
-	public void setData(User admin, String title, String info){
-		this.title = title;
-		this.admin = admin.id;
-		this.info = info;
-	}
-	
-	public void update(String info){
-		this.info = info;
+	public Page getPage(){
+		return this.page;
 	}
 }

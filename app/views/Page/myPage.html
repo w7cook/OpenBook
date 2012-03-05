@@ -1,21 +1,24 @@
 #{extends 'main.html' /}
 
 <div id = "page">
-	#{if page.title == null}
-		#{form @Page.savePage()}
+	#{if newPage == null}
+		#{form @Pages.savePage()}
 			<div width=15%>Title:</div>
 			<div><input type=text name=title value="" /></div>
 			<div><label>Info:</label></div>
 			<div>
 				<textarea name=info cols="60" rows="10" value = "">				
 				</textarea>
-				</div>		
-				<div><input type=submit value=Save> <input type=submit value=Cancel /> 
+			</div>		
+			<div>
+				<input type=submit value=Save>
+				<input type=submit value=Cancel /> 
 			</div>
 		#{/form}
 	#{/if}
-	#{else}		
-			<div width=15% name="title">${page.title}</div>
+	#{else}
+		
+			<div width=15% name=title>${page.title}</div>
 			<div id="viewAsFan">view as fan</div>
 			<div><label>Info:</label></div>
 			<div>
@@ -24,9 +27,10 @@
 				</textarea>
 			</div>		
 			<div>
-				<input type=submit value=Update onclick="${page.update(page.info)}"> 
+				<input type=submit value=Update onclick="@{update(info)}"> 
 				<input type=submit value=Cancel /> 
 			</div>
+
 	#{/else}
 </div>
 
