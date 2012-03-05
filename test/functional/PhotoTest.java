@@ -31,11 +31,11 @@ public class PhotoTest extends FunctionalTest {
    */
   @Before
   public void setup() {
-		Fixtures.deleteDatabase();
+    Fixtures.deleteDatabase();
 
-		/* Create a new user and save it. */
-		this.user = new User(EMAIL, PASSWORD, USERNAME).save();
-		assertEquals(1, User.findAll().size());
+    /* Create a new user and save it. */
+    this.user = new User(EMAIL, PASSWORD, USERNAME).save();
+    assertEquals(1, User.findAll().size());
 
     /* Log in the user. */
     Map<String,String> parameters = this.setupParameters();
