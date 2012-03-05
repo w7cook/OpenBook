@@ -4,10 +4,10 @@
 /test-result
 /logs
 /eclipse
-.classpath
+/data
 /.settings
+/.classpath
+/.project
 *.swp
 *~
 *.log
-data/
-.project
