@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
+import controllers.Messages;
 import controllers.Skins;
 import play.db.jpa.*;
 import play.libs.Crypto;
@@ -93,6 +94,10 @@ public class User extends Model {
     return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1", login).first();
   }
 
+  public List<Message> inbox() {
+    return Message.find("SELECT m FROM Message m WHERE m.author = ? OR m.recipient = ?", this, this).fetch();
+  }
+  
   public List<Post> news() {
     return Post.find(
                      "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?)",

@@ -38,6 +38,8 @@
       #{/elseif}
       <br> Create Message
       <h3>Messages</h3>
+      #{list items:user.inbox(), as:'message'}
+      #{/list}
       #{list items:user.news(), as:'item'}
         <div class="post">
           <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,

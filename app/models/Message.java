@@ -20,13 +20,17 @@ public class Message extends Model{
   public User author;
   
   @ManyToOne
-  public User recepient; 
+  public User recipient; 
 
-  public Message(User author, User recepient, String title, String content) {
+  public List<Message> allMessages;
+  
+  public Message(User author, User recipient, String title, String content) {
     this.author = author;
-    this.recepient = recepient;
+    this.recipient = recipient;
     this.title = title;
     this.content = content;
     this.date = new Date();
   }
+  
+  
 }

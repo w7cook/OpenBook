@@ -16,5 +16,10 @@ public class Messages extends OBController {
     User user = user();
     render(user);
   }
+  
+  public static void sendMessage(User author, User recipient, String title, String content) {
+    Message m = new Message(author, recipient, title, content);
+    
+  }
 
 }
