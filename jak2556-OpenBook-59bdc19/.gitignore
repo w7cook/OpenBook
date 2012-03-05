@@ -1,0 +1,13 @@
+/tmp
+/modules
+/lib
+/test-result
+/logs
+/eclipse
+.classpath
+/.settings
+*.swp
+*~
+*.log
+data/
+.project

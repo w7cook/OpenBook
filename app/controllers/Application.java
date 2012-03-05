@@ -155,7 +155,7 @@ public class Application extends Controller {
       account();
     }
   }
-
+  
   public static void edit_basic() {
     long userID = 1;
     User user = User.findById(userID);
@@ -170,17 +170,6 @@ public class Application extends Controller {
 
   public static void search(String query) {
     // not implemented yet
-  }
-
-  public static void deleteComment(Long id, Long userId) {
-    Comment c = Comment.findById(id);
-    c.delete();
-    news(userId);
-  }
-
-  public static void postComment(Long commentableId, Long userId, String content) {
-    ((Commentable) Commentable.findById(commentableId)).addComment(user().first_name, content);
-    news(userId);
   }
 
   public static void notFound() {
