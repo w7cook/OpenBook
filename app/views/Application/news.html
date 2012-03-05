@@ -1,7 +1,6 @@
 #{extends 'main.html' /}
 <table>
   <tr>
-<<<<<<< HEAD
   <td>
      [Picture]
      ${user.email}
@@ -38,7 +37,6 @@
 
      <h3>Blog Posts</h3>
      #{list items:user.news(), as:'item'}
-=======
     <td>
       [Picture]
       ${user.email}
@@ -73,7 +71,6 @@
       
       <h3>Blog Posts</h3>
       #{list items:user.news(), as:'item'}
->>>>>>> 58dc05a022de36fbfec1c0ffa71891f99b9d7b79
         <div class="post">
           <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
           <span class="post-date">${item.date.format('dd MMM yy')}</span>

@@ -2,7 +2,6 @@ package models;
 
 import java.util.*;
 import javax.persistence.*;
-//necessary?
 import play.data.validation.*;
 
 import controllers.Events;
@@ -34,7 +33,7 @@ public class Event extends Model {
 	public Date endDate;
 	
 	public String eventLocation;
-	public String p; //privacy settings
+	public String privelage; 
 	public boolean open = false;
 	public boolean friends = false;
 	public boolean inviteOnly = false;
