@@ -1,7 +1,10 @@
 package controllers;
 import java.util.*;
+import java.io.*;
 import play.*;
+import play.libs.*;
 import play.mvc.*;
+import play.db.jpa.*;
 import models.*;
 
 @With(Secure.class)
@@ -37,13 +40,19 @@ public class Photos extends OBController {
     }
   }
 
-  public static void addPhoto(Photo photo) {
+  public static void addPhoto(File image) throws FileNotFoundException {
+    Photo photo = new Photo();
+    photo.image = new Blob();
+    photo.image.set(new FileInputStream(image),
+                    MimeTypes.getContentType(image.getName()));
+
     User current = user();
     if (photo.image == null ||
-        photo.image.length() > MAX_FILE_SIZE ||
-        !photo.image.type().matches(IMAGE_TYPE)) {
+        !photo.image.type().matches(IMAGE_TYPE) ||
+        photo.image.length() > MAX_FILE_SIZE) {
       redirect("/users/" + current.id + "/photos");
     }
+
     photo.owner = current;
     photo.postedAt = new Date();
     photo.save();

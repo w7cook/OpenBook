@@ -1,6 +1,7 @@
 package functional;
 
 import org.junit.*;
+import org.junit.Before;
 import java.util.*;
 import java.io.*;
 import play.test.*;
@@ -13,36 +14,105 @@ import controllers.*;
 
 public class PhotoTest extends FunctionalTest {
 
-  @Test
-  public void test() {
+  /* Test constants. */
+  public static final String USERNAME = "username";
+  public static final String PASSWORD = "password";
+  public static final String EMAIL = "email@email.com";
+
+  public static final String FILENAME_GOOD_GIF = "/test/data/plant.gif";
+  public static final String FILENAME_GOOD_JPG = "/test/data/plant.jpg";
+  public static final String FILENAME_BAD_PNG = "/test/data/plant.png";
+  public static final String FILENAME_BAD_TIFF = "/test/data/plant.tif";
+
+  public User user;
+
+  @Before
+  public void setup() {
 		Fixtures.deleteDatabase();
 
-		// Create a new user and save it
-		User user = new User("bob@gmail.com", "secret", "Bob").save();
+		/* Create a new user and save it. */
+		this.user = new User(EMAIL, PASSWORD, USERNAME).save();
 		assertEquals(1, User.findAll().size());
 
-    Map<String, String> parameters = new HashMap<String,String>();
-    parameters.put("authenticityToken", Scope.Session.current().getAuthenticityToken());
-    parameters.put("username", "bob@gmail.com");
-    parameters.put("password", "secret");
-    parameters.put("remember", "true");
+    /* Log in the user. */
+    Map<String,String> parameters = this.setupParameters();
+    parameters.put("username", EMAIL);
+    parameters.put("password", PASSWORD);
     Response response = POST("/login", parameters);
     assertNotNull(response);
     assertStatus(302, response);
-    assertHeaderEquals("Location","/", response);
+    assertHeaderEquals("Location", "/", response);
+  }
 
-    parameters = new HashMap<String,String>();
-    parameters.put("authenticityToken", Scope.Session.current().getAuthenticityToken());
-    File file = VirtualFile.fromRelativePath("/test/test.gif").getRealFile();
-    Map<String, File> files = new HashMap<String, File>();
-    files.put("photo.image", file);
+  /**
+   * Initialize the key-value parameters for a POST command with the auth token
+   * from the current session.
+   *
+   * @return A map containing a single entry, the authenticity token.
+   */
+  private Map<String,String> setupParameters() {
+    Map<String, String> parameters = new HashMap<String,String>();
+    parameters.put("authenticityToken",
+                   Scope.Session.current().getAuthenticityToken());
+    return parameters;
+  }
 
-    response = POST("/photos", parameters, files);
+  /**
+   * Initialize the key-value parameters for a POST command with the given file
+   * as the only parameter.
+   *
+   * @return A map containing a single entry, the file for upload.
+   */
+  private Map<String,File> setupUpload(String filename) {
+    File image = VirtualFile.fromRelativePath(filename).getRealFile();
+    Map<String,File> files = new HashMap<String,File>();
+    files.put("image", image);
+    return files;
+  }
+
+  @Test
+  public void testGoodUploads() {
+    Response response = POST("/photos",
+                             this.setupParameters(),
+                             this.setupUpload(FILENAME_GOOD_GIF));
     assertNotNull(response);
     assertStatus(302, response);
-    assertHeaderEquals("Location", "/users/" + user.id + "/photos", response);
+    assertHeaderEquals("Location",
+                       "/users/" + this.user.id + "/photos",
+                       response);
+    assertEquals(1, Photo.count());
 
-    Collection<Photo> photos = Photo.findAll();
-    assertEquals(1, photos.size());
+    response = POST("/photos",
+                    this.setupParameters(),
+                    this.setupUpload(FILENAME_GOOD_JPG));
+    assertNotNull(response);
+    assertStatus(302, response);
+    assertHeaderEquals("Location",
+                       "/users/" + this.user.id + "/photos",
+                       response);
+    assertEquals(2, Photo.count());
+  }
+
+  @Test
+  public void testBadUploads() {
+    Response response = POST("/photos",
+                             this.setupParameters(),
+                             this.setupUpload(FILENAME_BAD_PNG));
+    assertNotNull(response);
+    assertStatus(302, response);
+    assertHeaderEquals("Location",
+                       "/users/" + this.user.id + "/photos",
+                       response);
+    assertEquals(0, Photo.count());
+
+    response = POST("/photos",
+                    this.setupParameters(),
+                    this.setupUpload(FILENAME_BAD_TIFF));
+    assertNotNull(response);
+    assertStatus(302, response);
+    assertHeaderEquals("Location",
+                       "/users/" + this.user.id + "/photos",
+                       response);
+    assertEquals(0, Photo.count());
   }
 }
