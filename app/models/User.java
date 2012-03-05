@@ -3,10 +3,16 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import org.elasticsearch.index.query.QueryBuilders;
+
 import controllers.Application;
-
+import controllers.Users;
 import play.db.jpa.*;
+import play.modules.elasticsearch.*;
+import play.modules.elasticsearch.annotations.ElasticSearchable;
+import play.modules.elasticsearch.search.SearchResults;
 
+@ElasticSearchable
 @Entity
 public class User extends Model {
 
@@ -19,7 +25,7 @@ public class User extends Model {
   // Code)
 
   public String username; // The user's username
-  public float timezone; // The user's timezone offset from UTC
+  public double timezone; // The user's timezone offset from UTC
   public Date updated_time; // The last time the user's profile was updated;
   // changes to the
   // languages, link, timezone, verified,
@@ -96,8 +102,8 @@ public class User extends Model {
    * @return a string representing the status
    */
   public String checkFriendship(Long id) {
-    User current = Application.user();
-    if (Application.user().id == id) {
+    User current = Users.user();
+    if (Users.user().id == id) {
       return "";
     }
     Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
@@ -129,5 +135,5 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
-
+  
 }

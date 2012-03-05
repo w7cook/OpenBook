@@ -5,6 +5,10 @@
 # Import Secure routes
 *       /                                       module:secure
 
+GET     /users/search                           UserSearch.search
+POST    /users/search                           UserSearch.search
+
+
 # Home page
 GET     /                                       Application.news
 
