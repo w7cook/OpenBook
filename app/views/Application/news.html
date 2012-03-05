@@ -48,9 +48,10 @@
             <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
         #{/if}
         <div class="post-content">
+
             ${item.content.nl2br()}
-            </div>
-        #{list items:item.comments(), as:'comment'}
+          </div>
+          #{list items:item.comments(), as:'comment'}
             <div class="comment">
                 <div class="comment-metadata">
                     <span class="comment-author">by ${comment.author},</span>

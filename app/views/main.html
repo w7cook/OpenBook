@@ -1,5 +1,6 @@
 <!DOCTYPE html >
 <html>
+<<<<<<< HEAD
 <head>
 <title>#{get 'title' /}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -28,4 +29,32 @@
 	   </div>
 	</div>
 </body>
+=======
+  <head>
+    <title>#{get 'title' /}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="@{Skins.stylesheet()}" />
+    <link rel="shortcut icon" type="image/png"
+          href="@{'/public/images/favicon.png'}" />
+  </head>
+  <body>
+    <header>
+      <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
+      <input type="text" name="query" />
+      Hello 
+      <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
+      <a style="float:right" href="@{Secure.logout()}">Logout</a>
+    </header>
+    <section id="main">
+      #{doLayout /}
+    </section>
+    <hr>
+    <footer>
+      <span class="logo">openbook</span> is a 
+      <a href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class project</a>
+      to create a simple social networking web site
+    </footer>
+  </body>
+>>>>>>> upstream/master
 </html>
