@@ -8,9 +8,11 @@ import models.*;
 public class Photos extends OBController {
 
   /* All possible image mime types in a single regex. */
-  public static String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
+  public static final String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
+  public static final String TEST_IMAGE_TYPE = "^application/octet-stream; " +
+                                               "charset=ISO-8859-1$";
 
-  public static int MAX_FILE_SIZE = 200 * 1024;  /* Max size in bytes. */
+  public static final int MAX_FILE_SIZE = 300 * 1024;  /* Max size in bytes. */
 
   public static void photos(Long ownerId) {
     List<Photo> photos;
