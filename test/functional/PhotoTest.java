@@ -21,8 +21,8 @@ public class PhotoTest extends FunctionalTest {
 
   public static final String FILENAME_GOOD_GIF = "/test/data/plant.gif";
   public static final String FILENAME_GOOD_JPG = "/test/data/plant.jpg";
-  public static final String FILENAME_BAD_PNG = "/test/data/plant.png";
-  public static final String FILENAME_BAD_TIFF = "/test/data/plant.tif";
+  public static final String FILENAME_BAD_SIZE = "/test/data/plant.png";
+  public static final String FILENAME_BAD_TYPE = "/test/data/plant.tif";
 
   public User user;
 
@@ -100,7 +100,7 @@ public class PhotoTest extends FunctionalTest {
   public void testBadUploads() {
     Response response = POST("/photos",
                              this.setupParameters(),
-                             this.setupUpload(FILENAME_BAD_PNG));
+                             this.setupUpload(FILENAME_BAD_SIZE));
     assertNotNull(response);
     assertStatus(302, response);
     assertHeaderEquals("Location",
@@ -110,7 +110,7 @@ public class PhotoTest extends FunctionalTest {
 
     response = POST("/photos",
                     this.setupParameters(),
-                    this.setupUpload(FILENAME_BAD_TIFF));
+                    this.setupUpload(FILENAME_BAD_TYPE));
     assertNotNull(response);
     assertStatus(302, response);
     assertHeaderEquals("Location",
