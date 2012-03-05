@@ -172,6 +172,20 @@ public class Application extends Controller {
     // not implemented yet
   }
 
+<<<<<<< HEAD
+=======
+  public static void deleteComment(Long id, Long userId) {
+    Comment c = Comment.findById(id);
+    c.delete();
+    news(userId);
+  }
+
+  public static void postComment(Long commentableId, Long userId, String content) {
+    ((Commentable) Commentable.findById(commentableId)).addComment(user().first_name, content);
+    news(userId);
+  }
+
+>>>>>>> 59bdc19520a807a1ca2dc355ab376539c6f80f46
   public static void notFound() {
     response.status = Http.StatusCode.NOT_FOUND;
     renderText("");
