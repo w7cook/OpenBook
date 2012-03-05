@@ -26,6 +26,9 @@ public class PhotoTest extends FunctionalTest {
 
   public User user;
 
+  /**
+   * Setup a new database with a single user, then perform an actual login.
+   */
   @Before
   public void setup() {
 		Fixtures.deleteDatabase();
