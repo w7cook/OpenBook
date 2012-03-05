@@ -11,7 +11,7 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
-GET    /stylesheets/main.css                    Skins.stylesheet
+GET     /stylesheets/main.css                   Skins.stylesheet
 
 # Photos
 GET     /photos/?                               Photos.photos(ownerId:'null')
@@ -19,6 +19,12 @@ POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+
+#Account
+#GET     /users/?                                #Get a list of all users
+#POST    /users/?                                #Add / update a user
+#GET     /users/{<[0-9]+>userId}                 #Get account info for a specific user
+#DELETE  /users/{<[0-9]+>userId}                 #Delete a user
 
 #Posts
 #GET     /posts/?                                #Get all posts
@@ -39,7 +45,7 @@ GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
 # Checkin
 GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at
+GET     /checkin/at                             Checkin.at #what is this?  maybe should be post
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
