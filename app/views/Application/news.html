@@ -32,12 +32,20 @@
 		  	Remove friend
 		</a>
 	#{/elseif}
-
+	#{if user.id == currentUser.id}
+	   #{form @Posts.newPost(user.id)}
+            <textarea name="post_content" id="post_content"></textarea>
+            <input type="submit" value="Post" />
+       #{/form}
+    #{/if}
      <h3>Blog Posts</h3>
      #{list items:user.news(), as:'item'}
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
         <span class="post-date">${item.date.format('dd MMM yy')}</span>
+        #{if user.id == currentUser.id}
+            <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
+        #{/if}
         <div class="post-content">
             ${item.content.nl2br()}
             </div>
@@ -47,7 +55,9 @@
                     <span class="comment-author">by ${comment.author},</span>
                     <span class="comment-date">
                         ${comment.date.format('dd MMM yy')}
-                    <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                    #{if comment.author == currentUser.first_name}
+                        <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                    #{/if}
                     </span>
                 </div>
                 <div class="comment-content">

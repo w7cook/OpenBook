@@ -3,7 +3,6 @@
 html, body {
     font-family: Helvetica, Arial, Sans !important;
 }
-
 body {
 	 margin: 0;
 }
@@ -19,13 +18,22 @@ body {
   font-family: helvetica;
 }
 
-#header {
-	background-color: #CC5500;
-  padding: 0;
-}
+#content {
+        height : 100% ;
+        overflow : auto ;
+      }
 
+#header {
+        background-color: #CC5500;
+        position : fixed ;
+        top : 0px ;
+        width : 100% ;
+      }
+      
 #main {
 	margin: 0px 0px 10px 20px;
+	width: 980px;
+	align: center;
 }
 
 #footer {

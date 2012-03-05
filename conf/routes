@@ -29,6 +29,9 @@ GET     /checkin/at                             Checkin.at
 # Comments
 GET		/                                       Comments.comments
 
+# Posts
+GET     /                                       Posts.posts
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

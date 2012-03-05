@@ -14,16 +14,18 @@
 		  <span id="logo" class="logo">Openbook</span>
 	  </a>
 		<input type="text" name="query" />
-    Hello 
-    <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
-    <a style="float:right" href="@{Secure.logout()}">Logout</a>
-	</div>
-	<div id="main">#{doLayout /}</div>
-	<hr>
-	<div id="footer">
+        Hello 
+        <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
+        <a style="float:right" href="@{Secure.logout()}">Logout</a>
+	   </div>
+	<div id="content">
+	   <div id="main">#{doLayout /}</div>
+	   <hr>
+	   <div id="footer">
 		<span class=logo>openbook</span> is a <a
 			href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class
 			project</a> to create a simple social networking web site
+	   </div>
 	</div>
 </body>
 </html>
