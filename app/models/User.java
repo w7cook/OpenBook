@@ -43,9 +43,6 @@ public class User extends Model {
   public Date anniversary; // date of anniversary
   public String website; // The URL of the user's personal website
 
-  @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-  public List<UserPage> pages; // The user's languages
-  
   // not implemented yet!!
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   public List<UserLanguage> languages; // The user's languages
@@ -151,4 +148,8 @@ public class User extends Model {
       return false;
     return username.equals(((User) obj).username);
   }
+  
+  public List getPages(){
+		return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this.email).fetch();
+	}
 }

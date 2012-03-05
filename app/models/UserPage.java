@@ -21,9 +21,6 @@ public class UserPage extends Model {
 		this.fan = user;
 	}
 	
-	public UserPage(){
-	}
-	
 	public Page getPage(){
 		return this.page;
 	}

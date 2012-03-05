@@ -1,0 +1,7 @@
+#{extends 'main.html' /}
+<div id = "page">
+	#{list items:pageList, as:'page' }
+  	<a href="@{Pages.display(page)}">${page.title}
+  	<br>
+  #{/list}
+</div>

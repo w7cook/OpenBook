@@ -1,8 +1,7 @@
 #{extends 'main.html' /}
-
-<div id = "page">
-	#{if newPage == null}
-		#{form @Pages.savePage()}
+<div id = "myPage">
+	#{if page == null}
+		#{form @makePage(title,info)}
 			<div width=15%>Title:</div>
 			<div><input type=text name=title value="" /></div>
 			<div><label>Info:</label></div>
@@ -11,27 +10,25 @@
 				</textarea>
 			</div>		
 			<div>
-				<input type=submit value=Save>
-				<input type=submit value=Cancel /> 
+			<input type=submit value=Save>
+			<input type=submit value=Cancel /> 
 			</div>
 		#{/form}
 	#{/if}
-	#{else}
-		
-			<div width=15% name=title>${page.title}</div>
-			<div id="viewAsFan">view as fan</div>
+	#{else}		
+		#{form @savePage(page.title,info)}
+			<div id="pageTitle" name=title>${page.title}</div>
+			<div>view as fan</div>
 			<div><label>Info:</label></div>
 			<div>
-				<textarea name=info cols="60" rows="10" value="${page.info}">
+				<textarea name=info cols="60" rows="10">
 					${page.info}
 				</textarea>
 			</div>		
 			<div>
-				<input type=submit value=Update onclick="@{update(info)}"> 
+				<input type=submit value=Update> 
 				<input type=submit value=Cancel /> 
 			</div>
-
+		#{/form}
 	#{/else}
 </div>
-
-

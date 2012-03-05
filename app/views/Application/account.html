@@ -18,7 +18,6 @@
 	  </td>
 	</tr>
 	<tr>
-<<<<<<< HEAD
 		<td><label>Email: 
 		</td>
 		<td><input type=text name=update.email value="${currentUser.email}" />
@@ -48,12 +47,10 @@
 			</ul>                     
 			#{/ifErrors}
 		</td>
-=======
 	  <td><label>Last:</label></td>
 	  <td><input type=text name=update.last_name
 		     value="${currentUser.last_name}" />
 	  </td>
->>>>>>> 2d3bdaea0404763e429397212b42f6da3aad3c34
 	</tr>
     </table></td>
   </tr>
@@ -99,12 +96,10 @@
 #{/form}
 
 <div id="myPages">
-
-			#{list items:pages, as:'page'}
-			<a href = "@{Page.display(page)}">${page.title}
-		#{/list}
-
-	#{else}
-		<a href="@{Page.newPage()}"> Create a Page!
-	#{/else}
+	#{if currentUser.getPages().size() > 0}
+		#{list items:currentUser.pages, as:'page' }
+        <a href="@{Pages.display(page)}">${page.title}
+    #{/list}
+	#{/if}
+		<a href="@{Pages.newPage()}"> Create a Page!
 </div>

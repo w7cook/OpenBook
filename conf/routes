@@ -35,7 +35,8 @@ GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
 #GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
 
-
+#Pages
+#GET 		/pages/display														#Pages.savePage
 
 # Checkin
 GET     /checkin                                Checkin.checkin
