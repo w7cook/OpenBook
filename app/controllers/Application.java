@@ -182,6 +182,20 @@ public class Application extends Controller {
     Commentable parent = Commentable.findById(commentableId);
     parent.addComment(author, content);
   }
+  
+  public static void like(Long commentId, Long userId) {
+    User user = User.findById(userId);
+    Comment c = Comment.findById(commentId);
+    c.addLikes(c, user);
+    news(userId);
+  }
+  
+  public static void unlike(Long commentId, Long userId) {
+    User user = User.findById(userId);
+    Comment c = Comment.findById(commentId);
+    c.removeLikes(c, user);
+    news(userId);
+  }
 
   public static void notFound() {
     response.status = Http.StatusCode.NOT_FOUND;

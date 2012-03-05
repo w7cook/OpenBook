@@ -48,7 +48,16 @@
                     <span class="comment-date">
                         ${comment.date.format('dd MMM yy')}
                     <a class=button href="@{Application.deleteComment(comment.id,user.id)}">delete</a>
+                    #{if comment.currentUserLiked()}
+                      <a class=button href="@{Application.unlike(comment.id,user.id)}"> Unlike</a>
+                    #{/if}
+                    #{else}
+                      <a class=button href="@{Application.like(comment.id,user.id)}"> Like</a>
+                    #{/else}
                     </span>
+                    <div> 
+                      <span > ${comment.allLikes.size()}  likes</span>
+                    </div>   
                 </div>
                 <div class="comment-content">
                     ${comment.content.escape().nl2br()}

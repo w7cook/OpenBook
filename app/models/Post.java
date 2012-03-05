@@ -19,8 +19,6 @@ public class Post extends Commentable {
 	@ManyToOne
 	public User author;
 
-
-
 	public List<Comment> comments() {
 		return Comment.find("parentObj = ? AND approved=FALSE", this).fetch();
 	}
