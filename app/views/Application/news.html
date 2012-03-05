@@ -65,10 +65,12 @@
                 </div>
             </div>
         #{/list}
-        #{form @Comments.postComment(item.id, user.id)}
-        	<textarea name="content" id="content"></textarea>
-        	<input type="submit" value="Comment" />
-		#{/form}
+        #{if user.checkFriendship(user.id) != 'Request Friendship'}
+            #{form @Comments.postComment(item.id, user.id)}
+        	   <textarea name="content" id="content"></textarea>
+        	   <input type="submit" value="Comment" />
+		  #{/form}
+		 #{/if}
     </div>
     #{/list}
   </td>
