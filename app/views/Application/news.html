@@ -43,7 +43,7 @@
         <div class="post">
         <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
         <span class="post-date">${item.date.format('dd MMM yy')}</span>
-        #{if user.id == currentUser.id}
+        #{if item.author == currentUser}
             <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
         #{/if}
         <div class="post-content">
