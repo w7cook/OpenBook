@@ -49,6 +49,10 @@ public class Application extends Controller {
    *
    * @param id the user to request friendship with
    */
+  public static void friendRequest(Long id) {
+	  new Relationship(user(), (User)User.findById(id), true).save();
+	  news(id);
+  }
   public static void requestFriends(Long id) {
     User user = user();
     User other = User.findById(id);

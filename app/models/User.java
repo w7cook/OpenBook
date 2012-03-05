@@ -72,7 +72,7 @@ public class User extends Model {
 
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
   public List<Relationship> friendedBy; // A list of the user's work history
-
+  
   public User(String email, String password, String username) {
     this.email = email;
     this.password = password;
@@ -86,7 +86,7 @@ public class User extends Model {
 
   public List<Post> news() {
     return Post.find(
-        "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?)",
+        "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?) order by Date desc",
         this.id, this.id).fetch();
   }
 
@@ -110,6 +110,14 @@ public class User extends Model {
         return "Friendship Requested";
       }
     }
+    if (r2 != null) {
+        if (r2.accepted) {
+          return "Friends";
+        }
+        if (r2.requested){
+          return "Friendship Requested";
+        }
+      }
     return "Request Friendship";
   }
 
@@ -128,6 +136,16 @@ public class User extends Model {
    */
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
+  }
+  
+  public boolean isFriendsWith(User user) {
+	  for(Relationship f: this.confirmedFriends()){
+		  if(f.to == this && f.from == user)
+			  return true;
+		  if(f.to == user && f.from == this)
+			  return true;
+	  }
+	  return false;
   }
 
 }
