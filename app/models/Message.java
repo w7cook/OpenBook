@@ -21,8 +21,6 @@ public class Message extends Model{
   
   @ManyToOne
   public User recipient; 
-
-  public List<Message> allMessages;
   
   public Message(User author, User recipient, String title, String content) {
     this.author = author;
@@ -32,5 +30,7 @@ public class Message extends Model{
     this.date = new Date();
   }
   
-  
+  public static void addMessage(Message m) {
+    m.save();
+  }
 }

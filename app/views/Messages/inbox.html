@@ -36,33 +36,23 @@
 	  Remove friend
         </a>
       #{/elseif}
-      <br> Create Message
+      <br> <a href ="@{Messages.create_message()}">Create Message</a>
       <h3>Messages</h3>
-      #{list items:user.inbox(), as:'message'}
-      #{/list}
-      #{list items:user.news(), as:'item'}
-        <div class="post">
-          <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
-          <span class="post-date">${item.date.format('dd MMM yy')}</span>
-          <div class="post-content">
-            ${item.content.nl2br()}
-          </div>
-          #{list items:item.comments(), as:'comment'}
-            <div class="comment">
-              <div class="comment-metadata">
-                <span class="comment-author">by ${comment.author},</span>
-                <span class="comment-date">
-                  ${comment.date.format('dd MMM yy')}
-                  <a class=button href="@{Application.deleteComment(comment.id,user.id)}">delete</a>
-                </span>
-              </div>
-              <div class="comment-content">
-                ${comment.content.escape().nl2br()}
-              </div>
-            </div>
-          #{/list}
+      #{list items:user.inbox(), as:'item'}
+      <div class ="message">
+        <span class ="message-author">Author: ${item.author.username}</span>
+        <div>
+          <span class ="message-recipient">Recipient: ${item.author.username}</span>
         </div>
-      #{/list}      
+        <span class ="message-date">${item.date.format('dd MMM yy')}</span>
+        <div class="post-title">
+         Title: ${item.title}
+        </div>
+        <div class="post-content">
+          ${item.content}
+        </div>
+      #{/list}
+        </div>     
       #{/if}
     </td>
   </tr>

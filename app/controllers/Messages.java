@@ -17,9 +17,17 @@ public class Messages extends OBController {
     render(user);
   }
   
-  public static void sendMessage(User author, User recipient, String title, String content) {
+  public static void create_message() {
+    User user = user();
+    render(user);
+  }
+  
+  public static void sendMessage(String recipientUsername, String title, String content) {
+    User author = user();
+    User recipient = User.getUser(recipientUsername);
     Message m = new Message(author, recipient, title, content);
-    
+    m.addMessage(m);
+    inbox();
   }
 
 }
