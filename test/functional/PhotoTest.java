@@ -43,7 +43,7 @@ public class PhotoTest extends FunctionalTest {
     parameters.put("password", PASSWORD);
     Response response = POST("/login", parameters);
     assertNotNull(response);
-    assertStatus(302, response);
+    assertStatus(Http.StatusCode.FOUND, response);
     assertHeaderEquals("Location", "/", response);
   }
 
@@ -79,7 +79,7 @@ public class PhotoTest extends FunctionalTest {
                              this.setupParameters(),
                              this.setupUpload(FILENAME_GOOD_GIF));
     assertNotNull(response);
-    assertStatus(302, response);
+    assertStatus(Http.StatusCode.FOUND, response);
     assertHeaderEquals("Location",
                        "/users/" + this.user.id + "/photos",
                        response);
@@ -89,7 +89,7 @@ public class PhotoTest extends FunctionalTest {
                     this.setupParameters(),
                     this.setupUpload(FILENAME_GOOD_JPG));
     assertNotNull(response);
-    assertStatus(302, response);
+    assertStatus(Http.StatusCode.FOUND, response);
     assertHeaderEquals("Location",
                        "/users/" + this.user.id + "/photos",
                        response);
@@ -102,7 +102,7 @@ public class PhotoTest extends FunctionalTest {
                              this.setupParameters(),
                              this.setupUpload(FILENAME_BAD_SIZE));
     assertNotNull(response);
-    assertStatus(302, response);
+    assertStatus(Http.StatusCode.FOUND, response);
     assertHeaderEquals("Location",
                        "/users/" + this.user.id + "/photos",
                        response);
@@ -112,7 +112,7 @@ public class PhotoTest extends FunctionalTest {
                     this.setupParameters(),
                     this.setupUpload(FILENAME_BAD_TYPE));
     assertNotNull(response);
-    assertStatus(302, response);
+    assertStatus(Http.StatusCode.FOUND, response);
     assertHeaderEquals("Location",
                        "/users/" + this.user.id + "/photos",
                        response);

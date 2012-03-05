@@ -11,7 +11,7 @@ public class ApplicationTest extends FunctionalTest {
   @Test
   public void testLoginRedirect() {
     Response response = GET("/");
-    assertStatus(302, response);
+    assertStatus(Http.StatusCode.FOUND, response);
     assertHeaderEquals("Location", "/login", response);
   }
 }
