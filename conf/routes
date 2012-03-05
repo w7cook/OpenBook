@@ -11,7 +11,7 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
-GET    /stylesheets/main.css                    Skins.stylesheet
+GET     /stylesheets/main.css                   Skins.stylesheet
 
 # Photos
 GET     /photos/?                               Photos.photos(ownerId:'null')
@@ -45,7 +45,7 @@ GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
 # Checkin
 GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at
+GET     /checkin/at                             Checkin.at #what is this?  maybe should be post
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
