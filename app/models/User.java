@@ -109,8 +109,8 @@ public class User extends Model {
     if (Application.user().id == id) {
       return "";
     }
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", current, this).first();
+    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ?1 AND r.to = ?2", current, this).first();
+    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ?1 AND r.from = ?2", current, this).first();
     if (r1 != null) {
       if (r1.accepted) {
         return "Friends";
