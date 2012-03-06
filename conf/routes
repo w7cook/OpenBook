@@ -11,7 +11,9 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
+#Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
+GET     /skin                                   Skins.skin
 
 # Photos
 GET     /photos/?                               Photos.photos
