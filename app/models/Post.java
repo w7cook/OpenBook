@@ -8,7 +8,7 @@ import controllers.Security;
 import play.db.jpa.*;
 
 @Entity
-public class Post extends Commentable {
+public class Post extends Status {
 
   public String title;
   public Date date;

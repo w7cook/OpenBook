@@ -9,95 +9,78 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-public class Status extends Commentable {
-/*
-* The reason status messages did not replace post is because post can still be
-* used as a blog post for a user. The idea is to use status messages as quick
-* news message.
-*/
-  private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b"); // A pattern to pull links (mentions and tags) from content
- 
+public class Status extends Model {
+
+  private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
+   
   @Required
   @ManyToOne
   public User author; // The User who authored the status update
   
   @Lob
-  @Required
-  @MaxSize(1000)
-  public String content; // The status update text
+  public String content;
   
-  public Date date; // The time when submitted
+  @OneToMany(mappedBy="status", cascade=CascadeType.ALL)
+  public List<Comment> comments;
   
-  public Status linked_object;  // Think Retweet
+  @OneToMany(mappedBy="status", cascade=CascadeType.ALL)
+  public List<Like> likes;
   
   @ManyToMany(cascade=CascadeType.PERSIST)
-  public Set<Tag> tags;
+  public List<Tag> tags;
   
-  @ManyToMany
+  @ManyToMany(cascade=CascadeType.PERSIST)
   public List<User> mentions;
   
-  public Status(User author) {
+  public Status(User author, String content) {
+    this.comments = new List<Comment>();
+    this.likes = new List<Like>();
+    this.tags = new List<Tag>();
+    this.mentions = new List<User>();
     this.author = author;
-    this.date = new Date();
-  }
-
-  private String parseContent(String unlinked_content){
-    // TODO implement a string parser that pulls out @ and # tags
-    Matcher links_matcher = links_pattern.matcher(unlinked_content);
-    
-    while(links_matcher.find() ){
-      String match = links_matcher.group();
-      if(match.startsWith("#") { // tag
-        Tag newTag = 
-        this.tags.add(newTag);
-        this.save();
-      }
-      else if(match.startsWith("@") {
-        
-      }
-      else
-      // error
-    }
-    
-    return unlinked_content;
+    this.content = content;
   }
   
-  /* TODO
-  private static someFunction(...message parsing...){
-    
-  }
-  */
-  
-  public Commentable addComment(String author, String content) {
+  public Status addComment(String author, String content) {
 		Comment newComment = new Comment(this, author, content).save();
-		this.allComments.add(newComment);
+		this.comments.add(newComment);
 		this.save();
 		return this;
 	}
 	
-	/*
-	public Commentable addLike( ){
-	  Like newLike = new Like( ).save();
-	  this.addLike.add(newLike);
+	
+	public Status addLike(User user){
+	  Like newLike = new Like(this, user).save();
+	  this.likes.add(newLike);
 	  this.save();
 	  return this;
 	}
-	*/
-
-  public Status previous() {
-    return Post.find("update_time < ? order by update_time asc", date).first();
-  }
+	
+	private void parseContent(String unlinked_content){
+	  atcher links_matcher = links_pattern.matcher(unlinked_content);
+    
+    while(links_matcher.find() ){
+      String match = links_matcher.group();
+      if(match.startsWith("#")) { // tag
+        String newTag = match.substring(1);
+        tags.add(Tag.findOrCreateByName(newTag));
+      }
+      else if(match.startsWith("@")) { // mention
+        User newMention = User.find("byUsername", match.substring(1));
+        mentions.add(newMention);
+      }
+      else
+       System.out.print("Error occured");
+    }
+    
+    return unlinked_content;
+	}
+	
   
-  public Status next() {
-    return Post.find("update_time > ? order by update_time asc", date).first();
-  }
-  
-  /* TODO
   public static List<Status> findTaggedWith(String... tags) {
     return Status.fin(
             "select distiinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.message, p.update_time having count(t.id) = :size"
     ).bind("tags", tags).bind("size", tags.length).fetch();
   }
-  */
 
 }

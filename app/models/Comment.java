@@ -8,17 +8,16 @@ import play.db.jpa.*;
 @Entity
 public class Comment extends Model {
 
-  public String author;
-  public Date date;
+  public User author;
   public boolean approved;
 
   @Lob
   public String content;
 
   @ManyToOne
-  public Commentable parentObj;
+  public Status parentObj;
 
-  public Comment(Commentable parentObj, String author, String content) {
+  public Comment(Status parentObj, User author, String content) {
     this.parentObj = parentObj;
     this.author = author;
     this.content = content;
