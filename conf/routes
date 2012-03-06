@@ -11,7 +11,7 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
-GET     /stylesheets/main.css                   Skins.stylesheet
+GET     /public/stylesheets/main.css            Skins.stylesheet
 
 # Photos
 GET     /photos/?                               Photos.photos(ownerId:'null')
