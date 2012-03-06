@@ -8,6 +8,5 @@ import play.db.jpa.*;
 
 @Entity
 public class Language extends Model {
-
-	public String name;
+  public String name;
 }

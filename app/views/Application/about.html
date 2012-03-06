@@ -1,14 +1,14 @@
 #{extends 'main.html' /}
 
 <div>
-	<h3 tabindex="0" class="uiHeaderTitle">Profile</h3>
+  <h3 tabindex="0" class="uiHeaderTitle">Profile</h3>
 </div>
 <div class=button><a href="@{Application.edit_basic()}">Edit</a></div>
 <table class="uiInfoTable profileInfoTable">
-    <tr>
-      <th class="label">Name</th>
-      <td class="data">${user.name}</td>
-    </tr>
+  <tr>
+    <th class="label">Name</th>
+    <td class="data">${user.name}</td>
+  </tr>
     <tr>
       <th class="label">email</th>
       <td class="data">${user.email}</td>
@@ -21,12 +21,12 @@
     </tr>
 		<tr>
 			<th class="label">Sex</th>
-			<td class="data">${user.getProfile().gender}</td>
+			<td class="data">${user.profile.gender}</td>
 		</tr>
-   #{if user.getProfile().significant_other}
+   #{if user.profile.significant_other}
     <tr>
       <th class="label">Relationship Status</th>
-      <td class="data">In a relationship with <a href="@{Application.news(user.significant_other.id)}">${user.getProfile().significant_other.name}</a>
+      <td class="data">In a relationship with <a href="@{Application.news(user.significant_other.id)}">${user.profile.significant_other.name}</a>
       </td>
     </tr>
   #{/if}

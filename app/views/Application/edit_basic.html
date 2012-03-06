@@ -1,13 +1,11 @@
 #{extends 'main.html' /}
- #{form @Application.updateBasic() }
-
-
+#{form @Application.updateBasic() }
 
 <table>
 	<tr>
 		<td><label>I Am:</label>
 		</td>
-		<td>#{select 'gender', value:user.getProfile().gender} #{option
+		<td>#{select 'gender', value:user.profile.gender} #{option
 			'Male'}Male#{/option} #{option 'Female'}Female#{/option} #{/select}</td>
 		<!--  Show my sex on my timeline  -->
 	</tr>
@@ -15,7 +13,7 @@
 		<td><label>Birthday:</label>
 		</td>
 		<td><input type=text name=birthday
-			value="${user.getProfile().birthday ? user.getProfile().birthday.format('MMM dd ') : ''}">
+			value="${user.profile.birthday ? user.profile.birthday.format('MMM dd ') : ''}">
 		</td>
 	</tr>
 	<tr>
@@ -28,22 +26,26 @@
 	<tr>
 		<td><label>Interested In: 
 		</td>
-		<td>Women Men</td>
 	</tr>
 	<tr>
-		<td><label>Relationship Status: with </label></td>
+		<td><label>Relationship Status: </label></td>
 	</tr>
 	<tr>
-		<td><label>Anniversary: </label>
-		</td>
+		<td><label>Anniversary: </label></td>
 	</tr>
 	<tr>
-		<td><label>Languages: EnglishFrench </label></td>
+		<td><label>Languages: </label></td>
 	</tr>
 	<tr>
-		<td><label>Religion: Description: </label> <label>Political
-				Views: Description: </label></td>
+		<td><label>Religion: </label></td>
+    </tr>
+    <tr>
+        <td><label>Political Views: </label></td>
+    </tr>
+    <tr>
+        <td><label>Description: </label></td>
 	</tr>
+
 </table>
 
 Save Cancel #{/form}
