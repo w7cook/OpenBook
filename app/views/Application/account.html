@@ -1,4 +1,5 @@
-#{extends 'main.html' /} #{form @Application.account_save()}
+#{extends 'main.html' /} 
+#{form @Application.account_save()}
 <table>
   <tr>
     <td class=section width=15%>Name</td>
@@ -17,6 +18,35 @@
 	  </td>
 	</tr>
 	<tr>
+		<td><label>Email: 
+		</td>
+		<td><input type=text name=update.email value="${currentUser.email}" />
+		</td>
+	</tr>
+	<tr>
+		<td><label>New password: 
+		</td>
+		<td><input type=password name=update.password />
+		</td>
+	</tr>
+	</tr>
+	<td colspan=3><label>To save these settings, please enter
+			your password: 
+	</tr>
+	<tr>
+		<td><label>Password:</label>
+		</td>
+		<td><input type=password name=old_password /></td>
+	</tr>
+	<tr>
+		<td colspan=3><input type=submit value=Save> <input
+			type=submit value=Cancel /> 
+			#{ifErrors}
+			<ul style="color:red">
+			#{errors}<li>${error}</li> #{/errors} 
+			</ul>                     
+			#{/ifErrors}
+		</td>
 	  <td><label>Last:</label></td>
 	  <td><input type=text name=update.last_name
 		     value="${currentUser.last_name}" />
@@ -64,3 +94,12 @@
 </tr>
 </table>
 #{/form}
+
+<div id="myPages">
+	#{if currentUser.getPages().size() > 0}
+		#{list items:currentUser.pages, as:'page' }
+        <a href="@{Pages.display(page)}">${page.title}
+    #{/list}
+	#{/if}
+		<a href="@{Pages.newPage()}"> Create a Page!
+</div>

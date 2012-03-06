@@ -194,3 +194,15 @@ Comment(c3):
                     This post is useless ?
     date:           2009-04-05
     parentObj:      secondBobPost
+    
+Page(cats):
+    admin:          alice@gmail.com
+    title:          CATS
+    info:           >
+                    I haz them!!
+                    
+Page(nachoCheese):
+    admin:          jeff@gmail.com
+    title:          Nacho Cheese
+    info:           >
+                    What do you call cheese that isn't yours?
