@@ -95,7 +95,7 @@ public class User extends Model {
   }
 
   public List<Message> inbox() {
-    return Message.find("SELECT m FROM Message m WHERE m.author = ? OR m.recipient = ?", this, this).fetch();
+    return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
   }
   
   public List<Post> news() {

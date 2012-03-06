@@ -29,8 +29,4 @@ public class Message extends Model{
     this.content = content;
     this.date = new Date();
   }
-  
-  public static void addMessage(Message m) {
-    m.save();
-  }
 }

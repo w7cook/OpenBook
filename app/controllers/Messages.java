@@ -26,8 +26,9 @@ public class Messages extends OBController {
     User author = user();
     User recipient = User.getUser(recipientUsername);
     Message m = new Message(author, recipient, title, content);
-    m.addMessage(m);
+    m.save();
     inbox();
   }
+  
 
 }
