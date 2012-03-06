@@ -95,8 +95,8 @@ public class User extends Model {
 
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?) order by Date desc",
-                     this.id, this.id).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by Date desc",
+                     this.id).fetch();
   }
 
   /** Checks the status of a friendship
