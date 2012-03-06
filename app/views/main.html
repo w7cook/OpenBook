@@ -14,7 +14,7 @@
       <input type="text" name="query" />
       Hello 
       <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
-      <a style="float:right" href="@{Secure.logout()}">Logout</a>
+      <a id="logout" href="@{Secure.logout()}">Logout</a>
     </header>
     <section id="main">
       #{doLayout /}
