@@ -11,10 +11,10 @@ GET     /                                       Application.news
 GET     /about                                  Application.about
 GET     /account                                Application.account
 
-GET     /stylesheets/main.css                   Skins.stylesheet
+GET     /public/stylesheets/main.css            Skins.stylesheet
 
 # Photos
-GET     /photos/?                               Photos.photos(ownerId:'null')
+GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto

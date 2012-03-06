@@ -17,7 +17,7 @@ public class Skins extends Controller {
   public static void stylesheet() {
     User user = Application.user();
     Skin skin = user.skin;
-    renderTemplate("stylesheets/main.css",skin);
+    renderTemplate("/public/stylesheets/main.css",skin);
   }
 
   /**
