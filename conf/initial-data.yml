@@ -28,17 +28,17 @@ Skin(DEFAULT):
     
 Skin(SEA):
     name:                       SEA
-    bodyBGColor:                DodgerBlue 
+    bodyBGColor:                lightBlue 
     logoFontSize:               40
     logoColor:                  white
     logoFontType:               Helvetica
     headerBGColor:              1E90FF
-    footerTextAlign:            right
+    footerTextAlign:            center
     footerFontSize:             10
-    footerColor:                gray
+    footerColor:                black
     sectionAlign:               top
     labelFontSize:              15
-    labelColor:                 gray
+    labelColor:                 black
     commentBorderSize:          2
     commentBorderColor:         gray
     commentBGColor:             E0FFFF 
@@ -53,6 +53,33 @@ Skin(SEA):
     buttonLinkHoverColor:       E0FFFF
     buttonLinkSelectedColor:    DarkBlue    
 
+Skin(GREEN):
+    name:                       GREEN
+    bodyBGColor:                none
+    logoFontSize:               30
+    logoColor:                  white
+    logoFontType:               Helvetica
+    headerBGColor:              008000
+    footerTextAlign:            center
+    footerFontSize:             10
+    footerColor:                gray
+    sectionAlign:               top
+    labelFontSize:              10
+    labelColor:                 black
+    commentBorderSize:          2
+    commentBorderColor:         white
+    commentBGColor:             EEEEEE
+    buttonBorderRadius:         4
+    buttonBorderSize:           1
+    buttonBorderColor:          black
+    buttonBoxShadowColor:       888888
+    buttonBGColor:              white
+    buttonTextDec:              none
+    buttonLinkUnvisitedColor:   black
+    buttonLinkVisitedColor:     black
+    buttonLinkHoverColor:       E0E0FF
+    buttonLinkSelectedColor:    black
+ 
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -72,7 +99,7 @@ User(alice):
     password:           secret
     #significant_other: jeff
     anniversary:        2010-12-2
-    skin:               DEFAULT
+    skin:               GREEN
     
 User(jeff):
     first_name:         Jeff

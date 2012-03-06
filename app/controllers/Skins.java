@@ -8,17 +8,55 @@ import controllers.Secure;
 import models.*;
 
 @With(Secure.class)
-public class Skins extends Controller {
+public class Skins extends OBController {
   /**
    * stylesheet()
    * called by main.html
    * renders the appropriate stylesheet skin for the current user
    */
   public static void stylesheet() {
-    User user = Application.user();
+    User user = user();
     Skin skin = user.skin;
-    renderTemplate("stylesheets/main.css",skin);
+    renderTemplate("/public/stylesheets/main.css",skin);
   }
+
+  /**
+   * skin
+   * renders edit skin page
+   * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
+   */
+  public static void skin(Long id) {
+    User user = id == null ? user() : (User) User.findById(id);
+    render(user);
+  }
+
+  private static boolean given(String val) {
+    return val != null && val.length() > 0;
+  }
+
+  /**
+   * edit_skin
+   * changes attributes of the skin
+   */
+  public void edit_skin(Skin update)
+  {
+    User user = user();
+    Skin currentUserSkin = user.skin;
+    if(user.skin.name != user.email){//each user gets a unique skin
+      Skin newSkin = new Skin(user.email);
+      newSkin.cloneSkin(currentUserSkin);
+      user.skin = newSkin;
+    }
+    //Update attributes
+    if (given(update.bodyBGColor)) {
+      user.skin.bodyBGColor = update.bodyBGColor;
+    }
+
+    user.skin.save();  
+    user.save();
+  }
+
+
 
   /**
    * setSkin
@@ -42,4 +80,5 @@ public class Skins extends Controller {
       return true;
     }
   }
+
 }
