@@ -12,7 +12,7 @@ GET     /about                                  Application.about
 GET     /account                                Application.account
 
 #Skins
-GET     /stylesheets/main.css                   Skins.stylesheet
+GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
 
 # Photos
