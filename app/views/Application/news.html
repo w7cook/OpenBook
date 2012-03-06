@@ -6,13 +6,9 @@
      ${user.email}
  
     <br>
-<<<<<<< HEAD
     <a href="@{Application.news()}">news</a>
     <br>
     <a href="@{Events.events()}">Events</a>
-=======
-    <a href="@{Application.news()}">news</a>
->>>>>>> 2d3bdaea0404763e429397212b42f6da3aad3c34
     <br>
     <a href="@{Application.about()}">about</a>
     <br>
@@ -41,43 +37,6 @@
 
      <h3>Blog Posts</h3>
      #{list items:user.news(), as:'item'}
-<<<<<<< HEAD
-    <td>
-      [Picture]
-      ${user.email}
-      
-      <br>
-      <a href="@{Application.news()}">news</a>
-      <br>
-      <a href="@{Application.about()}">about</a>
-      <br>
-      <a href="@{Checkin.checkin()}">Checkin</a>
-      <br>friends:<br>
-      #{list items:user.confirmedFriends(), as:'friendship'}
-        <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
-      #{/list}
-    </td>
-    <td>
-      <h1>${user.name}</h1> 
-      #{if user.checkFriendship(user.id) == 'Request Friendship'}
-        <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-	  ${user.checkFriendship(user.id)}
-        </a>
-      #{/if}
-      #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-        Friendship Requested
-      #{/elseif}
-      #{elseif user.checkFriendship(user.id) == 'Friends'}
-        Friends :) 
-        <a id="friend-button" href="@{Application.removeFriends(user.id)}">
-	  Remove friend
-        </a>
-      #{/elseif}
-      
-      <h3>Blog Posts</h3>
-      #{list items:user.news(), as:'item'}
-=======
->>>>>>> 2d3bdaea0404763e429397212b42f6da3aad3c34
         <div class="post">
           <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
           <span class="post-date">${item.date.format('dd MMM yy')}</span>
