@@ -27,9 +27,6 @@ public class User extends Model {
   public String email; // The proxied or contact email address granted by the
   // user
 
-@ManyToOne
-  public Location location; // The user's current city
-
   @ManyToOne
   public Skin skin;//Skin (StyleSheet) used by this User
   
@@ -70,6 +67,7 @@ public class User extends Model {
   public Profile getProfile(){
     if(profile == null){
       profile = new Profile(this);
+      profile.save();
     }
     return profile;
   }

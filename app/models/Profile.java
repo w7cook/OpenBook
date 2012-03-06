@@ -23,6 +23,9 @@ public class Profile extends Model {
   public String bio; // The user's biography
   public Date birthday; // The user's birthday
   
+  @ManyToOne
+  public Location location; // The user's current city
+  
   // not implemented yet!!
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   public List<UserLanguage> languages; // The user's languages
@@ -47,12 +50,6 @@ public class Profile extends Model {
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   public List<Employment> work; // A list of the user's work history
   
-  public Date updated_time; // The last time the user's profile was updated;
-  // changes to the
-  // languages, link, timezone, verified,
-  // interested_in, favorite_athletes, favorite_teams,
-  // andvideo_upload_limits are not not reflected in
-  // this value
   
   public Profile(User owner) {
 
@@ -67,5 +64,6 @@ public class Profile extends Model {
     this.significant_other = null;
     this.religion = "";
     this.education = new ArrayList<Enrollment>();
+    this.work = new ArrayList<Employment>();
   }
 }
