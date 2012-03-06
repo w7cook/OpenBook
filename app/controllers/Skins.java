@@ -6,6 +6,7 @@ import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import play.libs.Crypto;
 
 @With(Secure.class)
 public class Skins extends OBController {
@@ -21,19 +22,39 @@ public class Skins extends OBController {
   }
 
   /**
-   * edit_skin
+   * skin
    * renders edit skin page
    * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
    */
-  public static void edit_skin(Long id) {
+  public static void skin(Long id) {
 	    User user = id == null ? Application.user() : (User) User.findById(id);
-	    Skin currentUserSkin = user.skin;
-	    if(user.skin.name != user.email){
-		    Skin newSkin = new Skin(user.email);//each user gets a unique skin
+	    render(user);
+  }
+  
+  private static boolean given(String val) {
+	    return val != null && val.length() > 0;
+	  }
+  
+  /**
+   * edit_skin
+   * changes attributes of the skin
+   */
+  public void edit_skin(Skin update)
+  {
+	  User user = Application.user();
+	  Skin currentUserSkin = user.skin;
+	    if(user.skin.name != user.email){//each user gets a unique skin
+		    Skin newSkin = new Skin(user.email);
 		    newSkin.cloneSkin(currentUserSkin);
 		    user.skin = newSkin;
 	    }
-	    render(user);
+	    //Update attributes
+	      if (given(update.bodyBGColor)) {
+	        user.skin.bodyBGColor = update.bodyBGColor;
+	      }
+	      
+	    user.skin.save();  
+	    user.save();
   }
   
   
@@ -60,4 +81,5 @@ public class Skins extends OBController {
       return true;
     }
   }
+
 }

@@ -13,7 +13,7 @@ GET     /account                                Application.account
 
 #Skins
 GET     /stylesheets/main.css                   Skins.stylesheet
-GET     /edit_skin                              Skins.edit_skin
+GET     /skin                                   Skins.skin
 
 # Photos
 GET     /photos/?                               Photos.photos
