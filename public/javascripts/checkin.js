@@ -1,11 +1,22 @@
 // http://code.google.com/apis/maps/documentation/javascript/examples/places-autocomplete.html
+
+var map;
+
+function setCurrentLocation(p) {
+  var currentLocation = 
+    new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+  console.log(p.coords.longitude+", "+p.coords.latitude);
+  map.setCenter(currentLocation);
+  map.setZoom(13);
+}
+
 function initialize() {
   var mapOptions = {
     center: new google.maps.LatLng(30.2733,-97.7421),
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  var map = new google.maps.Map(document.getElementById('map_canvas'),
+  map = new google.maps.Map(document.getElementById('map_canvas'),
                                 mapOptions);
   
   var input = document.getElementById('searchTextField');
@@ -55,5 +66,6 @@ function initialize() {
                           '<strong>' + place.name + '</strong><br>' + address);
     infowindow.open(map, marker);
   });
+  navigator.geolocation.getCurrentPosition(setCurrentLocation);
 }
 google.maps.event.addDomListener(window, 'load', initialize);
