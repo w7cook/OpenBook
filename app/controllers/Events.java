@@ -51,17 +51,7 @@ public class Events extends OBController {
 		events(userId);
 	}
 
-	public static void displayEvent(Long id) {
-		Event e = Event.findById(id);
-		String name = e.eventName;
-		String location = e.eventLocation;
-		Date start = e.startDate;
-		Date end = e.endDate;
-		render(name, location, start, end);
-
-	}
-
-	public static void event_create(Event curEvent) {
+	public static void event_create(Event curEvent, String startMonth, String startDay, String startTime, String endMonth, String endDay, String endTime) {
 		User currentUser = user();
 
 		validation.required(curEvent.eventName).message(
@@ -70,11 +60,11 @@ public class Events extends OBController {
 				"Event description is required");
 		validation.required(curEvent.eventLocation).message(
 				"Event location is required");
-		validation.isTrue(!curEvent.startMonth.equals("-1")).message(
+		validation.isTrue(!startMonth.equals("-1")).message(
 				"Event start month is required");
-		validation.isTrue(!curEvent.startDay.equals("-1")).message(
+		validation.isTrue(!startDay.equals("-1")).message(
 				"Event start day is required");
-		validation.isTrue(!curEvent.startTime.equals("-1")).message(
+		validation.isTrue(!startTime.equals("-1")).message(
 				"Event start time is required");
 
 		if (validation.hasErrors()) {
@@ -86,28 +76,20 @@ public class Events extends OBController {
 
 			event.eventName = curEvent.eventName;
 			event.eventScript = curEvent.eventScript;
-			event.eventLocation = curEvent.eventLocation;
-			event.startMonth = curEvent.startMonth;
-			event.startDay = curEvent.startDay;
-			event.startTime = curEvent.startTime;
-			event.setStartDate();
+			event.eventLocation = curEvent.eventLocation;		
+			event.startDate = setDate(startTime, startMonth, startDay);
 
-			// optional: set end date of Event
-			if (!curEvent.endDay.equals("-1")
-					&& !curEvent.endMonth.equals("-1")
-					&& !curEvent.endTime.equals("-1")) {
-				event.endDay = curEvent.endDay;
-				event.endMonth = curEvent.endMonth;
-				event.endTime = curEvent.endTime;
-				event.setEndDate();
+			if (!endMonth.equals("-1") 
+				&& !endDay.equals("-1") 
+				&& !endTime.equals("-1")) {
+				event.endDate = setDate(endTime, endMonth, endDay);
 			}
 
-			// privacy settings of Event
-			if (curEvent.privelage.equals("open")) {
+			if (curEvent.privilege.equals("open")) {
 				event.open = true;
-			} else if (curEvent.privelage.equals("friends")) {
+			} else if (curEvent.privilege.equals("friends")) {
 				event.friends = true;
-			} else if (curEvent.privelage.equals("inviteOnly")) {
+			} else if (curEvent.privilege.equals("inviteOnly")) {
 				event.inviteOnly = true;
 			}
 
@@ -116,5 +98,27 @@ public class Events extends OBController {
 
 		}
 	}
-
+	
+	public static void displayEvent(Long id) {
+		Event e = Event.findById(id);
+		String name = e.eventName;
+		String location = e.eventLocation;
+		Date start = e.startDate;
+		Date end = e.endDate;
+		render(name, location, start, end);
+	}
+	
+	public static Date setDate(String time, String month, String day){
+		int minutes = 0;
+		int hours = 0;
+		if(time.length() == 4){
+			minutes = Integer.parseInt(time.substring(2,4));
+			hours = Integer.parseInt(time.substring(0,2));
+		}
+		else{
+			hours = Integer.parseInt(time);
+		}
+		Date newDate = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, Integer.parseInt(month), Integer.parseInt(day), hours, minutes);	
+		return newDate;
+	}
 }
