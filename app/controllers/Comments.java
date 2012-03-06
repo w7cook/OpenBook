@@ -2,13 +2,15 @@ package controllers;
 
 import java.util.*;
 
+import org.w3c.dom.UserDataHandler;
+
 import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
 
 @With(Secure.class)
-public class Comments extends Controller {
+public class Comments extends OBController {
 	
 	@Before
 	static void setConnectedUser() {
@@ -29,8 +31,12 @@ public class Comments extends Controller {
 	
 	public static User user() {
 	    assert Secure.Security.connected() != null;
-	    return User.find("byEmail", Secure.Security.connected()).first();
-	  }
+	    boolean isUsername = User.find("byEmail", Secure.Security.connected()).first() == null;	    
+	    if(isUsername)
+	      return User.find("byUsername", Secure.Security.connected()).first();
+	    else
+	      return User.find("byEmail", Secure.Security.connected()).first();    
+	 }
 
 	public static void deleteComment(Long id, Long userId) {
 	    Comment c = Comment.findById(id);
