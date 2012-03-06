@@ -16,11 +16,6 @@ public class Posts extends OBController {
 		render(user);
 	}
 
-	public static User user() {
-		assert Secure.Security.connected() != null;
-		return User.find("byEmail", Secure.Security.connected()).first();
-	}
-
 	public static void deletePost(Long id, Long userId) {
 		Post p = Post.findById(id);
 		p.delete();
