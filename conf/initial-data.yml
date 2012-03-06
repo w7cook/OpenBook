@@ -33,12 +33,12 @@ Skin(SEA):
     logoColor:                  white
     logoFontType:               Helvetica
     headerBGColor:              1E90FF
-    footerTextAlign:            right
+    footerTextAlign:            center
     footerFontSize:             10
-    footerColor:                gray
+    footerColor:                black
     sectionAlign:               top
     labelFontSize:              15
-    labelColor:                 gray
+    labelColor:                 black
     commentBorderSize:          2
     commentBorderColor:         gray
     commentBGColor:             E0FFFF 

@@ -132,6 +132,55 @@ public class Skin extends Model {
 		this.save();
 	}
 	
+	/**
+	 * cloneSkin
+	 * @param c Skin to clone
+	 * clones attributes from skin c to this Skin
+	 */
+	public void cloneSkin(Skin c)
+	{
+		//body
+		this.bodyBGColor = c.bodyBGColor;
+		
+		//logo
+		this.logoFontSize = c.logoFontSize;
+		this.logoColor = c.logoColor;
+		this.logoFontType = c.logoFontType;// Helvetica, Arial, Sans !important;
+		
+		//header
+		this.headerBGColor = c.headerBGColor;//000000 (BLACK) or CC5500 (orange)
+		
+		//footer
+		this.footerTextAlign = c.footerTextAlign;//center..
+		this.footerFontSize = c.footerFontSize;// >= 0
+		this.footerColor = c.footerColor;//white, black, gray, etc
+				
+		//section
+		this.sectionAlign = c.sectionAlign;//top
+		
+		//label
+		this.labelFontSize = c.labelFontSize;
+		this.labelColor = c.labelColor;
+		//comment
+	
+		this.commentBorderSize = c.commentBorderSize;//px size
+		this.commentBorderColor = c.commentBorderColor;
+		this.commentBGColor = c.commentBGColor;
+			
+	  
+		//button
+		this.buttonBorderRadius = c.buttonBorderRadius;//4
+		this.buttonBorderSize = c.buttonBorderSize;//1
+		this.buttonBorderColor = c.buttonBorderColor;//black
+		this.buttonBoxShadowColor = c.buttonBoxShadowColor;//888888;
+		this.buttonBGColor = c.buttonBGColor;//white;
+		this.buttonTextDec = c.buttonTextDec;//none, underline, overline, line-through, blink
+		this.buttonLinkUnvisitedColor = c.buttonLinkUnvisitedColor;//black   
+		this.buttonLinkVisitedColor = c.buttonLinkVisitedColor;//black 
+		this.buttonLinkHoverColor = c.buttonLinkHoverColor;//#E0E0FF;} 
+		this.buttonLinkSelectedColor = c.buttonLinkSelectedColor;//black;}
+	}
+	
 
 	
 	

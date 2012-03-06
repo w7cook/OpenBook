@@ -8,7 +8,7 @@ import controllers.Secure;
 import models.*;
 
 @With(Secure.class)
-public class Skins extends Controller {
+public class Skins extends OBController {
   /**
    * stylesheet()
    * called by main.html
@@ -20,6 +20,24 @@ public class Skins extends Controller {
     renderTemplate("stylesheets/main.css",skin);
   }
 
+  /**
+   * edit_skin
+   * renders edit skin page
+   * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
+   */
+  public static void edit_skin(Long id) {
+	    User user = id == null ? Application.user() : (User) User.findById(id);
+	    Skin currentUserSkin = user.skin;
+	    if(user.skin.name != user.email){
+		    Skin newSkin = new Skin(user.email);//each user gets a unique skin
+		    newSkin.cloneSkin(currentUserSkin);
+		    user.skin = newSkin;
+	    }
+	    render(user);
+  }
+  
+  
+  
   /**
    * setSkin
    * @param calling client who wants this skin
