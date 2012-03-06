@@ -1,5 +1,12 @@
 #{extends 'main.html' /}
-<ul class=photo-list>
+#{ifErrors}
+<ul class="errors">
+  #{errors}
+    <li>${error}</li>
+  #{/errors}
+</ul>
+#{/ifErrors}
+<ul class="photo-list">
   #{list items:photos, as:'photo' }
     <li>
       <img src=@{Photos.getPhoto(photo.id)} />
@@ -13,6 +20,6 @@
 </ul>
 
 #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
-  <input type="file" name="photo.image" />
+  <input type="file" name="image" />
   <input type="submit" name="submit" value="Upload" />
 #{/form}
