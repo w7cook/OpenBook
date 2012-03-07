@@ -2,39 +2,53 @@
 #{form @Application.updateBasic() }
 
 <table>
-  <tr>
-    <td><label>I Am:</label>
-    </td>
-    <td>#{select 'gender', value:user.gender} #{option
-      'Male'}Male#{/option} #{option 'Female'}Female#{/option} #{/select}</td>
-    <!--  Show my sex on my timeline  -->
-  </tr>
-  <tr>
-    <td><label>Birthday:</label>
-    </td>
-    <td><input type=text name=birthday
-	       value="${user.birthday ? user.birthday.format('MMM dd ') : ''}">
-    </td>
-  </tr>
-  <tr>
-    <td><label>Interested In: 
-    </td>
-    <td>Women Men</td>
-  </tr>
-  <tr>
-    <td><label>Relationship Status: with </label></td>
-  </tr>
-  <tr>
-    <td><label>Anniversary: </label>
-    </td>
-  </tr>
-  <tr>
-    <td><label>Languages: EnglishFrench </label></td>
-  </tr>
-  <tr>
-    <td><label>Religion: Description: </label> <label>Political
-	Views: Description: </label></td>
-  </tr>
+	<tr>
+		<td><label>I Am:</label>
+		</td>
+		<td>#{select 'gender', value:user.profile.gender} #{option
+			'Male'}Male#{/option} #{option 'Female'}Female#{/option} #{/select}</td>
+		<!--  Show my sex on my timeline  -->
+	</tr>
+	<tr>
+		<td><label>Birthday:</label>
+		</td>
+		<td><input type=text name=birthday
+			value="${user.profile.birthday ? user.profile.birthday.format('MMM dd ') : ''}">
+		</td>
+	</tr>
+	<tr>
+		<td><label>Education:</label>
+		</td>
+		<td><input type=text name=education>    
+		</td>
+	</tr>
+	<tr>
+		<td><label>Work History:</label></td>
+		<td><input type=text name=work></td>
+	</tr>
+	<tr>
+		<td><label>Interested In: 
+		</td>
+	</tr>
+	<tr>
+		<td><label>Relationship Status: </label></td>
+	</tr>
+	<tr>
+		<td><label>Anniversary: </label></td>
+	</tr>
+	<tr>
+		<td><label>Languages: </label></td>
+	</tr>
+	<tr>
+		<td><label>Religion: </label></td>
+    </tr>
+    <tr>
+        <td><label>Political Views: </label></td>
+    </tr>
+    <tr>
+        <td><label>Description: </label></td>
+	</tr>
+
 </table>
 
 Save Cancel #{/form}
