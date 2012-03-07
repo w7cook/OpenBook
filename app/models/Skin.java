@@ -1,5 +1,6 @@
 package models;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import javax.persistence.*;
 import controllers.Security;
@@ -64,8 +65,6 @@ public class Skin extends Model {
   public String labelColor;
 
   //comment
-  public String commentFontSize;
-  public String commentColor;
   public int commentBorderSize;//px size
   public String commentBorderColor;
   public String commentBGColor;
@@ -139,6 +138,16 @@ public class Skin extends Model {
    */
   public void cloneSkin(Skin c)
   {
+   
+   /* 
+    Class c2 = Skin.class;
+    Field[] fields = c2.getDeclaredFields();
+    for(Field f: fields)
+    {
+      f.set(this, f.get(c2));
+    }
+    */
+    
     //body
     this.bodyBGColor = c.bodyBGColor;
 

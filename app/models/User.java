@@ -4,7 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
-import controllers.Skins;
+
 import play.db.jpa.*;
 import play.libs.Crypto;
 
@@ -26,10 +26,7 @@ public class User extends Model {
 
   public String email; // The proxied or contact email address granted by the
   // user
-
-  @ManyToOne
-  public Skin skin;//Skin (StyleSheet) used by this User
-  
+ 
   public String password;
 
   //  User's basic profile information
@@ -46,7 +43,7 @@ public class User extends Model {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
-    Skins.setSkin(this,"DEFAULT");//set skin as default skin
+    
     // this.education = new ArrayList<Enrollment>();
   }
 

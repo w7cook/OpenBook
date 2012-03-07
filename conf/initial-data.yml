@@ -88,7 +88,6 @@ User(bob):
     email:              bob@gmail.com
     password:           secret
     isAdmin:            true
-    skin:               SEA
 
 User(alice):
     first_name:         Alice
@@ -99,7 +98,6 @@ User(alice):
     password:           secret
     #significant_other: jeff
     anniversary:        2010-12-2
-    skin:               GREEN
     
 User(jeff):
     first_name:         Jeff
@@ -110,7 +108,6 @@ User(jeff):
     password:           secret
     significant_other:  alice
     anniversary:        2010-12-2
-    skin:               DEFAULT
 
 User(gparker):
     first_name:         Geoffrey
@@ -120,7 +117,6 @@ User(gparker):
     email:              grp@gparker.co
     password:           password
     isAdmin:            true
-    skin:               DEFAULT
 
 Relationship(s1):
     from:       bob

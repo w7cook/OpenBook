@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
+import controllers.Skins;
 
 import play.db.jpa.*;
 
@@ -50,6 +51,8 @@ public class Profile extends Model {
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   public List<Employment> work; // A list of the user's work history
   
+  @ManyToOne
+  public Skin skin;//Skin (StyleSheet) used by this User
   
   public Profile(User owner) {
 
@@ -65,5 +68,6 @@ public class Profile extends Model {
     this.religion = "";
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
+    Skins.setSkin(this,"DEFAULT");//set skin as default skin
   }
 }
