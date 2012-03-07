@@ -13,22 +13,22 @@
       <th class="label">email</th>
       <td class="data">${user.email}</td>
     </tr>
-  <tr>
-    <th class="label">Birthday</th>
-    #{if user.birthday}
-    <td class="data">${user.birthday.format('MMM dd ')}</td>
-    #{/if}
-  </tr>
-  <tr>
-    <th class="label">Sex</th>
-    <td class="data">${user.gender}</td>
-  </tr>
-  #{if user.significant_other}
-  <tr>
-    <th class="label">Relationship Status</th>
-    <td class="data">In a relationship with <a href="@{Application.news(user.significant_other.id)}">${user.significant_other.name}</a>
-    </td>
-  </tr>
+    <tr>
+      <th class="label">Birthday</th>
+      #{if user.profile.birthday}
+      <td class="data">${user.birthday.format('MMM dd ')}</td>
+      #{/if}
+    </tr>
+		<tr>
+			<th class="label">Sex</th>
+			<td class="data">${user.profile.gender}</td>
+		</tr>
+   #{if user.profile.significant_other}
+    <tr>
+      <th class="label">Relationship Status</th>
+      <td class="data">In a relationship with <a href="@{Application.news(user.significant_other.id)}">${user.profile.significant_other.name}</a>
+      </td>
+    </tr>
   #{/if}
 </table>
 </div>
