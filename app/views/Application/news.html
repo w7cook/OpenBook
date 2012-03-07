@@ -14,7 +14,7 @@
       <a href="@{Application.about()}">about</a>
       <br>
       <a href="@{Checkin.checkin()}">Checkin</a>
-      <br>Inbox
+      <br><a href="@{Messages.inbox()}">Inbox</a>
       <br>friends:<br>
       #{list items:user.confirmedFriends(), as:'friendship'}
         <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
