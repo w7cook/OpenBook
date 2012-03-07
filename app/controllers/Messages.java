@@ -17,7 +17,7 @@ public class Messages extends OBController {
     render(user);
   }
   
-  public static void create_message() {
+  public static void createMessage() {
     User user = user();
     render(user);
   }
