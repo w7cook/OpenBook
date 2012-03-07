@@ -102,8 +102,8 @@ public class User extends Model {
    * @return a string representing the status
    */
   public String checkFriendship(Long id) {
-    User current = Users.user();
-    if (Users.user().id == id) {
+    User current = Application.user();
+    if (Application.user().id == id) {
       return "";
     }
     Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();

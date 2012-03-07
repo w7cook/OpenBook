@@ -5,9 +5,6 @@
 # Import Secure routes
 *       /                                       module:secure
 
-GET     /users/search                           UserSearch.search
-POST    /users/search                           UserSearch.search
-
 
 # Home page
 GET     /                                       Application.news
@@ -21,6 +18,10 @@ POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+
+# Search
+GET     /users/search                           UserSearch.search
+
 
 
 *       /photos/{anything}                      Application.notFound

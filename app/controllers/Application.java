@@ -17,27 +17,27 @@ public class Application extends Controller {
   @Before
   static void setConnectedUser() {
     if (Security.isConnected()) {
-      renderArgs.put("currentUser", Users.user());
+      renderArgs.put("currentUser", user());
     }
   }
-
-  @Before
-  static void addDefaults() {
-          renderArgs.put("searched", Users.searchForUser("bob").name);
+  
+  public static User user() {
+          assert Secure.Security.connected() != null;
+          return User.find("byEmail", Secure.Security.connected()).first();
   }
 
   public static void about(Long id) {
-    User user = id == null ? Users.user() : (User) User.findById(id);
+    User user = id == null ? user(): (User) User.findById(id);
     render(user);
   }
 
   public static void news(Long id) {
-    User user = id == null ? Users.user() : (User) User.findById(id);
+    User user = id == null ? user(): (User) User.findById(id);
     render(user);
   }
 
   public static void account() {
-    User user = Users.user();
+    User user = user();
     render(user);
   }
 
@@ -50,7 +50,7 @@ public class Application extends Controller {
    * @param id the user to request friendship with
    */
   public static void requestFriends(Long id) {
-    User user = Users.user();
+    User user = user();
     User other = User.findById(id);
     Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
     Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
@@ -97,7 +97,7 @@ public class Application extends Controller {
    * @param id the user to remove
    */
   public static void removeFriends(Long id) {
-    User user = Users.user();
+    User user = user();
     User other = User.findById(id);
     Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
     Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
@@ -116,7 +116,7 @@ public class Application extends Controller {
   }
 
   public static void account_save(User update, String old_password) {
-    User currentUser = Users.user();
+    User currentUser = user();
 
     validation.required(update.first_name).message("First name is required");
     validation.required(update.username).message("Username is required");

@@ -10,11 +10,6 @@ import play.mvc.Controller;
 
 
 public class Users extends Controller {
-
-        public static User user() {
-                assert Secure.Security.connected() != null;
-                return User.find("byEmail", Secure.Security.connected()).first();
-        }
         
         public static User searchForUser(String name) {
                 SearchResults<User> list = ElasticSearch.search(QueryBuilders.fieldQuery("name", name), User.class);
