@@ -1,15 +1,16 @@
-# Test data
+# Test data 
 
 User(bob):
     email:          bob@gmail.com
     password:       secret
     fullname:       Bob
     isAdmin:        true
+
     
 User(jeff):
     email:          jeff@gmail.com
     password:       secret
-    fullname:       Jeff    
+    fullname:       Jeff
     
 Post(firstBobPost):
     title:          About the model layer
@@ -65,4 +66,6 @@ Comment(c3):
                     This post is useless ?
     date:       2009-04-05
     post:           secondBobPost    
+                 
+
                  
