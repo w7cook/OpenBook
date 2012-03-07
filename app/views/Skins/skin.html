@@ -1,0 +1,219 @@
+#{extends 'main.html' /} 
+
+#{form @Skins.editSkin()}
+
+  </br><b>EDIT SKIN</b>
+
+  <table>
+  <td class=section width=15%>Body</td>
+    <td>
+      <table>
+  <tr>
+    <td><label>Background Color:</label></td>
+    <td><input type=text name=update.bodyBGColor
+         value="${currentUser.profile.skin.bodyBGColor}" />
+    </td>
+  </tr>
+      </table>
+  </table>
+  
+  <table>
+  <td class=section width=15%>Logo</td>
+    <td>
+      <table>
+  <tr>
+    <td><label>FontSize:</label></td>
+    <td><input type=text name=update.logoFontSize
+         value="${currentUser.profile.skin.logoFontSize}" />
+    </td>
+  </tr>
+  <tr>
+    <td><label>Color:</label></td>
+    <td><input type=text name=update.logoColor
+         value="${currentUser.profile.skin.logoColor}" />
+    </td>
+  </tr>
+  <tr>
+    <td><label>FontType:</label></td>
+    <td><input type=text name=update.logoFontType
+         value="${currentUser.profile.skin.logoFontType}" />
+    </td>
+  </tr>
+      </table>
+  </table>
+  
+  <table>
+  <td class=section width=15%>Header</td>
+    <td>
+      <table>
+      <tr>
+        <td><label>Background Color:</label></td>
+        <td><input type=text name=update.headerBGColor
+             value="${currentUser.profile.skin.headerBGColor}" />
+        </td>
+      </tr>
+      </table>
+  </table>
+  
+  <table>
+  <td class=section width=15%>Footer</td>
+    <td>
+      <table>
+      <tr>
+        <td><label>Text Alignment:</label></td>
+        <td><input type=text name=update.footerTextAlign
+             value="${currentUser.profile.skin.footerTextAlign}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Font Size:</label></td>
+        <td><input type=text name=update.footerFontSize
+             value="${currentUser.profile.skin.footerFontSize}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Color:</label></td>
+        <td><input type=text name=update.footerColor
+             value="${currentUser.profile.skin.footerColor}" />
+        </td>
+      </tr>
+      </table>
+  </table>
+  
+  <table>
+  <td class=section width=15%>Section</td>
+    <td>
+      <table>
+      <tr>
+        <td><label>Alignment of Text:</label></td>
+        <td><input type=text name=update.sectionAlign
+             value="${currentUser.profile.skin.sectionAlign}" />
+        </td>
+      </tr>
+      </table>
+  </table>
+  
+  <table>
+  <td class=section width=15%>Label</td>
+    <td>
+      <table>
+      <tr>
+        <td><label>Font Size:</label></td>
+        <td><input type=text name=update.labelFontSize
+             value="${currentUser.profile.skin.labelFontSize}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Color:</label></td>
+        <td><input type=text name=update.labelColor
+             value="${currentUser.profile.skin.labelColor}" />
+        </td>
+      </tr>
+      </table>
+  </table>
+  
+  <table>
+  <td class=section width=15%>Comment</td>
+    <td>
+      <table>
+      <tr>
+        <td><label>Border Size:</label></td>
+        <td><input type=text name=update.commentBorderSize
+             value="${currentUser.profile.skin.commentBorderSize}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Border Color:</label></td>
+        <td><input type=text name=update.commentBorderColor
+             value="${currentUser.profile.skin.commentBorderColor}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Background Color:</label></td>
+        <td><input type=text name=update.commentBGColor
+             value="${currentUser.profile.skin.commentBGColor}" />
+        </td>
+      </tr>
+      </table>
+  </table>
+      
+  <table>
+  <td class=section width=15%>Buttons</td>
+    <td>
+      <table>
+      <tr>
+        <td><label>Border Radius:</label></td>
+        <td><input type=text name=update.buttonBorderRadius
+             value="${currentUser.profile.skin.buttonBorderRadius}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Border Size:</label></td>
+        <td><input type=text name=update.buttonBorderSize
+             value="${currentUser.profile.skin.buttonBorderSize}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Border Color:</label></td>
+        <td><input type=text name=update.buttonBorderColor
+             value="${currentUser.profile.skin.buttonBorderColor}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Border Box Shadow Color:</label></td>
+        <td><input type=text name=update.buttonBoxShadowColor
+             value="${currentUser.profile.skin.buttonBoxShadowColor}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Background Color:</label></td>
+        <td><input type=text name=update.buttonBGColor
+             value="${currentUser.profile.skin.buttonBGColor}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Text Decoration (underline,etc): </label></td>
+        <td><input type=text name=update.buttonTextDec
+             value="${currentUser.profile.skin.buttonTextDec}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Unvisited Link Color: </label></td>
+        <td><input type=text name=update.buttonLinkUnvisitedColor
+             value="${currentUser.profile.skin.buttonLinkUnvisitedColor}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Visited Link Color: </label></td>
+        <td><input type=text name=update.buttonLinkVisitedColor
+             value="${currentUser.profile.skin.buttonLinkVisitedColor}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Link Hover Color: </label></td>
+        <td><input type=text name=update.buttonLinkHoverColor
+             value="${currentUser.profile.skin.buttonLinkHoverColor}" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Selected Link Color: </label></td>
+        <td><input type=text name=update.buttonLinkSelectedColor
+             value="${currentUser.profile.skin.buttonLinkSelectedColor}" />
+        </td>
+      </tr>
+      </table>
+  </table>
+  
+      
+  <table>
+  <tr>
+  <td colspan=3><input type=submit value=Save> 
+    #{ifErrors}
+    <ul style="color:red">
+      #{errors}<li>${error}</li> #{/errors} 
+    </ul>
+    #{/ifErrors}
+  </td>
+</tr>
+  </table>
+#{/form}
