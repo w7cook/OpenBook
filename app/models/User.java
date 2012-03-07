@@ -60,8 +60,8 @@ public class User extends Model {
 
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ? and (U.accepted = true or u.to.id = ?)",
-                     this.id, this.id).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by Date desc",
+                     this.id).fetch();
   }
 
   public Profile getProfile(){
@@ -82,8 +82,8 @@ public class User extends Model {
     if (Application.user().id == id) {
       return "";
     }
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", current, this).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", current, this).first();
+    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ?1 AND r.to = ?2", current, this).first();
+    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ?1 AND r.from = ?2", current, this).first();
     if (r1 != null) {
       if (r1.accepted) {
         return "Friends";
@@ -111,7 +111,6 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
-
   public boolean equals(Object obj) {
     if (obj == null)
       return false;
@@ -121,4 +120,13 @@ public class User extends Model {
       return false;
     return username.equals(((User) obj).username);
   }
+public boolean isFriendsWith(User user) {
+	for(Relationship f: this.confirmedFriends()){
+		if(f.to == this && f.from == user)
+			return true;
+		if(f.to == user && f.from == this)
+			return true;
+	}
+	return false;
+}
 }
