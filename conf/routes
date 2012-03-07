@@ -22,8 +22,6 @@ GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 # Search
 GET     /users/search                           UserSearch.search
 
-
-
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
 

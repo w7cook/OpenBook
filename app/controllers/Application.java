@@ -22,17 +22,17 @@ public class Application extends Controller {
   }
   
   public static User user() {
-          assert Secure.Security.connected() != null;
-          return User.find("byEmail", Secure.Security.connected()).first();
+    assert Secure.Security.connected() != null;
+    return User.find("byEmail", Secure.Security.connected()).first();
   }
 
   public static void about(Long id) {
-    User user = id == null ? user(): (User) User.findById(id);
+    User user = id == null ? user() : (User) User.findById(id);
     render(user);
   }
 
   public static void news(Long id) {
-    User user = id == null ? user(): (User) User.findById(id);
+    User user = id == null ? user() : (User) User.findById(id);
     render(user);
   }
 
