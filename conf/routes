@@ -22,7 +22,7 @@ GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
 # Messages
 GET     /messages/inbox                         Messages.inbox
-GET     /messages/create_message                Messages.create_message
+GET     /messages/createMessage                Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
 # Checkin
