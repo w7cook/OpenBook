@@ -2,7 +2,10 @@ package controllers;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
+
 import play.db.Model;
+import play.db.jpa.Transactional;
 import play.exceptions.TemplateNotFoundException;
 import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.Before;
@@ -33,7 +36,7 @@ public class UserSearch extends Application {
          * @param orderBy the order by
          * @param order the order
          */
-        public static void search(int page, String search, String searchFields, String orderBy, String order) {
+        public static void search(int page, String search, String searchFields, String orderBy, String order) {     
             ObjectType type = ObjectType.get(getControllerClass());
             notFoundIfNull(type);
             if (page < 1) {
