@@ -14,7 +14,7 @@ GET     /account                                Application.account
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
-POST    /skins/editSkin                         Skins.editSkin
+POST    /skins/?                                Skins.editSkin
 
 # Photos
 GET     /photos/?                               Photos.photos

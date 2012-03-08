@@ -68,6 +68,6 @@ public class Profile extends Model {
     this.religion = "";
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
-    Skins.setSkin(this,"DEFAULT");//set skin as default skin
+    Skins.setSkin(this,this.owner.email);//the default skin look is used
   }
 }
