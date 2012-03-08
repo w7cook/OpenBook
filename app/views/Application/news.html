@@ -1,50 +1,16 @@
-#{extends 'main.html' /}
+
+    
+  #{extends 'main.html' /}
 <table>
   <tr>
-
-  <td>
-     [Picture]
-     ${user.email}
- 
-    <br>
-    <a href="@{Application.news()}">news</a>
-    <br>
-    <a href="@{Events.events()}">Events</a>
-    <br>
-    <a href="@{Application.about()}">about</a>
-    <br>
-    <a href="@{Checkin.checkin()}">Checkin</a>
-    <br>friends:<br>
-     #{list items:user.confirmedFriends(), as:'friendship'}
-     <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
-     #{/list}
-  </td>
-  <td>
-     <h1>${user.name}</h1> 
-     #{if user.checkFriendship(user.id) == 'Request Friendship'}
-	     <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-		  	${user.checkFriendship(user.id)}
-		     </a>
-	 #{/if}
-	 #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-	 	Friendship Requested
-	 #{/elseif}
-	 #{elseif user.checkFriendship(user.id) == 'Friends'}
-	 	Friends :) 
-	 	<a id="friend-button" href="@{Application.removeFriends(user.id)}">
-		  	Remove friend
-		</a>
-	#{/elseif}
-
-     <h3>Blog Posts</h3>
-     #{list items:user.news(), as:'item'}
-
     <td>
       [Picture]
       ${user.email}
       
       <br>
       <a href="@{Application.news()}">news</a>
+      <br>
+      <a href="@{Events.events()}">Events</a>
       <br>
       <a href="@{Application.about()}">about</a>
       <br>
@@ -72,7 +38,6 @@
       #{/elseif}
       <h3>Blog Posts</h3>
       #{list items:user.news(), as:'item'}
-
         <div class="post">
           <span class="hideable">
             <span class="post-author">
