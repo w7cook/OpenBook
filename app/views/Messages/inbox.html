@@ -40,11 +40,17 @@
       <h3>Messages</h3>
       #{list items:user.inbox(), as:'item'}
       <div class ="message">
-        <span class ="message-author">Author: ${item.author.username}</span>
+        #{if item.author != NULL}
+          <span class ="message-author">Author: ${item.author.username}</span>
+        #{/if}
         <div>
-          <span class ="message-recipient">Recipient: ${item.recipient.username}</span>
+          #{if item.recipient != NULL}
+            <span class ="message-recipient">Recipient: ${item.recipient.username}</span>
+          #{/if}
         </div>
-        <span class ="message-date">${item.date.format('dd MMM yy')}</span>
+        #{if item.date != NULL}
+          <span class ="message-date">${item.date.format('dd MMM yy')}</span>
+        #{/if}
         <div class="post-title">
          Title: ${item.title}
         </div>
