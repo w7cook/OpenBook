@@ -18,7 +18,6 @@ public class Profile extends Model {
   @OneToOne
   public User significant_other; // The user's significant other
   public Date anniversary; // date of anniversary
-  //public String website; // The URL of the user's personal website
 
   public String bio; // The user's biography
   public String interested_in; //genders the user is intersted in: Male, Female, Both, Neither
@@ -66,34 +65,26 @@ public class Profile extends Model {
   public Profile(User owner) {
 
     this.anniversary = null;
-    this.bio = null;
+    this.bio = "";
     this.birthday = null;
-    this.interested_in = null;
+    this.interested_in = "";
     this.relationship_status = "Single";
-    this.gender = null;
+    this.gender = "";
     this.hometown = null;
     this.location = null;
     this.owner = owner;
-    this.political = null;
-    this.quotes = null;
+    this.political = "";
+    this.quotes = "";
     this.significant_other = null;
-    this.religion = null;
+    this.religion = "";
 
     this.education = new ArrayList<Enrollment>();
-    /*Enrollment e = new Enrollment();
-    e.name = "Harvard";
-    Enrollment e2 = new Enrollment();
-    e2.name = "Yale";
-    this.education.add(e);
-    this.education.add(e2);*/ 			//Quick test cases for enrollment
-
-
     this.work = new ArrayList<Employment>();
 
-    this.phone = null;
-    this.address = null;
-    this.website = null;
-    this.email = null;
+    this.phone = "";
+    this.address = "";
+    this.website = "";
+    this.email = "";
 
   }
 }
