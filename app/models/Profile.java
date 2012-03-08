@@ -16,11 +16,11 @@ public class Profile extends Model {
   public String locale; // The user's locale (ISO Language Code and ISO Country
 
   @OneToOne
-  public User significant_other; // The user's significant other
+  public User significantOther; // The user's significant other
   public Date anniversary; // date of anniversary
 
   public String bio; // The user's biography
-  public String interested_in; //genders the user is intersted in: Male, Female, Both, Neither
+  public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
 
 
   public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
@@ -36,7 +36,7 @@ public class Profile extends Model {
 
   public String political; // The user's political view
   public String quotes; // The user's favorite quotes
-  public String relationship_status; // The user's relationship
+  public String relationshipStatus; // The user's relationship
   // status:Single,In a relationship, Engaged,Married,It's
   // complicated, In an open relationship, Widowed,Separated, Divorced, In
   // a civil union, In a domestic partnership
@@ -58,8 +58,8 @@ public class Profile extends Model {
 
   public boolean hasAnniversary()
   {
-  	return !(relationship_status.equals("Single") || relationship_status.equals("It's complicated")
-  		|| relationship_status.equals("Widowed") || relationship_status.equals("Separated") || relationship_status.equals("Divorced"));
+  	return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
+  		|| relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
   }
 
   public Profile(User owner) {
@@ -67,15 +67,15 @@ public class Profile extends Model {
     this.anniversary = null;
     this.bio = "";
     this.birthday = null;
-    this.interested_in = "";
-    this.relationship_status = "Single";
+    this.interestedIn = "";
+    this.relationshipStatus = "Single";
     this.gender = "";
     this.hometown = null;
     this.location = null;
     this.owner = owner;
     this.political = "";
     this.quotes = "";
-    this.significant_other = null;
+    this.significantOther = null;
     this.religion = "";
 
     this.education = new ArrayList<Enrollment>();
