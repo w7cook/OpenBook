@@ -15,12 +15,19 @@ GET     /account                                Application.account
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
 
+
+# Profile
+GET     /application.prev.gif 			staticFile:/public/images/prev.gif
+GET     /application.next.gif 			staticFile:/public/images/next.gif
+GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
+
 # Photos
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+
 
 #Account
 #GET     /users/?                                #Get a list of all users
