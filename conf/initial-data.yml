@@ -155,29 +155,19 @@ Relationship(r5):
     accepted:   true
     
 Status(firstBobStatus):
-<<<<<<< HEAD
-    date:     2011-06-14
     author:         bob
     content:        >
                     Short sweet twitter like messages that will have inline @mentions and #tags.
                     
 Status(firstJeffStatus):
-    date:     2011-06-14
     author:         jeff
     content:        >
                     Hey @b3bob hope you like #MassEffect3
                     
 Status(secondBobStatus):
-    date:     2011-06-14
     author:         bob
     content:        >
                     @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
-=======
-    date:       2011-06-14
-    author:     bob
-    message:    >
-                Short sweet twitter like messages that will have inline @mentions and #tags.
->>>>>>> master
     
 Post(firstBobPost):
     title:          About the model layer
@@ -238,10 +228,3 @@ Comment(c3):
     author:         Tom
     content:        >
                     This post is useless ?
-<<<<<<< HEAD
-    date:       2009-04-05
-    parentObj:           secondBobPost
-=======
-    date:           2009-04-05
-    parentObj:      secondBobPost
->>>>>>> master

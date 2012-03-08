@@ -20,10 +20,10 @@ public class Status extends Model {
   @Lob
   public String content;
   
-  @OneToMany(mappedBy="status", cascade=CascadeType.ALL)
+  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
   public List<Comment> comments;
   
-  @OneToMany(mappedBy="status", cascade=CascadeType.ALL)
+  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
   public List<Like> likes;
   
   @ManyToMany(cascade=CascadeType.PERSIST)
@@ -33,15 +33,15 @@ public class Status extends Model {
   public List<User> mentions;
   
   public Status(User author, String content) {
-    this.comments = new List<Comment>();
-    this.likes = new List<Like>();
-    this.tags = new List<Tag>();
-    this.mentions = new List<User>();
+    this.comments = new ArrayList<Comment>();
+    this.likes = new ArrayList<Like>();
+    this.tags = new ArrayList<Tag>();
+    this.mentions = new ArrayList<User>();
     this.author = author;
     this.content = content;
   }
   
-  public Status addComment(String author, String content) {
+  public Status addComment(User author, String content) {
 		Comment newComment = new Comment(this, author, content).save();
 		this.comments.add(newComment);
 		this.save();
@@ -56,8 +56,8 @@ public class Status extends Model {
 	  return this;
 	}
 	
-	private void parseContent(String unlinked_content){
-	  atcher links_matcher = links_pattern.matcher(unlinked_content);
+	private String parseContent(String unlinked_content){
+	  Matcher links_matcher = links_pattern.matcher(unlinked_content);
     
     while(links_matcher.find() ){
       String match = links_matcher.group();
@@ -66,7 +66,7 @@ public class Status extends Model {
         tags.add(Tag.findOrCreateByName(newTag));
       }
       else if(match.startsWith("@")) { // mention
-        User newMention = User.find("byUsername", match.substring(1));
+        User newMention = User.find("byUsername", match.substring(1)).first();
         mentions.add(newMention);
       }
       else
@@ -78,7 +78,7 @@ public class Status extends Model {
 	
   
   public static List<Status> findTaggedWith(String... tags) {
-    return Status.fin(
+    return Status.find(
             "select distiinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.message, p.update_time having count(t.id) = :size"
     ).bind("tags", tags).bind("size", tags.length).fetch();
   }

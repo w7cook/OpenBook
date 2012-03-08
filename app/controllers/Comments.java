@@ -31,16 +31,4 @@ public class Comments extends Controller {
 	    assert Secure.Security.connected() != null;
 	    return User.find("byEmail", Secure.Security.connected()).first();
 	  }
-
-	public static void deleteComment(Long id, Long userId) {
-	    Comment c = Comment.findById(id);
-	    c.delete();
-	    comments(userId);
-	  }
-
-	  public static void postComment(Long commentableId, Long userId, String content) {
-	    ((Commentable) Commentable.findById(commentableId)).addComment(user().first_name, content);
-	    comments(userId);
-	  }
-
 }
