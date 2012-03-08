@@ -19,6 +19,8 @@ public class Post extends Commentable {
   @ManyToOne
   public User author;
 
+  private static final int teaserLength = 40;
+  
   public List<Comment> comments() {
     return Comment.find("parentObj = ? AND approved=FALSE", this).fetch();
   }
@@ -29,6 +31,14 @@ public class Post extends Commentable {
     this.title = title;
     this.content = content;
     this.date = new Date();
+  }
+  
+  public String contentTeaser() {
+	  if (this.content.length() < teaserLength) {
+		  return this.content;
+	  } else {
+		  return this.content.substring(0, teaserLength);
+	  }
   }
 
   public Post previous() {
