@@ -15,4 +15,9 @@ public class Employment extends Model {
   public String position;
   public Date start_date;
   public Date end_date;
+
+  public String toString()
+  {
+  	return employer;
+  }
 }
