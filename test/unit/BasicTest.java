@@ -224,5 +224,5 @@ public class BasicTest extends UnitTest {
 		List<Post> bobPosts = Post.find("byAuthor", bob).fetch();
 		assertEquals(2, bobPosts.size());
 
-	}
+	}	
 }
