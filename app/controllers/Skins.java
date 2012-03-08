@@ -9,6 +9,7 @@ import models.*;
 
 @With(Secure.class)
 public class Skins extends OBController {
+  
   /**
    * stylesheet()
    * called by main.html
@@ -46,7 +47,7 @@ public class Skins extends OBController {
    * If there are changes, changes appropriately
    * If there are bad changed, goes to default null.
    */
-  public static void editSkin(Map <String, String[]> update)
+  public static void editSkin()
   {
     User user = user();
     Skin currentUserSkin = user.profile.skin;
@@ -56,7 +57,7 @@ public class Skins extends OBController {
       newSkin.cloneSkin(currentUserSkin);
       user.profile.skin = newSkin;
     }
-    System.out.println(update.toString());
+    System.out.println(Controller.params);
     String updateValue;
     
    

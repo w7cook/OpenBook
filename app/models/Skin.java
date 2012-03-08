@@ -41,7 +41,7 @@ import play.db.jpa.*;
 public class Skin extends Model {
 
   public String name;//name of the skin
-
+  
   @OneToMany(mappedBy = "attachedSkin", cascade = CascadeType.ALL)
   public List<SkinPair> parameters; // attributes of the skin
 
