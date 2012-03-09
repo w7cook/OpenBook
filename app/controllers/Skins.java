@@ -47,7 +47,7 @@ public class Skins extends OBController {
    * If there are changes, changes appropriately
    * If there are bad changed, goes to default null.
    */
-  public static void editSkin()
+  public static void editSkin(String key, String val)
   {
     User user = user();
     Skin currentUserSkin = user.profile.skin;
@@ -57,29 +57,30 @@ public class Skins extends OBController {
       newSkin.cloneSkin(currentUserSkin);
       user.profile.skin = newSkin;
     }
-    System.out.println(Controller.params);
-    String updateValue;
-    
    
-    /*
-   // Map <String,String[]> update = params.data;
-    Set <String> updateKeys = update.keySet();
-    //go through each parameter in update
-    for(String key: updateKeys)
+    
+    String[] keys = key.split(", ");//input is a list
+    String[] values = val.split(", ");
+    String keyUpdate = "";
+    String valueUpdate = "";
+    
+    //go through the attributes
+    for(int x = 0; x< keys.length; x++)
     {
-      updateValue = update.get(key)[0];//should be the value
+      keyUpdate = keys[x];
+      valueUpdate = values[x];
       
-       System.out.println("key: " +key + " value: " + updateValue );
-      if(given(updateValue))//if the key value mapped is not empty
+      if(given(valueUpdate))//if the attribute has been filled, set parameter
       {
-        user.profile.skin.setParam(key, updateValue);
+        user.profile.skin.setParam(keyUpdate,valueUpdate);
       }
     }
     
+   
     //save changes  
     user.profile.save();
-    */
-    skin(user.id);//rerender the page
+   
+    skin(null);//rerender the page for current user (input null will find user();
   }
 
 

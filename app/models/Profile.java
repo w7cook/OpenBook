@@ -51,7 +51,7 @@ public class Profile extends Model {
   public List<Employment> work; // A list of the user's work history
 
   @ManyToOne
-  public Skin skin;//Skin (StyleSheet) used by this User
+  public Skin skin;//Skin (StyleSheet) used by this Profile
 
 
   //CONTACT INFORMATION

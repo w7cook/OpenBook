@@ -15,10 +15,13 @@ import play.db.jpa.*;
  * 
  * This is the Database model for StyleSheets
  * it is similar to the Firefox personas
- * it uses the template OpenBook/app/views/stylesheets/main.css
+ * it uses the template OpenBook/public/stylesheets/main.css
  * which is called by OpenBook/app/views/tags/main.html
  * 
- * Each User has one Skin. Each Skin can have multiple users.
+ * Each Profile has one Skin. A skin can have multiple Profiles using it.
+ * The attributes of a skin are in its parameters 
+ * Which are mapped <SkinPair> values
+ * 
  * Differences in Skins are in how they use the template main.css
  * Variables will include: 
  * color
@@ -32,10 +35,6 @@ import play.db.jpa.*;
  * 
  * For colors in HTML: look at http://www.w3schools.com/html/html_colornames.asp
  * 
- * We have some built in Skins in initial-data.yml. Note: if the Skin field is not 
- * set to something in the initial-data.yml, that field is set to null.
- * 
- *
  */
 @Entity
 public class Skin extends Model {
@@ -45,57 +44,68 @@ public class Skin extends Model {
   @OneToMany(mappedBy = "attachedSkin", cascade = CascadeType.ALL)
   public List<SkinPair> parameters; // attributes of the skin
 
+  /**
+   * addParam (helper method for constructor
+   */
+  private void addParam(String key, String value)
+  {
+    SkinPair param = new SkinPair(this,key,value).save();
+    this.parameters.add(param);
+  }
+  
   public Skin(String name)
   {
     this.name = name;
     parameters = new ArrayList<SkinPair>();
     this.save();
 
-    SkinPair param = new SkinPair(this,"bodyBGColor","blue").save();
+   
     
     //body
-    parameters.add(param);
-/*
+    addParam("bodyBGColor","none");
+
     //logo
-    parameters.put("logoFontSize", "30");
-    parameters.put("logoColor","white");
-    parameters.put("logoFontType","helvetica");// Helvetica, Arial, Sans !important;
+    
+    addParam("logoFontSize", "30");
+    addParam("logoColor","white");
+    addParam("logoFontType","helvetica");// Helvetica, Arial, Sans !important;
 
     //header
-    parameters.put("headerBGColor","CC5500");//000000 (BLACK) or CC5500 (orange)
+    addParam("headerBGColor","CC5500");//000000 (BLACK) or CC5500 (orange)
 
     //footer
-    parameters.put("footerTextAlign","center");//center..
-    parameters.put("footerFontSize","10");// >= 0
-    parameters.put("footerColor","gray");//white, black, gray, etc
+    addParam("footerTextAlign","center");//center..
+    addParam("footerFontSize","10");// >= 0
+    addParam("footerColor","gray");//white, black, gray, etc
 
     //section
-    parameters.put("sectionAlign","top");//top
+    addParam("sectionAlign","top");//top
 
     //label
-    parameters.put("labelFontSize","10");
-    parameters.put("labelColor","black");
+    addParam("labelFontSize","10");
+    addParam("labelColor","black");
 
     //comment
-    parameters.put("commentBorderSize","2");//px size
-    parameters.put("commentBorderColor","white");
-    parameters.put("commentBGColor","EEEEEE");
+    addParam("commentBorderSize","2");//px size
+    addParam("commentBorderColor","white");
+    addParam("commentBGColor","EEEEEE");
 
 
     //button
-    parameters.put("buttonBorderRadius","4");//4
-    parameters.put("buttonBorderSize","1");//1
-    parameters.put("buttonBorderColor","black");//black
-    parameters.put("buttonBoxShadowColor","888888");//888888;
-    parameters.put("buttonBGColor","white");//white;
-    parameters.put("buttonTextDec","none");//none, underline, overline, line-through, blink
-    parameters.put("buttonLinkUnvisitedColor","black");//black   
-    parameters.put("buttonLinkVisitedColor","black");//black 
-    parameters.put("buttonLinkHoverColor","E0E0FF");//#E0E0FF;} 
-    parameters.put("buttonLinkSelectedColor","black");//black;}
-  */  
+    addParam("buttonBorderRadius","4");//4
+    addParam("buttonBorderSize","1");//1
+    addParam("buttonBorderColor","black");//black
+    addParam("buttonBoxShadowColor","888888");//888888;
+    addParam("buttonBGColor","white");//white;
+    addParam("buttonTextDec","none");//none, underline, overline, line-through, blink
+    addParam("buttonLinkUnvisitedColor","black");//black   
+    addParam("buttonLinkVisitedColor","black");//black 
+    addParam("buttonLinkHoverColor","E0E0FF");//#E0E0FF;} 
+    addParam("buttonLinkSelectedColor","black");//black;}
+  
     this.save();
   }
+
 
   /**
    * cloneSkin
@@ -127,7 +137,10 @@ public class Skin extends Model {
    * setParam
    * @param key (name of param to change)
    * @param value (updated value)
-   * Change param to update value
+   * Change param to update value. 
+   * NOTE: if value is updated to a bad value, will get this value,
+   * but the .css file will not interpret this value, and will give a default of null
+   * for the attribute the value is attached to.
    */
   public void setParam(String key, String value)
   {

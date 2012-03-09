@@ -1,5 +1,6 @@
 #{extends 'main.html' /} 
 
+
 #{form @Skins.editSkin()}
 
   </br><b>EDIT SKIN</b>
@@ -10,38 +11,43 @@
       <table>
   <tr>
     <td><label>Background Color:</label></td>
-    <td><input type="text" name="bodyBGColor"
+    <input type = "hidden" name = key value = "bodyBGColor" />
+    <td><input type = "text" name = val
          value="${currentUser.profile.skin.get("bodyBGColor")}" />
     </td>
   </tr>
       </table>
   </table>
   
-<!--  
+
   <table>
   <td class=section width=15%>Logo</td>
     <td>
       <table>
   <tr>
     <td><label>FontSize:</label></td>
-    <td><input type=text name=update.logoFontSize
-         value="${currentUser.profile.skin.logoFontSize}" />
+    <input type = "hidden" name = key value = "logoFontSize" />
+    <td><input type=text name=val
+         value="${currentUser.profile.skin.get("logoFontSize")}" />
     </td>
   </tr>
   <tr>
     <td><label>Color:</label></td>
-    <td><input type=text name=update.logoColor
-         value="${currentUser.profile.skin.logoColor}" />
+    <input type = "hidden" name = key value = "logoColor" />
+    <td><input type=text name=val
+         value="${currentUser.profile.skin.get("logoColor")}" />
     </td>
   </tr>
   <tr>
     <td><label>FontType:</label></td>
-    <td><input type=text name=update.logoFontType
-         value="${currentUser.profile.skin.logoFontType}" />
+    <input type = "hidden" name = key value = "logoFontType" />
+    <td><input type=text name=val
+         value="${currentUser.profile.skin.get("logoFontType")}" />
     </td>
   </tr>
       </table>
   </table>
+
   
   <table>
   <td class=section width=15%>Header</td>
@@ -49,8 +55,9 @@
       <table>
       <tr>
         <td><label>Background Color:</label></td>
-        <td><input type=text name=update.headerBGColor
-             value="${currentUser.profile.skin.headerBGColor}" />
+        <input type = "hidden" name = key value = "headerBGColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("headerBGColor")}" />
         </td>
       </tr>
       </table>
@@ -62,20 +69,23 @@
       <table>
       <tr>
         <td><label>Text Alignment:</label></td>
-        <td><input type=text name=update.footerTextAlign
-             value="${currentUser.profile.skin.footerTextAlign}" />
+        <input type = "hidden" name = key value = "footerTextAlign" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("footerTextAlign")}" />
         </td>
       </tr>
       <tr>
         <td><label>Font Size:</label></td>
-        <td><input type=text name=update.footerFontSize
-             value="${currentUser.profile.skin.footerFontSize}" />
+        <input type = "hidden" name = key value = "footerFontSize" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("footerFontSize")}" />
         </td>
       </tr>
       <tr>
         <td><label>Color:</label></td>
-        <td><input type=text name=update.footerColor
-             value="${currentUser.profile.skin.footerColor}" />
+        <input type = "hidden" name = key value = "footerColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("footerColor")}" />
         </td>
       </tr>
       </table>
@@ -87,8 +97,9 @@
       <table>
       <tr>
         <td><label>Alignment of Text:</label></td>
-        <td><input type=text name=update.sectionAlign
-             value="${currentUser.profile.skin.sectionAlign}" />
+        <input type = "hidden" name = key value = "sectionAlign" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("sectionAlign")}" />
         </td>
       </tr>
       </table>
@@ -100,14 +111,16 @@
       <table>
       <tr>
         <td><label>Font Size:</label></td>
-        <td><input type=text name=update.labelFontSize
-             value="${currentUser.profile.skin.labelFontSize}" />
+        <input type = "hidden" name = key value = "labelFontSize" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("labelFontSize")}" />
         </td>
       </tr>
       <tr>
         <td><label>Color:</label></td>
-        <td><input type=text name=update.labelColor
-             value="${currentUser.profile.skin.labelColor}" />
+        <input type = "hidden" name = key value = "labelColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("labelColor")}" />
         </td>
       </tr>
       </table>
@@ -119,20 +132,23 @@
       <table>
       <tr>
         <td><label>Border Size:</label></td>
-        <td><input type=text name=update.commentBorderSize
-             value="${currentUser.profile.skin.commentBorderSize}" />
+        <input type = "hidden" name = key value = "commentBorderSize" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("commentBorderSize")}" />
         </td>
       </tr>
       <tr>
         <td><label>Border Color:</label></td>
-        <td><input type=text name=update.commentBorderColor
-             value="${currentUser.profile.skin.commentBorderColor}" />
+        <input type = "hidden" name = key value = "commentBorderColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("commentBorderColor")}" />
         </td>
       </tr>
       <tr>
         <td><label>Background Color:</label></td>
-        <td><input type=text name=update.commentBGColor
-             value="${currentUser.profile.skin.commentBGColor}" />
+        <input type = "hidden" name = key value = "commentBGColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("commentBGColor")}" />
         </td>
       </tr>
       </table>
@@ -144,69 +160,78 @@
       <table>
       <tr>
         <td><label>Border Radius:</label></td>
-        <td><input type=text name=update.buttonBorderRadius
-             value="${currentUser.profile.skin.buttonBorderRadius}" />
+        <input type = "hidden" name = key value = "buttonBorderRadius" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonBorderRadius")}" />
         </td>
       </tr>
       <tr>
         <td><label>Border Size:</label></td>
-        <td><input type=text name=update.buttonBorderSize
-             value="${currentUser.profile.skin.buttonBorderSize}" />
+        <input type = "hidden" name = key value = "buttonBorderSize" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonBorderSize")}" />
         </td>
       </tr>
       <tr>
         <td><label>Border Color:</label></td>
-        <td><input type=text name=update.buttonBorderColor
-             value="${currentUser.profile.skin.buttonBorderColor}" />
+        <input type = "hidden" name = key value = "buttonBorderColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonBorderColor")}" />
         </td>
       </tr>
       <tr>
         <td><label>Border Box Shadow Color:</label></td>
-        <td><input type=text name=update.buttonBoxShadowColor
-             value="${currentUser.profile.skin.buttonBoxShadowColor}" />
+        <input type = "hidden" name = key value = "buttonBoxShadowColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonBoxShadowColor")}" />
         </td>
       </tr>
       <tr>
         <td><label>Background Color:</label></td>
-        <td><input type=text name=update.buttonBGColor
-             value="${currentUser.profile.skin.buttonBGColor}" />
+        <input type = "hidden" name = key value = "buttonBGColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonBGColor")}" />
         </td>
       </tr>
       <tr>
         <td><label>Text Decoration (underline,etc): </label></td>
-        <td><input type=text name=update.buttonTextDec
-             value="${currentUser.profile.skin.buttonTextDec}" />
+        <input type = "hidden" name = key value = "buttonTextDec" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonTextDec")}" />
         </td>
       </tr>
       <tr>
         <td><label>Unvisited Link Color: </label></td>
-        <td><input type=text name=update.buttonLinkUnvisitedColor
-             value="${currentUser.profile.skin.buttonLinkUnvisitedColor}" />
+        <input type = "hidden" name = key value = "buttonLinkUnvisitedColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonLinkUnvisitedColor")}" />
         </td>
       </tr>
       <tr>
         <td><label>Visited Link Color: </label></td>
-        <td><input type=text name=update.buttonLinkVisitedColor
-             value="${currentUser.profile.skin.buttonLinkVisitedColor}" />
+        <input type = "hidden" name = key value = "buttonLinkVisitedColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonLinkVisitedColor")}" />
         </td>
       </tr>
       <tr>
         <td><label>Link Hover Color: </label></td>
-        <td><input type=text name=update.buttonLinkHoverColor
-             value="${currentUser.profile.skin.buttonLinkHoverColor}" />
+        <input type = "hidden" name = key value = "buttonLinkHoverColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonLinkHoverColor")}" />
         </td>
       </tr>
       <tr>
         <td><label>Selected Link Color: </label></td>
-        <td><input type=text name=update.buttonLinkSelectedColor
-             value="${currentUser.profile.skin.buttonLinkSelectedColor}" />
+        <input type = "hidden" name = key value = "buttonLinkSelectedColor" />
+        <td><input type=text name=val
+             value="${currentUser.profile.skin.get("buttonLinkSelectedColor")}" />
         </td>
       </tr>
       </table>
   </table>
   
--->  
-      
+
   <table>
   <tr>
   <td colspan=3><input type=submit value=Save> 
