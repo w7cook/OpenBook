@@ -2,9 +2,7 @@ package models;
 
 import java.lang.reflect.Field;
 import java.util.*;
-
 import javax.persistence.*;
-
 import controllers.Security;
 import play.db.jpa.*;
 
