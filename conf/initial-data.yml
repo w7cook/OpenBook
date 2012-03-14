@@ -211,20 +211,19 @@ Post(jeffPost2):
                     More stuff
                     
 Comment(c1):
-    author:         Guest
+    author:         bob
     content:        >
                     You are right !
-    date:           2009-06-14
     parentObj:      firstBobPost
     
 Comment(c2):
-    author:         Mike
+    author:         jeff
     content:        >
                     I knew that ...
-    date:           2009-06-15
     parentObj:      firstBobPost    
     
 Comment(c3):
-    author:         Tom
+    author:         alice
     content:        >
                     This post is useless ?
+    parentObj:      firstBobPost

@@ -25,23 +25,9 @@ public class Comments extends OBController {
 	
 	//comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
 	public static void comments(Long id) {
-	    User user = id == null ? user() : (User) User.findById(id);
+	    User user = id == null ? Application.user() : (User) User.findById(id);
 	    render(user);
 	  }
-	
-	public static User user() {
-	    assert Secure.Security.connected() != null;
-<<<<<<< HEAD
-	    return User.find("byEmail", Secure.Security.connected()).first();
-	  }
-}
-=======
-	    boolean isUsername = User.find("byEmail", Secure.Security.connected()).first() == null;	    
-	    if(isUsername)
-	      return User.find("byUsername", Secure.Security.connected()).first();
-	    else
-	      return User.find("byEmail", Secure.Security.connected()).first();    
-	 }
 
 	public static void deleteComment(Long id, Long userId) {
 	    Comment c = Comment.findById(id);
@@ -49,10 +35,9 @@ public class Comments extends OBController {
 	    comments(userId);
 	  }
 
-	  public static void postComment(Long commentableId, Long userId, String content) {
-	    ((Commentable) Commentable.findById(commentableId)).addComment(user().first_name, content);
+	  public static void postComment(Long statusId, Long userId, String content) {
+	    ((Status) Status.findById(statusId)).addComment(Application.user(), content);
 	    comments(userId);
 	  }
 
 }
->>>>>>> 6f424939a333a8eaa91a4856eb56e44664458d9d

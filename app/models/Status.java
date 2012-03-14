@@ -12,7 +12,7 @@ import play.data.validation.*;
 public class Status extends Model {
 
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
-   
+ 
   @Required
   @ManyToOne
   public User author; // The User who authored the status update

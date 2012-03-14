@@ -13,20 +13,10 @@ public class Post extends Status {
   public String title;
 
   @Lob
-<<<<<<< HEAD
   public String text;
-=======
-  public String content;
-
-  @ManyToOne
-  public User author;
 
   private static final int teaserLength = 40;
-  
-  public List<Comment> comments() {
-    return Comment.find("parentObj = ? AND approved=FALSE", this).fetch();
-  }
->>>>>>> 6f424939a333a8eaa91a4856eb56e44664458d9d
+
 
   public Post(User author, String title, String content) {
     super(author, content);

@@ -21,5 +21,6 @@ public class Comment extends Model {
     this.parentObj = parentObj;
     this.author = author;
     this.content = content;
+    this.approved = false;
   }
 }
