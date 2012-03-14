@@ -32,6 +32,7 @@ public class Application extends OBController {
    *
    * @param id the user to request friendship with
    */
+  
   public static void requestFriends(Long id) {
     User user = user();
     User other = User.findById(id);
