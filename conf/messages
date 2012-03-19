@@ -1,3 +1,6 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+validation.match=Invalid image format
+# "%2$d" returns the second parameter of the max() method in decimal form.
+validation.max=Image size cannot exceed %2$d bytes
