@@ -2,14 +2,20 @@ package controllers;
 
 import java.util.*;
 
+import org.elasticsearch.index.query.QueryBuilders;
+
 import play.*;
+import play.modules.elasticsearch.ElasticSearch;
+import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
 import play.libs.Crypto;
 
+
 public class Application extends OBController {
-  public static void about(Long id) {
+
+        public static void about(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
     render(user);
   }

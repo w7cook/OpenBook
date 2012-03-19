@@ -5,6 +5,7 @@
 # Import Secure routes
 *       /                                       module:secure
 
+
 # Home page
 GET     /                                       Application.news
 
@@ -28,6 +29,8 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+# Search
+GET     /users/search                           UserSearch.search
 
 #Account
 #GET     /users/?                                #Get a list of all users
@@ -55,6 +58,7 @@ GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 # Checkin
 GET     /checkin                                Checkin.checkin
 GET     /checkin/at                             Checkin.at #what is this?  maybe should be post
+>>>>>>> b32ecb13076c837720c34a473a5684403a755a92
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
