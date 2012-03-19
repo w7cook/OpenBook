@@ -28,5 +28,6 @@ public class SkinPair extends Model {
     this.attachedSkin = s;
     this.name = n;
     this.value = v;
+    
   }
 }
