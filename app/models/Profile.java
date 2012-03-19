@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
+import controllers.Skins;
 
 import play.db.jpa.*;
 
@@ -12,7 +13,7 @@ import play.db.jpa.*;
 public class Profile extends Model {
   @OneToOne
   public User owner;
-  public String gender; // The user's gender: female or male
+  public String gender; // The user's gender:female or male
   public String locale; // The user's locale (ISO Language Code and ISO Country
 
   @OneToOne
@@ -38,8 +39,8 @@ public class Profile extends Model {
   public String quotes; // The user's favorite quotes
   public String relationshipStatus; // The user's relationship
   // status:Single,In a relationship, Engaged,Married,It's
-  // complicated, In an open relationship, Widowed,Separated, Divorced, In
-  // a civil union, In a domestic partnership
+  // complicated,In an open relationship,Widowed,Separated,Divorced,In
+  // a civil union,In a domestic partnership
 
   public String religion; // The user's religious views
 
@@ -48,6 +49,9 @@ public class Profile extends Model {
 
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   public List<Employment> work; // A list of the user's work history
+
+  @ManyToOne
+  public Skin skin;//Skin (StyleSheet) used by this Profile
 
 
   //CONTACT INFORMATION
@@ -80,11 +84,10 @@ public class Profile extends Model {
 
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
-
+    Skins.setSkin(this,this.owner.email);//the default skin look is used
     this.phone = "";
     this.address = "";
     this.website = "";
     this.email = "";
-
   }
 }
