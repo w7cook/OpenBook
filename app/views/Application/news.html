@@ -34,7 +34,7 @@
     #{/elseif}
 	
 	#{if user.id == currentUser.id}
-	   #{form @Posts.newPost(user.id)}
+	   #{form @Posts.newPost(user.id, post_content)}
             <textarea name="post_content" id="post_content"></textarea>
             <input type="submit" value="Post" />
        #{/form}
