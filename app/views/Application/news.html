@@ -3,9 +3,10 @@
   <tr>
     <td>
       [Picture]
+      <br/>
       ${user.email}
       
-      <br>
+      <br/>
       <a href="@{Application.news()}">news</a>
       <br>
       <a href="@{Events.events()}">Events</a>
@@ -34,6 +35,12 @@
           Remove friend
         </a>
       #{/elseif}
+	#{if user.id == currentUser.id}
+	   #{form @Posts.newPost(user.id)}
+            <textarea name="post_content" id="post_content"></textarea>
+            <input type="submit" value="Post" />
+       #{/form}
+    #{/if}
       <h3>Blog Posts</h3>
       #{list items:user.news(), as:'item'}
         <div class="post">
@@ -44,6 +51,9 @@
             <span class="post-date">
               ${item.date.format('dd MMM yy')}
             </span>
+        #{if item.author == currentUser}
+            <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
+        #{/if}
             <a class='triggerhide' href='#' onclick='return false;'> less</a>
                
             <div class="post-content tohideopp">
@@ -62,7 +72,9 @@
                     </span>
                     <span class="comment-date">
                       ${comment.date.format('dd MMM yy')}
-                      <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                    #{if comment.author == currentUser.first_name}
+                        <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                    #{/if}
                     </span>
                   </div>
                   <div class="comment-content">
@@ -70,6 +82,19 @@
                   </div>
                 </div>
               #{/list}
+        #{if user.isFriendsWith(currentUser) || user==currentUser}
+        
+            <input type="button" value="new comment" onclick="showDiv('comment ${item.id}')" />
+		     
+		    <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
+		    
+            #{form @Comments.postComment(item.id, user.id)}
+        	   <textarea name="content" id="content"></textarea>
+        	   <input type="submit" value="Comment" />
+        	   <input type="button" value="cancel" onclick="hideDiv('comment ${item.id}')" />
+		    #{/form}	    
+		    </div>
+		 #{/if}
               <span class="hideable">
                 <a class='triggershow showfirst'  href='#' onclick='return false;'> comment </a>
                 <a class='triggerhide' href='#' onclick='return false;'> close </a>
