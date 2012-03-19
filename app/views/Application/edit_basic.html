@@ -2,53 +2,185 @@
 #{form @Application.updateBasic() }
 
 <table>
+
+	<tr><td><h3>About You</h3></td></tr>
 	<tr>
-		<td><label>I Am:</label>
+		<td><label>Bio:</label>
 		</td>
-		<td>#{select 'gender', value:user.profile.gender} #{option
-			'Male'}Male#{/option} #{option 'Female'}Female#{/option} #{/select}</td>
+		<td><input size=80 type=text name=birthday
+			value="${user.profile.bio ? user.profile.bio : 'Write About Yourself'}">
+		</td>
+	</tr>
+
+
+	<tr><td><h3>Basic Information<h3></td></tr>
+	<tr>
+		<td><label>Birthday: </br> </label>
+		</td>
+		<td>
+			<script>DateInput('orderdate', true)</script>
+		
+		<input type=text name=birthday
+			value="${user.profile.birthday ? user.profile.birthday.format('MMM dd ') : 'extra bday field?'}">
+		</td>
+	</tr>
+	<tr>
+		<td><label>Sex:</label>
+		</td>
+		<td>#{select 'gender', value:user.profile.gender} 
+		#{option 'Male'}Male#{/option} 
+		#{option 'Female'}Female#{/option} 
+		#{/select}</td>
 		<!--  Show my sex on my timeline  -->
 	</tr>
+
 	<tr>
-		<td><label>Birthday:</label>
+		<td><label>Interested in:</label>
 		</td>
-		<td><input type=text name=birthday
-			value="${user.profile.birthday ? user.profile.birthday.format('MMM dd ') : ''}">
+		<td>#{select 'gender', value:user.profile.interestedIn} 
+		#{option 'Male'}Male#{/option} 
+		#{option 'Female'}Female#{/option} 
+		#{option 'Both'}Both#{/option} 
+		#{option 'Neither'}Neither#{/option} 
+		#{/select}</td>
+	</tr>
+
+<tr>
+		<td><label>Relationship Status: </label></td>
+		<td>#{select 'status', value:user.profile.relationshipStatus} 
+		#{option 'Single'}Single#{/option} 
+		#{option 'In a relationship'}In a relationship#{/option} 
+		#{option 'Engaged'}Engaged#{/option} 
+		#{option 'Married'}Married#{/option} 
+		#{option 'It\'s complicated'}It's complicated#{/option}
+		#{option 'In an open relationship'}In an open relationship#{/option} 
+		#{option 'Widowed'}Widowed#{/option} 
+		#{option 'Separated'}Separated#{/option}
+		#{option 'Divorced'}Divorced#{/option}
+		#{option 'In a civil union'}In a civil union#{/option}
+		#{option 'In a domestic partnership'}In a domestic partnership#{/option}
+		#{/select}</td>
+	</tr>
+
+	#{if user.profile.hasAnniversary()}
+	<tr>
+		<td><label>Anniversary: </br></label></td>
+
+		<td><script>DateInput('orderdate', true)</script>
 		</td>
 	</tr>
+	#{/if}
+
+	<tr>
+		<td><label>Languages: </label></td>
+		<td>
+		#{list items:user.profile.languages, as:'lang'}
+			${lang.toString()}
+		#{/list}	
+		<input type=text name=work value="Add language">
+		</td>
+	</tr>
+	<tr>
+		<td><label>Religious views: </label></td>
+		<td>
+		<input size=80 type=text name=religion
+			value="${user.profile.religion ? user.profile.religion : ''}">
+		</td>
+    </tr>
+    <tr>
+        <td><label>Political Views: </label></td>
+		<td>
+		<input size=80 type=text name=political
+			value="${user.profile.political ? user.profile.political : ''}">
+		</td>
+    </tr>
+
+	<tr><td><h3>Work and Education<h3></td></tr>
 	<tr>
 		<td><label>Education:</label>
 		</td>
-		<td><input type=text name=education>    
+		<td>
+		#{list items:user.profile.education, as:'enrollment'}
+			${enrollment.toString()}
+		#{/list}	
+		<input type=text name=education value="Add a School">    
 		</td>
 	</tr>
 	<tr>
 		<td><label>Work History:</label></td>
-		<td><input type=text name=work></td>
+		<td>
+		#{list items:user.profile.work, as:'work'}
+			${work.toString()}
+		#{/list}	
+		<input type=text name=work value="Add a Job"></td>
 	</tr>
-	<tr>
-		<td><label>Interested In: 
+	
+
+	<tr><td><h3>Living<h3></td></tr>
+    <tr>
+        <td><label>Hometown: </label></td>
+		<td>
+		<input type=text name=hometown
+			value="${user.profile.hometown ? user.profile.hometown : 'Add hometown'}">
 		</td>
 	</tr>
+
 	<tr>
-		<td><label>Relationship Status: </label></td>
+        <td><label>Current Town: </label></td>
+		<td>
+		<input type=text name=currentTown
+			value="${user.profile.location ? user.profile.location : 'Add current town'}">
+		</td>
 	</tr>
+
+
+	<tr><td><h3>Contact Info<h3></td></tr>
+
 	<tr>
-		<td><label>Anniversary: </label></td>
+        <td><label>Phone: </label></td>
+		<td>
+		<input type=text name=phone
+			value="${user.profile.phone ? user.profile.phone : 'Add phone number'}">
+		</td>
 	</tr>
+
 	<tr>
-		<td><label>Languages: </label></td>
+        <td><label>Address: </label></td>
+		<td>
+		<input type=text name=address
+			value="${user.profile.address ? user.profile.address : 'Add current address'}">
+		</td>
 	</tr>
+
 	<tr>
-		<td><label>Religion: </label></td>
-    </tr>
+        <td><label>Website: </label></td>
+		<td>
+		<input type=text name=website
+			value="${user.profile.website ? user.profile.website : 'Add personal website'}">
+		</td>
+	</tr>
+
+	<tr>
+        <td><label>Email: </label></td>
+		<td>
+		<input type=text name=email
+			value="${user.profile.email? user.profile.email: 'Add email'}">
+		</td>
+	</tr>
+
+
+	<tr><td><h3>Favorite Quotations<h3></td></tr>
     <tr>
-        <td><label>Political Views: </label></td>
-    </tr>
-    <tr>
-        <td><label>Description: </label></td>
+        <td><label>Quote: </label></td>
+		<td>
+		<input type=text name=hometown
+			value="${user.profile.quotes ? user.profile.quotes : 'Add a Favorite Quotation'}">
+		</td>
 	</tr>
+
 
 </table>
 
+</br>
+</br>
 Save Cancel #{/form}
