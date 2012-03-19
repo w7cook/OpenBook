@@ -17,4 +17,9 @@ public class Enrollment extends Model {
   public String degree;
   public String concentration; // array!
   public String classes; // array!
+
+  public String toString()
+  {
+  	return name;
+  }
 }

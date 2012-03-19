@@ -120,6 +120,9 @@ public class User extends Model {
       return false;
     return username.equals(((User) obj).username);
   }
+  public String toString(){
+    return first_name + " " + last_name;
+  }
 public boolean isFriendsWith(User user) {
 	for(Relationship f: this.confirmedFriends()){
 		if(f.to == this && f.from == user)

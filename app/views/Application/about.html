@@ -23,10 +23,10 @@
 			<th class="label">Sex</th>
 			<td class="data">${user.profile.gender}</td>
 		</tr>
-   #{if user.profile.significant_other}
+   #{if user.profile.significantOther}
     <tr>
       <th class="label">Relationship Status</th>
-      <td class="data">In a relationship with <a href="@{Application.news(user.significant_other.id)}">${user.profile.significant_other.name}</a>
+      <td class="data">In a relationship with <a href="@{Application.news(user.significantOther.id)}">${user.profile.significantOther.name}</a>
       </td>
     </tr>
   #{/if}
