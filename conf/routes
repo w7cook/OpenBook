@@ -5,6 +5,7 @@
 # Import Secure routes
 *       /                                       module:secure
 
+
 # Home page
 GET     /                                       Application.news
 
@@ -29,6 +30,8 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+# Search
+GET     /users/search                           UserSearch.search
 
 #Account
 #GET     /users/?                                #Get a list of all users
