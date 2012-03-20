@@ -15,7 +15,7 @@ public class Post extends Status {
   @Lob
   public String text;
 
-  private static final int teaserLength = 40;
+  private static final int TEASER_LENGTH = 40;
 
 
   public Post(User author, String title, String content) {
@@ -25,10 +25,10 @@ public class Post extends Status {
   }
   
   public String contentTeaser() {
-	  if (this.content.length() < teaserLength) {
+	  if (this.content.length() < TEASER_LENGTH) {
 		  return this.content;
 	  } else {
-		  return this.content.substring(0, teaserLength);
+		  return this.content.substring(0, TEASER_LENGTH);
 	  }
   }
 

@@ -8,6 +8,7 @@ import play.db.jpa.*;
 @Entity
 public class Comment extends Model {
 
+  @ManyToOne
   public User author;
   public boolean approved;
 

@@ -56,6 +56,7 @@ public class Status extends Model {
 	  return this;
 	}
 	
+	
 	private String parseContent(String unlinked_content){
 	  Matcher links_matcher = links_pattern.matcher(unlinked_content);
     
