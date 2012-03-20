@@ -59,7 +59,7 @@ public class User extends Model {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
-    Skins.setSkin(this,"DEFAULT");//set skin as default skin
+    Skins.setSkin(this.profile,"DEFAULT");//set skin as default skin
     // this.education = new ArrayList<Enrollment>();
   }
 
