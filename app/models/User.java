@@ -124,6 +124,20 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+  
+  public List<Group> getGroups(){
+	  List<Group> allGroups= Group.findAll();
+	  List<Group> answer= new ArrayList<Group>();
+	  for(Group g : allGroups){
+		  for(User u : g.members){
+			  if(u.equals(this)){
+				  answer.add(g);
+				  break;
+			  }
+		  }
+	  }
+	  return answer;
+  }
 
   public boolean equals(Object obj) {
     if (obj == null)
