@@ -29,8 +29,9 @@ DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
 # Threads
-GET     /threads                               	FThreads.listAll
-GET     /threads/{<[0-9]+>threadId}             FThreads.listSingle
+GET     /threads                                Categories.listAll
+GET     /threads/cat{<[0-9]+>catId}          Categories.listSingle
+GET     /threads/cat[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
 
 
 #Account

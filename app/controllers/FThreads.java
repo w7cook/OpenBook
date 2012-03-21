@@ -27,11 +27,12 @@ public class FThreads extends Controller {
 		return User.find("byEmail", Secure.Security.connected()).first();
 	}
 
-	public static void listAll()
-	{
-        List<FThread> FThreads = FThread.find("order by postedAt desc").fetch(10);
-        render(FThreads);
-	}
+  // public static void listAll(Long catID)
+  // {
+  //       Category cat = Category.findById(catID);
+  //         List<FThread> FThreads = FThread.find("cat = ? order by postedAt desc", cat).fetch(10);
+  //         render(FThreads);
+  // }
 	
 	public static void listSingle(Long threadId)
 	{

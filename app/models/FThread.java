@@ -21,6 +21,10 @@ public class FThread extends Commentable
 	
 	@Required @As("yyyy-MM-dd")
 	public Date postedAt;
+	
+	@Required
+	@ManyToOne
+	public Category cat;
 
 	
 	public FThread(String title, User author, Date postedAt)

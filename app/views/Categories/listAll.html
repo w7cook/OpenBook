@@ -1,0 +1,19 @@
+
+
+#{if Categories.size()}
+
+        <div id="thread-list">
+        	<div id="thread-list-header">
+        		<div style="width: 60%; float: left;">Category</div>
+        		<div style="width: 20%; float: right;">Last post </div>
+        	</div>
+            #{list items:Categories, as:'category'}
+            	<div class="thread">
+                <div style="width: 60%; float: left;"><a href="threads/cat${category.id}">${category.name}</a></div>
+                <div style="width: 20%; float: right;">${category.get_most_recent() ? category.get_most_recent().postedAt.format('M-d-yy') : "none"}</a></div>
+                </div>
+            #{/list}
+        </div>
+        <div style="width: 700px; margin-left: auto; margin-right: auto; text-align: right; padding-right: 5px; margin-top: 5px;"><a href="">New Category</a></div>
+
+    #{/if}
