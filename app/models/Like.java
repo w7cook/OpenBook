@@ -15,9 +15,9 @@ public class Like extends Model {
   
   @Required
   @ManyToOne
-  public Status parentObj;
+  public Likeable parentObj;
   
-  public Like(Status parentObj, User author){
+  public Like(Likeable parentObj, User author){
     this.author = author;
     this.parentObj = parentObj;
   }

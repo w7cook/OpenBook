@@ -21,17 +21,16 @@ public class Comment extends Model {
   @ManyToOne
   public Commentable parentObj;
   
-  @OneToMany(mappedBy="comment", cascade=CascadeType.ALL)
+  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
   public List<Like> likes;
 
-  public Comment(Status parentObj, User author, String content) {
+  public Comment(Commentable parentObj, User author, String content) {
     this.parentObj = parentObj;
     this.author = author;
     this.content = content;
     this.approved = false;
   }
-}
-  
+
   public void addLike (Like l){
     likes.add(l);
     this.save();

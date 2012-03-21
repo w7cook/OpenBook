@@ -9,7 +9,7 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-public class Status extends Model {
+public class Status extends Commentable {
 
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
  
@@ -19,12 +19,6 @@ public class Status extends Model {
   
   @Lob
   public String content;
-  
-  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
-  public List<Comment> comments;
-  
-  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
-  public List<Like> likes;
   
   @ManyToMany(cascade=CascadeType.PERSIST)
   public List<Tag> tags;
@@ -40,23 +34,7 @@ public class Status extends Model {
     this.author = author;
     this.content = content;
   }
-  
-  public Status addComment(User author, String content) {
-		Comment newComment = new Comment(this, author, content).save();
-		this.comments.add(newComment);
-		this.save();
-		return this;
-	}
-	
-	
-	public Status addLike(User user){
-	  Like newLike = new Like(this, user).save();
-	  this.likes.add(newLike);
-	  this.save();
-	  return this;
-	}
-	
-	
+ 
 	private String parseContent(String unlinked_content){
 	  Matcher links_matcher = links_pattern.matcher(unlinked_content);
     
