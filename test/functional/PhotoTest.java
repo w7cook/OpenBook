@@ -2,7 +2,9 @@ package functional;
 
 import org.junit.*;
 import org.junit.Before;
+import java.awt.image.BufferedImage;
 import java.util.*;
+import javax.imageio.ImageIO;
 import java.io.*;
 import play.test.*;
 import play.mvc.*;
@@ -23,6 +25,7 @@ public class PhotoTest extends FunctionalTest {
   public static final String FILENAME_GOOD_JPG = "/test/data/plant.jpg";
   public static final String FILENAME_BAD_SIZE = "/test/data/plant.png";
   public static final String FILENAME_BAD_TYPE = "/test/data/plant.tif";
+  public static final String FILENAME_LARGE = "/test/data/plant_2560x1600.jpg";
 
   public User user;
 
@@ -117,5 +120,28 @@ public class PhotoTest extends FunctionalTest {
                        "/users/" + this.user.id + "/photos",
                        response);
     assertEquals(0, Photo.count());
+  }
+
+  @Test
+  public void testResize() throws IOException {
+    File image = VirtualFile.fromRelativePath(FILENAME_LARGE).getRealFile();
+    BufferedImage bufferedImage = ImageIO.read(image);
+    assertEquals(2560, bufferedImage.getWidth());
+    assertEquals(1600, bufferedImage.getHeight());
+
+    Response response = POST("/photos",
+                             this.setupParameters(),
+                             this.setupUpload(FILENAME_LARGE));
+    assertNotNull(response);
+    assertStatus(Http.StatusCode.FOUND, response);
+    assertHeaderEquals("Location",
+                       "/users/" + this.user.id + "/photos",
+                       response);
+    List<Photo> photos = Photo.findAll();
+    assertEquals(1, photos.size());
+
+    bufferedImage = ImageIO.read(photos.get(0).image.getFile());
+    assertEquals(1024, bufferedImage.getWidth());
+    assertEquals(640, bufferedImage.getHeight());
   }
 }
