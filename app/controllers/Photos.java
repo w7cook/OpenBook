@@ -1,6 +1,8 @@
 package controllers;
 
+import java.awt.image.BufferedImage;
 import java.util.*;
+import javax.imageio.ImageIO;
 import java.io.*;
 import play.*;
 import play.data.validation.Error;
@@ -14,7 +16,8 @@ public class Photos extends OBController {
 
   /* All possible image mime types in a single regex. */
   public static final String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
-  public static final int MAX_FILE_SIZE = 500 * 1024;  /* Max size in bytes. */
+  public static final int MAX_PIXEL_SIZE = 1024;
+  public static final int MAX_FILE_SIZE = 2 * 1024 * 1024;  /* Size in bytes. */
 
   public static void photos(Long ownerId) {
     List<Photo> photos;
@@ -53,9 +56,24 @@ public class Photos extends OBController {
     return new Photo(user(), blob);
   }
 
-  public static void addPhoto(File image) throws FileNotFoundException {
-    Photo photo = fileToPhoto(image);
+  /**
+   * Shrink the image to MAX_PIXEL_SIZE if necessary.
+   *
+   * @param   image   the file to convert.
+   * @throws          IOException
+   */
+  private static void shrinkImage(File image) throws IOException {
+    BufferedImage bufferedImage = ImageIO.read(image);
+    if (bufferedImage != null && (bufferedImage.getWidth() > MAX_PIXEL_SIZE ||
+                                  bufferedImage.getHeight() > MAX_PIXEL_SIZE)) {
+      Images.resize(image, image, MAX_PIXEL_SIZE, MAX_PIXEL_SIZE, true);
+    }
+  }
 
+  public static void addPhoto(File image) throws FileNotFoundException,
+                                                 IOException {
+    shrinkImage(image);
+    Photo photo = fileToPhoto(image);
     validation.match(photo.image.type(), IMAGE_TYPE);
     validation.max(photo.image.length(), MAX_FILE_SIZE);
 

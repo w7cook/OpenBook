@@ -16,7 +16,7 @@ import controllers.Skins;
 
 @Entity
 public class Profile extends Model {
-  @OneToOne
+  @OneToOne(cascade=CascadeType.ALL)
   public User owner;
   public String gender; // The user's gender:female or male
   public String locale; // The user's locale (ISO Language Code and ISO Country
