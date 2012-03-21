@@ -36,8 +36,8 @@ public class Categories extends Controller {
 	public static void listSingle(Long catId)
 	{
 		Category cat = Category.findById(catId);
-		List<FThread> FThreads = FThread.find("cat = ? order by postedAt desc", cat).fetch(10);
-    render(FThreads);
+		List<FThread> FThreads = FThread.find("category = ? order by postedAt desc", cat).fetch(10);
+		render(FThreads, cat);
   
 	}
 	

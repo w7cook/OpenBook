@@ -24,14 +24,19 @@ public class FThread extends Commentable
 	
 	@Required
 	@ManyToOne
-	public Category cat;
+	public Category category;
+	
+	@Required
+	@Lob
+	public String content;
 
 	
-	public FThread(String title, User author, Date postedAt)
+	public FThread(String title, User author, Date postedAt, String content)
 	{
 		
 		this.title = title;
 		this.author = author;
 		this.postedAt = new Date();
+		this.content = content;
 	}
 }

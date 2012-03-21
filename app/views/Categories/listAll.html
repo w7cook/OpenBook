@@ -1,19 +1,30 @@
 #{extends 'main.html' /}
 
-#{if Categories.size()}
+<div id="forumContainer">
+	<div id="forumHeader">
+		<div class="headerLeft">Forum</div>
+		<div class="headerRight">Last post</div>
+	</div>
 
-        <div id="thread-list">
-        	<div id="thread-list-header">
-        		<div style="width: 60%; float: left;">Category</div>
-        		<div style="width: 20%; float: right;">Last post </div>
-        	</div>
-            #{list items:Categories, as:'category'}
-            	<div class="thread">
-                <div style="width: 60%; float: left;"><a href="threads/${category.id}">${category.name}</a></div>
-                <div style="width: 20%; float: right;">${category.get_most_recent() ? category.get_most_recent().postedAt.format('M-d-yy') : "none"}</a></div>
-                </div>
-            #{/list}
-        </div>
-        <div style="width: 700px; margin-left: auto; margin-right: auto; text-align: right; padding-right: 5px; margin-top: 5px;"><a href="">New Category</a></div>
-
-    #{/if}
+	#{if Categories.size()}
+		#{list items:Categories, as:'category'}
+			<div class="threadList">
+				<div class="forumInner">
+					<div class="threadLeft">
+						<a href="threads/${category.id}">${category.name}</a>
+					</div>
+					<div class="threadRight">
+						#{if category.get_most_recent() != null}
+							<a href="/threads/${category.get_most_recent().category.id}/${category.get_most_recent().id}">${category.get_most_recent().title}</a><br />
+							Posted by: <a href="/?id=${category.get_most_recent().author.id}">${category.get_most_recent().author}</a><br />
+							${category.get_most_recent().postedAt.format('M-d-yy, h:mm a')}
+						#{/if}
+					</div>
+				</div>
+			</div>	
+		#{/list}
+	#{/if}
+	#{else}
+		There currently no categories configured.
+	#{/else}
+</div>

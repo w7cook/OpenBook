@@ -1,26 +1,84 @@
 /* -- Threads -- */
 
-div#thread-list {
+div#forumContainer {
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
 	width: 700px;
-	border: 1px solid black;
+	font-family: "Lucida Grande";
+	font-size: 11px;
 }
 
-div#thread-list-header {
-	background-color: #CC5500;
+div#forumHeader {
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 15px;
 	font-weight: bold;
-	height: 25px;
-	vertical-align: middle;
-	padding-top: 10px;
-	padding-left: 5px;
-	padding-right: 5px;
-	margin-bottom: 5px;
+	height: 40px;
+	color: #FFF;
+	text-shadow: 2px 2px 3px #000;
+	font-size: 16px;
+}
+
+div#forumHeader a {
+	color: white;
+	text-decoration: none;
+}
+
+div#forumHeader a:hover {
+	text-decoation: underline;
+}
+
+div.forumInner {
+	margin-left: auto;
+	margin-right: auto;
+	width: 660px;
+	border-bottom: 1px dotted black;
+	height: 50px;
+}
+
+div.threadList {
+	height: 50px;
+}
+
+div.threadList a {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+div.threadList a:hover {
+	text-decoration: underline;
+}
+
+div.threadLeft {
+	padding-top: 18px;
+	float: left;
+	width: 470px;
+	font-size: 13px;
+}
+
+div.threadRight {
+	padding-top: 4px;
+	float: right;
+	width: 190px;
+
+}
+
+div.headerLeft {
+	margin-left: 20px;
+	margin-top: 10px;
+	float: left;
+	width: 470px;
+}
+
+div.headerRight {
+	margin-top: 10px;
+	float: right;
+	width: 190px;
+	margin-right: 20px;
 }
 
 div.thread {
-	padding-left: 5px;
 	height: 20px;
 	
 }

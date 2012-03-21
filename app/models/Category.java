@@ -10,7 +10,7 @@ public class Category extends Model {
 
   public String name;
 
-  @OneToMany(mappedBy="cat", cascade=CascadeType.ALL)
+  @OneToMany(mappedBy="category", cascade=CascadeType.ALL)
   public List<FThread> threads;
 
   public Category(String name) {
@@ -19,6 +19,6 @@ public class Category extends Model {
   }
   
   public FThread get_most_recent(){
-    return FThread.find("cat = ? order by postedAt desc", this).first();
+    return FThread.find("category = ? order by postedAt desc", this).first();
   }
 }

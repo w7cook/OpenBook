@@ -1,21 +1,36 @@
 #{extends 'main.html' /}
 
-#{if FThreads.size()}
+<div id="forumContainer">
+	<div id="forumHeader">
+		<div class="headerLeft"><a href="/threads">Forum</a> / ${cat.name}</div>
+		<div class="headerRight">Last post</div>
+	</div>
 
-        <div id="thread-list">
-        	<div id="thread-list-header">
-        		<div style="width: 60%; float: left;">Thread title</div>
-        		<div style="width: 20%; float: left;">Author</div>
-        		<div style="width: 20%; float: right;">Date</div>
-        	</div>
-            #{list items:FThreads, as:'FThread'}
-            	<div class="thread">
-                <div style="width: 60%; float: left;"><a href="${FThread.cat.id}/${FThread.id}">${FThread.title}</a></div>
-                <div style="width: 20%; float: left;"><a href="/?id=${FThread.author.id}">${FThread.author}</a></div>
-                <div style="width: 20%; float: right;">${FThread.postedAt.format('M-d-yy')}</a></div>
-                </div>
-            #{/list}
-        </div>
-        <div style="width: 700px; margin-left: auto; margin-right: auto; text-align: right; padding-right: 5px; margin-top: 5px;"><a href="">New thread</a></div>
+	#{if FThreads.size()}        
+	   	#{list items:FThreads, as:'FThread'}
+		   	<div class="threadList">
+		   		<div class="forumInner">
+					<div class="threadLeft">
+						<a href="${FThread.category.id}/${FThread.id}">${FThread.title}</a>
+					</div>
+					<div class="threadRight" style="padding-top: 12px;">
+						<a href="/?id=${FThread.author.id}">${FThread.author}</a><br />
+							${FThread.postedAt.format('M-d-yy, h:mm a')}
+						</div>
+				</div>
+			</div>
+		#{/list}
+	#{/if}
+	#{else}
+		<div class="threadList">
+		   		<div class="forumInner">
+					<div class="threadLeft">
+						This category has no threads.
+					</div>
+				</div>
+		</div>
+	#{/else}
 
-    #{/if}
+</div>
+
+<div style="clear:both;"></div>

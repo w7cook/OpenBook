@@ -1,11 +1,11 @@
 #{extends 'main.html' /}
 
-<div id="thread-list">
-	<div id="thread-list-header">
-		${thread.title}
+
+<div id="forumContainer">
+	<div id="forumHeader">
+		<div class="headerLeft"><a href="/threads">Forum</a> / <a href="/threads/${thread.category.id}">${thread.category.name}</a> / Thread: ${thread.title}</div>
 	</div>
-
-    	comment list
-
+ 	<div class="forumInner">
+	</div>
 </div>
 

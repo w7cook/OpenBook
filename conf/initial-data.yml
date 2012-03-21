@@ -25,7 +25,7 @@ Skin(DEFAULT):
     buttonLinkVisitedColor:     black
     buttonLinkHoverColor:       E0E0FF
     buttonLinkSelectedColor:    black
-    
+
 Skin(SEA):
     name:                       SEA
     bodyBGColor:                lightBlue 
@@ -79,7 +79,7 @@ Skin(GREEN):
     buttonLinkVisitedColor:     black
     buttonLinkHoverColor:       E0E0FF
     buttonLinkSelectedColor:    black
- 
+
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -100,7 +100,7 @@ User(alice):
     #significant_other: jeff
     anniversary:        2010-12-2
     skin:               GREEN
-    
+
 User(jeff):
     first_name:         Jeff
     last_name:          Jones
@@ -133,7 +133,7 @@ Relationship(s2):
 Relationship(s3):
     from:       jeff
     to:         jeff
-  
+
 Relationship(r1):
     from:       bob
     to:         jeff
@@ -153,13 +153,13 @@ Relationship(r5):
     from:       jeff
     to:         bob
     accepted:   true
-    
+
 Status(firstBobStatus):
     date:       2011-06-14
     author:     bob
     message:    >
                 Short sweet twitter like messages that will have inline @mentions and #tags.
-    
+
 Post(firstBobPost):
     title:          About the model layer
     date:           2009-06-14
@@ -181,7 +181,7 @@ Post(secondBobPost):
     author:         bob
     content:        >
                     Well, it's just a test.
-                    
+
 Post(jeffPost):
     title:          The MVC application
     date:           2009-06-06
@@ -200,55 +200,54 @@ Post(jeffPost2):
     author:         jeff
     content:        >
                     More stuff
-                    
+            
 Comment(c1):
     author:         Guest
     content:        >
                     You are right !
     date:           2009-06-14
     parentObj:      firstBobPost
-    
+
 Comment(c2):
     author:         Mike
     content:        >
                     I knew that ...
     date:           2009-06-15
     parentObj:      firstBobPost    
-    
+
 Comment(c3):
     author:         Tom
     content:        >
                     This post is useless ?
     date:           2009-04-05
     parentObj:      secondBobPost
-    
-Category(cat1):
+
+Category(main):
     name:           Main
-    
-Category(cat2):
+
+Category(music):
     name:           Music
-    
-Category(cat3):
+
+Category(movies):
     name:           Movies
-    
-Category(cat4):
+
+Category(sports):
     name:           Sports
-    
+
 FThread(thread1):
     author:         bob
     title:          This is a thread
     postedAt:       2009-04-05
-    cat:            cat1
+    category:       main
 
 FThread(thread2):
     author:         bob
     title:          This is another thread
     postedAt:       2009-04-06
-    cat:            cat1
-    
+    category:       main
+
 FThread(thread3):
     author:         alice
     title:          I hate dubstep
     postedAt:       2011-03-06
-    cat:            cat2
-
+    category:       music
