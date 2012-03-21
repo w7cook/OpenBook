@@ -6,7 +6,9 @@ import javax.persistence.*;
 import controllers.Security;
 
 import play.db.jpa.*;
+import play.modules.elasticsearch.annotations.ElasticSearchable;
 
+@ElasticSearchable
 @Entity
 public class Post extends Status {
 
@@ -16,7 +18,6 @@ public class Post extends Status {
   public String text;
 
   private static final int TEASER_LENGTH = 40;
-
 
   public Post(User author, String title, String content) {
     super(author, content);

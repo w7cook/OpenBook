@@ -1,84 +1,4 @@
 # Test data
-Skin(DEFAULT):
-    name:                       DEFAULT
-    bodyBGColor:                none
-    logoFontSize:               30
-    logoColor:                  white
-    logoFontType:               Helvetica
-    headerBGColor:              CC5500
-    footerTextAlign:            center
-    footerFontSize:             10
-    footerColor:                gray
-    sectionAlign:               top
-    labelFontSize:              10
-    labelColor:                 black
-    commentBorderSize:          2
-    commentBorderColor:         white
-    commentBGColor:             EEEEEE
-    buttonBorderRadius:         4
-    buttonBorderSize:           1
-    buttonBorderColor:          black
-    buttonBoxShadowColor:       888888
-    buttonBGColor:              white
-    buttonTextDec:              none
-    buttonLinkUnvisitedColor:   black
-    buttonLinkVisitedColor:     black
-    buttonLinkHoverColor:       E0E0FF
-    buttonLinkSelectedColor:    black
-    
-Skin(SEA):
-    name:                       SEA
-    bodyBGColor:                lightBlue 
-    logoFontSize:               40
-    logoColor:                  white
-    logoFontType:               Helvetica
-    headerBGColor:              1E90FF
-    footerTextAlign:            center
-    footerFontSize:             10
-    footerColor:                black
-    sectionAlign:               top
-    labelFontSize:              15
-    labelColor:                 black
-    commentBorderSize:          2
-    commentBorderColor:         gray
-    commentBGColor:             E0FFFF 
-    buttonBorderRadius:         3
-    buttonBorderSize:           1
-    buttonBorderColor:          gray
-    buttonBoxShadowColor:       4169E1
-    buttonBGColor:              white
-    buttonTextDec:              none
-    buttonLinkUnvisitedColor:   DarkBlue
-    buttonLinkVisitedColor:     DarkBlue
-    buttonLinkHoverColor:       E0FFFF
-    buttonLinkSelectedColor:    DarkBlue    
-
-Skin(GREEN):
-    name:                       GREEN
-    bodyBGColor:                none
-    logoFontSize:               30
-    logoColor:                  white
-    logoFontType:               Helvetica
-    headerBGColor:              008000
-    footerTextAlign:            center
-    footerFontSize:             10
-    footerColor:                gray
-    sectionAlign:               top
-    labelFontSize:              10
-    labelColor:                 black
-    commentBorderSize:          2
-    commentBorderColor:         white
-    commentBGColor:             EEEEEE
-    buttonBorderRadius:         4
-    buttonBorderSize:           1
-    buttonBorderColor:          black
-    buttonBoxShadowColor:       888888
-    buttonBGColor:              white
-    buttonTextDec:              none
-    buttonLinkUnvisitedColor:   black
-    buttonLinkVisitedColor:     black
-    buttonLinkHoverColor:       E0E0FF
-    buttonLinkSelectedColor:    black
  
 User(bob):
     first_name:         Bob
@@ -88,7 +8,6 @@ User(bob):
     email:              bob@gmail.com
     password:           secret
     isAdmin:            true
-    skin:               SEA
 
 User(alice):
     first_name:         Alice
@@ -99,7 +18,6 @@ User(alice):
     password:           secret
     #significant_other: jeff
     anniversary:        2010-12-2
-    skin:               GREEN
     
 User(jeff):
     first_name:         Jeff
@@ -110,7 +28,6 @@ User(jeff):
     password:           secret
     significant_other:  alice
     anniversary:        2010-12-2
-    skin:               DEFAULT
 
 User(gparker):
     first_name:         Geoffrey
@@ -120,7 +37,6 @@ User(gparker):
     email:              grp@gparker.co
     password:           password
     isAdmin:            true
-    skin:               DEFAULT
 
 Relationship(s1):
     from:       bob
@@ -209,3 +125,18 @@ Post(jeffPost2):
     author:         jeff
     content:        >
                     More stuff
+
+Group(g1):
+    owner:          bob
+    groupName:      Bob's cool group
+    members:        [bob,jeff]
+    description:    >
+                    A group for cool people to talk about cool things in a cool place.
+    
+Group(g2):
+    owner:          alice
+    groupName:      Alice's first group
+    members:        [alice]
+    description:    >
+                    This is a description for Alice's group.
+                    
