@@ -5,6 +5,7 @@
 # Import Secure routes
 *       /                                       module:secure
 
+
 # Home page
 GET     /                                       Application.news
 
@@ -14,6 +15,7 @@ GET     /account                                Application.account
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
+POST    /skins/editSkin                         Skins.editSkin
 
 
 # Profile
@@ -28,6 +30,8 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+# Search
+GET     /users/search                           UserSearch.search
 
 #Account
 #GET     /users/?                                #Get a list of all users
@@ -62,6 +66,9 @@ GET     /checkin/at                             Checkin.at #what is this?  maybe
 
 # Comments
 GET		/                                       Comments.comments
+
+# Posts
+GET     /                                       Posts.posts
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

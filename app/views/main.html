@@ -11,11 +11,14 @@
           href="@{Skins.stylesheet()}" />
     <link rel="shortcut icon" type="image/png"
           href="@{'/public/images/favicon.png'}" />
+    <script type="text/javascript" src="public/javascripts/comments.js"></script>
   </head>
   <body>
     <header>
       <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
-      <input type="text" name="query" />
+      #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
+         <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
+      #{/form}
       Hello 
       <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
       <a id="logout" href="@{Secure.logout()}">Logout</a>

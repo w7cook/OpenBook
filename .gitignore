@@ -8,6 +8,8 @@
 /.classpath
 /.settings
 /.project
+.project
 *.swp
 *~
 *.log
+/bin
