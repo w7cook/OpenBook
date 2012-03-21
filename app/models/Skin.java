@@ -61,6 +61,9 @@ public class Skin extends Model {
     
     //body
     addParam("bodyBGColor","none");
+    
+    //picture
+    addParam("bodyPicture","/public/images/matrixy.jpg");
 
     //logo
     
