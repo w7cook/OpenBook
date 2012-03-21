@@ -2,13 +2,16 @@
 <table>
   <tr>
     <td>
-			#{if user.profile.profilePhoto == null}
-			  %{profile_pic = "/public/images/default.png"}%
-			#{/if}
-			#{else}
-				%{profile_pic = Photos.getPhoto(user.profile.profilePhoto.id)}%
-			#{/else}
-			<img src="${profile_pic}" width="120" height="150" />
+			<div class="profile_pic">
+				<a class="change-img" href="#">Change picture</a>
+				#{if user.profile.profilePhoto == null}
+			  	%{profile_pic = "/public/images/default.png"}%
+				#{/if}
+				#{else}
+				  %{profile_pic = Photos.getPhoto(user.profile.profilePhoto.id)}%
+				#{/else}
+				<img src="${profile_pic}" width="120" height="150" />
+			</div>
       <br/>
       ${user.email}
       
