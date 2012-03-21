@@ -209,21 +209,3 @@ Post(jeffPost2):
     author:         jeff
     content:        >
                     More stuff
-                    
-Comment(c1):
-    author:         bob
-    content:        >
-                    You are right !
-    parentObj:      firstBobPost
-    
-Comment(c2):
-    author:         jeff
-    content:        >
-                    I knew that ...
-    parentObj:      firstBobPost    
-    
-Comment(c3):
-    author:         alice
-    content:        >
-                    This post is useless ?
-    parentObj:      firstBobPost

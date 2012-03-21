@@ -49,7 +49,7 @@
               <a href="@{Application.news(item.author.id)}">${ item.author.name }</a>
             </span>,
             <span class="post-date">
-              ${item.date.format('dd MMM yy')}
+              ${item.updatedAt.format('dd MMM yy')}
             </span>
         #{if item.author == currentUser}
             <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
@@ -64,14 +64,14 @@
               <div class="post-content">
                 ${item.content.nl2br()}
               </div>
-              #{list items:item.comments(), as:'comment'}
+              #{list items:item.getComments(), as:'comment'}
                 <div class="comment">
                   <div class="comment-metadata">
                     <span class="comment-author">
                       by ${comment.author},
                     </span>
                     <span class="comment-date">
-                      ${comment.date.format('dd MMM yy')}
+                      ${comment.updatedAt.format('dd MMM yy')}
                     #{if comment.author == currentUser.first_name}
                         <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                     #{/if}
