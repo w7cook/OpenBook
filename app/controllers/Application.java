@@ -111,8 +111,9 @@ public class Application extends OBController {
     validation.required(update.first_name).message("First name is required");
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
-    validation.isTrue(currentUser.password.equals(Crypto.passwordHash(old_password))).message(
-                                                                                              "Password does not match");
+    validation.isTrue(
+        currentUser.password.equals(Crypto.passwordHash(old_password)))
+        .message("Password does not match");
 
     if (validation.hasErrors()) {
       User user = update;
@@ -145,7 +146,7 @@ public class Application extends OBController {
       account();
     }
   }
-  
+
   public static void edit_basic() {
     long userID = 1;
     User user = User.findById(userID);
