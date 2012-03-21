@@ -1,4 +1,4 @@
-
+#{extends 'main.html' /}
 
 #{if Categories.size()}
 
@@ -9,7 +9,7 @@
         	</div>
             #{list items:Categories, as:'category'}
             	<div class="thread">
-                <div style="width: 60%; float: left;"><a href="threads/cat${category.id}">${category.name}</a></div>
+                <div style="width: 60%; float: left;"><a href="threads/${category.id}">${category.name}</a></div>
                 <div style="width: 20%; float: right;">${category.get_most_recent() ? category.get_most_recent().postedAt.format('M-d-yy') : "none"}</a></div>
                 </div>
             #{/list}
