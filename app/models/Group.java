@@ -20,12 +20,17 @@ public class Group extends Model{
 	@Lob
 	public String groupName;
 	
+	@Required
+	@Lob
+	public String description;
+	
 	@OneToMany
 	public List<User> members;
 	
-	public Group(User o, String n){
+	public Group(User o, String n, String d){
 		this.owner= o;
 		this.groupName= n;
+		this.description= d;
 		this.members= new ArrayList<User>();
 		this.members.add(o);
 	}

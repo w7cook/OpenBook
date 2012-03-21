@@ -3,10 +3,17 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import org.elasticsearch.index.query.QueryBuilders;
 import controllers.Application;
+import controllers.Skins;
+import controllers.Users;
 import play.db.jpa.*;
+import play.modules.elasticsearch.*;
+import play.modules.elasticsearch.annotations.ElasticSearchable;
+import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
 
+@ElasticSearchable
 @Entity
 public class User extends Model {
 
@@ -18,13 +25,23 @@ public class User extends Model {
   // Code)
 
   public String username; // The user's username
-  public float timezone; // The user's timezone offset from UTC
+  public double timezone; // The user's timezone offset from UTC
+  public Date updated_time; // The last time the user's profile was updated;
+  // changes to the
+  // languages, link, timezone, verified,
+  // interested_in, favorite_athletes, favorite_teams,
+  // andvideo_upload_limits are not not reflected in
+  // this value
+
 
   public boolean verified; // The user's account verification status,
   // either true or false(see below)
 
   public String email; // The proxied or contact email address granted by the
-  // user
+
+  @ManyToOne
+  public Skin skin;//Skin (StyleSheet) used by this User
+  
   public String password;
 
   //  User's basic profile information
@@ -44,6 +61,7 @@ public class User extends Model {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
+    Skins.setSkin(this.profile,"DEFAULT");//set skin as default skin
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -143,4 +161,5 @@ public class User extends Model {
 	  }
 	  return answer;
   }
+
 }
