@@ -84,8 +84,9 @@ div.thread {
 }
 
 div.threadAuthorInfo {
+	font-weight: bold;
 	text-align: center;
-	font-size: 9px;
+	font-size: 12px;
 	height: 30px;
 	width: 200px;
 	float: left;
@@ -106,9 +107,34 @@ div.threadAuthorInfo a {
 	font-weight: bold;
 	text-decoration: none;
 	color: black;
-	font-size: 12px;
 }
 
 div.threadAuthorInfo a:hover {
 	text-decoration: underline;
+}
+
+span.threadDate {
+	font-weight: normal;
+	font-size: 9px;
+}
+
+textarea#threadReply {
+	background: rgba(0, 0, 0, 0.2);
+	width: 445px;
+	border: 1px dashed black;
+	min-height: 150px;
+	font-family: "Lucida Grande";
+	font-size: 10px;
+	padding: 5px;
+}
+
+input#threadSubmit {
+	margin-top: 10px;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 15px;
+	font-family: "Lucida Grande";
+	font-size: 10px;
+	font-weight: bold;
+	border: 0px;
+	padding: 5px;
 }

@@ -11,7 +11,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
-public class Categories extends Controller {
+@With(Secure.class)
+public class Categories extends OBController {
 	
 	@Before
 	static void setConnectedUser() 
@@ -35,9 +36,9 @@ public class Categories extends Controller {
 	
 	public static void listSingle(Long catId)
 	{
-		Category cat = Category.findById(catId);
-		List<FThread> FThreads = FThread.find("category = ? order by postedAt desc", cat).fetch(10);
-		render(FThreads, cat);
+		Category category = Category.findById(catId);
+		List<FThread> FThreads = FThread.find("category = ? order by postedAt desc", category).fetch(10);
+		render(FThreads, category);
   
 	}
 	

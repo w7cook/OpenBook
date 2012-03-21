@@ -1,8 +1,12 @@
 #{extends 'main.html' /}
 
+#{set 'title'}
+    OpenBook :: ${category.name}
+#{/set}
+
 <div id="forumContainer">
 	<div id="forumHeader">
-		<div class="headerLeft"><a href="/threads">Forum</a> / ${cat.name}</div>
+		<div class="headerLeft"><a href="/threads">Forum</a> / ${category.name}</div>
 		<div class="headerRight">Last post</div>
 	</div>
 

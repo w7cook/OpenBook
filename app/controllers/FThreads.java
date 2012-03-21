@@ -11,7 +11,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
-public class FThreads extends Controller {
+@With(Secure.class)
+public class FThreads extends OBController {
 
 	@Before
 	static void setConnectedUser() 
