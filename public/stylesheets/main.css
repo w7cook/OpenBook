@@ -35,13 +35,19 @@ header {
   line-height:30px;
 }
 
-header a {
-  color:white;
+#header {
+	margin: auto;
+	padding: 2px 0 2px 0;
+	width: 980px;
 }
 
-#logout {
-  float:right;
-  margin-right: 1em;
+#header a {
+	color: white;
+}
+
+div#content{
+	margin: auto;
+	width: 980px;
 }
 
 #main {
