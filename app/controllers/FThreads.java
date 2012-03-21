@@ -35,7 +35,7 @@ public class FThreads extends Controller {
 	
 	public static void listSingle(Long threadId)
 	{
-		FThread thread = FThread.find("order by postedAt desc").first();
+		FThread thread = FThread.findById(threadId);
         render(thread);
 	}
 	
