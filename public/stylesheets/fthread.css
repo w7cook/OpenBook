@@ -33,7 +33,7 @@ div.forumInner {
 	margin-right: auto;
 	width: 660px;
 	border-bottom: 1px dotted black;
-	height: 50px;
+	min-height: 50px;
 }
 
 div.threadList {
@@ -81,4 +81,34 @@ div.headerRight {
 div.thread {
 	height: 20px;
 	
+}
+
+div.threadAuthorInfo {
+	text-align: center;
+	font-size: 9px;
+	height: 30px;
+	width: 200px;
+	float: left;
+	padding-top: 10px;
+
+	
+}
+
+div.threadContent {
+	width: 460px;
+	margin-left: 200px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	min-height: 30px;
+}
+
+div.threadAuthorInfo a {
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+	font-size: 12px;
+}
+
+div.threadAuthorInfo a:hover {
+	text-decoration: underline;
 }
