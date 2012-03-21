@@ -1,0 +1,9 @@
+# Default data
+User(default):
+  first_name:
+  last_name:
+  name:         
+  username:     default
+  email:        default@example.com
+  password:     secret
+  isAdmin:      false

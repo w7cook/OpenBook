@@ -27,7 +27,7 @@ public class Profile extends Model {
 
   public String bio; // The user's biography
   public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
-  public Photo profilePhoto; // The user's profile picture.
+  public Long profilePhoto; // The user's profile picture.
 
 
   public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
@@ -95,9 +95,10 @@ public class Profile extends Model {
     this.address = "";
     this.website = "";
     this.email = "";
-    try{
-    	this.profilePhoto = Photos.fileToPhoto(new File("/usr/home/2012spring/cs378sd/foo/OpenBook/public/images/default.png"));
-    } catch(FileNotFoundException e){System.out.println(e);};
-    //this.profilePhoto.save();
+    this.profilePhoto = -1l;
+//    try{
+//    	this.profilePhoto = Photos.fileToPhoto(new File("/usr/home/2012spring/cs378sd/foo/OpenBook/public/images/default.png")).id;
+//    	//this.profilePhoto.save;
+//    } catch(FileNotFoundException e){System.out.println(e);};
   }
 }
