@@ -38,6 +38,7 @@ public class User extends Model {
   // either true or false(see below)
 
   public String email; // The proxied or contact email address granted by the
+  // user
 
   @ManyToOne
   public Skin skin;//Skin (StyleSheet) used by this User
@@ -49,13 +50,10 @@ public class User extends Model {
   public Profile profile;
 
   @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
-  public List<Relationship> friends; // A list of the user's work history
+  public List<Relationship> friends; // A list of the user's friendship history
 
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
-  public List<Relationship> friendedBy; // A list of the user's work history
-  
-  @OneToMany(mappedBy="owner",cascade= CascadeType.ALL)
-  public List<Group> ownedGroups;
+  public List<Relationship> friendedBy; // A list of the user's friendship history
 
   public User(String email, String password, String username) {
     this.email = email;
@@ -126,6 +124,7 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+
   public boolean equals(Object obj) {
     if (obj == null)
       return false;
@@ -138,17 +137,17 @@ public class User extends Model {
   public String toString(){
     return first_name + " " + last_name;
   }
-  public boolean isFriendsWith(User user) {
-	for(Relationship f: this.confirmedFriends()){
-		if(f.to == this && f.from == user)
-			return true;
-		if(f.to == user && f.from == this)
-			return true;
+	public boolean isFriendsWith(User user) {
+		for(Relationship f: this.confirmedFriends()){
+			if(f.to == this && f.from == user)
+				return true;
+			if(f.to == user && f.from == this)
+				return true;
+		}
+		return false;
 	}
-	return false;
-}
-
-  public List<Group> getGroups(){
+	
+	public List<Group> getGroups(){
 	  List<Group> allGroups= Group.findAll();
 	  List<Group> answer= new ArrayList<Group>();
 	  for(Group g : allGroups){
@@ -161,5 +160,4 @@ public class User extends Model {
 	  }
 	  return answer;
   }
-
 }
