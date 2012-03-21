@@ -3,6 +3,7 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import controllers.Comments;
 import controllers.Secure;
 
 import play.db.jpa.*;
@@ -41,8 +42,7 @@ public class Comment extends Model {
   }
   
   public boolean currentUserLiked (){
-    String name = Secure.Security.connected();
-    User currentUser = User.find("email = ?", name).first();
+    User currentUser = Comments.user();
     return Likes.find("author = ? AND comment = ?", currentUser,this).first() != null;
   }
   
