@@ -18,4 +18,9 @@ public class Commentable extends Model {
     this.save();
     return this;
   }
+  
+  public void removeComment(Comment c){
+   c.delete();
+   this.save();
+  }
 }

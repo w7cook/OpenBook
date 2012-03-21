@@ -24,7 +24,7 @@ public class Post extends Commentable {
   private static final int teaserLength = 40;
   
   public List<Comment> comments() {
-    return Comment.find("parentObj = ? AND approved=FALSE", this).fetch();
+    return Comment.find("parentObj = ?", this).fetch();
   }
 
   public Post(User author, String title, String content) {

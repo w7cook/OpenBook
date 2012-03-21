@@ -76,6 +76,13 @@
                         <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                     #{/if}
                     </span>
+                    #{ if comment.currentUserLiked()}
+                      <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                    #{/if}
+                    #{else}
+                      <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
+                    #{/else}
+                    <span> ${comment.allLikes.size()} likes</span>                   
                   </div>
                   <div class="comment-content">
                     ${comment.content.escape().nl2br()}
