@@ -12,42 +12,74 @@ import play.db.jpa.*;
 public class Profile extends Model {
   @OneToOne
   public User owner;
-  public String gender; // The user's gender: female or male
-  public String locale; // The user's locale (ISO Language Code and ISO Country
+  public String gender; 
+  /**
+   * The user's locale (ISO Language Code and ISO Country
+   */
+  public String locale;
 
   @OneToOne
-  public User significantOther; // The user's significant other
-  public Date anniversary; // date of anniversary
+  public User significantOther; 
+  public Date anniversary;
 
-  public String bio; // The user's biography
-  public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
+  public String bio; 
+  
+  /**
+   * genders the user is intersted in: Male, Female, Both, Neither
+   */
+  public String interestedIn; 
 
+  /**
+   * The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
+   */
+  public Date birthday;
 
-  public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
-
+  /**
+   *  The user's current city
+   */
   @ManyToOne
-  public Location location; // The user's current city
+  public Location location; 
   @ManyToOne
-  public Location hometown; // The user's hometown
+  public Location hometown;
 
   // not implemented yet!!
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  public List<UserLanguage> languages; // The user's languages
+  public List<UserLanguage> languages; 
 
-  public String political; // The user's political view
-  public String quotes; // The user's favorite quotes
-  public String relationshipStatus; // The user's relationship
-  // status:Single,In a relationship, Engaged,Married,It's
-  // complicated, In an open relationship, Widowed,Separated, Divorced, In
-  // a civil union, In a domestic partnership
+  /**
+   *  The user's political view
+   */
+  public String political; 
+  
+  /**
+   * The user's favorite quotes
+   */
+  public String quotes; 
+  
+  /**
+   * The user's relationship
+   * status:Single,In a relationship, Engaged,Married,It's
+   * complicated,ï¿½In an open relationship,ï¿½Widowed,Separated,ï¿½Divorced,ï¿½In
+   * a civil union,ï¿½In a domestic partnership
+   */
+  public String relationshipStatus; 
 
-  public String religion; // The user's religious views
+  /** 
+   * User's religious views
+   */
+  public String religion; 
 
+  /** 
+   *  A list of the user's education history
+   */
    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-  public List<Enrollment> education; // A list of the user's education history
+  public List<Enrollment> education; 
 
+  /**
+   * A list of the user's work history
+   */
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-  public List<Employment> work; // A list of the user's work history
+  public List<Employment> work; 
 
 
   //CONTACT INFORMATION

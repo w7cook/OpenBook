@@ -2,13 +2,14 @@
 #{form @Application.updateBasic() }
 
 <table>
-
+	<form>
 	<tr><td><h3>About You</h3></td></tr>
 	<tr>
 		<td><label>Bio:</label>
 		</td>
-		<td><input size=80 type=text name=birthday
+		<td><textarea rows="5" cols="40" name=bio
 			value="${user.profile.bio ? user.profile.bio : 'Write About Yourself'}">
+		</textarea>
 		</td>
 	</tr>
 
@@ -83,14 +84,14 @@
 	<tr>
 		<td><label>Religious views: </label></td>
 		<td>
-		<input size=80 type=text name=religion
+		<input size=40 type=text name=religion
 			value="${user.profile.religion ? user.profile.religion : ''}">
 		</td>
     </tr>
     <tr>
         <td><label>Political Views: </label></td>
 		<td>
-		<input size=80 type=text name=political
+		<input size=40 type=text name=political
 			value="${user.profile.political ? user.profile.political : ''}">
 		</td>
     </tr>
@@ -177,10 +178,12 @@
 			value="${user.profile.quotes ? user.profile.quotes : 'Add a Favorite Quotation'}">
 		</td>
 	</tr>
-
+</form>
 
 </table>
 
 </br>
 </br>
-Save Cancel #{/form}
+<a class=button href="${user.profile.save()}">Save</a>
+<a class=button href="">Cancel</a>
+#{/form}
