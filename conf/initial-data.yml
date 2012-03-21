@@ -251,4 +251,18 @@ FThread(thread3):
     title:          I hate dubstep
     postedAt:       2011-03-06
     cat:            cat2
+    
+Comment(fc1):
+    author:         bob
+    content:        >
+                    I knew that ...
+    date:           2011-06-15
+    parentObj:      thread3    
+
+Comment(fc2):
+    author:         Tom
+    content:        >
+                    i love dubstep 
+    date:           2011-09-05
+    parentObj:      thread3
 

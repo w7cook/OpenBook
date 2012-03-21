@@ -26,7 +26,6 @@ public class FThread extends Commentable
 	@ManyToOne
 	public Category cat;
 
-	
 	public FThread(String title, User author, Date postedAt)
 	{
 		
@@ -34,4 +33,8 @@ public class FThread extends Commentable
 		this.author = author;
 		this.postedAt = new Date();
 	}
+	
+	public List<Comment> comments() {
+    return Comment.find("parentObj = ? order by date asc", this).fetch();
+  }
 }
