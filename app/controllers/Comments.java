@@ -23,7 +23,7 @@ public class Comments extends OBController {
 	  }
 
 	  public static void postComment(Long statusId, Long userId, String content) {
-	    ((Status) Status.findById(statusId)).addComment(Application.user(), content);
+	    ((Status) Status.findById(statusId)).addComment(OBController.user(), content);
 	    comments(userId);
 	  }
 
@@ -38,7 +38,7 @@ public class Comments extends OBController {
 	    Comment c = Comment.findById(commentId);
 	    User u = User.findById(userId);
 	    Like toRemove = Like.find("author = ? AND comment = ?", u, c).first();
-      c.removeLike(toRemove);
+            c.removeLike(toRemove);
 	    comments(userId);
 	  }
 	  
