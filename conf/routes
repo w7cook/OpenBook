@@ -28,6 +28,7 @@ GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
+POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
