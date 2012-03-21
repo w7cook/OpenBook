@@ -46,7 +46,7 @@ public class Photos extends OBController {
    * @return          the newly created Photo model.
    * @throws          FileNotFoundException
    */
-  private static Photo fileToPhoto(File image) throws FileNotFoundException {
+  public static Photo fileToPhoto(File image) throws FileNotFoundException {
     Blob blob = new Blob();
     blob.set(new FileInputStream(image),
              MimeTypes.getContentType(image.getName()));
