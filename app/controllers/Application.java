@@ -15,13 +15,18 @@ import play.libs.Crypto;
 
 public class Application extends OBController {
 
-        public static void about(Long id) {
+  public static void about(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
     render(user);
   }
 
   public static void news(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
+    render(user);
+  }
+  
+  public static void friendRequests() {
+    User user = user();
     render(user);
   }
 
