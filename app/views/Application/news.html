@@ -18,6 +18,10 @@
       #{list items:user.confirmedFriends(), as:'friendship'}
         <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
       #{/list}
+	  <br>Groups:<br>
+      #{list items:user.getGroups(), as:'Group'}
+        <a href="@{Application.group(Group.id)}">${Group.groupName}</a><br>
+      #{/list}
     </td>
     <td>
       <h1>${user.name}</h1> 
