@@ -95,10 +95,13 @@ public class Photos extends OBController {
   
   public static void setProfilePhoto(Long photoId) {
 	  Photo photo = Photo.findById(photoId);
+	  User user = user();
 	  if (photo.owner.equals(user())) {
-		  user().profile.profilePhoto = photo;
-		  user().save();
+		  user.profile.profilePhoto = photoId;
+		  //user.profile.profilePhoto.save();
+		  user.profile.save();
 	  }
-	  redirect("/photos");
+	  //redirect("/photos");
+	  render(user);
   }
 }
