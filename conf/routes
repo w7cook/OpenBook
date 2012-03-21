@@ -28,6 +28,10 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+# Threads
+GET     /threads                               	FThreads.listAll
+GET     /threads/{<[0-9]+>threadId}             FThreads.listSingle
+
 
 #Account
 #GET     /users/?                                #Get a list of all users
