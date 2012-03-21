@@ -1,11 +1,30 @@
 #{extends 'main.html' /}
 
-
 <div id="forumContainer">
 	<div id="forumHeader">
 		<div class="headerLeft"><a href="/threads">Forum</a> / <a href="/threads/${thread.category.id}">${thread.category.name}</a> / Thread: ${thread.title}</div>
 	</div>
  	<div class="forumInner">
+ 	<div id="thread-comments">
+    #{list items:thread.comments(), as:'comment'}
+      <div class="comment">
+        <div class="comment-metadata">
+          <span class="comment-author">
+            by ${comment.author},
+          </span>
+          <span class="comment-date">
+            ${comment.date.format('dd MMM yy')}
+          #{if comment.author == currentUser.first_name}
+              <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+          #{/if}
+          </span>
+        </div>
+        <div class="comment-content">
+          ${comment.content.escape().nl2br()}
+        </div>
+      </div>
+    #{/list}
+  </div>
 	</div>
 </div>
 

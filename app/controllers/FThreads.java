@@ -36,8 +36,4 @@ public class FThreads extends Controller {
 	@OneToMany(mappedBy = "fthread", cascade = CascadeType.ALL)
 	public List<Comment> allComments;
 
-	public List<Comment> comments() {
-		return Comment.find("post = ? AND approved=FALSE", this).fetch();
-	}
-
 }

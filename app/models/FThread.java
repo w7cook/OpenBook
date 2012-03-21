@@ -29,7 +29,6 @@ public class FThread extends Commentable
 	@Required
 	@Lob
 	public String content;
-
 	
 	public FThread(String title, User author, Date postedAt, String content)
 	{
@@ -39,4 +38,8 @@ public class FThread extends Commentable
 		this.postedAt = new Date();
 		this.content = content;
 	}
+	
+	public List<Comment> comments() {
+    return Comment.find("parentObj = ? order by date asc", this).fetch();
+  }
 }
