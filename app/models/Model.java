@@ -11,7 +11,7 @@ public class Model extends play.db.jpa.Model {
 
   public Date createdAt;
   public Date updatedAt;
-
+  
   @PrePersist
   void onPrePersist() {
     if (this.createdAt == null) {

@@ -12,13 +12,8 @@ public class Comments extends OBController {
 	
 	//comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
 	public static void comments(Long id) {
-	    User user = id == null ? user() : (User) User.findById(id);
+	    User user = id == null ? Application.user() : (User) User.findById(id);
 	    render(user);
-	  }
-	
-	public static User user() {
-	    assert Secure.Security.connected() != null;
-	    return User.find("byEmail", Secure.Security.connected()).first();
 	  }
 
 	public static void deleteComment(Long id, Long userId) {
@@ -27,13 +22,13 @@ public class Comments extends OBController {
 	    comments(userId);
 	  }
 
-	  public static void postComment(Long commentableId, Long userId, String content) {
-	    ((Commentable) Commentable.findById(commentableId)).addComment(user().first_name, content);
+	  public static void postComment(Long statusId, Long userId, String content) {
+	    ((Status) Status.findById(statusId)).addComment(Application.user(), content);
 	    comments(userId);
 	  }
 
 	  public static void addLike (Long commentId, Long userId){
-	    Likes newOne = new Likes ((Comment)Comment.findById(commentId),(User)User.findById(userId)).save();
+	    Like newOne = new Like ((Likeable)Comment.findById(commentId),(User)User.findById(userId)).save();
 	    Comment c = Comment.findById(commentId);
 	    c.addLike(newOne);
 	    comments(userId);
@@ -42,7 +37,7 @@ public class Comments extends OBController {
 	  public static void unLike (Long commentId, Long userId){
 	    Comment c = Comment.findById(commentId);
 	    User u = User.findById(userId);
-	    Likes toRemove = Likes.find("author = ? AND comment = ?", u, c).first();
+	    Like toRemove = Like.find("author = ? AND comment = ?", u, c).first();
       c.removeLike(toRemove);
 	    comments(userId);
 	  }
