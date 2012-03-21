@@ -11,32 +11,33 @@ import play.db.jpa.*;
 @Entity
 public class Comment extends Model {
 
-  public String author;
-  public Date date;
- 
+  @ManyToOne
+  public User author;
+  public boolean approved;
+
   @Lob
   public String content;
 
   @ManyToOne
   public Commentable parentObj;
   
-  @OneToMany(mappedBy="comment", cascade=CascadeType.ALL)
-  public List<Likes> allLikes;
+  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
+  public List<Like> likes;
 
-  public Comment(Commentable parentObj, String author, String content) {
+  public Comment(Commentable parentObj, User author, String content) {
     this.parentObj = parentObj;
     this.author = author;
     this.content = content;
-    this.date = new Date();
+    this.approved = false;
   }
-  
-  public void addLike (Likes l){
-    allLikes.add(l);
+
+  public void addLike (Like l){
+    likes.add(l);
     this.save();
   }
   
-  public void removeLike(Likes l){
-    allLikes.remove(l);
+  public void removeLike(Like l){
+    likes.remove(l);
     l.delete();
     this.save();
   }

@@ -71,10 +71,19 @@ Relationship(r5):
     accepted:   true
     
 Status(firstBobStatus):
-    date:       2011-06-14
-    author:     bob
-    message:    >
-                Short sweet twitter like messages that will have inline @mentions and #tags.
+    author:         bob
+    content:        >
+                    Short sweet twitter like messages that will have inline @mentions and #tags.
+                    
+Status(firstJeffStatus):
+    author:         jeff
+    content:        >
+                    Hey @b3bob hope you like #MassEffect3
+                    
+Status(secondBobStatus):
+    author:         bob
+    content:        >
+                    @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
     
 Post(firstBobPost):
     title:          About the model layer
@@ -116,27 +125,6 @@ Post(jeffPost2):
     author:         jeff
     content:        >
                     More stuff
-                    
-Comment(c1):
-    author:         Guest
-    content:        >
-                    You are right !
-    date:           2009-06-14
-    parentObj:      firstBobPost
-    
-Comment(c2):
-    author:         Mike
-    content:        >
-                    I knew that ...
-    date:           2009-06-15
-    parentObj:      firstBobPost    
-    
-Comment(c3):
-    author:         Tom
-    content:        >
-                    This post is useless ?
-    date:           2009-04-05
-    parentObj:      secondBobPost
 
 Group(g1):
     owner:          bob
@@ -152,5 +140,3 @@ Group(g2):
     description:    >
                     This is a description for Alice's group.
                     
-
-
