@@ -221,3 +221,14 @@ Comment(c3):
                     This post is useless ?
     date:           2009-04-05
     parentObj:      secondBobPost
+
+FThread(thread1):
+    author:         bob
+    title:          This is a thread
+    postedAt:       2009-04-05
+
+FThread(thread2):
+    author:         bob
+    title:          This is another thread
+    postedAt:       2009-04-06
+
