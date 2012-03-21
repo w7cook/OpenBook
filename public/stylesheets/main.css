@@ -56,6 +56,25 @@ footer {
   color: ${skin.get("footerColor")};
 }
 
+.profile_pic {
+	position: relative;
+}
+
+.profile_pic a{
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: white;
+	background-color: rgba(0, 0, 0, .6);
+	font-weight: normal;
+	padding: 4px 6px;
+}
+
+.profile_pic:hover a{
+	display: block;
+}
+
 .section {
   vertical-align: ${skin.get("sectionAlign")};
   padding: 5px 0px 0px 0px;
