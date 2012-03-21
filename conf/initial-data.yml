@@ -137,3 +137,20 @@ Comment(c3):
                     This post is useless ?
     date:           2009-04-05
     parentObj:      secondBobPost
+
+Group(g1):
+    owner:          bob
+    groupName:      Bob's cool group
+    members:        [bob,jeff]
+    description:    >
+                    A group for cool people to talk about cool things in a cool place.
+    
+Group(g2):
+    owner:          alice
+    groupName:      Alice's first group
+    members:        [alice]
+    description:    >
+                    This is a description for Alice's group.
+                    
+
+
