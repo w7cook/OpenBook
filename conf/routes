@@ -11,6 +11,7 @@ GET     /                                       Application.news
 
 GET     /about                                  Application.about
 GET     /account                                Application.account
+GET     /requests                               Application.friendRequests
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
@@ -54,7 +55,8 @@ GET     /users/search                           UserSearch.search
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
 #GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
 
-
+#Relationships
+GET 	/relationships							Relationships.relationships
 
 # Checkin
 GET     /checkin                                Checkin.checkin

@@ -50,10 +50,10 @@ public class User extends Model {
   public Profile profile;
 
   @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
-  public List<Relationship> friends; // A list of the user's work history
+  public List<Relationship> friends; // A list of the user's friendship history
 
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
-  public List<Relationship> friendedBy; // A list of the user's work history
+  public List<Relationship> friendedBy; // A list of the user's friendship history
 
   public User(String email, String password, String username) {
     this.email = email;
