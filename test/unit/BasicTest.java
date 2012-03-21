@@ -69,11 +69,11 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 		User alice = new User("alice@gmail.com", "secret", "Alice");
 		alice.save();
-		alice.significant_other = bob;
+		alice.profile.significantOther = bob;
 		alice.save();
 
 		User a2 = User.find("byName", "Alice").first();
-		assertEquals(a2.significant_other.name, "Bob");
+		assertEquals(a2.profile.significantOther.name, "Bob");
 		
 	}
 
@@ -224,5 +224,5 @@ public class BasicTest extends UnitTest {
 		List<Post> bobPosts = Post.find("byAuthor", bob).fetch();
 		assertEquals(2, bobPosts.size());
 
-	}
+	}	
 }

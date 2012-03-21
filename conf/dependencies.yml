@@ -4,3 +4,20 @@ require:
    - play -> secure
    - play -> crud
    - play -> logisimayml 1.8
+   - play -> elasticsearch 0.3
+   - org.elasticsearch -> elasticsearch 0.17
+   - se.scalablesolutions.akka -> akka-amqp 1.1.2
+    
+ 
+repositories:
+    - elasticsearch:
+        type: iBiblio
+        root: "http://oss.sonatype.org/content/repositories/releases/"
+        contains:
+            - org.elasticsearch -> *
+            
+    - akka:
+        type: iBiblio
+        root: "http://akka.io/repository/"
+        contains:
+            - se.scalablesolutions.akka -> *

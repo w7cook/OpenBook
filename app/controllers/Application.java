@@ -2,13 +2,19 @@ package controllers;
 
 import java.util.*;
 
+import org.elasticsearch.index.query.QueryBuilders;
+
 import play.*;
+import play.modules.elasticsearch.ElasticSearch;
+import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
 import play.libs.Crypto;
 
+
 public class Application extends OBController {
+
   public static void about(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
     render(user);
@@ -16,6 +22,11 @@ public class Application extends OBController {
 
   public static void news(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
+    render(user);
+  }
+  
+  public static void friendRequests() {
+    User user = user();
     render(user);
   }
 
@@ -32,6 +43,7 @@ public class Application extends OBController {
    *
    * @param id the user to request friendship with
    */
+  
   public static void requestFriends(Long id) {
     User user = user();
     User other = User.findById(id);
@@ -104,8 +116,9 @@ public class Application extends OBController {
     validation.required(update.first_name).message("First name is required");
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
-    validation.isTrue(currentUser.password.equals(Crypto.passwordHash(old_password))).message(
-                                                                                              "Password does not match");
+    validation.isTrue(
+        currentUser.password.equals(Crypto.passwordHash(old_password)))
+        .message("Password does not match");
 
     if (validation.hasErrors()) {
       User user = update;
@@ -138,7 +151,7 @@ public class Application extends OBController {
       account();
     }
   }
-  
+
   public static void edit_basic() {
     long userID = 1;
     User user = User.findById(userID);
@@ -159,4 +172,5 @@ public class Application extends OBController {
     response.status = Http.StatusCode.NOT_FOUND;
     renderText("");
   }
+
 }

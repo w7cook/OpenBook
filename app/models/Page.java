@@ -16,7 +16,9 @@ public class Page extends Model {
 	public String info;
 	
 	public ArrayList<Comment> comments;
-	public String admin;
+	
+	
+	public User admin;
 	
 	public Page(){
 		this.comments = new ArrayList<Comment>();
@@ -25,7 +27,7 @@ public class Page extends Model {
 	public Page(User user, String name, String info){
 		this.comments = new ArrayList<Comment>();
 		this.title = name;
-		this.admin = user.email;
+		this.admin = user;
 		this.info = info;
 	}
 	

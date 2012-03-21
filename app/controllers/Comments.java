@@ -8,18 +8,7 @@ import controllers.Secure;
 import models.*;
 
 @With(Secure.class)
-public class Comments extends Controller {
-	
-	@Before
-	static void setConnectedUser() {
-	  if (Security.isConnected()) {
-	    renderArgs.put("currentUser", user());
-	  }
-	}
-	
-	@Before
-	static void addDefaults() {
-	 }
+public class Comments extends OBController {
 	
 	//comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
 	public static void comments(Long id) {
@@ -43,4 +32,19 @@ public class Comments extends Controller {
 	    comments(userId);
 	  }
 
+	  public static void addLike (Long commentId, Long userId){
+	    Likes newOne = new Likes ((Comment)Comment.findById(commentId),(User)User.findById(userId)).save();
+	    Comment c = Comment.findById(commentId);
+	    c.addLike(newOne);
+	    comments(userId);
+	  }
+	  
+	  public static void unLike (Long commentId, Long userId){
+	    Comment c = Comment.findById(commentId);
+	    User u = User.findById(userId);
+	    Likes toRemove = Likes.find("author = ? AND comment = ?", u, c).first();
+      c.removeLike(toRemove);
+	    comments(userId);
+	  }
+	  
 }

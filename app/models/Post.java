@@ -6,7 +6,9 @@ import javax.persistence.*;
 import controllers.Security;
 
 import play.db.jpa.*;
+import play.modules.elasticsearch.annotations.ElasticSearchable;
 
+@ElasticSearchable
 @Entity
 public class Post extends Commentable {
 
@@ -19,8 +21,10 @@ public class Post extends Commentable {
   @ManyToOne
   public User author;
 
+  private static final int teaserLength = 40;
+  
   public List<Comment> comments() {
-    return Comment.find("parentObj = ? AND approved=FALSE", this).fetch();
+    return Comment.find("parentObj = ?", this).fetch();
   }
 
   public Post(User author, String title, String content) {
@@ -29,6 +33,14 @@ public class Post extends Commentable {
     this.title = title;
     this.content = content;
     this.date = new Date();
+  }
+  
+  public String contentTeaser() {
+	  if (this.content.length() < teaserLength) {
+		  return this.content;
+	  } else {
+		  return this.content.substring(0, teaserLength);
+	  }
   }
 
   public Post previous() {
