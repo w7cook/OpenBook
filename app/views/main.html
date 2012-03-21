@@ -1,34 +1,37 @@
 <!DOCTYPE html >
 <html>
-	<head>
-		<title>#{get 'title' /}</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" media="screen"
-		href="@{'/public/stylesheets/main.css'}" />
-		<link rel="shortcut icon" type="image/png"
-		href="@{'/public/images/favicon.png'}" />
-	</head>
-	<body>
-		<div id="orange_bar">
-			<div id="header">
-				<a href="@{Application.news()}">
-					<span id="logo" class="logo">Openbook</span>
-				</a>
-				<input type="text" name="query" />
-				Hello 
-				<a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
-				<a style="float:right" href="@{Secure.logout()}">Logout</a>
-			</div>
-		</div>
-		<div id="content">
-			<div id="main">#{doLayout /}</div>
-
-			<hr>
-		</div>
-		<div id="footer">
-			<span class=logo>openbook</span> is a <a
-				href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class
-				project</a> to create a simple social networking web site
-		</div>
-	</body>
+  <head>
+    <title>#{get 'title' /}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src=@{'/public/javascripts/jquery-1.6.4.min.js'}></script>
+    <script src=@{'/public/javascripts/util.js'}></script>
+    
+	<script type="text/javascript" src="@{'/public/javascripts/calendarDateInput.js'}"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="@{Skins.stylesheet()}" />
+    <link rel="shortcut icon" type="image/png"
+          href="@{'/public/images/favicon.png'}" />
+    <script type="text/javascript" src="public/javascripts/comments.js"></script>
+  </head>
+  <body>
+    <header>
+      <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
+      #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
+         <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
+      #{/form}
+      Hello 
+      <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
+      <a href="/requests">Requests</a>!
+      <a id="logout" href="@{Secure.logout()}">Logout</a>
+    </header>
+    <section id="main">
+      #{doLayout /}
+    </section>
+    <hr>
+    <footer>
+      <span class="logo">openbook</span> is a 
+      <a href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class project</a>
+      to create a simple social networking web site
+    </footer>
+  </body>
 </html>

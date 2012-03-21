@@ -1,61 +1,111 @@
 #{extends 'main.html' /}
 <table>
   <tr>
-  <td>
-     [Picture]
-     ${user.email}
- 
-    <br>
-    <a href="@{Application.news()}">news</a>
-    <br>
-    <a href="@{Application.about()}">about</a>
-    <br>friends:<br>
-     #{list items:user.confirmedFriends(), as:'friendship'}
-     <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
-     #{/list}
-  </td>
-  <td>
-     <h1>${user.name}</h1> 
-     #{if user.checkFriendship(user.id) == 'Request Friendship'}
-	     <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-		  	${user.checkFriendship(user.id)}
-		     </a>
-	 #{/if}
-	 #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-	 	Friendship Requested
-	 #{/elseif}
-	 #{elseif user.checkFriendship(user.id) == 'Friends'}
-	 	Friends :) 
-	 	<a id="friend-button" href="@{Application.removeFriends(user.id)}">
-		  	Remove friend
-		</a>
-	#{/elseif}
-
-     <h3>Blog Posts</h3>
-     #{list items:user.news(), as:'item'}
+    <td>
+      [Picture]
+      <br/>
+      ${user.email}
+      
+      <br/>
+      <a href="@{Application.news()}">news</a>
+      <br>
+      <a href="@{Events.events()}">Events</a>
+      <br>
+      <a href="@{Application.about()}">about</a>
+      <br>
+      <a href="@{Checkin.checkin()}">Checkin</a>
+      <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
+      #{list items:user.confirmedFriends(), as:'friendship'}
+        <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
+      #{/list}
+    </td>
+    <td>
+      <h1>${user.name}</h1> 
+      #{if user.checkFriendship(user.id) == 'Request Friendship'}
+        <a id="friend-button" href="@{Application.requestFriends(user.id)}">
+          ${user.checkFriendship(user.id)}
+        </a>
+      #{/if}
+      #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
+        Friendship Requested
+      #{/elseif}
+      #{elseif user.checkFriendship(user.id) == 'Friends'}
+        Friends :) 
+        <a id="friend-button" href="@{Application.removeFriends(user.id)}">
+          Remove friend
+        </a>
+      #{/elseif}
+	#{if user.id == currentUser.id}
+	   #{form @Posts.newPost(user.id)}
+            <textarea name="post_content" id="post_content"></textarea>
+            <input type="submit" value="Post" />
+       #{/form}
+    #{/if}
+      <h3>Blog Posts</h3>
+      #{list items:user.news(), as:'item'}
         <div class="post">
-        <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>,
-        <span class="post-date">${item.date.format('dd MMM yy')}</span>
-        <div class="post-content">
-            ${item.content.nl2br()}
+          <span class="hideable">
+            <span class="post-author">
+              <a href="@{Application.news(item.author.id)}">${ item.author.name }</a>
+            </span>,
+            <span class="post-date">
+              ${item.date.format('dd MMM yy')}
+            </span>
+        #{if item.author == currentUser}
+            <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
+        #{/if}
+            <a class='triggerhide' href='#' onclick='return false;'> less</a>
+               
+            <div class="post-content tohideopp">
+              ${item.contentTeaser().nl2br()}
+              <a class='triggershow showfirst' href='#' onclick='return false;'> ...more </a>
             </div>
-        #{list items:item.comments(), as:'comment'}
-            <div class="comment">
-                <div class="comment-metadata">
-                    <span class="comment-author">by ${comment.author},</span>
-                    <span class="comment-date">
-                        ${comment.date.format('dd MMM yy')}
-                    <a class=button href="@{Application.deleteComment(comment.id,user.id)}">delete</a>
+            <span class="tohide hide">
+              <div class="post-content">
+                ${item.content.nl2br()}
+              </div>
+              #{list items:item.comments(), as:'comment'}
+                <div class="comment">
+                  <div class="comment-metadata">
+                    <span class="comment-author">
+                      by ${comment.author},
                     </span>
-                </div>
-                <div class="comment-content">
+                    <span class="comment-date">
+                      ${comment.date.format('dd MMM yy')}
+                    #{if comment.author == currentUser.first_name}
+                        <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                    #{/if}
+                    </span>
+                    #{ if comment.currentUserLiked()}
+                      <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                    #{/if}
+                    #{else}
+                      <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
+                    #{/else}
+                    <span> ${comment.allLikes.size()} likes</span>                   
+                  </div>
+                  <div class="comment-content">
                     ${comment.content.escape().nl2br()}
+                  </div>
                 </div>
-            </div>
-        #{/list}
+              #{/list}
+        #{if user.isFriendsWith(currentUser) || user==currentUser}
         
-    </div>
-    #{/list}
-  </td>
+            <input type="button" value="Comment" onclick="showDiv('comment ${item.id}')" />
+		     
+		    <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
+		    
+            #{form @Comments.postComment(item.id, user.id)}
+        	   <textarea name="content" id="content"></textarea><br/>
+        	   <input type="submit" value="Comment" />
+        	   <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
+		    #{/form}	    
+		    </div>
+		 #{/if}
+            </span>
+          </span>
+        </div>
+      #{/list}
+    </td>
   </tr>
 </table>
