@@ -166,11 +166,6 @@ public class User extends Model {
 			}
 		return false;
 	}
-<<<<<<< HEAD
-}
-=======
-	return false;
-}
 
   /** Get all authored events
    *
@@ -180,4 +175,3 @@ public class User extends Model {
     return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
   }
 }
->>>>>>> 40b632b5a4eb14329d30a914a929fb57dbbc51a7
