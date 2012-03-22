@@ -31,7 +31,7 @@ public class FThreads extends OBController {
 	public static void listSingle(Long threadId)
 	{
 		FThread thread = FThread.findById(threadId);
-        render(thread);
+    render(thread);
 	}
 	
 	@OneToMany(mappedBy = "fthread", cascade = CascadeType.ALL)

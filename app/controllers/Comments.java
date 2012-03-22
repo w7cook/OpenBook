@@ -42,4 +42,11 @@ public class Comments extends OBController {
 	    comments(userId);
 	  }
 	  
+	  public static void postThreadComment(Long threadId, String thread_content){
+	    FThread thread = ((FThread) FThread.findById(threadId));
+      thread.addComment(Application.user(), thread_content);
+      
+      renderTemplate("FThreads/listSingle.html", thread);
+	  }
+	  
 }
