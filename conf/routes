@@ -22,6 +22,7 @@ POST    /skins/editSkin                         Skins.editSkin
 GET     /threads                                Categories.listAll
 GET     /threads/{<[0-9]+>catId}          		Categories.listSingle
 GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
+POST    /threads/[0-9]+/{<[0-9]+>threadId}      Comments.postThreadComment
 
 
 # Profile
