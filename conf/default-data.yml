@@ -7,4 +7,4 @@ User(default):
     username:           default
     email:              default@example.com
     password:           secret
-    isAdmin:            true
+    isAdmin:            false
