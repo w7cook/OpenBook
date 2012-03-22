@@ -71,10 +71,19 @@ Relationship(r5):
     accepted:   true
     
 Status(firstBobStatus):
-    date:       2011-06-14
-    author:     bob
-    message:    >
-                Short sweet twitter like messages that will have inline @mentions and #tags.
+    author:         bob
+    content:        >
+                    Short sweet twitter like messages that will have inline @mentions and #tags.
+                    
+Status(firstJeffStatus):
+    author:         jeff
+    content:        >
+                    Hey @b3bob hope you like #MassEffect3
+                    
+Status(secondBobStatus):
+    author:         bob
+    content:        >
+                    @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
     
 Post(firstBobPost):
     title:          About the model layer
@@ -116,24 +125,92 @@ Post(jeffPost2):
     author:         jeff
     content:        >
                     More stuff
-                    
-Comment(c1):
-    author:         Guest
-    content:        >
-                    You are right !
-    date:           2009-06-14
-    parentObj:      firstBobPost
+
+Group(g1):
+    owner:          bob
+    groupName:      Bob's cool group
+    members:        [bob,jeff]
+    description:    >
+                    A group for cool people to talk about cool things in a cool place.
     
-Comment(c2):
-    author:         Mike
+Group(g2):
+    owner:          alice
+    groupName:      Alice's first group
+    members:        [alice]
+    description:    >
+                    This is a description for Alice's group.
+                    
+Category(main):
+    name:           Main
+
+Category(music):
+    name:           Music
+
+Category(movies):
+    name:           Movies
+
+Category(sports):
+    name:           Sports
+
+FThread(thread1):
+    author:         bob
+    title:          This is a thread
+    postedAt:       2009-04-05
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread2):
+    author:         bob
+    title:          This is another thread
+    postedAt:       2009-04-06
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread3):
+    author:         alice
+    title:          I hate dubstep
+    postedAt:       2011-03-06
+    category:       music
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+                    
+Comment(fc1):
+    author:         bob
     content:        >
                     I knew that ...
-    date:           2009-06-15
-    parentObj:      firstBobPost    
-    
-Comment(c3):
-    author:         Tom
+    date:           2011-06-15
+    parentObj:      thread3    
+
+Comment(fc2):
+    author:         alice
     content:        >
+<<<<<<< HEAD
                     This post is useless ?
     date:           2009-04-05
     parentObj:      secondBobPost
@@ -149,3 +226,9 @@ Page(nachoCheese):
     title:          Nacho Cheese
     info:           >
                     What do you call cheese that isn't yours?
+=======
+                    i love dubstep 
+    date:           2011-09-05
+    parentObj:      thread3
+                    
+>>>>>>> 40b632b5a4eb14329d30a914a929fb57dbbc51a7
