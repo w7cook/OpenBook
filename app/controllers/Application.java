@@ -2,29 +2,18 @@ package controllers;
 
 import java.util.*;
 
+import org.elasticsearch.index.query.QueryBuilders;
+
 import play.*;
+import play.modules.elasticsearch.ElasticSearch;
+import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import play.libs.Crypto;
 
-@With(Secure.class)
-public class Application extends Controller {
 
-  @Before
-  static void setConnectedUser() {
-    if (Security.isConnected()) {
-      renderArgs.put("currentUser", user());
-    }
-  }
-
-  @Before
-  static void addDefaults() {
-  }
-
-  public static User user() {
-    assert Secure.Security.connected() != null;
-    return User.find("byEmail", Secure.Security.connected()).first();
-  }
+public class Application extends OBController {
 
   public static void about(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
@@ -35,10 +24,21 @@ public class Application extends Controller {
     User user = id == null ? user() : (User) User.findById(id);
     render(user);
   }
+  
+  public static void friendRequests() {
+    User user = user();
+    render(user);
+  }
 
   public static void account() {
     User user = user();
     render(user);
+  }
+  
+  public static void group(Long id){
+	  Group group= id==null ? null : (Group) Group.findById(id);
+	  User user = user();
+	  render(group,user);
   }
 
   private static boolean given(String val) {
@@ -49,6 +49,7 @@ public class Application extends Controller {
    *
    * @param id the user to request friendship with
    */
+  
   public static void requestFriends(Long id) {
     User user = user();
     User other = User.findById(id);
@@ -121,8 +122,9 @@ public class Application extends Controller {
     validation.required(update.first_name).message("First name is required");
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
-    validation.isTrue(currentUser.password.equals(old_password)).message(
-        "Password does not match");
+    validation.isTrue(
+        currentUser.password.equals(Crypto.passwordHash(old_password)))
+        .message("Password does not match");
 
     if (validation.hasErrors()) {
       User user = update;
@@ -138,19 +140,19 @@ public class Application extends Controller {
         user.middle_name = update.middle_name;
         if (given(name))
           name += " ";
-        name += user.first_name;
+        name += user.middle_name;
       }
       if (given(update.last_name)) {
         user.last_name = update.last_name;
         if (given(name))
           name += " ";
-        name += user.first_name;
+        name += user.last_name;
       }
       user.name = name;
       user.username = update.username;
       user.email = update.email;
       if (given(update.password))
-        user.password = update.password;
+        user.password = Crypto.passwordHash(update.password);
       user.save();
       account();
     }
@@ -180,25 +182,28 @@ public class Application extends Controller {
 
   public static void postComment(Long commentableId, String author, String content) {
     Commentable parent = Commentable.findById(commentableId);
-    parent.addComment(author, content);
-  }
-  
-  public static void like(Long commentId, Long userId) {
-    User user = User.findById(userId);
-    Comment c = Comment.findById(commentId);
-    c.addLikes(c, user);
-    news(userId);
-  }
-  
-  public static void unlike(Long commentId, Long userId) {
-    User user = User.findById(userId);
-    Comment c = Comment.findById(commentId);
-    c.removeLikes(c, user);
-    news(userId);
+    User au = User.find("email = ?", author).first();
+    parent.addComment(au, content);
   }
 
   public static void notFound() {
     response.status = Http.StatusCode.NOT_FOUND;
     renderText("");
   }
+
+  public static void addLike (Long likeableId, Long userId){
+    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),(User)User.findById(userId)).save();
+    Likeable l = Likeable.findById(likeableId);
+    l.addLike(newOne);
+    news(userId);
+  }
+  
+  public static void unLike (Long likeableId, Long userId){
+    Likeable c = Likeable.findById(likeableId);
+    User u = User.findById(userId);
+    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
+    c.removeLike(toRemove);
+    news(userId);
+  }
+
 }

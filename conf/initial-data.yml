@@ -1,75 +1,93 @@
 # Test data
-
+ 
 User(bob):
-    first_name:     Bob
-    last_name:      Thomson
-    name:           Bob Thomson
-    username:       b3bob
-    email:          bob@gmail.com
-    password:       secret
-    isAdmin:        true
+    first_name:         Bob
+    last_name:          Thomson
+    name:               Bob Thomson
+    username:           b3bob
+    email:              bob@gmail.com
+    password:           secret
+    isAdmin:            true
 
 User(alice):
-    first_name:     Alice
-    last_name:      Xu
-    name:       Alice Xu
-    username:       axu
-    email:          alice@gmail.com
-    password:       secret
+    first_name:         Alice
+    last_name:          Xu
+    name:               Alice Xu
+    username:           axu
+    email:              alice@gmail.com
+    password:           secret
     #significant_other: jeff
-    anniversary:    2010-12-2
+    anniversary:        2010-12-2
     
 User(jeff):
-    first_name:     Jeff
-    last_name:      Jones
-    username:       jj99
-    name:       Jeff Jones
-    email:          jeff@gmail.com
-    password:       secret
-    significant_other: alice
-    anniversary:    2010-12-2
+    first_name:         Jeff
+    last_name:          Jones
+    username:           jj99
+    name:               Jeff Jones
+    email:              jeff@gmail.com
+    password:           secret
+    significant_other:  alice
+    anniversary:        2010-12-2
+
+User(gparker):
+    first_name:         Geoffrey
+    last_name:          Parker
+    username:           gparker
+    name:               Geoffrey Parker
+    email:              grp@gparker.co
+    password:           password
+    isAdmin:            true
 
 Relationship(s1):
-    from:   bob
-    to:     bob
+    from:       bob
+    to:         bob
 
 Relationship(s2):
-    from:   alice
-    to:     alice
+    from:       alice
+    to:         alice
 
 Relationship(s3):
-    from:   jeff
-    to:     jeff
+    from:       jeff
+    to:         jeff
   
 Relationship(r1):
-    from:   bob
-    to:     jeff
-    accepted: true
+    from:       bob
+    to:         jeff
+    accepted:   true
 
 Relationship(r3):
-    from:   alice
-    to:     jeff
-    accepted: true
+    from:       alice
+    to:         jeff
+    accepted:   true
 
 Relationship(r4):
-    from:   jeff
-    to:     alice
-    accepted: true
+    from:       jeff
+    to:         alice
+    accepted:   true
 
 Relationship(r5):
-    from:   jeff
-    to:     bob
-    accepted: true
+    from:       jeff
+    to:         bob
+    accepted:   true
     
 Status(firstBobStatus):
-    date:     2011-06-14
     author:         bob
-    message:        >
+    content:        >
                     Short sweet twitter like messages that will have inline @mentions and #tags.
+                    
+Status(firstJeffStatus):
+    author:         jeff
+    content:        >
+                    Hey @b3bob hope you like #MassEffect3
+                    
+Status(secondBobStatus):
+    author:         bob
+    content:        >
+                    @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
     
 Post(firstBobPost):
     title:          About the model layer
-    date:       2009-06-14
+    date:           2009-06-14
     author:         bob
     content:        >
                     The model has a central position in a Play! application. It is the domain-specific 
@@ -84,14 +102,14 @@ Post(firstBobPost):
 
 Post(secondBobPost):
     title:          Just a test of YABE
-    date:       2009-03-25
+    date:           2009-03-25
     author:         bob
     content:        >
                     Well, it's just a test.
                     
 Post(jeffPost):
     title:          The MVC application
-    date:       2009-06-06
+    date:           2009-06-06
     author:         jeff
     content:        >
                     A Play! application follows the MVC architectural pattern as applied to the 
@@ -103,28 +121,96 @@ Post(jeffPost):
 
 Post(jeffPost2):
     title:          The MVC application
-    date:       2009-06-07
+    date:           2009-06-07
     author:         jeff
     content:        >
                     More stuff
-                    
-Comment(c1):
-    author:         Guest
-    content:        >
-                    You are right !
-    date:       2009-06-14
-    parentObj:           firstBobPost
+
+Group(g1):
+    owner:          bob
+    groupName:      Bob's cool group
+    members:        [bob,jeff]
+    description:    >
+                    A group for cool people to talk about cool things in a cool place.
     
-Comment(c2):
-    author:         Mike
+Group(g2):
+    owner:          alice
+    groupName:      Alice's first group
+    members:        [alice]
+    description:    >
+                    This is a description for Alice's group.
+                    
+Category(main):
+    name:           Main
+
+Category(music):
+    name:           Music
+
+Category(movies):
+    name:           Movies
+
+Category(sports):
+    name:           Sports
+
+FThread(thread1):
+    author:         bob
+    title:          This is a thread
+    postedAt:       2009-04-05
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread2):
+    author:         bob
+    title:          This is another thread
+    postedAt:       2009-04-06
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread3):
+    author:         alice
+    title:          I hate dubstep
+    postedAt:       2011-03-06
+    category:       music
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+                    
+Comment(fc1):
+    author:         bob
     content:        >
                     I knew that ...
-    date:       2009-06-15
-    parentObj:           firstBobPost    
-    
-Comment(c3):
-    author:         Tom
+    date:           2011-06-15
+    parentObj:      thread3    
+
+Comment(fc2):
+    author:         alice
     content:        >
-                    This post is useless ?
-    date:       2009-04-05
-    parentObj:           secondBobPost    
+                    i love dubstep 
+    date:           2011-09-05
+    parentObj:      thread3
+                    
