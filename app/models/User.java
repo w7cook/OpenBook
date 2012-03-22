@@ -166,6 +166,6 @@ public boolean isFriendsWith(User user) {
    * @return a list of events that User has authored
    */
   public List<Event> authoredEvents() {
-    return Event.find("SELECT r FROM Event r where r.author = ? and r.open = true", this).fetch();
+    return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
   }
 }
