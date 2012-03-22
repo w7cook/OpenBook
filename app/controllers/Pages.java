@@ -47,7 +47,7 @@ public class Pages extends Application {
 	public static void display(Page page){
 		User currentUser = user();
 		int fanFlag;
-		if((page.admin).equals(currentUser.email)){
+		if((page.admin).equals(currentUser)){
 			renderTemplate("Page/myPage.html", page);
 		}
 		else{

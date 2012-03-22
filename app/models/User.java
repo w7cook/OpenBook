@@ -134,23 +134,22 @@ public class User extends Model {
       return false;
     return username.equals(((User) obj).username);
   }
-<<<<<<< HEAD
   
   public List getPages(){
-		return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this.email).fetch();
+		return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this).fetch();
 	}
-=======
+	
   public String toString(){
     return first_name + " " + last_name;
   }
-public boolean isFriendsWith(User user) {
-	for(Relationship f: this.confirmedFriends()){
-		if(f.to == this && f.from == user)
-			return true;
-		if(f.to == user && f.from == this)
-			return true;
+  
+  public boolean isFriendsWith(User user) {
+  	for(Relationship f: this.confirmedFriends()){
+  		if(f.to == this && f.from == user)
+  			return true;
+  		if(f.to == user && f.from == this)
+  			return true;
+			}
+		return false;
 	}
-	return false;
-}
->>>>>>> 9c8aa1254c7f8af3286d70934e0f8271c8949692
 }
