@@ -1,0 +1,5 @@
+#{extends 'main.html' /}
+All Friends:<br />
+#{list items:user.confirmedFriends(), as:'friendship'}
+<a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a>  <a id="friend-button" href="@{Relationships.removeFriends(user.id)}">remove friend</a><br />
+#{/list}

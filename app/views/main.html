@@ -18,9 +18,12 @@
   <body>
     <header>
       <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
-      <input type="text" name="query" />
+      #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
+         <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
+      #{/form}
       Hello 
       <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
+      <a href="/requests">Requests</a>!
       <a id="logout" href="@{Secure.logout()}">Logout</a>
     </header>
     <section id="main">

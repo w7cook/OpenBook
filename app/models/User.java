@@ -3,11 +3,17 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import org.elasticsearch.index.query.QueryBuilders;
 import controllers.Application;
 import controllers.Skins;
+import controllers.Users;
 import play.db.jpa.*;
+import play.modules.elasticsearch.*;
+import play.modules.elasticsearch.annotations.ElasticSearchable;
+import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
 
+@ElasticSearchable
 @Entity
 public class User extends Model {
 
@@ -19,7 +25,14 @@ public class User extends Model {
   // Code)
 
   public String username; // The user's username
-  public float timezone; // The user's timezone offset from UTC
+  public double timezone; // The user's timezone offset from UTC
+  public Date updated_time; // The last time the user's profile was updated;
+  // changes to the
+  // languages, link, timezone, verified,
+  // interested_in, favorite_athletes, favorite_teams,
+  // andvideo_upload_limits are not not reflected in
+  // this value
+
 
   public boolean verified; // The user's account verification status,
   // either true or false(see below)
@@ -37,16 +50,16 @@ public class User extends Model {
   public Profile profile;
 
   @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
-  public List<Relationship> friends; // A list of the user's work history
+  public List<Relationship> friends; // A list of the user's friendship history
 
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
-  public List<Relationship> friendedBy; // A list of the user's work history
+  public List<Relationship> friendedBy; // A list of the user's friendship history
 
   public User(String email, String password, String username) {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
-    Skins.setSkin(this,"DEFAULT");//set skin as default skin
+    Skins.setSkin(this.profile,"DEFAULT");//set skin as default skin
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -60,7 +73,7 @@ public class User extends Model {
 
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by Date desc",
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by p.updatedAt desc",
                      this.id).fetch();
   }
 
@@ -111,6 +124,21 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+  
+  public List<Group> getGroups(){
+	  List<Group> allGroups= Group.findAll();
+	  List<Group> answer= new ArrayList<Group>();
+	  for(Group g : allGroups){
+		  for(User u : g.members){
+			  if(u.equals(this)){
+				  answer.add(g);
+				  break;
+			  }
+		  }
+	  }
+	  return answer;
+  }
+
   public boolean equals(Object obj) {
     if (obj == null)
       return false;

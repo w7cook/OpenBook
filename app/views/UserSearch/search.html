@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+
+<div id="elasticSearchList" class="${type.name}">
+	
+	<h2 id="Users">Users</h2>
+	
+	<div id="elasticSearchListTable">
+		#{UserSearch.table /}
+	</div>
+	
+	<div id="elasticSearchListPagination">
+		#{elasticSearch.pagination /}
+	</div>
+
+</div>
