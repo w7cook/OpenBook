@@ -59,9 +59,16 @@
             <span class="post-date">
               ${item.updatedAt.format('dd MMM yy')}
             </span>
-        #{if item.author == currentUser}
-            <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
-        #{/if}
+            #{if item.author == currentUser}
+              <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
+            #{/if}
+             #{ if item.currentUserLiked()}
+                <a class=button href="@{Application.unLike(item.id,user.id)}"> Unlike</a>
+             #{/if}
+             #{else}
+                <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
+             #{/else}
+              <span> ${item.likes.size()} likes</span>                 
             <a class='triggerhide' href='#' onclick='return false;'> less</a>
                
             <div class="post-content tohideopp">
@@ -83,14 +90,13 @@
                     #{if comment.author == currentUser.first_name}
                         <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                     #{/if}
-                    </span>
                     #{ if comment.currentUserLiked()}
                       <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
                     #{/if}
                     #{else}
                       <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
                     #{/else}
-                    <span> ${comment.allLikes.size()} likes</span>                   
+                    <span> ${comment.likes.size()} likes</span>                   
                   </div>
                   <div class="comment-content">
                     ${comment.content.escape().nl2br()}
