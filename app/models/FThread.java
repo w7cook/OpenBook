@@ -40,6 +40,6 @@ public class FThread extends Commentable
 	}
 	
 	public List<Comment> comments() {
-    return Comment.find("parentObj = ? order by date asc", this).fetch();
+    return Comment.find("parentObj = ? order by createdAt asc", this).fetch();
   }
 }
