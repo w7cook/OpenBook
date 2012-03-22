@@ -161,7 +161,7 @@ public boolean isFriendsWith(User user) {
 	return false;
 }
 
-  /** Get all created events
+  /** Get all authored events
    *
    * @return a list of events that User has authored
    */
