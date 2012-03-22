@@ -35,12 +35,6 @@ public class Application extends OBController {
     render(user);
   }
   
-  public static void group(Long id){
-	  Group group= id==null ? null : (Group) Group.findById(id);
-	  User user = user();
-	  render(group,user);
-  }
-
   private static boolean given(String val) {
     return val != null && val.length() > 0;
   }
