@@ -37,9 +37,8 @@ public class FThread extends Commentable
 		this.author = author;
 		this.postedAt = new Date();
 		this.content = content;
+		this.comments = new ArrayList<Comment>();
 	}
 	
-	public List<Comment> comments() {
-    return Comment.find("parentObj = ? order by createdAt asc", this).fetch();
-  }
+	
 }

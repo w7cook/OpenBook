@@ -21,12 +21,19 @@
 	</div>
 	
 	
-	#{list items:thread.comments(), as:'comment'}
+	#{list items:thread.comments, as:'comment'}
 	
 		<div class="forumInner">
 			<div class="threadAuthorInfo">
 				<a href="/?id=${comment.author.id}">${comment.author}</a>:<br />
-			 	<span class="threadDate">${comment.createdAt.format('M-d-yy, h:mm a')}</span>
+			 	<span class="threadDate">${comment.createdAt.format('M-d-yy, h:mm a')}
+			 	
+			 	#{if currentUser == comment.author}
+			 	<br />
+			 	[ <a href="@{Comments.deleteComment(comment.id,currentUser.id)}">Delete</a> ]
+			 	#{/if}
+			 	
+			 	</span>
 		 	</div>
 		 	
 		 	<div class="threadContent"> 
@@ -36,24 +43,19 @@
 	#{/list}
 	
 	<div class="forumInner">
-		<div class="threadAuthorInfo">
-				Post reply:
-		</div>
+		<div class="threadAuthorInfo">Post reply:</div>
 		 
-		 
-
 		<div class="threadContent"> 
 		<form action="/threads/${thread.category.id}/${thread.id}" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
-			<textarea name="thread_content" id="threadReply"></textarea>
-      <input style="float: right" id="threadSubmit" type="submit" value="Submit reply" />
+			#{errors}
+		    	<span class="threadError">${error}</span>
+		   	#{/errors}
+			<textarea name="threadContent" id="threadReply"></textarea>
+      		<input style="float: right" id="threadSubmit" type="submit" value="Submit reply" />
 			<div style="clear:both;"></div>
-      </form>
-		</div>
-	 	 	
+      	</form>
+		</div> 	 	
 	</div>
-	
-	
-	
 </div>
 
 <div style="clear:both;"></div>

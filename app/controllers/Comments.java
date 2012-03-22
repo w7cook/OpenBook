@@ -3,6 +3,7 @@ package controllers;
 import java.util.*;
 
 import play.*;
+import play.data.validation.Required;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
@@ -42,9 +43,14 @@ public class Comments extends OBController {
 	    comments(userId);
 	  }
 	  
-	  public static void postThreadComment(Long threadId, String thread_content){
+	  public static void postThreadComment(Long threadId, String threadContent){
+		validation.required(threadContent).message("You may not leave a blank reply.");
 	    FThread thread = ((FThread) FThread.findById(threadId));
-      thread.addComment(Application.user(), thread_content);
+	    
+	    if(validation.hasErrors()) {
+	    	renderTemplate("FThreads/listSingle.html", thread);
+        }
+	    thread.addComment(Application.user(), threadContent);
       
       renderTemplate("FThreads/listSingle.html", thread);
 	  }

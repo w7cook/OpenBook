@@ -34,6 +34,7 @@ div.forumInner {
 	width: 660px;
 	border-bottom: 1px dotted black;
 	min-height: 50px;
+	overflow: hidden;
 }
 
 div.threadList {
@@ -87,12 +88,10 @@ div.threadAuthorInfo {
 	font-weight: bold;
 	text-align: center;
 	font-size: 12px;
-	height: 30px;
 	width: 200px;
 	float: left;
 	padding-top: 10px;
-
-	
+	padding-bottom: 10px;
 }
 
 div.threadContent {
@@ -137,4 +136,10 @@ input#threadSubmit {
 	font-weight: bold;
 	border: 0px;
 	padding: 5px;
+}
+
+span.threadError {
+	font-size: 12px;
+	font-weight: bold;
+	color: red;
 }
