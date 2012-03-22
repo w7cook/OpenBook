@@ -28,7 +28,7 @@ public class Comments extends OBController {
 	  }
 
 	  public static void addLike (Long commentId, Long userId){
-	    Like newOne = new Like ((Likeable)Comment.findById(commentId),(User)User.findById(userId)).save();
+	    Likes newOne = new Likes ((Likeable)Comment.findById(commentId),(User)User.findById(userId)).save();
 	    Comment c = Comment.findById(commentId);
 	    c.addLike(newOne);
 	    comments(userId);
@@ -37,7 +37,7 @@ public class Comments extends OBController {
 	  public static void unLike (Long commentId, Long userId){
 	    Comment c = Comment.findById(commentId);
 	    User u = User.findById(userId);
-	    Like toRemove = Like.find("author = ? AND comment = ?", u, c).first();
+	    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
       c.removeLike(toRemove);
 	    comments(userId);
 	  }
