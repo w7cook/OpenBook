@@ -61,7 +61,7 @@ public class Skin extends Model {
     
     //body
     addParam("bodyBGColor","none");
-
+    
     //logo
     
     addParam("logoFontSize", "30");
@@ -146,7 +146,6 @@ public class Skin extends Model {
        if(s != null){
          s.value = value;
          s.save();
-         this.save();
        }
   }
 

@@ -23,7 +23,8 @@
       #{/form}
       Hello 
       <a href="@{Application.account()}">${currentUser.first_name} ${currentUser.last_name}</a>!
-      <a href="/requests">Requests</a>!
+      <a href="/requests"> Requests</a>!
+      <a href="/skin"> Change Skin </a>
       <a id="logout" href="@{Secure.logout()}">Logout</a>
     </header>
     <section id="main">
