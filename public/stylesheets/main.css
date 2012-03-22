@@ -89,3 +89,10 @@ a.logo:active {text-decoration:none;}
 .post {
   padding: 10px 0px 0px 0px;
 }
+
+#about-button{
+	font-style:italic; 
+	line-height:70%; 
+	margin-left:120px; 
+	font-size:small;
+}

@@ -3,24 +3,30 @@ package models;
 import java.util.*;
 
 import javax.persistence.*;
-
 import play.db.jpa.*;
 
 @Entity
-public class Commentable extends Model {
-
-  @OneToMany(mappedBy = "parentObj", cascade = CascadeType.ALL)
-  public List<Comment> allComments;
-
-  public Commentable addComment(String author, String content) {
-    Comment newComment = new Comment(this, author, content).save();
-    this.allComments.add(newComment);
+public abstract class Commentable extends Likeable
+{	
+  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
+  public List<Comment> comments;
+ 
+	public Commentable addComment(User author, String content) {
+		Comment newComment = new Comment(this, author, content).save();
+		this.comments.add(newComment);
+		this.save();
+		return this;
+	}
+	
+  public void addLikes (Comment com, User au){
+    Likes newOne = new Likes(com,au).save();
+    likes.add(newOne);
     this.save();
-    return this;
   }
   
-  public void removeComment(Comment c){
-   c.delete();
-   this.save();
+  public void removeLikes (Comment com, User au){
+    Likes toRemove = Likes.find("author = ? AND comment = ?", au, com).first();
+    toRemove.delete();
+    this.save();   
   }
 }
