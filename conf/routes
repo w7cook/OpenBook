@@ -5,15 +5,18 @@
 # Import Secure routes
 *       /                                       module:secure
 
+
 # Home page
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
 GET     /account                                Application.account
+GET     /requests                               Application.friendRequests
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
+POST    /skins/editSkin                         Skins.editSkin
 
 
 # Profile
@@ -28,11 +31,8 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
-# Threads
-GET     /threads                                Categories.listAll
-GET     /threads/{<[0-9]+>catId}          		Categories.listSingle
-GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
-
+# Search
+GET     /users/search                           UserSearch.search
 
 #Account
 #GET     /users/?                                #Get a list of all users
@@ -55,7 +55,8 @@ GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
 #GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
 
-
+#Relationships
+GET 	/relationships							Relationships.relationships
 
 # Checkin
 GET     /checkin                                Checkin.checkin
@@ -69,6 +70,9 @@ GET		/                                       Comments.comments
 
 # Posts
 GET     /                                       Posts.posts
+
+# Groups
+GET     /groups/{id}                            Application.group
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
