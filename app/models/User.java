@@ -160,4 +160,12 @@ public boolean isFriendsWith(User user) {
 	}
 	return false;
 }
+
+  /** Get all authored events
+   *
+   * @return a list of events that User has authored
+   */
+  public List<Event> authoredEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
+  }
 }
