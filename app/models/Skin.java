@@ -62,9 +62,6 @@ public class Skin extends Model {
     //body
     addParam("bodyBGColor","none");
     
-    //picture
-    addParam("bodyPicture","/public/images/matrixy.jpg");
-
     //logo
     
     addParam("logoFontSize", "30");
@@ -149,7 +146,6 @@ public class Skin extends Model {
        if(s != null){
          s.value = value;
          s.save();
-         this.save();
        }
   }
 
