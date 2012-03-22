@@ -2,36 +2,46 @@
 <table>
   <tr>
     <td>
-			${user.profile.profilePhoto == null}
-			<div class="profile_pic">
-				<a class="change-img" href="/photos">Change picture</a>
-				#{if user.profile.profilePhoto == -1 || user.profile.profilePhoto == null}
-			  	%{profile_pic = "/public/images/default.png"}%
-				#{/if}
-				#{else}
-				  %{//profile_pic = @Photos.getPhoto(user.profile.profilePhoto)}%
-				#{/else}
-				<img src=@{Photos.getPhoto(user.profile.profilePhoto)} width="120" height="150" />
-			</div>
-				${user.profile == null}
+      ${user.profile.profilePhoto == null}
+      <div class="profile_pic">
+        <a class="change-img" href="/photos">Change picture</a>
+        #{if user.profile.profilePhoto == -1 || user.profile.profilePhoto == null}
+          %{profile_pic = "/public/images/default.png"}%
+        #{/if}
+        #{else}
+          %{//profile_pic = @Photos.getPhoto(user.profile.profilePhoto)}%
+        #{/else}
+        <img src=@{Photos.getPhoto(user.profile.profilePhoto)} width="120" height="150" />
+      </div>
+       
       <br/>
       ${user.email}
       
       <br/>
       <a href="@{Application.news()}">news</a>
       <br>
-      <a href="@{Events.events()}">Events</a>
+      <a href="/photos">Photos</a>
       <br>
-      <a href="@{Application.about()}">about</a>
+      <a href="@{Events.events()}">Events</a>
       <br>
       <a href="@{Checkin.checkin()}">Checkin</a>
       <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
       #{list items:user.confirmedFriends(), as:'friendship'}
         <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
       #{/list}
+	  <br>Groups:<br>
+      #{list items:user.getGroups(), as:'Group'}
+        <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br>
+      #{/list}
     </td>
     <td>
-      <h1>${user.name}</h1> 
+      <h1 style="line-height:50%;">${user.name}</h1> 
+	#{if user.id == currentUser.id}
+	   <a id="about-button" href="@{Application.edit_basic}">About me</a> <br/> <br/>
+    #{/if}
+	#{else}
+	   <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a> <br/> <br/>
+    #{/else}
       #{if user.checkFriendship(user.id) == 'Request Friendship'}
         <a id="friend-button" href="@{Application.requestFriends(user.id)}">
           ${user.checkFriendship(user.id)}
@@ -60,11 +70,18 @@
               <a href="@{Application.news(item.author.id)}">${ item.author.name }</a>
             </span>,
             <span class="post-date">
-              ${item.date.format('dd MMM yy')}
+              ${item.updatedAt.format('dd MMM yy')}
             </span>
-        #{if item.author == currentUser}
-            <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
-        #{/if}
+            #{if item.author == currentUser}
+              <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
+            #{/if}
+             #{ if item.currentUserLiked()}
+                <a class=button href="@{Application.unLike(item.id,user.id)}"> Unlike</a>
+             #{/if}
+             #{else}
+                <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
+             #{/else}
+              <span> ${item.likes.size()} likes</span>                 
             <a class='triggerhide' href='#' onclick='return false;'> less</a>
                
             <div class="post-content tohideopp">
@@ -75,25 +92,24 @@
               <div class="post-content">
                 ${item.content.nl2br()}
               </div>
-              #{list items:item.comments(), as:'comment'}
+              #{list items:item.getComments(), as:'comment'}
                 <div class="comment">
                   <div class="comment-metadata">
                     <span class="comment-author">
                       by ${comment.author},
                     </span>
                     <span class="comment-date">
-                      ${comment.date.format('dd MMM yy')}
+                      ${comment.updatedAt.format('dd MMM yy')}
                     #{if comment.author == currentUser.first_name}
                         <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                     #{/if}
-                    </span>
                     #{ if comment.currentUserLiked()}
                       <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
                     #{/if}
                     #{else}
                       <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
                     #{/else}
-                    <span> ${comment.allLikes.size()} likes</span>                   
+                    <span> ${comment.likes.size()} likes</span>                   
                   </div>
                   <div class="comment-content">
                     ${comment.content.escape().nl2br()}

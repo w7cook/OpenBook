@@ -1,9 +1,24 @@
 #{extends 'main.html' /} 
 
+#{form @Skins.changeSkinToTemplate()} 
+  </br><b>CHANGE SKIN TO TEMPLATE</b>
+  <select name = skinName>
+    <option selected = "yes" value = "${currentUser.profile.skin.name}" > Current Skin </option>
+    <option value = green> Green Header </option>
+  </select>
+         
+  <input type=submit value=Save> 
+    #{ifErrors}
+    <ul style="color:red">
+      #{errors}<li>${error}</li> #{/errors} 
+    </ul>
+    #{/ifErrors}
+         
+#{/form}  
 
 #{form @Skins.editSkin()}
 
-  </br><b>EDIT SKIN</b>
+  </br><b>EDIT CURRENT SKIN</b>
 
   <table>
   <td class=section width=15%>Body</td>

@@ -73,7 +73,7 @@ public class User extends Model {
 
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by Date desc",
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by p.updatedAt desc",
                      this.id).fetch();
   }
 
@@ -124,6 +124,20 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+  
+  public List<Group> getGroups(){
+	  List<Group> allGroups= Group.findAll();
+	  List<Group> answer= new ArrayList<Group>();
+	  for(Group g : allGroups){
+		  for(User u : g.members){
+			  if(u.equals(this)){
+				  answer.add(g);
+				  break;
+			  }
+		  }
+	  }
+	  return answer;
+  }
 
   public boolean equals(Object obj) {
     if (obj == null)
@@ -146,4 +160,12 @@ public boolean isFriendsWith(User user) {
 	}
 	return false;
 }
+
+  /** Get all authored events
+   *
+   * @return a list of events that User has authored
+   */
+  public List<Event> authoredEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
+  }
 }

@@ -19,10 +19,6 @@ public class Photos extends OBController {
   public static final int MAX_PIXEL_SIZE = 1024;
   public static final int MAX_FILE_SIZE = 2 * 1024 * 1024;  /* Size in bytes. */
 
-  public static void setProfilePhoto(Long id)
-  {
-    
-  }
   public static void photos(Long ownerId) {
     List<Photo> photos;
     if (ownerId == null) {

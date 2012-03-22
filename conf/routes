@@ -16,7 +16,13 @@ GET     /requests                               Application.friendRequests
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
+POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
+
+# Threads
+GET     /threads                                Categories.listAll
+GET     /threads/{<[0-9]+>catId}          		Categories.listSingle
+GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
 
 
 # Profile
@@ -72,6 +78,9 @@ GET		/                                       Comments.comments
 
 # Posts
 GET     /                                       Posts.posts
+
+# Groups
+GET     /groups/{id}                            Groups.group
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
