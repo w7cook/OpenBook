@@ -8,7 +8,7 @@ import controllers.Security;
 import play.db.jpa.*;
 import play.modules.elasticsearch.annotations.ElasticSearchable;
 
-@ElasticSearchable
+
 @Entity
 public class Post extends Status {
 

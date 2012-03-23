@@ -13,7 +13,6 @@ import play.modules.elasticsearch.annotations.ElasticSearchable;
 import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
 
-@ElasticSearchable
 @Entity
 public class Page extends Model {
 	
