@@ -90,11 +90,18 @@ a.logo:active {text-decoration:none;}
 }
 
 .post-content {
-	width: 500px;
+  width: 500px;
+}
+.comment-content {
+  width: 450px;
 }
 .post-date {
-	color: gray;
-	font-size: x-small;
+  color: gray;
+  font-size: x-small;
+}
+.comment-date {
+  color: gray;
+  font-size: x-small;
 }
 #about-button{
 	font-style:italic; 

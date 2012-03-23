@@ -59,23 +59,11 @@
             </span>
             #{if item.author == currentUser}
               <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
-            #{/if}
-            <a class='triggerhide' href='#' onclick='return false;'> less</a>
-               
+            #{/if}               
             <div class="post-content tohideopp">
               ${item.contentTeaser().nl2br()}
-              <a class='triggershow showfirst' href='#' onclick='return false;'> ...more </a>
+              <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
             </div>
-            <span class="post-date">
-              ${item.updatedAt.format('dd MMM yy')}
-            </span>
-            #{ if item.currentUserLiked()}
-              <a class=button href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-            #{/if}
-            #{else}
-              <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
-            #{/else}
-            <span> ${item.likes.size()} likes</span>                 
             <span class="tohide hide">
               <div class="post-content">
                 ${item.content.nl2br()}
@@ -104,21 +92,30 @@
                   </div>
                 </div>
               #{/list}
-        #{if user.isFriendsWith(currentUser) || user==currentUser}
-        
-            <input type="button" value="Comment" onclick="showDiv('comment ${item.id}')" />
-
-		    <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
-
-            #{form @Comments.postComment(item.id, user.id)}
-        	   <textarea name="content" id="content"></textarea><br/>
-        	   <input type="submit" value="Comment" />
-        	   <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
-		    #{/form}	    
-		    </div>
-		 #{/if}
+            <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
             </span>
           </span>
+          <span class="post-date">
+            ${item.updatedAt.format('dd MMM yy')}
+          </span>
+          #{ if item.currentUserLiked()}
+            <a class=button href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+          #{/if}
+          #{else}
+            <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
+          #{/else}
+          <span> ${item.likes.size()} likes</span>                 
+	        #{if user.isFriendsWith(currentUser) || user==currentUser}
+	          <input type="button" value="Comment" onclick="showDiv('comment ${item.id}')" />
+	          <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
+	            #{form @Comments.postComment(item.id, user.id)}
+	             <textarea name="content" id="content"></textarea><br/>
+	             <input type="submit" value="Comment" />
+	             <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
+	            #{/form}      
+	          </div>
+	        #{/if}
+          
         </div>
         <hr/>
       #{/list}
