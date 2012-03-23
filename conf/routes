@@ -36,7 +36,10 @@ POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
-POST	/photos/setProfilePhoto					Photos.setProfilePhoto
+GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
+GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
+POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
+POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
 # Search

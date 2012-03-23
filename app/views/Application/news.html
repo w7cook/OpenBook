@@ -2,16 +2,15 @@
 <table>
   <tr>
     <td>
-      ${user.profile.profilePhoto == null}
       <div class="profile_pic">
-        <a class="change-img" href="/photos">Change picture</a>
+        <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a>
         #{if user.profile.profilePhoto == -1 || user.profile.profilePhoto == null}
-          %{profile_pic = "/public/images/default.png"}%
+          <img src="/public/images/default.png" width="120" height="150" />
+
         #{/if}
         #{else}
-          %{//profile_pic = @Photos.getPhoto(user.profile.profilePhoto)}%
+           <img src=@{Photos.getPhoto(user.profile.profilePhoto)} width="120" height="150" />
         #{/else}
-        <img src=@{Photos.getPhoto(user.profile.profilePhoto)} width="120" height="150" />
       </div>
        
       <br/>
