@@ -5,14 +5,18 @@
     ${user.email}
     
     <br/>
-    <a href="@{Application.news()}">news</a>
+    <a href="@{Application.news()}">News</a>
     <br>
     <a href="@{Events.events()}">Events</a>
     <br>
     <a href="@{Checkin.checkin()}">Checkin</a>
     <br>
+    <a href="/requests">Friend Requests</a>
+    <br>
+    <a href="/skin">Change Skin</a>
+    <br>
     <a href="@{Pages.pages()}">Pages</a>
-    <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
+    <br><a href="@{Relationships.relationships(user.id)}">Friends:</a><br>
     #{list items:user.confirmedFriends(), as:'friendship'}
       <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
     #{/list}
