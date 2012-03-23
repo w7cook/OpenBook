@@ -1,6 +1,0 @@
-#Photos used in initial data
-
-models.Photo(matrix):
-  image: play.db.jpa.Blob@cc5c38
-  caption: http://www.simulation-argument.com/matrixy.jpg
-  owner: default
