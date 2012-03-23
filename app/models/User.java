@@ -148,18 +148,24 @@ public class User extends Model {
       return false;
     return username.equals(((User) obj).username);
   }
+  
+  public List getPages(){
+		return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this).fetch();
+	}
+	
   public String toString(){
     return first_name + " " + last_name;
   }
-public boolean isFriendsWith(User user) {
-	for(Relationship f: this.confirmedFriends()){
-		if(f.to == this && f.from == user)
-			return true;
-		if(f.to == user && f.from == this)
-			return true;
+  
+  public boolean isFriendsWith(User user) {
+  	for(Relationship f: this.confirmedFriends()){
+  		if(f.to == this && f.from == user)
+  			return true;
+  		if(f.to == user && f.from == this)
+  			return true;
+			}
+		return false;
 	}
-	return false;
-}
 
   /** Get all authored events
    *
