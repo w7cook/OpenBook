@@ -17,16 +17,17 @@ public class Pages extends OBController {
 	
 	public static void pageSave(String title, String info){
 		User currentUser = user();
-		Page page  = Page.find("Select p from Page p where p.title = ?", title).first();
-		if(page == null){
-			page = new Page(currentUser, title, info).save();
-			UserPage pageLink = new UserPage(currentUser, page).save();
-		}
-		else{
-			page.info = info;
-			page.save();
-		}
+		Page page = new Page(currentUser, title, info).save();
+		UserPage pageLink = new UserPage(currentUser, page).save();
 		//renderText(page.admin+"\n"+page.title+"\n"+page.info+"\n"+pageLink.page.title+"\n"+pageLink.fan);
+		render("Pages/myPage.html", page,currentUser);
+	}
+	
+	public static void pageUpdate(Long id, String info){
+		Page page = Page.findById(id); 
+		page.info = info;
+		page.save();
+		User currentUser = user();
 		render("Pages/myPage.html", page,currentUser);
 	}
 	
