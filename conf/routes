@@ -67,7 +67,7 @@ GET 	/relationships							Relationships.relationships
 
 # Checkin
 GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at #what is this?  maybe should be post
+GET     /checkin/at                             Checkin.at
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
