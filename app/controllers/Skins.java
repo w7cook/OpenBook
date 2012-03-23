@@ -137,5 +137,18 @@ public class Skins extends OBController {
       return true;
     }
   }
+  
+  public static void setBackgroundPhoto(Long photoid)
+  {
+    User user = user();
+    Skin changeSkin = user.profile.skin;
+    SkinPair update = SkinPair.find("attachedSkin = ? AND name = ?", changeSkin, "bodyBGPhoto").first();
+    if(update != null)
+    {
+      update.value = "/photos/" + photoid.toString();
+      update.save();
+    }
+    redirect("/photos");
+  }
 
 }

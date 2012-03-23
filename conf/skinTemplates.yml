@@ -124,3 +124,133 @@ models.SkinPair(models_SkinPair_24):
  name: buttonLinkSelectedColor
  value: black
  
+ 
+#Matrix Skin
+models.Skin(matrixWhite):
+ name: matrixWhite
+
+models.SkinPair(models_SkinPair_25):
+ attachedSkin: matrixWhite
+ name: bodyBGColor
+ value: none
+ 
+models.SkinPair(models_SkinPair_26):
+ attachedSkin: matrixWhite
+ name: bodyBGPhoto
+ value: /photos/1 
+ 
+models.SkinPair(models_SkinPair_27):
+ attachedSkin: matrixWhite
+ name: logoFontSize
+ value: 30
+ 
+models.SkinPair(models_SkinPair_28):
+ attachedSkin: matrixWhite
+ name: logoColor
+ value: white
+ 
+models.SkinPair(models_SkinPair_29):
+ attachedSkin: matrixWhite
+ name: logoFontType
+ value: helvetica
+
+models.SkinPair(models_SkinPair_30):
+ attachedSkin: matrixWhite
+ name: headerBGColor
+ value: 008000 
+ 
+models.SkinPair(models_SkinPair_31):
+ attachedSkin: matrixWhite
+ name: footerTextAlign
+ value: center
+ 
+models.SkinPair(models_SkinPair_32):
+ attachedSkin: matrixWhite
+ name: footerFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_33):
+ attachedSkin: matrixWhite
+ name: footerColor
+ value: gray
+
+models.SkinPair(models_SkinPair_34):
+ attachedSkin: matrixWhite
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_35):
+ attachedSkin: matrixWhite
+ name: labelFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_36):
+ attachedSkin: matrixWhite
+ name: labelColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_37):
+ attachedSkin: matrixWhite
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_38):
+ attachedSkin: matrixWhite
+ name: commentBorderColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_39):
+ attachedSkin: matrixWhite
+ name: commentBGColor
+ value: EEEEEE
+ 
+models.SkinPair(models_SkinPair_40):
+ attachedSkin: matrixWhite
+ name: buttonBorderRadius
+ value: 4
+ 
+models.SkinPair(models_SkinPair_41):
+ attachedSkin: matrixWhite
+ name: buttonBorderSize
+ value: 1
+ 
+models.SkinPair(models_SkinPair_42):
+ attachedSkin: matrixWhite
+ name: buttonBorderColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_43):
+ attachedSkin: matrixWhite
+ name: buttonBoxShadowColor
+ value: 008000
+ 
+models.SkinPair(models_SkinPair_44):
+ attachedSkin: matrixWhite
+ name: buttonBGColor
+ value: white
+ 
+models.SkinPair(models_SkinPair_45):
+ attachedSkin: matrixWhite
+ name: buttonTextDec
+ value: none
+ 
+models.SkinPair(models_SkinPair_46):
+ attachedSkin: matrixWhite
+ name: buttonLinkUnvisitedColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_47):
+ attachedSkin: matrixWhite
+ name: buttonLinkVisitedColor
+ value: lightgreen
+ 
+models.SkinPair(models_SkinPair_48):
+ attachedSkin: matrixWhite
+ name: buttonLinkHoverColor
+ value: 008000
+ 
+models.SkinPair(models_SkinPair_49):
+ attachedSkin: matrixWhite
+ name: buttonLinkSelectedColor
+ value: black
+ 
