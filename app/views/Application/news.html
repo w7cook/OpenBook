@@ -51,23 +51,15 @@
             <input type="submit" value="Post" />
        #{/form}
     #{/if}
-      <h3>Blog Posts</h3>
       #{list items:user.news(), as:'item'}
         <div class="post">
           <span class="hideable">
             <span class="post-author">
               <a href="@{Application.news(item.author.id)}">${ item.author.name }</a>
-            </span>,
+            </span>
             #{if item.author == currentUser}
               <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
             #{/if}
-             #{ if item.currentUserLiked()}
-                <a class=button href="@{Application.unLike(item.id,user.id)}"> Unlike</a>
-             #{/if}
-             #{else}
-                <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
-             #{/else}
-              <span> ${item.likes.size()} likes</span>                 
             <a class='triggerhide' href='#' onclick='return false;'> less</a>
                
             <div class="post-content tohideopp">
@@ -77,6 +69,13 @@
             <span class="post-date">
               ${item.updatedAt.format('dd MMM yy')}
             </span>
+            #{ if item.currentUserLiked()}
+              <a class=button href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+            #{/if}
+            #{else}
+              <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
+            #{/else}
+            <span> ${item.likes.size()} likes</span>                 
             <span class="tohide hide">
               <div class="post-content">
                 ${item.content.nl2br()}
@@ -121,6 +120,7 @@
             </span>
           </span>
         </div>
+        <hr/>
       #{/list}
     </td>
   </tr>
