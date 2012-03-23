@@ -105,6 +105,15 @@
       <div> ${item.likes.size()} likes</div>                 
       #{if user.isFriendsWith(currentUser) || user==currentUser}
        <div>
+	      #{ if item.currentUserLiked()}
+	        <a class=button href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+	      #{/if}
+	      #{else}
+	        <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
+	      #{/else}
+	     </div>
+      #{/if}     
+       <div>
          <a class="button"  
            onclick="showDiv('comment ${item.id}')">Comment</a>
        </div>
@@ -115,15 +124,6 @@
           <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
          #{/form}      
        </div>
-       <div>
-	      #{ if item.currentUserLiked()}
-	        <a class=button href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-	      #{/if}
-	      #{else}
-	        <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
-	      #{/else}
-	     </div>
-      #{/if}     
       </div>
     </div>
     <hr style="float:left; width: 100%"/>
