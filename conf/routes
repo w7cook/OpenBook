@@ -16,6 +16,7 @@ GET     /requests                               Application.friendRequests
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
+POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
 
 # Threads
@@ -77,7 +78,7 @@ GET		/                                       Comments.comments
 GET     /                                       Posts.posts
 
 # Groups
-GET     /groups/{id}                            Application.group
+GET     /groups/{id}                            Groups.group
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

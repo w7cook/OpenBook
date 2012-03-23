@@ -20,7 +20,7 @@
       #{/list}
 	  <br>Groups:<br>
       #{list items:user.getGroups(), as:'Group'}
-        <a href="@{Application.group(Group.id)}">${Group.groupName}</a><br>
+        <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br>
       #{/list}
     </td>
     <td>
