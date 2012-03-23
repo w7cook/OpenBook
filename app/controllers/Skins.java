@@ -97,7 +97,6 @@ public class Skins extends OBController {
     Skin changeSkin = Skin.find("name = ?", skinName).first();
     if(changeSkin != null)
     {
-      System.out.println("FOUND NAME");
       SkinPair updateParam;
       //reset currentSkin's parameters
       for(SkinPair updateTo: changeSkin.parameters)
