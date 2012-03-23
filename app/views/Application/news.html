@@ -12,6 +12,8 @@
       <a href="@{Events.events()}">Events</a>
       <br>
       <a href="@{Checkin.checkin()}">Checkin</a>
+      <br>
+      <a href="@{Pages.pages()}">Pages</a>
       <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
       #{list items:user.confirmedFriends(), as:'friendship'}
         <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
@@ -106,9 +108,9 @@
         #{if user.isFriendsWith(currentUser) || user==currentUser}
         
             <input type="button" value="Comment" onclick="showDiv('comment ${item.id}')" />
-		     
+
 		    <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
-		    
+
             #{form @Comments.postComment(item.id, user.id)}
         	   <textarea name="content" id="content"></textarea><br/>
         	   <input type="submit" value="Comment" />
