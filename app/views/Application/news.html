@@ -12,6 +12,8 @@
       <a href="@{Events.events()}">Events</a>
       <br>
       <a href="@{Checkin.checkin()}">Checkin</a>
+      <br>
+      <a href="@{Pages.pages()}">Pages</a>
       <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
       #{list items:user.confirmedFriends(), as:'friendship'}
         <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>

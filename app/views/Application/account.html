@@ -103,10 +103,6 @@
 #{/form}
 
 <div id="myPages">
-	#{if currentUser.getPages().size() > 0}
-		#{list items:currentUser.pages, as:'page' }
-        <a href="@{Pages.display(page)}">${page.title}
-    #{/list}
-	#{/if}
+		<a href="@{Pages.myPages()}"> My pages 
 		<a href="@{Pages.newPage()}"> Create a Page!
 </div>

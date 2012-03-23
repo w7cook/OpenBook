@@ -210,25 +210,26 @@ Comment(fc1):
 Comment(fc2):
     author:         alice
     content:        >
-<<<<<<< HEAD
-                    This post is useless ?
-    date:           2009-04-05
-    parentObj:      secondBobPost
-    
+                    i love dubstep 
+    date:           2011-09-05
+    parentObj:      thread3
+                    
 Page(cats):
-    admin:          alice@gmail.com
+    admin:          alice
     title:          CATS
     info:           >
                     I haz them!!
                     
 Page(nachoCheese):
-    admin:          jeff@gmail.com
+    admin:          jeff
     title:          Nacho Cheese
     info:           >
                     What do you call cheese that isn't yours?
-=======
-                    i love dubstep 
-    date:           2011-09-05
-    parentObj:      thread3
                     
->>>>>>> 40b632b5a4eb14329d30a914a929fb57dbbc51a7
+UserPage(1):
+    page:           cats
+    fan:            alice
+
+UserPage(2):
+    page:           nachoCheese
+    fan:            jeff
