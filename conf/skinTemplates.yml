@@ -6,7 +6,7 @@ models.Skin(GREEN):
 
 models.SkinPair(models_SkinPair_1):
  attachedSkin: GREEN
- name: bodyBGColor
+ name: bodyBGPhoto
  value: none
  
 models.SkinPair(models_SkinPair_2):
@@ -254,3 +254,127 @@ models.SkinPair(models_SkinPair_49):
  name: buttonLinkSelectedColor
  value: black
  
+ 
+#Default Skin (orange header)
+models.Skin(default_skin):
+ name: default_skin
+
+models.SkinPair(models_SkinPair_50):
+ attachedSkin: default_skin
+ name: bodyBGPhoto
+ value: none
+ 
+models.SkinPair(models_SkinPair_51):
+ attachedSkin: default_skin
+ name: logoFontSize
+ value: 30
+ 
+models.SkinPair(models_SkinPair_52):
+ attachedSkin: default_skin
+ name: logoColor
+ value: white
+ 
+models.SkinPair(models_SkinPair_53):
+ attachedSkin: default_skin
+ name: logoFontType
+ value: helvetica
+
+models.SkinPair(models_SkinPair_54):
+ attachedSkin: default_skin
+ name: headerBGColor
+ value: CC5500 
+ 
+models.SkinPair(models_SkinPair_55):
+ attachedSkin: default_skin
+ name: footerTextAlign
+ value: center
+ 
+models.SkinPair(models_SkinPair_56):
+ attachedSkin: default_skin
+ name: footerFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_57):
+ attachedSkin: default_skin
+ name: footerColor
+ value: gray
+
+models.SkinPair(models_SkinPair_58):
+ attachedSkin: default_skin
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_59):
+ attachedSkin: default_skin
+ name: labelFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_60):
+ attachedSkin: default_skin
+ name: labelColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_61):
+ attachedSkin: default_skin
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_62):
+ attachedSkin: default_skin
+ name: commentBorderColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_63):
+ attachedSkin: default_skin
+ name: commentBGColor
+ value: EEEEEE
+ 
+models.SkinPair(models_SkinPair_64):
+ attachedSkin: default_skin
+ name: buttonBorderRadius
+ value: 4
+ 
+models.SkinPair(models_SkinPair_65):
+ attachedSkin: default_skin
+ name: buttonBorderSize
+ value: 1
+ 
+models.SkinPair(models_SkinPair_66):
+ attachedSkin: default_skin
+ name: buttonBorderColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_67):
+ attachedSkin: default_skin
+ name: buttonBoxShadowColor
+ value: 888888
+ 
+models.SkinPair(models_SkinPair_68):
+ attachedSkin: default_skin
+ name: buttonBGColor
+ value: white
+ 
+models.SkinPair(models_SkinPair_69):
+ attachedSkin: default_skin
+ name: buttonTextDec
+ value: none
+ 
+models.SkinPair(models_SkinPair_70):
+ attachedSkin: default_skin
+ name: buttonLinkUnvisitedColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_71):
+ attachedSkin: default_skin
+ name: buttonLinkVisitedColor
+ value: black
+ 
+models.SkinPair(models_SkinPair_72):
+ attachedSkin: default_skin
+ name: buttonLinkHoverColor
+ value: E0E0FF
+ 
+models.SkinPair(models_SkinPair_73):
+ attachedSkin: default_skin
+ name: buttonLinkSelectedColor
+ value: black
