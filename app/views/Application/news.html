@@ -58,9 +58,6 @@
             <span class="post-author">
               <a href="@{Application.news(item.author.id)}">${ item.author.name }</a>
             </span>,
-            <span class="post-date">
-              ${item.updatedAt.format('dd MMM yy')}
-            </span>
             #{if item.author == currentUser}
               <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
             #{/if}
@@ -77,6 +74,9 @@
               ${item.contentTeaser().nl2br()}
               <a class='triggershow showfirst' href='#' onclick='return false;'> ...more </a>
             </div>
+            <span class="post-date">
+              ${item.updatedAt.format('dd MMM yy')}
+            </span>
             <span class="tohide hide">
               <div class="post-content">
                 ${item.content.nl2br()}
