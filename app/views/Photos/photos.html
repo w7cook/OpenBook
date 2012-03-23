@@ -9,15 +9,20 @@
 <ul class="photo-list">
   #{list items:photos, as:'photo' }
     <li>
-      <img src=@{Photos.getPhoto(photo.id)} />
+      <img src=@{Photos.getPhoto(photo.id)} width = "500" height = "500" />
       #{if currentUser.equals(photo.owner)}
         #{form @Photos.removePhoto(photo.id)}
           <input type="submit" name="submit" value="Delete" />
         #{/form}
-
+        
 				#{form @Photos.setProfilePhoto(photo.id)}
           <input type="submit" name="submit" value="Set as profile picture" />
 				#{/form}
+				
+        #{form @Skins.setBackgroundPhoto(photo.id)}
+          <input type="submit" name="Set Background Photo" value="Set Background Photo" />
+        #{/form}
+        
       #{/if}
     </li>
   #{/list}

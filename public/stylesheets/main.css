@@ -6,7 +6,7 @@ html, body {
 
 body {
   margin: 0;
-  background-color: ${skin.get("bodyBGColor")}
+  background-image:url(${skin.get("bodyBGPhoto")})
 }
 
 a {

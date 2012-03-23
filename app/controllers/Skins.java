@@ -97,7 +97,6 @@ public class Skins extends OBController {
     Skin changeSkin = Skin.find("name = ?", skinName).first();
     if(changeSkin != null)
     {
-      System.out.println("FOUND NAME");
       SkinPair updateParam;
       //reset currentSkin's parameters
       for(SkinPair updateTo: changeSkin.parameters)
@@ -136,6 +135,19 @@ public class Skins extends OBController {
       profile.save();//made a change in the database so need to save it
       return true;
     }
+  }
+  
+  public static void setBackgroundPhoto(Long photoid)
+  {
+    User user = user();
+    Skin changeSkin = user.profile.skin;
+    SkinPair update = SkinPair.find("attachedSkin = ? AND name = ?", changeSkin, "bodyBGPhoto").first();
+    if(update != null)
+    {
+      update.value = "/photos/" + photoid.toString();
+      update.save();
+    }
+    redirect("/photos");
   }
 
 }

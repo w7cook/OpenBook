@@ -25,6 +25,35 @@
 	  </td>
 	</tr>
 	<tr>
+		<td><label>Email: 
+		</td>
+		<td><input type=text name=update.email value="${currentUser.email}" />
+		</td>
+	</tr>
+	<tr>
+		<td><label>New password: 
+		</td>
+		<td><input type=password name=update.password />
+		</td>
+	</tr>
+	</tr>
+	<td colspan=3><label>To save these settings, please enter
+			your password: 
+	</tr>
+	<tr>
+		<td><label>Password:</label>
+		</td>
+		<td><input type=password name=old_password /></td>
+	</tr>
+	<tr>
+		<td colspan=3><input type=submit value=Save> <input
+			type=submit value=Cancel /> 
+			#{ifErrors}
+			<ul style="color:red">
+			#{errors}<li>${error}</li> #{/errors} 
+			</ul>                     
+			#{/ifErrors}
+		</td>
 	  <td><label>Last:</label></td>
 	  <td><input type=text name=update.last_name
 		     value="${currentUser.last_name}" />
@@ -72,3 +101,8 @@
 </tr>
 </table>
 #{/form}
+
+<div id="myPages">
+		<a href="@{Pages.myPages()}"> My pages 
+		<a href="@{Pages.newPage()}"> Create a Page!
+</div>

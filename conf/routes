@@ -18,6 +18,7 @@ GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
+POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 
 # Threads
 GET     /threads                                Categories.listAll
