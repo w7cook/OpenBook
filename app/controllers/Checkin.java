@@ -19,7 +19,7 @@ public class Checkin extends OBController {
   public static void at(String location, String name, String address) {
     if (location != null && name != null && address != null
         && !location.equals("") && !name.equals("") && !address.equals("")) {
-      render(name, address);
+      Posts.newPost(user().id, "Checked in at: "+name+"\n"+address);
     }
     else {
       redirect("/checkin");
