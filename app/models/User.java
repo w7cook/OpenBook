@@ -9,6 +9,7 @@ import controllers.Skins;
 import controllers.Users;
 import play.db.jpa.*;
 import play.modules.elasticsearch.*;
+import play.modules.elasticsearch.annotations.ElasticSearchIgnore;
 import play.modules.elasticsearch.annotations.ElasticSearchable;
 import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
@@ -26,6 +27,8 @@ public class User extends Model {
 
   public String username; // The user's username
   public double timezone; // The user's timezone offset from UTC
+  
+  @ElasticSearchIgnore
   public Date updated_time; // The last time the user's profile was updated;
   // changes to the
   // languages, link, timezone, verified,
@@ -49,9 +52,11 @@ public class User extends Model {
   @OneToOne
   public Profile profile;
 
+  @ElasticSearchIgnore
   @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
   public List<Relationship> friends; // A list of the user's friendship history
 
+  @ElasticSearchIgnore
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
   public List<Relationship> friendedBy; // A list of the user's friendship history
 
@@ -148,16 +153,30 @@ public class User extends Model {
       return false;
     return username.equals(((User) obj).username);
   }
+  
+  public List getPages(){
+		return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this).fetch();
+	}
+	
   public String toString(){
     return first_name + " " + last_name;
   }
-public boolean isFriendsWith(User user) {
-	for(Relationship f: this.confirmedFriends()){
-		if(f.to == this && f.from == user)
-			return true;
-		if(f.to == user && f.from == this)
-			return true;
+  
+  public boolean isFriendsWith(User user) {
+  	for(Relationship f: this.confirmedFriends()){
+  		if(f.to == this && f.from == user)
+  			return true;
+  		if(f.to == user && f.from == this)
+  			return true;
+			}
+		return false;
 	}
-	return false;
-}
+
+  /** Get all authored events
+   *
+   * @return a list of events that User has authored
+   */
+  public List<Event> authoredEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
+  }
 }

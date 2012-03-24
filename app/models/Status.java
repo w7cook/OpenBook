@@ -28,7 +28,7 @@ public class Status extends Commentable {
   
   public Status(User author, String content) {
     this.comments = new ArrayList<Comment>();
-    this.likes = new ArrayList<Like>();
+    this.likes = new ArrayList<Likes>();
     this.tags = new ArrayList<Tag>();
     this.mentions = new ArrayList<User>();
     this.author = author;

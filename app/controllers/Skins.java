@@ -57,33 +57,58 @@ public class Skins extends OBController {
       newSkin.cloneSkin(currentUserSkin);
       user.profile.skin = newSkin;
     }
-   
-    
-    String[] keys = key.split(", ");//input is a list
-    String[] values = val.split(", ");
-    String keyUpdate = "";
-    String valueUpdate = "";
-    
-    //go through the attributes
-    for(int x = 0; x< keys.length; x++)
-    {
-      keyUpdate = keys[x];
-      valueUpdate = values[x];
+    if(key != null){//null if theres no changes
       
-      if(given(valueUpdate))//if the attribute has been filled, set parameter
+      String[] keys = key.split(", ");//input is a list
+      String[] values = val.split(", ");
+      String keyUpdate = "";
+      String valueUpdate = "";
+      
+      //go through the attributes
+      for(int x = 0; x< keys.length; x++)
       {
-        user.profile.skin.setParam(keyUpdate,valueUpdate);
+        keyUpdate = keys[x];
+        valueUpdate = values[x];
+        
+        if(given(valueUpdate))//if the attribute has been filled, set parameter
+        {
+          user.profile.skin.setParam(keyUpdate,valueUpdate);
+        }
       }
+      
+     
+      //save changes  
+      user.profile.save();
+     
+     
     }
-    
-   
-    //save changes  
-    user.profile.save();
-   
     skin(null);//rerender the page for current user (input null will find user();
   }
 
-
+  /**
+   * changes Skin to template skin
+   * just sets our parameters be the same
+   * used so that can redirect later and won't change if skin name is not there
+   */
+  public static void changeSkinToTemplate(String skinName)
+  {
+    //find skin
+    User user = user();
+    Skin changeSkin = Skin.find("name = ?", skinName).first();
+    if(changeSkin != null)
+    {
+      SkinPair updateParam;
+      //reset currentSkin's parameters
+      for(SkinPair updateTo: changeSkin.parameters)
+      {
+        //find the parameter that we want to update
+        updateParam = SkinPair.find("attachedSkin = ? AND name = ?", user.profile.skin, updateTo.name).first();
+        updateParam.value = updateTo.value;
+        updateParam.save(); 
+      }
+    }
+    skin(null);//rerender page
+  }
 
   /**
    * setSkin
@@ -110,6 +135,19 @@ public class Skins extends OBController {
       profile.save();//made a change in the database so need to save it
       return true;
     }
+  }
+  
+  public static void setBackgroundPhoto(Long photoid)
+  {
+    User user = user();
+    Skin changeSkin = user.profile.skin;
+    SkinPair update = SkinPair.find("attachedSkin = ? AND name = ?", changeSkin, "bodyBGPhoto").first();
+    if(update != null)
+    {
+      update.value = "/photos/" + photoid.toString();
+      update.save();
+    }
+    redirect("/photos");
   }
 
 }

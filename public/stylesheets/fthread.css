@@ -1,0 +1,140 @@
+/* -- Threads -- */
+
+div#forumContainer {
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 700px;
+	font-family: "Lucida Grande";
+	font-size: 11px;
+}
+
+div#forumHeader {
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 15px;
+	font-weight: bold;
+	height: 40px;
+	color: #FFF;
+	text-shadow: 2px 2px 3px #000;
+	font-size: 16px;
+}
+
+div#forumHeader a {
+	color: white;
+	text-decoration: none;
+}
+
+div#forumHeader a:hover {
+	text-decoation: underline;
+}
+
+div.forumInner {
+	margin-left: auto;
+	margin-right: auto;
+	width: 660px;
+	border-bottom: 1px dotted black;
+	min-height: 50px;
+}
+
+div.threadList {
+	height: 50px;
+}
+
+div.threadList a {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+div.threadList a:hover {
+	text-decoration: underline;
+}
+
+div.threadLeft {
+	padding-top: 18px;
+	float: left;
+	width: 470px;
+	font-size: 13px;
+}
+
+div.threadRight {
+	padding-top: 4px;
+	float: right;
+	width: 190px;
+
+}
+
+div.headerLeft {
+	margin-left: 20px;
+	margin-top: 10px;
+	float: left;
+	width: 470px;
+}
+
+div.headerRight {
+	margin-top: 10px;
+	float: right;
+	width: 190px;
+	margin-right: 20px;
+}
+
+div.thread {
+	height: 20px;
+	
+}
+
+div.threadAuthorInfo {
+	font-weight: bold;
+	text-align: center;
+	font-size: 12px;
+	height: 30px;
+	width: 200px;
+	float: left;
+	padding-top: 10px;
+
+	
+}
+
+div.threadContent {
+	width: 460px;
+	margin-left: 200px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	min-height: 30px;
+}
+
+div.threadAuthorInfo a {
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
+
+div.threadAuthorInfo a:hover {
+	text-decoration: underline;
+}
+
+span.threadDate {
+	font-weight: normal;
+	font-size: 9px;
+}
+
+textarea#threadReply {
+	background: rgba(0, 0, 0, 0.2);
+	width: 445px;
+	border: 1px dashed black;
+	min-height: 150px;
+	font-family: "Lucida Grande";
+	font-size: 10px;
+	padding: 5px;
+}
+
+input#threadSubmit {
+	margin-top: 10px;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 15px;
+	font-family: "Lucida Grande";
+	font-size: 10px;
+	font-weight: bold;
+	border: 0px;
+	padding: 5px;
+}

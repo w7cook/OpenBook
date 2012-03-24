@@ -1,5 +1,5 @@
 # Test data
- 
+
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -140,3 +140,96 @@ Group(g2):
     description:    >
                     This is a description for Alice's group.
                     
+Category(main):
+    name:           Main
+
+Category(music):
+    name:           Music
+
+Category(movies):
+    name:           Movies
+
+Category(sports):
+    name:           Sports
+
+FThread(thread1):
+    author:         bob
+    title:          This is a thread
+    postedAt:       2009-04-05
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread2):
+    author:         bob
+    title:          This is another thread
+    postedAt:       2009-04-06
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread3):
+    author:         alice
+    title:          I hate dubstep
+    postedAt:       2011-03-06
+    category:       music
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+                    
+Comment(fc1):
+    author:         bob
+    content:        >
+                    I knew that ...
+    date:           2011-06-15
+    parentObj:      thread3    
+
+Comment(fc2):
+    author:         alice
+    content:        >
+                    i love dubstep 
+    date:           2011-09-05
+    parentObj:      thread3
+                    
+Page(cats):
+    admin:          alice
+    title:          CATS
+    info:           >
+                    I haz them!!
+                    
+Page(nachoCheese):
+    admin:          jeff
+    title:          Nacho Cheese
+    info:           >
+                    What do you call cheese that isn't yours?
+                    
+UserPage(1):
+    page:           cats
+    fan:            alice
+
+UserPage(2):
+    page:           nachoCheese
+    fan:            jeff

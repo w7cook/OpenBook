@@ -3,21 +3,22 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import controllers.Secure;
 import play.db.jpa.*;
- 
-@Entity
-public class Likes extends Model{
-  
-  @ManyToOne
-  private User author;
-  
-  @ManyToOne
-  private Comment comment;
-  
-  public Likes (Comment c, User a){
-    this.author = a;
-    this.comment = c;
-  }
+import play.data.validation.*;
 
+@Entity
+public class Likes extends Model {
+  
+  @Required
+  @ManyToOne
+  public User author;
+  
+  @Required
+  @ManyToOne
+  public Likeable parentObj;
+  
+  public Likes(Likeable parentObj, User author){
+    this.author = author;
+    this.parentObj = parentObj;
+  }
 }
