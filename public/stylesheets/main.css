@@ -127,8 +127,19 @@ label {
 }
 
 .comment {
+<<<<<<< HEAD
     border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
     background-color: #${skin.get("commentBGColor")};
+=======
+  border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
+  background-color: #${skin.get("commentBGColor")};
+  width: 420px;
+}
+
+.comment-textarea {
+  border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
+	background-color: #${skin.get("commentBGColor")};
+>>>>>>> 5b8bdaf170c9db4074a82d34aa207d00f3cd94e1
 }
 
 .button {
@@ -186,7 +197,8 @@ a.logo:active {text-decoration:none;}
 }
 
 .comment-content {
-    width: 450px;
+  width: 450px;
+  font-size: 0.95em;
 }
 .post-date {
     color: gray;
@@ -203,7 +215,25 @@ a.logo:active {text-decoration:none;}
 }
 .main-content div {
 	padding:3px;
-    float:left;
+  float:left;
+	padding:2px;
+  float:left;
+}
+#content-left {
+  width:160px;
+  margin-top: 20px;
+}
+#content-middle {
+  margin-left:10px;
+  margin-top:10px;
+  width:550px;
+  border-left: 1px;
+  border-left-color: #98AFC7;
+  border-left-style: dotted;
+}
+#content-right {
+  margin-left:10px;
+  width:134px;
 }
 
 #footer {
