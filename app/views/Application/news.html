@@ -72,7 +72,10 @@
           </div>
           #{list items:item.getComments(), as:'comment'}
             <div class="comment">
-              <div class="comment-metadata">
+              <div class="comment-content">
+                ${comment.content.escape().nl2br()}
+              </div>
+              <div class="comment-metadata" style="clear:both;">
                 <div class="comment-author">
                   by ${comment.author},
                 </div>
@@ -90,12 +93,9 @@
                 #{/else}
                 <div> ${comment.likes.size()} likes</div>                   
               </div>
-              <div class="comment-content">
-                ${comment.content.escape().nl2br()}
-              </div>
             </div>
           #{/list}
-        <a class='triggerhide' href='#' onclick='return false;'>-less<br/></a>
+        <div style="clear:both;"><a class='triggerhide' href='#' onclick='return false;'>-less</a></div>
         </div>
       <div class="post-date">
         ${item.updatedAt.format('dd MMM yy')}
@@ -120,7 +120,7 @@
          #{form @Comments.postComment(item.id, user.id, commentContent)}
           <div style="clear:both;">
            <textarea name="commentContent" id="commentContent"
-             style="width: 350px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
+             style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
           </div>
           <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
          #{/form}

@@ -42,6 +42,7 @@ label {
 .comment {
   border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
   background-color: #${skin.get("commentBGColor")};
+  width: 420px;
 }
 
 .button {
@@ -72,7 +73,7 @@ a.logo:active {text-decoration:none;}
   width: 500px;
 }
 .comment-content {
-  width: 450px;
+  font-size: 0.95em;
 }
 .post-date {
   color: gray;
