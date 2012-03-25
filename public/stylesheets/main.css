@@ -7,7 +7,50 @@ html, body {
 body {
   margin: 0;
   background-image:url(${skin.get("bodyBGPhoto")})
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 15px;
 }
+
+a:link {
+    color: #3B5998;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #3B5998;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    color: black;
+    font-weight: bold;
+}
+
+.note {
+    color: #aaaaaa;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+/** header **/
+#header {
+  background-color: #${skin.get("headerBGColor")};
+  padding-top: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  line-height:30px;
+}
+
+#header a {
+  color:white;
+}
+
 
 #logo {
   font: ${skin.get("logoFontSize")}pt;
@@ -18,15 +61,20 @@ body {
 .logo {
   font-weight: bold;
   font-family: ${skin.get("logoFontType")};
+  font-size: 20px; /** i dont think a company's logo/identity should be customizable **/
 }
 
-#header a {
-  color:white;
-}
 
-#logout {
+#header .account {
   float:right;
   margin-right: 1em;
+}
+
+#header .account a {
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 5px;
+    border-left: 1px solid white;
 }
 
 .section {
@@ -92,16 +140,6 @@ a.logo:active {text-decoration:none;}
   width:900px;
   margin:0px auto;
   padding:10px;
-}
-#header {
-  background-color: #${skin.get("headerBGColor")};
-  padding: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 30px;
-  line-height:30px;
 }
 .main-content {
   margin-top:30px;

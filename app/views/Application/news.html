@@ -1,29 +1,31 @@
 #{extends 'main.html' /}
 <div id="content-left">
-    [Picture]
-    <br/>
-    ${user.email}
-    
-    <br/>
-    <a href="@{Application.news()}">News</a>
-    <br>
-    <a href="@{Events.events()}">Events</a>
-    <br>
-    <a href="@{Checkin.checkin()}">Checkin</a>
-    <br>
-    <a href="/requests">Friend Requests</a>
-    <br>
-    <a href="/skin">Change Skin</a>
-    <br>
-    <a href="@{Pages.pages()}">Pages</a>
-    <br><a href="@{Relationships.relationships(user.id)}">Friends:</a><br>
-    #{list items:user.confirmedFriends(), as:'friendship'}
-      <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
-    #{/list}
- <br>Groups:<br>
+    [Picture] ${user.name}<br />
+    <br />
+    <span class="note">FAVORITES</span><br/>
+    <a href="@{Application.news()}">News Feed</a><br />
+    Messages<br />
+    <a href="@{Events.events()}">Events</a><br />
+    <a href="@{Checkin.checkin()}">Checkin</a><br />
+    <a href="/requests">Friend Requests</a><br />
+    <a href="/skin">Change Skin</a><br />
+    <br />
+    <span class="note">GROUPS</span><br />
     #{list items:user.getGroups(), as:'Group'}
-      <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br>
+    <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br />
     #{/list}
+    <br />
+    <span class="note">APPS</span><br />
+    <br />
+    <span class="note">PAGES</span><br />
+    <a href="@{Pages.pages()}">Pages</a><br />
+    <br />
+    <span class="note">FRIENDS</span><br />
+    #{list items:user.confirmedFriends(), as:'friendship'}
+    <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br />
+    #{/list}
+    <br />
+    <a href="@{Relationships.relationships(user.id)}">see all friends..</a><br />
 </div>
 <div id="content-middle">
    <h1 style="line-height:50%;">${user.name}</h1> 
