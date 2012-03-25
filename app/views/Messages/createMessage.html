@@ -15,4 +15,9 @@
   <p>
     <input type="submit" value="Send Message" />
   </p>
+  #{ifErrors}
+	<ul style="color:red">
+  #{errors}<li>${error}</li> #{/errors} 
+	</ul>                     
+	#{/ifErrors}
 #{/form}

@@ -1,17 +1,23 @@
 package controllers;
 
-
+import java.awt.image.BufferedImage;
 import java.util.*;
-
-import controllers.Secure;
-
-
+import javax.imageio.ImageIO;
+import java.io.*;
 import play.*;
+import play.data.validation.Error;
+import play.libs.*;
 import play.mvc.*;
-import controllers.Secure;
+import play.db.jpa.*;
 import models.*;
 
+@With(Secure.class)
 public class Photos extends OBController {
+
+  /* All possible image mime types in a single regex. */
+  public static final String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
+  public static final int MAX_PIXEL_SIZE = 1024;
+  public static final int MAX_FILE_SIZE = 2 * 1024 * 1024;  /* Size in bytes. */
 
   public static void photos(Long ownerId) {
     List<Photo> photos;
@@ -36,21 +42,73 @@ public class Photos extends OBController {
     }
   }
 
-  public static void addPhoto(Photo photo) {
-    User current = user();
-    if (photo.image == null) {
-      redirect("/users/" + current.id + "/photos");
-    }
-    photo.owner = current;
-    photo.postedAt = new Date();
+  /**
+   * Convert a given File to a Photo model.
+   *
+   * @param   image   the file to convert.
+   * @return          the newly created Photo model.
+   * @throws          FileNotFoundException
+   */
+  private static Photo fileToPhoto(File image) throws FileNotFoundException {
+    Blob blob = new Blob();
+    blob.set(new FileInputStream(image),
+             MimeTypes.getContentType(image.getName()));
+    return new Photo(user(), blob);
+  }
+  
+  /**
+   * Convert a given File to a Photo model.Used in Bootstrap.java
+   *
+   * @param   image   the file to convert.
+   * @return          the newly created Photo model.
+   * @throws          FileNotFoundException
+   */
+  public static Photo initFileToPhoto(String path, String caption) throws FileNotFoundException {
+    File image = new File(path);
+    Blob blob = new Blob();
+    blob.set(new FileInputStream(image),
+             MimeTypes.getContentType(image.getName()));
+    User user = User.find("username = ?", "default").first();//set owner as default owner
+    Photo photo = new Photo(user, blob);
+    photo.caption = caption;//give credit
     photo.save();
-    redirect("/users/" + current.id + "/photos");
+    return photo;
+  }
+
+  /**
+   * Shrink the image to MAX_PIXEL_SIZE if necessary.
+   *
+   * @param   image   the file to convert.
+   * @throws          IOException
+   */
+  private static void shrinkImage(File image) throws IOException {
+    BufferedImage bufferedImage = ImageIO.read(image);
+    if (bufferedImage != null && (bufferedImage.getWidth() > MAX_PIXEL_SIZE ||
+                                  bufferedImage.getHeight() > MAX_PIXEL_SIZE)) {
+      Images.resize(image, image, MAX_PIXEL_SIZE, MAX_PIXEL_SIZE, true);
+    }
+  }
+
+  public static void addPhoto(File image) throws FileNotFoundException,
+                                                 IOException {
+    shrinkImage(image);
+    Photo photo = fileToPhoto(image);
+    validation.match(photo.image.type(), IMAGE_TYPE);
+    validation.max(photo.image.length(), MAX_FILE_SIZE);
+
+    if (validation.hasErrors()) {
+      validation.keep(); /* Remember errors after redirect. */
+    } else {
+      photo.save();
+    }
+    redirect("/users/" + photo.owner.id + "/photos");
   }
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    if (photo.owner.equals(user()))
+    if (photo.owner.equals(user())) {
       photo.delete();
+    }
     redirect("/photos");
   }
 }

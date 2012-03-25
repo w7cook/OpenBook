@@ -22,12 +22,18 @@ public class Messages extends OBController {
     render(user);
   }
   
-  public static void sendMessage(String recipientUsername, String title, String content) {
+  public static void sendMessage(@Required(message="Recipient is required") String recipientUsername, String title, String content) {
     User author = user();
-    User recipient = User.getUser(recipientUsername);
-    Message m = new Message(author, recipient, title, content);
-    m.save();
-    inbox();
+    validation.isTrue(author.getUser(recipientUsername)!=null).message("Invalid Recipient");
+    if(validation.hasErrors()){
+      renderTemplate("Messages/createMessage.html", author);
+    }
+    else{
+      User recipient = User.getUser(recipientUsername);   
+      Message m = new Message(author, recipient, title, content);
+      m.save();
+      inbox();
+    }
   }
   
 

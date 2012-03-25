@@ -69,11 +69,11 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 		User alice = new User("alice@gmail.com", "secret", "Alice");
 		alice.save();
-		alice.significant_other = bob;
+		alice.profile.significantOther = bob;
 		alice.save();
 
 		User a2 = User.find("byName", "Alice").first();
-		assertEquals(a2.significant_other.name, "Bob");
+		assertEquals(a2.profile.significantOther.name, "Bob");
 		
 	}
 
@@ -86,8 +86,8 @@ public class BasicTest extends UnitTest {
 		Post bobPost = new Post(bob, "My first post", "Hello world").save();
 
 		// Post a first comment
-		new Comment(bobPost, "Jeff", "Nice post").save();
-		new Comment(bobPost, "Tom", "I knew that !").save();
+		new Comment(bobPost, (User)User.find("first_name = ?","Jeff").first(), "Nice post").save();
+		new Comment(bobPost, (User)User.find("first_name = ?","Tom").first(), "I knew that !").save();
 
 		// Retrieve all allComments
 		List<Comment> bobPostComments = Comment.find("byPost", bobPost).fetch();
@@ -149,8 +149,8 @@ public class BasicTest extends UnitTest {
 		Post bobPost = new Post(bob, "My first post", "Hello world").save();
 
 		// Post a first comment
-		bobPost.addComment("Jeff", "Nice post");
-		bobPost.addComment("Tom", "I knew that !");
+		bobPost.addComment((User)User.find("first_name = ?","Jeff").first(), "Nice post");
+		bobPost.addComment((User)User.find("first_name = ?","Tom").first(), "I knew that !");
 
 		// Count things
 		assertEquals(1, User.count());
@@ -162,8 +162,8 @@ public class BasicTest extends UnitTest {
 		assertNotNull(bobPost);
 
 		// Navigate to allComments
-		assertEquals(2, bobPost.allComments.size());
-		assertEquals("Jeff", bobPost.allComments.get(0).author);
+		assertEquals(2, bobPost.comments.size());
+		assertEquals("Jeff", bobPost.comments.get(0).author);
 
 		// Delete the post
 		bobPost.delete();
@@ -204,11 +204,11 @@ public class BasicTest extends UnitTest {
 		assertEquals("About the model layer", frontPost.title);
 
 		// Check that this post has two allComments
-		assertEquals(2, frontPost.allComments.size());
+		assertEquals(2, frontPost.comments.size());
 
 		// Post a new comment
-		frontPost.addComment("Jim", "Hello guys");
-		assertEquals(3, frontPost.allComments.size());
+		frontPost.addComment((User)User.find("first_name = ?","Jim").first(), "Hello guys");
+		assertEquals(3, frontPost.comments.size());
 		assertEquals(4, Comment.count());
 	}
 
@@ -224,5 +224,5 @@ public class BasicTest extends UnitTest {
 		List<Post> bobPosts = Post.find("byAuthor", bob).fetch();
 		assertEquals(2, bobPosts.size());
 
-	}
+	}	
 }
