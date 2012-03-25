@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+<div id = "newpage">
+	<br>
+	Admin: ${currentUser.name}     
+	#{form @Pages.pageSave()}
+		<div id="newPageInfo">
+			Title: 
+			<input type=text name=title value="" /><br>
+			Info:
+			<input type=text name=info value="" /><br>
+		</div>
+		<input type=submit value=Save>
+		<input type=submit value=Cancel>
+	#{/form}
+</div>
