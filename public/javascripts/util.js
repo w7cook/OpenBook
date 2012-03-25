@@ -42,11 +42,11 @@ $(document).ready(function() {
 		var opp  = relevantToHideOpp($(this));				// find the .tohideopp element in it
 		
     	if( elem.is(":visible") == true ) {					// if the tohide is visible
-			elem.hide();									//  hide it
+			elem.hide(300);									//  hide it
 		    opp.show();										//  show the .tohideopp
 		    
 		    hideable.find('.triggershow:first').show();		//  unhide the .triggershow
-		    hideable.find('.triggerhide:first').hide();		//  hide the .triggerhide
+		    hideable.find('.triggerhide:first').hide(300);		//  hide the .triggerhide
 		} 
   	});
 
@@ -59,17 +59,17 @@ $(document).ready(function() {
 		
     	if( elem.is(":visible") == false ) {
 			elem.show();
-      		opp.hide();
+      		opp.hide(300);
       		
       		hideable.find('.triggerhide:first').show();
-      		hideable.find('.triggershow:first').hide();
+      		hideable.find('.triggershow:first').hide(300);
 		}
 	});
 
 	// All elements with the .hide class will be hidden
 	// This can be moved to a stylesheet.
 	$(".hide").each(function() {
-		$(this).hide();
+		$(this).hide(300);
 	});
 	
 	
@@ -89,7 +89,7 @@ $(document).ready(function() {
 	    if ($(this).hasClass('showfirst')) {					// if this trigger has showfirst on it
 	    	$(this).show();										//  we want to display it initially
 	    } else {	
-	    	$(this).hide();
+	    	$(this).hide(300);
 	    }
 	});	  
 });

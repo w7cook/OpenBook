@@ -48,12 +48,16 @@
        </a>
      #{/elseif}
 #{if user.id == currentUser.id}
-   #{form @Posts.newPost(user.id)}
-      <textarea name="post_content" id="post_content" style="resize: none;" rows="2" cols="45"></textarea>
-   <input type="submit" value="Post" />
+   #{form @Posts.newPost(user.id, post_content)}
+   <div>
+      <textarea id="post_content" name="post_content" 
+        style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;" ></textarea>
+      <input type="submit" value="Post" style="float:right" />
+   </div>
  #{/form}
 #{/if}
   #{list items:user.news(), as:'item'}
+    <hr style="float:left; width: 100%; color: #98AFC7;"/>  
     <div class="post">
       <div class="hideable">
         <div class="post-author">
@@ -61,7 +65,7 @@
         </div>
         <div class="post-content tohideopp">
           ${item.contentTeaser().nl2br()}
-          <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
+          <a class='triggershow showfirst' href='#' onclick='return false;'>+more</a>
         </div>
         <div class="tohide hide">
           <div class="post-content">
@@ -69,7 +73,10 @@
           </div>
           #{list items:item.getComments(), as:'comment'}
             <div class="comment">
-              <div class="comment-metadata">
+              <div class="comment-content">
+                ${comment.content.escape().nl2br()}
+              </div>
+              <div class="comment-metadata" style="clear:both;">
                 <div class="comment-author">
                   by ${comment.author},
                 </div>
@@ -80,19 +87,16 @@
                     <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                 #{/if}
                 #{ if comment.currentUserLiked()}
-                  <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                  <a class=button href="@{Comments.unLike(comment.id,user.id)}">Unlike</a>
                 #{/if}
                 #{else}
                   <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
                 #{/else}
                 <div> ${comment.likes.size()} likes</div>                   
               </div>
-              <div class="comment-content">
-                ${comment.content.escape().nl2br()}
-              </div>
             </div>
           #{/list}
-        <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
+        <div style="clear:both;"><a class='triggerhide' href='#' onclick='return false;'>-less</a></div>
         </div>
       <div class="post-date">
         ${item.updatedAt.format('dd MMM yy')}
@@ -112,21 +116,30 @@
 	        <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
 	      #{/else}
 	     </div>
-      #{/if}     
-       <div>
-         <a class="button"  
-           onclick="showDiv('comment ${item.id}')">Comment</a>
-       </div>
-       <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
-         #{form @Comments.postComment(item.id, user.id)}
-          <textarea name="content" id="content"></textarea><br/>
-          <input type="submit" value="Comment" />
-          <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
-         #{/form}      
+      #{/if}
+       <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
+         #{form @Comments.postComment(item.id, user.id, commentContent)}
+          <div style="clear:both;">
+           <textarea name="commentContent" id="commentContent"
+             style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
+          </div>
+          <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
+         #{/form}
        </div>
       </div>
     </div>
-    <hr style="float:left; width: 100%"/>
     
   #{/list}
 </div>
+<script>
+$('textarea#post_content').autoResize({
+  maxHeight: 150,
+  minHeight: 50,
+  extraSpace: 30
+});
+$('textarea#commentContent').autoResize({
+  maxHeight: 70,
+  minHeight: 20,
+  extraSpace: 20
+});
+</script>
