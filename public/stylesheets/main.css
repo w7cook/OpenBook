@@ -6,8 +6,7 @@ html, body {
 
 body {
     margin: 0;
-    background-image:url(${skin.get("bodyBGPhoto")})
-    font-family: "Helvetica", "Arial", sans-serif;
+    background-image:url(${skin.get("bodyBGPhoto")});
     font-size: 15px;
 }
 
@@ -127,13 +126,13 @@ label {
 }
 
 .comment {
-  border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
-  background-color: #${skin.get("commentBGColor")};
-  width: 420px;
+    border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
+    background-color: #${skin.get("commentBGColor")};
+    width: 420px;
 }
 
 .comment-textarea {
-  border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
+    border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
 	background-color: #${skin.get("commentBGColor")};
 }
 
@@ -159,7 +158,6 @@ a.logo:active {text-decoration:none;}
 
 .post {
     width: 100%;
-    padding: 10px 0px 0px 0px;
     border-bottom: 1px solid #dddddd;
 }
 
@@ -179,7 +177,7 @@ a.logo:active {text-decoration:none;}
     font-size: 13px;
     font-weight: normal;
     line-height: 15px;
-    padding: 10px 0 10px 0;
+    padding: 0 0 10px 0;
 }
 
 .post-content {
@@ -192,8 +190,8 @@ a.logo:active {text-decoration:none;}
 }
 
 .comment-content {
-  width: 450px;
-  font-size: 0.95em;
+    width: 450px;
+    font-size: 0.95em;
 }
 .post-date {
     color: gray;
@@ -210,25 +208,25 @@ a.logo:active {text-decoration:none;}
 }
 .main-content div {
 	padding:3px;
-  float:left;
+    float:left;
 	padding:2px;
-  float:left;
+    float:left;
 }
 #content-left {
-  width:160px;
-  margin-top: 20px;
+    width:160px;
+    margin-top: 20px;
 }
 #content-middle {
-  margin-left:10px;
-  margin-top:10px;
-  width:550px;
-  border-left: 1px;
-  border-left-color: #98AFC7;
-  border-left-style: dotted;
+    margin-left:10px;
+    margin-top:10px;
+    width:550px;
+    border-left: 1px;
+    border-left-color: #98AFC7;
+    border-left-style: dotted;
 }
 #content-right {
-  margin-left:10px;
-  width:134px;
+    margin-left:10px;
+    width:134px;
 }
 
 #footer {
