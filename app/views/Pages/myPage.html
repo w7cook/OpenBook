@@ -4,6 +4,9 @@
 	<div id = "myPage">
 		<br>
 		Admin: ${page.admin}
+		<br>
+		<a href="@{Pages.deletePage(page.id)}">Delete this Page</a>
+		<br>
 		<div id="myPageInfo" name ="title">
 			Title: ${page.title}
 			<br>
@@ -15,7 +18,7 @@
 	</div>
 	#{/form}
 #{/if}
-#{else}
+#{elseif page != null}
 	<div id = "fanPage">
 		<div id = "pageTitle">
 			${page.title}
@@ -24,4 +27,5 @@
 			${page.info}
 		</div>
 	</div>
-#{/else}
+#{/elseif}
+
