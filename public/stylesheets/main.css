@@ -118,13 +118,16 @@ a.logo:active {text-decoration:none;}
   float:left;
 }
 #content-left {
-  width:180px;
+  width:160px;
   margin-top: 20px;
 }
 #content-middle {
   margin-left:10px;
   margin-top:10px;
   width:550px;
+  border-left: 1px;
+  border-left-color: #98AFC7;
+  border-left-style: dotted;
 }
 #content-right {
   margin-left:10px;
