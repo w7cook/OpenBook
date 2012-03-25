@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
-<div id="content-left">
-    [Picture] ${user.name}<br />
+<div class="grid_3">
+  <div class="left-side-nav">
+    <a href="@{Application.account()}">
+      <img style="width:50px; height:50px; vertical-align:middle" src=@{'/public/images/left-profile.jpg'} />
+      <span style="font-weight:bold;"> ${user.name}</span>
+    </a><br />
     <br />
     <span class="note">FAVORITES</span><br/>
     <a href="@{Application.news()}">News Feed</a><br />
@@ -26,50 +30,63 @@
     #{/list}
     <br />
     <a href="@{Relationships.relationships(user.id)}">see all friends..</a><br />
-</div>
-<div id="content-middle">
-   <h1 style="line-height:50%;">${user.name}</h1> 
-#{if user.id == currentUser.id}
-   <a id="about-button" href="@{Application.edit_basic}">About me</a> <br/> <br/>
-   #{/if}
-#{else}
-   <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a> <br/> <br/>
-   #{/else}
-     #{if user.checkFriendship(user.id) == 'Request Friendship'}
-       <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-         ${user.checkFriendship(user.id)}
-       </a>
-     #{/if}
-     #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-       Friendship Requested
-     #{/elseif}
-     #{elseif user.checkFriendship(user.id) == 'Friends'}
-       Friends :) 
-       <a id="friend-button" href="@{Application.removeFriends(user.id)}">
-         Remove friend
-       </a>
-     #{/elseif}
-#{if user.id == currentUser.id}
-   #{form @Posts.newPost(user.id)}
-      <textarea name="post_content" id="post_content" style="resize: none;" rows="2" cols="45"></textarea>
-   <input type="submit" value="Post" />
- #{/form}
-#{/if}
-  #{list items:user.news(), as:'item'}
+  </div>
+</div><!-- grid_3 -->
+
+<div class="grid_9">
+  <div id="contentArea">
+    <div class="pagelet">
+      <a href="#">Update Status</a>
+      <a href="#">Add Photo / Video</a>
+      <a href="#">Ask Question</a>
+      #{if user.id == currentUser.id}
+      <a id="about-button" href="@{Application.edit_basic}">About me</a>
+      #{/if}
+      #{else}
+      <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
+      #{/else}
+    </div>
+    <br />
+    #{if user.checkFriendship(user.id) == 'Request Friendship'}
+    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
+      ${user.checkFriendship(user.id)}
+    </a>
+    #{/if}
+    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
+    Friendship Requested
+    #{/elseif}
+    #{elseif user.checkFriendship(user.id) == 'Friends'}
+    Friends :) 
+    <a id="friend-button" href="@{Application.removeFriends(user.id)}">
+      Remove friend
+    </a>
+    #{/elseif}
+
+    #{if user.id == currentUser.id}
+    #{form @Posts.newPost(user.id)}
+    <textarea name="post_content" id="post_content" style="resize: none;" rows="2" cols="45"></textarea>
+    <input type="submit" value="Post" />
+    #{/form}
+
+    #{/if}
+    #{list items:user.news(), as:'item'}
     <div class="post">
       <div class="hideable">
-        <div class="post-author">
-          <a href="@{Application.news(item.author.id)}">${ item.author.name }</a>
+        <div class="left">
+          <img style="width:50px; height:50px;" src=@{'/public/images/left-profile.jpg'} />
         </div>
-        <div class="post-content tohideopp">
-          ${item.contentTeaser().nl2br()}
-          <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
-        </div>
-        <div class="tohide hide">
-          <div class="post-content">
-            ${item.content.nl2br()}
+
+        <div class="individual-post">
+          <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>
+          <div class="post-content tohideopp">
+            ${item.contentTeaser().nl2br()}
+            <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
           </div>
-          #{list items:item.getComments(), as:'comment'}
+          <div class="tohide hide">
+            <div class="post-content">
+              ${item.content.nl2br()}
+            </div>
+            #{list items:item.getComments(), as:'comment'}
             <div class="comment">
               <div class="comment-metadata">
                 <div class="comment-author">
@@ -79,13 +96,13 @@
                   ${comment.updatedAt.format('dd MMM yy')}
                 </div>
                 #{if comment.author == currentUser.first_name}
-                    <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                 #{/if}
                 #{ if comment.currentUserLiked()}
-                  <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
                 #{/if}
                 #{else}
-                  <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
+                <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
                 #{/else}
                 <div> ${comment.likes.size()} likes</div>                   
               </div>
@@ -93,42 +110,46 @@
                 ${comment.content.escape().nl2br()}
               </div>
             </div>
-          #{/list}
-        <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
+            #{/list}
+            <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
+          </div>
+
+          <div class="individual-post-metadata">
+            ${item.likes.size()}
+            #{if user.isFriendsWith(currentUser) || user==currentUser}
+	        #{ if item.currentUserLiked()}
+	        <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+	        #{/if}
+	        #{else}
+	        <a href="@{Application.addLike(item.id,user.id)}">Like</a>
+	        #{/else}
+            #{/if}     
+            .
+            <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a>
+            .
+            ${item.updatedAt.format('dd MMM yy')}
+
+            #{if item.author == currentUser}
+             . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
+            #{/if}
+
+            
+            <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
+              #{form @Comments.postComment(item.id, user.id)}
+              <textarea name="content" id="content"></textarea><br/>
+              <input type="submit" value="Comment" />
+              <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
+              #{/form}      
+            </div>
+          </div>
         </div>
-      <div class="post-date">
-        ${item.updatedAt.format('dd MMM yy')}
-      </div>
-      <div>
-      #{if item.author == currentUser}
-        <a class=button href="@{Posts.deletePost(item.id,user.id)}">delete post</a>
-      #{/if}
-      </div>
-      <div> ${item.likes.size()} likes</div>                 
-      #{if user.isFriendsWith(currentUser) || user==currentUser}
-       <div>
-	      #{ if item.currentUserLiked()}
-	        <a class=button href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-	      #{/if}
-	      #{else}
-	        <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
-	      #{/else}
-	     </div>
-      #{/if}     
-       <div>
-         <a class="button"  
-           onclick="showDiv('comment ${item.id}')">Comment</a>
-       </div>
-       <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
-         #{form @Comments.postComment(item.id, user.id)}
-          <textarea name="content" id="content"></textarea><br/>
-          <input type="submit" value="Comment" />
-          <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
-         #{/form}      
-       </div>
       </div>
     </div>
-    <hr style="float:left; width: 100%"/>
-    
-  #{/list}
-</div>
+    #{/list}
+  </div>
+</div> <!-- grid_9 -->
+<div class="grid_3">
+  more newsfeed on the side<br />
+  birthdays<br />
+  create events<br />
+</div><!-- grid_4 -->
