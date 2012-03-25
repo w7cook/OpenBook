@@ -127,10 +127,6 @@ label {
 }
 
 .comment {
-<<<<<<< HEAD
-    border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
-    background-color: #${skin.get("commentBGColor")};
-=======
   border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
   background-color: #${skin.get("commentBGColor")};
   width: 420px;
@@ -139,7 +135,6 @@ label {
 .comment-textarea {
   border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
 	background-color: #${skin.get("commentBGColor")};
->>>>>>> 5b8bdaf170c9db4074a82d34aa207d00f3cd94e1
 }
 
 .button {
