@@ -22,8 +22,8 @@ public class Comments extends OBController {
 	    comments(userId);
 	  }
 
-	  public static void postComment(Long statusId, Long userId, String content) {
-	    ((Status) Status.findById(statusId)).addComment(Application.user(), content);
+	  public static void postComment(Long statusId, Long userId, String commentContent) {
+	    ((Status) Status.findById(statusId)).addComment(Application.user(), commentContent);
 	    comments(userId);
 	  }
 

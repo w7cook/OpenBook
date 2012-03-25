@@ -49,4 +49,13 @@ public class Pages extends OBController {
 		List<Page> allPages = Page.findAll();
 		render(allPages);
 	}
+	
+	public static void deletePage(Long id){
+		Page page = Page.findById(id);
+		UserPage link = UserPage.find("select u from UserPage u where u.page = ?", page).first();
+		link.delete();
+		page.delete();
+		render();
+
+	}
 }
