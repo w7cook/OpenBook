@@ -115,17 +115,15 @@
 	        <a class=button href="@{Application.addLike(item.id,user.id)}">Like</a>
 	      #{/else}
 	     </div>
-      #{/if}     
-       <div>
-         <a class="button"  
-           onclick="showDiv('comment ${item.id}')">Comment</a>
-       </div>
-       <div id="comment ${item.id}" style="display:none;border-width:1px;border-color:black;border-style:solid;margin:0px 20px 0px 20px;">
-         #{form @Comments.postComment(item.id, user.id)}
-          <textarea name="content" id="content"></textarea><br/>
-          <input type="submit" value="Comment" />
-          <input type="button" value="Cancel" onclick="hideDiv('comment ${item.id}')" />
-         #{/form}      
+      #{/if}
+       <div id="comment ${item.id}" style="clear: both;">
+         #{form @Comments.postComment(item.id, user.id, commentContent)}
+          <div style="clear:both;">
+           <textarea name="commentContent" id="commentContent"
+             style="width: 350px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
+          </div>
+          <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
+         #{/form}
        </div>
       </div>
     </div>
@@ -138,5 +136,10 @@ $('textarea#post_content').autoResize({
   maxHeight: 150,
   minHeight: 50,
   extraSpace: 30
+});
+$('textarea#commentContent').autoResize({
+  maxHeight: 70,
+  minHeight: 20,
+  extraSpace: 20
 });
 </script>
