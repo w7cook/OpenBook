@@ -51,7 +51,7 @@
    #{form @Posts.newPost(user.id, post_content)}
    <div>
       <textarea id="post_content" name="post_content" 
-        style="width: 400px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;" ></textarea>
+        style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;" ></textarea>
       <input type="submit" value="Post" style="float:right" />
    </div>
  #{/form}
@@ -116,7 +116,7 @@
 	      #{/else}
 	     </div>
       #{/if}
-       <div id="comment ${item.id}" style="clear: both;">
+       <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
          #{form @Comments.postComment(item.id, user.id, commentContent)}
           <div style="clear:both;">
            <textarea name="commentContent" id="commentContent"
@@ -127,7 +127,7 @@
        </div>
       </div>
     </div>
-    <hr style="float:left; width: 100%"/>
+    <hr style="float:left; width: 100%; color: #98AFC7;"/>
     
   #{/list}
 </div>

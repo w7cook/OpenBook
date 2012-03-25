@@ -45,6 +45,11 @@ label {
   width: 420px;
 }
 
+.comment-textarea {
+  border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
+	background-color: #${skin.get("commentBGColor")};
+}
+
 .button {
 	font-size:x-small;
   border-radius:${skin.get("buttonBorderRadius")}px;
