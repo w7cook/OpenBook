@@ -5,6 +5,8 @@
 # Import Secure routes
 *       /                                       module:secure
 
+GET     /es-admin               						elasticsearch.ElasticSearchAdmin.index
+GET     /es-admin/               						elasticsearch.ElasticSearchAdmin.index
 
 # Home page
 GET     /                                       Application.news
@@ -50,6 +52,7 @@ POST    /messages                               Messages.sendMessage
 
 # Search
 GET     /users/search                           UserSearch.search
+GET     /groups/search                          GroupSearch.search
 
 #Account
 #GET     /users/?                                #Get a list of all users

@@ -27,6 +27,8 @@ public class User extends Model {
   // Code)
 
   public String username; // The user's username
+  
+  @ElasticSearchIgnore
   public double timezone; // The user's timezone offset from UTC
   
   @ElasticSearchIgnore
