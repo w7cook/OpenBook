@@ -28,5 +28,9 @@ public class Page extends Model {
 		this.title = newTitle;
 		this.info = newInfo;
 	}
+		
+	public List<Post> news(){
+		return Post.find("SELECT p FROM Post p WHERE p.title = ?",this.title).fetch();
+	}
 
 }
