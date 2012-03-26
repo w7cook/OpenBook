@@ -52,6 +52,7 @@ public class Application extends OBController {
 
     if (r1 == null) {
       r1 = new Relationship(user, other, true);
+      r1.save();
     }
 
     if (r2 != null) {
@@ -83,6 +84,7 @@ public class Application extends OBController {
         return;
       }
     }
+    System.out.println(r1.requested);
     r1.save();
     news(id);
   }
