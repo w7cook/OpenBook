@@ -38,6 +38,11 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+# Messages
+GET     /messages/inbox                         Messages.inbox
+GET     /messages/createMessage                 Messages.createMessage
+POST    /messages                               Messages.sendMessage
+
 # Search
 GET     /users/search                           UserSearch.search
 
