@@ -29,7 +29,7 @@ public class SkinTest extends UnitTest {
     //if this skin has been created correctly, then testSkin should have been 
     //added to the database of Skins and thus we should be able to change the tester's skin to testSkin
     Skin testSkin = new Skin("testSkin");
-    boolean worked = Skins.setSkin(tester.profile, "testSkin");
+    assertTrue(Skins.setSkin(tester.profile, "testSkin"));
     assertEquals(testSkin, tester.profile.skin);
     
     
