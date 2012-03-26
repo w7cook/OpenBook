@@ -22,7 +22,8 @@
     <div class="container_16">
 	  <div id="header">
 	    <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
-        <a href="#"><img src="@{'public/images/friend_request_icon.png'}" /></a>
+        <a href="@{Application.friendRequests()}" position="absolute"><img src="@{'public/images/friend_request_icon.png'}" /></a>
+        <body position="absolute" left="0px" top="0px">${currentUser.requestedFriendCount()}</body>
         <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
         <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
 	    #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}

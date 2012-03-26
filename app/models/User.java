@@ -130,6 +130,14 @@ public class User extends Model {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
   
+  /** Get the number of users users who have requested to be friends
+  *
+  * @return the number of relationships related to incoming friend requests
+  */
+ public long requestedFriendCount() {
+   return Relationship.count("to = ? and requested = true and accepted = false", this);
+ }
+  
   public List<Group> getGroups(){
 	  List<Group> allGroups= Group.findAll();
 	  List<Group> answer= new ArrayList<Group>();
