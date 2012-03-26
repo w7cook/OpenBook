@@ -99,7 +99,6 @@ public class Profile extends Model {
   }
 
   public Profile(User owner) {
-
     this.anniversary = null;
     this.bio = "";
     this.birthday = null;

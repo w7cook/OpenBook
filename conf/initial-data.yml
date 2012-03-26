@@ -233,3 +233,14 @@ UserPage(1):
 UserPage(2):
     page:           nachoCheese
     fan:            jeff
+
+Profile(bobProfile):
+    owner:          bob
+    bio:            I am a student at UT
+    religion:       Jewish
+
+Profile(jeffProfile):
+    owner:          jeff
+    
+Profile(aliceProfile):
+    owner:          alice
