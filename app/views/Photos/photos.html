@@ -14,6 +14,12 @@
         #{form @Photos.removePhoto(photo.id)}
           <input type="submit" name="submit" value="Delete" />
         #{/form}
+				#{form @Photos.setProfilePhoto(photo.id)}
+          <input type="submit" name="Set Profile Picture" value="Set as profile picture" />
+				#{/form}
+        #{form @Skins.setBackgroundPhoto(photo.id)}
+          <input type="submit" name="Set Background Photo" value="Set Background Photo" />
+        #{/form}
         #{form @Skins.setBackgroundPhoto(photo.id)}
           <input type="submit" name="Set Background Photo" value="Set Background Photo" />
         #{/form}

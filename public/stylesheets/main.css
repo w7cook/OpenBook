@@ -1,129 +1,156 @@
 /** Main layout **/
 
 html, body {
-    font-family: Helvetica, Arial, Sans !important;
+  font-family: Helvetica, Arial, Sans !important;
 }
 
 body {
-    margin: 0;
-    background-image:url(${skin.get("bodyBGPhoto")})
-    font-family: "Helvetica", "Arial", sans-serif;
-    font-size: 15px;
+  margin: 0;
+  background-image:url(${skin.get("bodyBGPhoto")});
+  font-size: 15px;
 }
 
 a:link {
-    color: #3B5998;
-    text-decoration: none;
+  color: #3B5998;
+  text-decoration: none;
 }
 
 a:visited {
-    color: #3B5998;
+  color: #3B5998;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 a:active {
-    color: black;
-    font-weight: bold;
+  color: black;
+  font-weight: bold;
 }
 
 .note {
-    color: #aaaaaa;
-    font-weight: bold;
-    font-size: 11px;
+  color: #aaaaaa;
+  font-weight: bold;
+  font-size: 11px;
 }
 
 /** header **/
 #header {
-    background-color: #${skin.get("headerBGColor")};
-    padding-top: 5px;
-    width: 100%;
-    height: 40px;
-    line-height:30px;
+  background-color: #${skin.get("headerBGColor")};
+  padding-top: 5px;
+  width: 100%;
+  height: 40px;
+  line-height:30px;
 }
 
 #header a {
-    color:white;
+  color:white;
 }
 
 
 #logo {
-    font: ${skin.get("logoFontSize")}pt;
-    color: ${skin.get("logoColor")};
-    padding: 0px 10px 0px 20px;
+  font: ${skin.get("logoFontSize")}pt;
+  color: ${skin.get("logoColor")};
+  padding: 0px 10px 0px 20px;
 }
 
 .logo {
-    font-weight: bold;
-    font-family: ${skin.get("logoFontType")};
-    font-size: 20px; /** i dont think a company's logo/identity should be customizable **/
+  font-weight: bold;
+  font-family: ${skin.get("logoFontType")};
+  font-size: 20px; /** i dont think a company's logo/identity should be customizable **/
 }
 
 
 #header .account {
-    float: right;
-    padding-right: 10px;
-    font-size: 13px;
+  float: right;
+  padding-right: 10px;
+  font-size: 13px;
 }
 
 #header .account a {
-    color: #ffdac6;
-    font-weight: bold;
-    padding-left: 10px;
-    padding-right: 5px;
-    border-left: 1px solid #e3986a;
+  color: #ffdac6;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 5px;
+  border-left: 1px solid #e3986a;
 }
 
 #header .account a:hover {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 /** left side nav **/
 .left-side-nav {
-    line-height: 25px;
+  line-height: 25px;
 }
 
 .left-side-nav a {
-    color: black;
+  color: black;
 }
 
 .left-side-nav a:hover {
-    background-color: #eeeeee;
-    text-decoration: none;
+  background-color: #eeeeee;
+  text-decoration: none;
+}
+
+#name_avatar {
+}
+
+.profile-pic {
+  position: relative;
+}
+
+.profile-pic a{
+  display: none;
+}
+
+.profile-pic img{
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+}
+
+.profile-pic:hover a{
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, .6);
+  font-weight: normal;
+  padding: 4px 6px;
 }
 
 /** contentArea **/
 #contentArea {
 
-    border-left: 1px solid #dddddd;    
+  border-left: 1px solid #dddddd;    
 }
 
 
 /** pagelet **/
 .pagelet {
-    height: 40px;
-    width: 100%;
-    border-bottom: 1px solid #bbbbbb;
-    margin-bottom: 20px;
+  height: 40px;
+  width: 100%;
+  border-bottom: 1px solid #bbbbbb;
+  margin-bottom: 20px;
 }
 
 .pagelet a {
-    padding: 0 15px 0 15px;
-    font-weight: bold;
-    font-size: 12px;
+  padding: 0 15px 0 15px;
+  font-weight: bold;
+  font-size: 12px;
 }
 
 .section {
-    vertical-align: ${skin.get("sectionAlign")};
-    padding: 5px 0px 0px 0px;
+  vertical-align: ${skin.get("sectionAlign")};
+  padding: 5px 0px 0px 0px;
 }
 
 label {
-    font: ${skin.get("labelFontSize")}pt;
-    color: ${skin.get("labelColor")};
+  font: ${skin.get("labelFontSize")}pt;
+  color: ${skin.get("labelColor")};
 }
 
 .comment {
@@ -134,17 +161,17 @@ label {
 
 .comment-textarea {
   border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
-	background-color: #${skin.get("commentBGColor")};
+  background-color: #${skin.get("commentBGColor")};
 }
 
 .button {
-	font-size:x-small;
-    border-radius:${skin.get("buttonBorderRadius")}px;
-    border: ${skin.get("buttonBorderSize")}px solid ${skin.get("buttonBorderColor")};
-    box-shadow: 1px 1px 2px #${skin.get("buttonBoxShadowColor")};
-    background-color: ${skin.get("buttonBGColor")};
-    text-decoration: ${skin.get("buttonTextDec")};
-    padding: 0px 2px 0px 2px; // left and right padding
+  font-size:x-small;
+  border-radius:${skin.get("buttonBorderRadius")}px;
+  border: ${skin.get("buttonBorderSize")}px solid ${skin.get("buttonBorderColor")};
+  box-shadow: 1px 1px 2px #${skin.get("buttonBoxShadowColor")};
+  background-color: ${skin.get("buttonBGColor")};
+  text-decoration: ${skin.get("buttonTextDec")};
+  padding: 0px 2px 0px 2px; // left and right padding
 }
 
 a.button:link {color:${skin.get("buttonLinkUnvisitedColor")};}      /* unvisited link */
@@ -158,37 +185,36 @@ a.logo:hover {text-decoration:none;}
 a.logo:active {text-decoration:none;}
 
 .post {
-    width: 100%;
-    padding: 10px 0px 0px 0px;
-    border-bottom: 1px solid #dddddd;
+  width: 100%;
+  border-bottom: 1px solid #dddddd;
 }
 
 .post .left {
-    float: left;
+  float: left;
 }
 
 .post .post-author {
-    font-size:14px;
-    font-weight:bold;
+  font-size:14px;
+  font-weight:bold;
 }
 
 .post .individual-post {
-    float: right;
-    margin-left: 5px;
-    width: 440px;
-    font-size: 13px;
-    font-weight: normal;
-    line-height: 15px;
-    padding: 10px 0 10px 0;
+  float: right;
+  margin-left: 5px;
+  width: 440px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 15px;
+  padding: 0 0 10px 0;
 }
 
 .post-content {
-    width: 100%;
-    margin-bottom: 3px;
+  width: 100%;
+  margin-bottom: 3px;
 }
 
 .post .individual-post-metadata {
-    color: gray;
+  color: gray;
 }
 
 .comment-content {
@@ -196,22 +222,22 @@ a.logo:active {text-decoration:none;}
   font-size: 0.95em;
 }
 .post-date {
-    color: gray;
-    font-size: x-small;
+  color: gray;
+  font-size: x-small;
 }
 .comment-date {
-    color: gray;
-    font-size: x-small;
+  color: gray;
+  font-size: x-small;
 }
 
 .main-content {
-    margin-top:30px;
-    padding-bottom:10px;
+  margin-top:30px;
+  padding-bottom:10px;
 }
 .main-content div {
-	padding:3px;
+  padding:3px;
   float:left;
-	padding:2px;
+  padding:2px;
   float:left;
 }
 #content-left {
@@ -232,12 +258,12 @@ a.logo:active {text-decoration:none;}
 }
 
 #footer {
-    float:left;  
-    padding:10px;
-    width:878px;
-    margin-top:10px;
-    margin-bottom:10px;
-    text-align: ${skin.get("footerTextAlign")};
-    font: ${skin.get("footerFontSize")}pt italic;
-    color: ${skin.get("footerColor")};
+  float:left;  
+  padding:10px;
+  width:878px;
+  margin-top:10px;
+  margin-bottom:10px;
+  text-align: ${skin.get("footerTextAlign")};
+  font: ${skin.get("footerFontSize")}pt italic;
+  color: ${skin.get("footerColor")};
 }

@@ -6,6 +6,6 @@ To Do: currently only lists events user authored, eventually list all attending 
 <h3>My Events:</h3>
 #{list items:user.authoredEvents(), as:'authorEvent'}
 <a href="@{Events.displayEvent(authorEvent.id)}">${ authorEvent.eventName }</a>
-<a id="event-button" href="@{Events.deleteEvent(authorEvent.id, user.id)}">remove event</a><br />
+<a class=button href="@{Events.deleteEvent(authorEvent.id, user.id)}">Remove Event</a><br />
 #{/list}
 

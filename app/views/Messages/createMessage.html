@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+#{form @Messages.sendMessage()}
+  <p>
+    <label for="recipientUsername"> To: </label>
+    <input type ="text" name="recipientUsername" id ="recipientUsername"/>
+  </p>
+  <p>
+    <label for="title">Title: </label>
+    <input type="text" name="title" id="title" />
+  </p>
+  <p>
+    <label for="content">Your message: </label>
+    <textarea name="content" id="content"></textarea>
+  </p>
+  <p>
+    <input type="submit" value="Send Message" />
+  </p>
+  #{ifErrors}
+	<ul style="color:red">
+  #{errors}<li>${error}</li> #{/errors} 
+	</ul>                     
+	#{/ifErrors}
+#{/form}
