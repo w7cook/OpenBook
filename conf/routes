@@ -43,6 +43,11 @@ POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
+# Messages
+GET     /messages/inbox                         Messages.inbox
+GET     /messages/createMessage                 Messages.createMessage
+POST    /messages                               Messages.sendMessage
+
 # Search
 GET     /users/search                           UserSearch.search
 
