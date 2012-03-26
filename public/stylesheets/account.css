@@ -1,0 +1,14 @@
+.info-form {
+  list-style:none;
+}
+
+.info-form li {
+  margin-top:1em;
+}
+
+.info-form li label {
+  display:block;  
+}
+
+.info-form li input {
+}

@@ -18,6 +18,6 @@ repositories:
             
     - akka:
         type: iBiblio
-        root: "http://akka.io/repository/"
+        root: "http://repo.akka.io/releases/"
         contains:
             - se.scalablesolutions.akka -> *
