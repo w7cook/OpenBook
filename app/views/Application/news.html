@@ -1,19 +1,18 @@
 #{extends 'main.html' /}
 <div class="grid_3">
-	<div class="left-side-nav">
-		<div>
-		<div class="profile-pic">
-        <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a>
-				#{if (user.profile.profilePhoto == -1 || user.profile.profilePhoto == null)}
-				<img src="/public/images/default.png" width="50" height="50" />
-				#{/if}
-				#{else}
-				<img src=@{Photos.getPhoto(user.profile.profilePhoto)} width="50" height="50" />
-				#{/else}
-		</div>
+  <div class="left-side-nav">
+	<div class="profile-pic">
+      <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a>
+	  #{if (user.profile.profilePhoto == -1 || user.profile.profilePhoto == null)}
+	  <img src="/public/images/default.png" />
+	  #{/if}
+	  #{else}
+	  <img src=@{Photos.getPhoto(user.profile.profilePhoto)} />
+	  #{/else}
+	</div>
     <a href="@{Application.account()}">
       <span style="font-weight:bold;"> ${user.name}</span>
-		</a></div><br />
+	</a><br />
     <br />
     <br />
     <span class="note">FAVORITES</span><br/>
@@ -127,12 +126,12 @@
           <div class="individual-post-metadata">
             ${item.likes.size()}
             #{if user.isFriendsWith(currentUser) || user==currentUser}
-          #{ if item.currentUserLiked()}
-          <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-          #{/if}
-          #{else}
-          <a href="@{Application.addLike(item.id,user.id)}">Like</a>
-          #{/else}
+            #{ if item.currentUserLiked()}
+            <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+            #{/if}
+            #{else}
+            <a href="@{Application.addLike(item.id,user.id)}">Like</a>
+            #{/else}
             #{/if}     
             .
             <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a>
@@ -140,7 +139,7 @@
             ${item.updatedAt.format('dd MMM yy')}
 
             #{if item.author == currentUser}
-             . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
+            . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
             #{/if}
 
             <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
