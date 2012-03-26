@@ -7,7 +7,10 @@ import controllers.Application;
 import play.db.jpa.*;
 import play.data.validation.*;
 import play.libs.Crypto;
+import play.modules.elasticsearch.annotations.ElasticSearchIgnore;
+import play.modules.elasticsearch.annotations.ElasticSearchable;
 
+@ElasticSearchable
 @Table(name="Openbook_Group")
 @Entity
 public class Group extends Model{
@@ -24,6 +27,7 @@ public class Group extends Model{
 	@Lob
 	public String description;
 	
+	@ElasticSearchIgnore
 	@OneToMany
 	public List<User> members;
 	
