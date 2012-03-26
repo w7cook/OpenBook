@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+#{if page.admin == currentUser}
+	#{form @Pages.pageUpdate(page.id, info)}
+	<div id = "myPage">
+		<br>
+		Admin: ${page.admin}
+		<br>
+		<a href="@{Pages.deletePage(page.id)}">Delete this Page</a>
+		<br>
+		<div id="myPageInfo" name ="title">
+			Title: ${page.title}
+			<br>
+			Info:
+			<input type=text name=info value="${page.info}" /><br>
+		</div>
+		<input type=submit value=Save>
+		<input type=submit value=Cancel>
+	</div>
+	#{/form}
+#{/if}
+#{elseif page != null}
+	<div id = "fanPage">
+		<div id = "pageTitle">
+			${page.title}
+		</div>
+		<div id = "pageInfo">
+			${page.info}
+		</div>
+	</div>
+#{/elseif}
+

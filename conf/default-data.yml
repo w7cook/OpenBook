@@ -1,5 +1,4 @@
-#Default User
- 
+# Default data
 User(default):
     first_name:         default
     last_name:          user
@@ -7,4 +6,4 @@ User(default):
     username:           default
     email:              default@example.com
     password:           secret
-    isAdmin:            true
+    isAdmin:            false

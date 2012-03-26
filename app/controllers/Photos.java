@@ -49,11 +49,30 @@ public class Photos extends OBController {
    * @return          the newly created Photo model.
    * @throws          FileNotFoundException
    */
-  private static Photo fileToPhoto(File image) throws FileNotFoundException {
+  public static Photo fileToPhoto(File image) throws FileNotFoundException {
     Blob blob = new Blob();
     blob.set(new FileInputStream(image),
              MimeTypes.getContentType(image.getName()));
     return new Photo(user(), blob);
+  }
+  
+  /**
+   * Convert a given File to a Photo model.Used in Bootstrap.java
+   *
+   * @param   image   the file to convert.
+   * @return          the newly created Photo model.
+   * @throws          FileNotFoundException
+   */
+  public static Photo initFileToPhoto(String path, String caption) throws FileNotFoundException {
+    File image = new File(path);
+    Blob blob = new Blob();
+    blob.set(new FileInputStream(image),
+             MimeTypes.getContentType(image.getName()));
+    User user = User.find("username = ?", "default").first();//set owner as default owner
+    Photo photo = new Photo(user, blob);
+    photo.caption = caption;//give credit
+    photo.save();
+    return photo;
   }
 
   /**
@@ -92,4 +111,65 @@ public class Photos extends OBController {
     }
     redirect("/photos");
   }
+  
+  public static void setProfilePhotoPage()
+  {
+    User user = user();
+    //make sure get all of the photos
+    List<Photo> photos;
+    if (user.id == null) {
+      photos = Photo.findAll();
+    }
+    else {
+      photos = Photo.find("byOwner", user).fetch();
+    }
+    render(user,photos);
+  }
+  
+  public static void setProfilePhoto(Long photoId) {
+    
+	  if(photoId != null){
+	    User user = user();
+	    Photo photo = Photo.findById(photoId);
+  	  if (photo.owner.equals(user())) {
+  		  user.profile.profilePhoto = photoId;
+  		  user.profile.save();
+  	  }
+	  }
+	  setProfilePhotoPage();//render page
+  }
+  
+  /**
+   * addProfilePhoto
+   * 
+   * just does the adding of the photo and then uses setProfilePhoto to set the profilePhoto
+   * @param image
+   * @throws FileNotFoundException
+   * @throws IOException
+   */
+  public static void addProfilePhoto(File image) throws FileNotFoundException, IOException 
+  {
+    if(image != null){
+      try{
+        shrinkImage(image);
+        Photo photo = fileToPhoto(image);
+        validation.match(photo.image.type(), IMAGE_TYPE);
+        validation.max(photo.image.length(), MAX_FILE_SIZE);
+        
+          if (validation.hasErrors()) {
+            validation.keep(); /* Remember errors after redirect. */} 
+          else {
+            photo.save();
+            User user = user();
+            user.profile.profilePhoto = photo.id;
+            user.profile.save();
+          }
+      }catch(FileNotFoundException f)
+      {
+        setProfilePhotoPage();//for if try to put in null file
+      }
+     }
+      setProfilePhotoPage();//for if try to put in null file
+   }
+  
 }

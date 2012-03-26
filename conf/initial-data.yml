@@ -214,3 +214,22 @@ Comment(fc2):
     date:           2011-09-05
     parentObj:      thread3
                     
+Page(cats):
+    admin:          alice
+    title:          CATS
+    info:           >
+                    I haz them!!
+                    
+Page(nachoCheese):
+    admin:          jeff
+    title:          Nacho Cheese
+    info:           >
+                    What do you call cheese that isn't yours?
+                    
+UserPage(1):
+    page:           cats
+    fan:            alice
+
+UserPage(2):
+    page:           nachoCheese
+    fan:            jeff
