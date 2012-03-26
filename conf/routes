@@ -85,9 +85,6 @@ GET     /checkin/at                             Checkin.at
 # Comments
 GET		/                                       Comments.comments
 
-# Groups
-GET     /groups/{id}                            Application.group
-
 # Posts
 GET     /                                       Posts.posts
 
