@@ -37,11 +37,11 @@ public class Pages extends OBController {
 		render(myPages, user);
 	}
 	
-	public static void display(Long id){
+	public static void display(Long id, Post post){
 		User user = user();
 		Page page = Page.findById(id);
-		UserPage pageLink = UserPage.findById(id);
-		render("Pages/myPage.html", page, pageLink, user);
+		UserPage pageLink = UserPage.find("select u from UserPage u where u.fan = ? and u.page = ?", user,page).first();
+		render("Pages/myPage.html", page, pageLink, user, post);
 	}
 
 	public static void pages(){
@@ -59,7 +59,13 @@ public class Pages extends OBController {
 		render(user);
 	}
 	
-	public static void post(Long id, String content){
+	public static void post(String title, String content){
+		Page page = Page.find("select p from Page p where p.title = ?", title).first();
+		User user = user();
+		if(page == null){renderText("null page");}
+		//TODO: implement null/empty string check 
+		Post p = new Post(user,title,content).save();
+		display(page.id, p);
 	}
 
 }
