@@ -31,12 +31,16 @@ public class Group extends Model{
 	@OneToMany
 	public List<User> members;
 	
+	@OneToMany
+	public List<Post> groupPosts;
+	
 	public Group(User o, String n, String d){
 		this.owner= o;
 		this.groupName= n;
 		this.description= d;
 		this.members= new ArrayList<User>();
 		this.members.add(o);
+		groupPosts= new ArrayList<Post>();
 	}
 	
 	public void addMember(User u){
@@ -51,5 +55,13 @@ public class Group extends Model{
 	
 	public int getMemberCount(){
 		return members.size();
+	}
+	
+	public void addPost(Post p){
+		groupPosts.add(p);
+	}
+	
+	public List<Post> getPosts(){
+		return groupPosts;
 	}
 }

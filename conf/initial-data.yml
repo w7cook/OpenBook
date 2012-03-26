@@ -130,6 +130,7 @@ Group(g1):
     owner:          bob
     groupName:      Bob's cool group
     members:        [bob,jeff]
+    groupPosts:     [firstBobPost]
     description:    >
                     A group for cool people to talk about cool things in a cool place.
     
@@ -137,6 +138,7 @@ Group(g2):
     owner:          alice
     groupName:      Alice's first group
     members:        [alice]
+    groupPosts:     [jeffPost,secondBobPost]
     description:    >
                     This is a description for Alice's group.
                     
