@@ -267,3 +267,9 @@ a.logo:active {text-decoration:none;}
     font: ${skin.get("footerFontSize")}pt italic;
     color: ${skin.get("footerColor")};
 }
+#about-button{
+	font-style:italic; 
+	line-height:70%; 
+	margin-left:120px; 
+	font-size:small;
+}
