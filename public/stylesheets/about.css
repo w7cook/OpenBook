@@ -1,0 +1,30 @@
+.globalContentAbout{
+	width: 100%;
+	min-height: 100px;
+}
+
+.LeftColumnAbout {
+	width: 50%;
+	float:left;
+}
+
+.RightColumnAbout{
+	width: 50%;
+	float:right;
+}
+
+#PanelTitle{
+	padding-left: 22px;
+	font-size: 16px;
+	color: #333;
+	line-height: 1.28;
+	text-align: left;
+	direction: ltr;
+	font-weight: bold;
+}
+
+#EditButton{
+	float:right;
+}
+
+

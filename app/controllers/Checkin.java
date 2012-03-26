@@ -10,8 +10,7 @@ import play.mvc.*;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
-public class Checkin extends Application {
+public class Checkin extends OBController {
 
   public static void checkin() {
     render();
@@ -20,11 +19,10 @@ public class Checkin extends Application {
   public static void at(String location, String name, String address) {
     if (location != null && name != null && address != null
         && !location.equals("") && !name.equals("") && !address.equals("")) {
-      render(name, address);
+      Posts.newPost(user().id, "Checked in at: "+name+"\n"+address);
     }
     else {
       redirect("/checkin");
     }
   }
-
 }
