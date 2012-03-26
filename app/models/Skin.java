@@ -56,14 +56,13 @@ public class Skin extends Model {
     this.name = name;
     parameters = new ArrayList<SkinPair>();
     this.save();
-
-   
     
     //body
     addParam("bodyBGColor","none");
-
-    //logo
     
+    addParam("bodyBGPhoto","none");
+    
+    //logo
     addParam("logoFontSize", "30");
     addParam("logoColor","white");
     addParam("logoFontType","helvetica");// Helvetica, Arial, Sans !important;
@@ -146,7 +145,6 @@ public class Skin extends Model {
        if(s != null){
          s.value = value;
          s.save();
-         this.save();
        }
   }
 

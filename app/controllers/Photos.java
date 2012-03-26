@@ -55,6 +55,25 @@ public class Photos extends OBController {
              MimeTypes.getContentType(image.getName()));
     return new Photo(user(), blob);
   }
+  
+  /**
+   * Convert a given File to a Photo model.Used in Bootstrap.java
+   *
+   * @param   image   the file to convert.
+   * @return          the newly created Photo model.
+   * @throws          FileNotFoundException
+   */
+  public static Photo initFileToPhoto(String path, String caption) throws FileNotFoundException {
+    File image = new File(path);
+    Blob blob = new Blob();
+    blob.set(new FileInputStream(image),
+             MimeTypes.getContentType(image.getName()));
+    User user = User.find("username = ?", "default").first();//set owner as default owner
+    Photo photo = new Photo(user, blob);
+    photo.caption = caption;//give credit
+    photo.save();
+    return photo;
+  }
 
   /**
    * Shrink the image to MAX_PIXEL_SIZE if necessary.
@@ -101,7 +120,7 @@ public class Photos extends OBController {
 		  //user.profile.profilePhoto.save();
 		  user.profile.save();
 	  }
-	  //redirect("/photos");
-	  render(user);
+	  redirect("/");
+	  //render(user);
   }
 }

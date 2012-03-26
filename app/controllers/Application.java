@@ -34,7 +34,7 @@ public class Application extends OBController {
     User user = user();
     render(user);
   }
-
+  
   private static boolean given(String val) {
     return val != null && val.length() > 0;
   }
@@ -168,9 +168,36 @@ public class Application extends OBController {
     // not implemented yet
   }
 
+  public static void deleteComment(Long id, Long userId) {
+    Comment c = Comment.findById(id);
+    c.delete();
+    news(userId);
+  }
+
+  public static void postComment(Long commentableId, String author, String content) {
+    Commentable parent = Commentable.findById(commentableId);
+    User au = User.find("email = ?", author).first();
+    parent.addComment(au, content);
+  }
+
   public static void notFound() {
     response.status = Http.StatusCode.NOT_FOUND;
     renderText("");
+  }
+
+  public static void addLike (Long likeableId, Long userId){
+    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),(User)User.findById(userId)).save();
+    Likeable l = Likeable.findById(likeableId);
+    l.addLike(newOne);
+    news(userId);
+  }
+  
+  public static void unLike (Long likeableId, Long userId){
+    Likeable c = Likeable.findById(likeableId);
+    User u = User.findById(userId);
+    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
+    c.removeLike(toRemove);
+    news(userId);
   }
 
 }
