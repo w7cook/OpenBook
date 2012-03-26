@@ -5,10 +5,12 @@ import javax.persistence.*;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import controllers.Application;
+import controllers.Messages;
 import controllers.Skins;
 import controllers.Users;
 import play.db.jpa.*;
 import play.modules.elasticsearch.*;
+import play.modules.elasticsearch.annotations.ElasticSearchIgnore;
 import play.modules.elasticsearch.annotations.ElasticSearchable;
 import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
@@ -26,6 +28,8 @@ public class User extends Model {
 
   public String username; // The user's username
   public double timezone; // The user's timezone offset from UTC
+  
+  @ElasticSearchIgnore
   public Date updated_time; // The last time the user's profile was updated;
   // changes to the
   // languages, link, timezone, verified,
@@ -49,9 +53,11 @@ public class User extends Model {
   @OneToOne
   public Profile profile;
 
+  @ElasticSearchIgnore
   @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
   public List<Relationship> friends; // A list of the user's friendship history
 
+  @ElasticSearchIgnore
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
   public List<Relationship> friendedBy; // A list of the user's friendship history
 
@@ -71,9 +77,13 @@ public class User extends Model {
     return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1", login).first();
   }
 
+  public List<Message> inbox() {
+    return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
+  }
+  
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by Date desc",
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by p.updatedAt desc",
                      this.id).fetch();
   }
 
@@ -124,30 +134,8 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
-
-  public boolean equals(Object obj) {
-    if (obj == null)
-      return false;
-    if (obj == this)
-      return true;
-    if (obj.getClass() != getClass())
-      return false;
-    return username.equals(((User) obj).username);
-  }
-  public String toString(){
-    return first_name + " " + last_name;
-  }
-	public boolean isFriendsWith(User user) {
-		for(Relationship f: this.confirmedFriends()){
-			if(f.to == this && f.from == user)
-				return true;
-			if(f.to == user && f.from == this)
-				return true;
-		}
-		return false;
-	}
-	
-	public List<Group> getGroups(){
+  
+  public List<Group> getGroups(){
 	  List<Group> allGroups= Group.findAll();
 	  List<Group> answer= new ArrayList<Group>();
 	  for(Group g : allGroups){
@@ -159,5 +147,41 @@ public class User extends Model {
 		  }
 	  }
 	  return answer;
+  }
+
+  public boolean equals(Object obj) {
+    if (obj == null)
+      return false;
+    if (obj == this)
+      return true;
+    if (obj.getClass() != getClass())
+      return false;
+    return username.equals(((User) obj).username);
+  }
+  
+  public List getPages(){
+		return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this).fetch();
+	}
+	
+  public String toString(){
+    return first_name + " " + last_name;
+  }
+  
+  public boolean isFriendsWith(User user) {
+  	for(Relationship f: this.confirmedFriends()){
+  		if(f.to == this && f.from == user)
+  			return true;
+  		if(f.to == user && f.from == this)
+  			return true;
+			}
+		return false;
+	}
+
+  /** Get all authored events
+   *
+   * @return a list of events that User has authored
+   */
+  public List<Event> authoredEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
   }
 }

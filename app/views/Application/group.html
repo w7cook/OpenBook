@@ -14,11 +14,11 @@
       <a href="@{Application.about()}">about</a>
       <br>
       <a href="@{Checkin.checkin()}">Checkin</a>
-      <br>friends:<br>
+      <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
       #{list items:user.confirmedFriends(), as:'friendship'}
         <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
       #{/list}
-      <br>Groups:<br>
+	  <br>Groups:<br>
       #{list items:user.getGroups(), as:'Group'}
         <a href="@{Application.group(Group.id)}">${Group.groupName}</a><br>
       #{/list}

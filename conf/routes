@@ -16,7 +16,14 @@ GET     /requests                               Application.friendRequests
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /skin                                   Skins.skin
+POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
+POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
+
+# Threads
+GET     /threads                                Categories.listAll
+GET     /threads/{<[0-9]+>catId}          		Categories.listSingle
+GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
 
 
 # Profile
@@ -28,8 +35,18 @@ GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
+POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
+GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
+GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
+POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
+POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+
+# Messages
+GET     /messages/inbox                         Messages.inbox
+GET     /messages/createMessage                 Messages.createMessage
+POST    /messages                               Messages.sendMessage
 
 # Search
 GET     /users/search                           UserSearch.search
@@ -60,7 +77,7 @@ GET 	/relationships							Relationships.relationships
 
 # Checkin
 GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at #what is this?  maybe should be post
+GET     /checkin/at                             Checkin.at
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
@@ -73,6 +90,9 @@ GET     /groups/{id}                            Application.group
 
 # Posts
 GET     /                                       Posts.posts
+
+# Groups
+GET     /groups/{id}                            Groups.group
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

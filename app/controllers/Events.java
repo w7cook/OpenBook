@@ -83,6 +83,7 @@ public class Events extends OBController {
 				&& !endDay.equals("-1") 
 				&& !endTime.equals("-1")) {
 				event.endDate = setDate(endTime, endMonth, endDay);
+				event.givenEndDate = true;
 			}
 
 			if (curEvent.privilege.equals("open")) {
@@ -103,9 +104,57 @@ public class Events extends OBController {
 		Event e = Event.findById(id);
 		String name = e.eventName;
 		String location = e.eventLocation;
-		Date start = e.startDate;
-		Date end = e.endDate;
-		render(name, location, start, end);
+		Date myDateStart = e.startDate;		
+		String myDate = convertDateMonth(myDateStart) + " " + myDateStart.getDate() + " at " + convertDateTime(myDateStart);
+		String description = e.eventScript;
+		String myAuthor = e.author.name;
+		
+		String privacy = "";
+		if(e.open){ privacy = "Public Event"; }
+		else if(e.friends){ privacy = "Friends Event"; }
+		else { privacy = "Invite Only Event"; }
+		
+		if (e.givenEndDate){
+			Date myDateEnd = e.endDate;			
+			if ((myDateStart.getMonth() == myDateEnd.getMonth()) && (myDateStart.getDate() == myDateEnd.getDate())){
+				myDate += " until " + convertDateTime(myDateEnd);
+			}
+			else {
+				myDate += " until " + convertDateMonth(myDateEnd) + " " + myDateEnd.getDate() + " at " + convertDateTime(myDateEnd);
+			}
+		}
+		render(name, privacy, myAuthor, myDate, location, description);
+	}
+	
+	public static String convertDateMonth(Date myDate){
+		int month = myDate.getMonth();
+		if (month == 0){ return "January"; }
+		else if (month == 1){ return "February"; }
+		else if (month == 2){ return "March"; }
+		else if (month == 3){ return "April"; }
+		else if (month == 4){ return "May"; }
+		else if (month == 5){ return "June"; }
+		else if (month == 6){ return "July"; }
+		else if (month == 7){ return "August"; }
+		else if (month == 8){ return "September"; }
+		else if (month == 9){ return "October"; }
+		else if (month == 10){ return "November"; }
+		else { return "December"; }
+	}
+	
+	public static String convertDateTime(Date myDate){
+		String ret = "";
+		int hour = myDate.getHours(); 
+		String ampm = "";
+		if (hour == 0) { hour = 12; ampm = "AM"; }
+		else if (hour >= 1 && hour <= 11) { ampm = "AM"; }
+		else{ hour = hour - 12; ampm = "PM"; }
+		ret += hour;
+		int minutes= myDate.getMinutes();
+		if (minutes < 9){ ret += ":0" + minutes; }
+		else { ret += ":" + minutes; }
+		ret += " " + ampm;
+		return ret;
 	}
 	
 	public static Date setDate(String time, String month, String day){
