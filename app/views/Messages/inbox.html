@@ -1,0 +1,73 @@
+#{extends 'main.html' /}
+<div class="grid_3">
+  <div class="left-side-nav">
+    <a href="@{Application.account()}">
+      <img style="width:50px; height:50px; vertical-align:middle" src=@{'/public/images/left-profile.jpg'} />
+      <span style="font-weight:bold;"> ${user.name}</span>
+    </a><br />
+    <br />
+    <span class="note">FAVORITES</span><br/>
+    <a href="@{Application.news()}">News Feed</a><br />
+    <a href="@{Events.events()}">Events</a><br />
+    <a href="@{Checkin.checkin()}">Checkin</a><br />
+    <a href="@{Messages.inbox()}">Inbox</a><br />
+    <a href="/requests">Friend Requests</a><br />
+    <a href="/skin">Change Skin</a><br />
+    <br />
+    <span class="note">GROUPS</span><br />
+    #{list items:user.getGroups(), as:'Group'}
+    <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br />
+    #{/list}
+    <br />
+    <span class="note">APPS</span><br />
+    <br />
+    <span class="note">PAGES</span><br />
+    <a href="@{Pages.pages()}">Pages</a><br />
+    <br />
+    <span class="note">FRIENDS</span><br />
+    #{list items:user.confirmedFriends(), as:'friendship'}
+    <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br />
+    #{/list}
+    <br />
+    <a href="@{Relationships.relationships(user.id)}">see all friends..</a><br />
+  </div>
+</div><!-- grid_3 -->
+
+<div class="grid_9">
+  <div id="contentArea">
+    <h1>Inbox</h1>
+    <br />
+    #{if user.checkFriendship(user.id) == 'Request Friendship'}
+    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
+      ${user.checkFriendship(user.id)}
+    </a>
+    #{/if}
+    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
+    Friendship Requested
+    #{/elseif}
+    #{elseif user.checkFriendship(user.id) == 'Friends'}
+    Friends :) 
+    <a id="friend-button" href="@{Application.removeFriends(user.id)}">
+      Remove friend
+    </a>
+    #{/elseif}
+    
+    <br> <a href ="@{Messages.createMessage()}">Create Message</a>
+    
+    <h2>Messages</h2>
+    #{list items:user.inbox(), as:'item'}
+      <div class="message">
+         <span class="message-author"><a href="@{Application.news(item.author.id)}">Author: ${ item.author.name }</a></span><br />
+         <span class="message-recipient"><a href="@{Application.news(item.recipient.id)}">Recipient: ${item.recipient.name}</a></span><br />
+         ${item.date.format('dd MMM yy')}<br />
+         Title: ${item.title}<br />
+         Message: ${item.content.nl2br()}<br />
+      </div>
+    #{/list}
+  </div>
+</div> <!-- grid_9 -->
+<div class="grid_3">
+  more newsfeed on the side<br />
+  birthdays<br />
+  create events<br />
+</div><!-- grid_4 -->

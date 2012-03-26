@@ -1,5 +1,4 @@
-#Default User
- 
+# Default data
 User(default):
     first_name:         default
     last_name:          user
