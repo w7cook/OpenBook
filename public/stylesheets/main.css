@@ -266,4 +266,5 @@ a.logo:active {text-decoration:none;}
   text-align: ${skin.get("footerTextAlign")};
   font: ${skin.get("footerFontSize")}pt italic;
   color: ${skin.get("footerColor")};
+  border-top:thin solid;
 }

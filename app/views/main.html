@@ -20,30 +20,30 @@
   </head>
   <body>
     <div class="container_16">
-	  <div id="header">
-	    <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
+      <header id="header">
+	<a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
         <a href="#"><img src="@{'public/images/friend_request_icon.png'}" /></a>
         <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
         <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
-	    #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
-	    <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
-	    #{/form}
+	#{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
+	  <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
+	#{/form}
         <div class="account">
-	      <a href="@{Application.account()}">
-            <img style="width:30px; height:30px; vertical-align:middle" src=@{'/public/images/header-profile.jpg'} /> ${currentUser.first_name} ${currentUser.last_name}</a>
+	  <a href="@{Application.account()}">
+            <img style="width:30px; height:30px; vertical-align:middle" src=@{'/public/images/header-profile.jpg'} /> ${currentUser.first_name} ${currentUser.last_name}
+          </a>
           <a href="@{Application.news()}">Home</a>
-	      <a href="@{Secure.logout()}">Logout</a>
+	  <a href="@{Secure.logout()}">Logout</a>
         </div>
-	  </div>
+      </header>
       <div class="main-content">
-	    #{doLayout /}
-	  </div>
-	  <div id="footer">
-	    <hr/>
-	    <span class="logo">openbook</span> is a 
-	    <a href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class project</a>
-	    to create a simple social networking web site
-	  </div>
+	#{doLayout /}
+      </div>
+      <footer id="footer">
+	<span class="logo">openbook</span> is a 
+	<a href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class project</a>
+	to create a simple social networking web site
+      </footer>
     </div> <!-- end .container_24 -->
   </body>
 </html>
