@@ -6,6 +6,7 @@ import controllers.Application;
 
 import java.util.*;
 import play.test.*;
+import utils.Bootstrap;
 import models.*;
 
 public class BasicTest extends UnitTest {
@@ -25,7 +26,7 @@ public class BasicTest extends UnitTest {
 
 		// Test
 		assertNotNull(bob);
-		assertEquals("Bob", bob.name);
+		assertEquals("Bob", bob.username);
 	}
 
 	@Test
@@ -60,7 +61,7 @@ public class BasicTest extends UnitTest {
 		assertEquals(bob, firstPost.author);
 		assertEquals("My first post", firstPost.title);
 		assertEquals("Hello world", firstPost.content);
-		assertNotNull(firstPost.date);
+		assertNotNull(firstPost.createdAt);
 	}
 
 	@Test
@@ -72,40 +73,42 @@ public class BasicTest extends UnitTest {
 		alice.profile.significantOther = bob;
 		alice.save();
 
-		User a2 = User.find("byName", "Alice").first();
-		assertEquals(a2.profile.significantOther.name, "Bob");
+		User a2 = User.find("byUsername", "Alice").first();
+		assertEquals("Bob", a2.profile.significantOther.username);
 		
 	}
 
 	@Test
 	public void postComments() {
-		// Create a new user and save it
+		// Create some new users and save them
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
+    User jeff = new User("jeff@gmail.com", "secret", "Jeff").save();
+    User tom = new User("tom@gmail.com", "secret", "Tom").save();
 
 		// Create a new post
 		Post bobPost = new Post(bob, "My first post", "Hello world").save();
 
 		// Post a first comment
-		new Comment(bobPost, (User)User.find("first_name = ?","Jeff").first(), "Nice post").save();
-		new Comment(bobPost, (User)User.find("first_name = ?","Tom").first(), "I knew that !").save();
+		new Comment(bobPost, jeff, "Nice post").save();
+		new Comment(bobPost, tom, "I knew that !").save();
 
 		// Retrieve all allComments
-		List<Comment> bobPostComments = Comment.find("byPost", bobPost).fetch();
+		List<Comment> bobPostComments = Comment.find("byParentObj", bobPost).fetch();
 
 		// Tests
 		assertEquals(2, bobPostComments.size());
 
 		Comment firstComment = bobPostComments.get(0);
 		assertNotNull(firstComment);
-		assertEquals("Jeff", firstComment.author);
+		assertEquals("Jeff", firstComment.author.username);
 		assertEquals("Nice post", firstComment.content);
-		assertNotNull(firstComment.date);
+		assertNotNull(firstComment.createdAt);
 
 		Comment secondComment = bobPostComments.get(1);
 		assertNotNull(secondComment);
-		assertEquals("Tom", secondComment.author);
+		assertEquals("Tom", secondComment.author.username);
 		assertEquals("I knew that !", secondComment.content);
-		assertNotNull(secondComment.date);
+		assertNotNull(secondComment.createdAt);
 	}
 	
 	@Test
@@ -137,23 +140,25 @@ public class BasicTest extends UnitTest {
 		assertNotNull(bobfirst);
 		assertEquals("Bob", bobfirst.author.username);
 		assertEquals("I just had lunch", bobfirst.content);
-		assertNotNull(bobfirst.date);
+		assertNotNull(bobfirst.createdAt);
 	}
 
 	@Test
 	public void useTheCommentsRelation() {
-		// Create a new user and save it
-		User bob = new User("bob@gmail.com", "secret", "Bob").save();
+    // Create a new user and save it
+    User bob = new User("bob@gmail.com", "secret", "Bob").save();
+    User jeff = new User("jeff@gmail.com", "secret", "Jeff").save();
+    User tom = new User("tom@gmail.com", "secret", "Tom").save();
 
 		// Create a new post
 		Post bobPost = new Post(bob, "My first post", "Hello world").save();
 
 		// Post a first comment
-		bobPost.addComment((User)User.find("first_name = ?","Jeff").first(), "Nice post");
-		bobPost.addComment((User)User.find("first_name = ?","Tom").first(), "I knew that !");
+		bobPost.addComment(jeff, "Nice post");
+		bobPost.addComment(tom, "I knew that !");
 
 		// Count things
-		assertEquals(1, User.count());
+		assertEquals(3, User.count());
 		assertEquals(1, Post.count());
 		assertEquals(2, Comment.count());
 
@@ -163,23 +168,24 @@ public class BasicTest extends UnitTest {
 
 		// Navigate to allComments
 		assertEquals(2, bobPost.comments.size());
-		assertEquals("Jeff", bobPost.comments.get(0).author);
+		assertEquals("Jeff", bobPost.comments.get(0).author.username);
 
 		// Delete the post
 		bobPost.delete();
 
 		// Check that all allComments have been deleted
-		assertEquals(1, User.count());
+		assertEquals(3, User.count());
 		assertEquals(0, Post.count());
 		assertEquals(0, Comment.count());
 	}
 
 	@Test
 	public void fullTest() {
-		Fixtures.loadModels("data.yml");
+		Fixtures.loadModels("test-data.yml");
+		Bootstrap.hashPasswords();
 
 		// Count things
-		assertEquals(2, User.count());
+		assertEquals(3, User.count());
 		assertEquals(3, Post.count());
 		assertEquals(3, Comment.count());
 
@@ -194,20 +200,19 @@ public class BasicTest extends UnitTest {
 		assertEquals(2, bobPosts.size());
 
 		// Find all allComments related to Bob's posts
-		List<Comment> bobComments = Comment.find("post.author.email",
+		List<Comment> bobComments = Comment.find("parentObj.author.email",
 				"bob@gmail.com").fetch();
 		assertEquals(3, bobComments.size());
 
-		// Find the most recent post
-		Post frontPost = Post.find("order by date desc").first();
+		// Find bob's first post
+		Post frontPost = Post.find("byTitle", "About the model layer").first();
 		assertNotNull(frontPost);
-		assertEquals("About the model layer", frontPost.title);
 
 		// Check that this post has two allComments
 		assertEquals(2, frontPost.comments.size());
 
 		// Post a new comment
-		frontPost.addComment((User)User.find("first_name = ?","Jim").first(), "Hello guys");
+		frontPost.addComment((User)User.find("first_name = ?","Jeff").first(), "Hello guys");
 		assertEquals(3, frontPost.comments.size());
 		assertEquals(4, Comment.count());
 	}

@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import controllers.Application;
+import controllers.Messages;
 import controllers.Skins;
 import controllers.Users;
 import play.db.jpa.*;
@@ -26,6 +27,8 @@ public class User extends Model {
   // Code)
 
   public String username; // The user's username
+  
+  @ElasticSearchIgnore
   public double timezone; // The user's timezone offset from UTC
   
   @ElasticSearchIgnore
@@ -76,6 +79,10 @@ public class User extends Model {
     return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1", login).first();
   }
 
+  public List<Message> inbox() {
+    return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
+  }
+  
   public List<Post> news() {
     return Post.find(
                      "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by p.updatedAt desc",

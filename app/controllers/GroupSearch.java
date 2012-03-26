@@ -14,8 +14,8 @@ import controllers.elasticsearch.ElasticSearchController;
 import controllers.elasticsearch.ElasticSearchController.ObjectType;
 import models.*;
 
-@ElasticSearchController.For(User.class)
-public class UserSearch extends OBController {
+@ElasticSearchController.For(Group.class)
+public class GroupSearch extends OBController {
         
         /**
          * Index.
@@ -24,7 +24,7 @@ public class UserSearch extends OBController {
             if (getControllerClass() == ElasticSearchController.class) {
                 forbidden();
             }
-            render("UserSearch/index.html");
+            render("GroupSearch/index.html");
         }
         
         /**
@@ -49,7 +49,7 @@ public class UserSearch extends OBController {
             try {
                 render(type, objects, count, totalCount, page, orderBy, order);
             } catch (TemplateNotFoundException e) {
-                render("UserSearch/search.html", type, objects, count, totalCount, page, orderBy, order);
+                render("GroupSearch/search.html", type, objects, count, totalCount, page, orderBy, order);
             }
         }
 
