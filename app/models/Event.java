@@ -5,6 +5,8 @@ import javax.persistence.*;
 import play.data.validation.*;
 
 import controllers.Events;
+import controllers.Application;
+import models.Post;
 
 import play.db.jpa.*;
 
@@ -32,11 +34,16 @@ public class Event extends Model {
 	public boolean inviteOnly = false;
 	//public Location eventVenue;
 	
+	@OneToMany
+	public List<User> members;
+	
 	public Event(User author, String eventName, String eventScript, String eventLocation){		
 		this.author = author;
 		this.eventName = eventName;
 		this.eventScript = eventScript;
 		this.eventLocation = eventLocation;
+		this.members= new ArrayList<User>();
+		this.members.add(author);
 	}
 	
 	public EventInvite newEventInvite(User curGuest) {
@@ -44,4 +51,22 @@ public class Event extends Model {
 		this.save();
 		return myEventInvite;
 	}	
+	
+	public List<Post> getPosts(){
+      return Post.find("SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",Post.type.EVENT,this.id.toString()).fetch();
+	}
+	
+	public void addMember(User u){
+		if(!members.contains(u))
+			members.add(u);
+	}
+	
+	public void removeMember(User u){
+		if(members.contains(u))
+			members.remove(u);
+	}
+	
+	public int getMemberCount(){
+		return members.size();
+	}
 }
