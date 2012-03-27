@@ -1,40 +1,3 @@
-#{extends 'two_panel.html' /}
-<div class="grid_9">
-  <div id="contentArea">
-    <div class="pagelet">
-      <a href="#">Update Status</a>
-      <a href="#">Add Photo / Video</a>
-      <a href="#">Ask Question</a>
-      #{if user.id == currentUser.id}
-        <a id="about-button" href="@{Application.edit_basic}">About me</a>
-      #{/if}
-      #{else}
-        <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
-      #{/else}
-    </div>
-    <br />
-    #{if user.checkFriendship(user.id) == 'Request Friendship'}
-      <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-        ${user.checkFriendship(user.id)}
-      </a>
-    #{/if}
-    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-      Friendship Requested
-    #{/elseif}
-    #{elseif user.checkFriendship(user.id) == 'Friends'}
-      Friends :) 
-      <a id="friend-button" href="@{Application.removeFriends(user.id)}">
-        Remove friend
-      </a>
-    #{/elseif}
-
-    #{if user.id == currentUser.id}
-        <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
-        <input type="submit" value="Post" id="postSubmit" />
-    #{/if}
-    
-    <div id="postsList">
-    #{list items:user.news(), as:'item'} 
       <div class="post">
         <div class="hideable">
           <div class="left">
@@ -47,7 +10,7 @@
               ${item.contentTeaser().nl2br()}
               <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
             </div>
-            <div class="tohide hide"  style="clear:both;">
+            <div class="tohide hide"  style="clear:both; display: none;">
               <div class="post-content">
                 ${item.content.nl2br()}
               </div>
@@ -110,37 +73,3 @@
           </div>
         </div>
       </div>
-    #{/list}
-    </div>
-  </div>
-</div> <!-- grid_9 -->
-
-<div class="grid_3">
-  more newsfeed on the side<br />
-  birthdays<br />
-  create events<br />
-</div><!-- grid_4 -->
-
-<script type="text/javascript">
-   $('input#postSubmit').click(function(event) {
-     var postData = {
-         postContent : $("textarea#postContent").val(),
-     };
-     $.post("/posts/makeNewPost", postData, function(data) {
-       $("div#postsList").prepend(data);
-     });
-   });
-</script>
-
-<script>
-  $('textarea#postContent').autoResize({
-  maxHeight: 150,
-  minHeight: 50,
-  extraSpace: 30
-  });
-  $('textarea#commentContent').autoResize({
-  maxHeight: 70,
-  minHeight: 20,
-  extraSpace: 20
-  });
-</script>
