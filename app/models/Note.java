@@ -8,6 +8,10 @@ import controllers.Security;
 import play.db.jpa.*;
 import play.modules.elasticsearch.annotations.ElasticSearchable;
 
+/*
+ * Author: Andy Eskridge
+ * email: andy.eskridge@gmail.com
+ */
 
 @Entity
 public class Note extends Status {

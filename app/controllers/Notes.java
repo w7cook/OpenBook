@@ -3,6 +3,11 @@ package controllers;
 import models.User;
 import play.mvc.*;
 
+/*
+ * Author: Andy Eskridge
+ * email: andy.eskridge@gmail.com
+ */
+
 @With(Secure.class)
 public class Notes extends OBController {
 
