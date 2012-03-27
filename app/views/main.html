@@ -16,13 +16,13 @@
     	function showFriendRequests(e)
     	{
     	e.stopPropagation();
-    	document.getElementById("friendRequest").style.display="block";
+    	$('#friendRequest').css('display', 'block');
     	document.addEventListener("click", hideFriendRequests);
     	}
     	
     	function hideFriendRequests()
     	{
-    	document.getElementById("friendRequest").style.display="none";
+    	$('#friendRequest').css('display', 'none');
     	}
     </script>
 
