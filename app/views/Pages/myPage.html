@@ -1,31 +1,46 @@
 #{extends 'main.html' /}
-#{if page.admin == currentUser}
+#{include 'two_panel.html' /}
+#{if page.admin == user}
 	#{form @Pages.pageUpdate(page.id, info)}
-	<div id = "myPage">
+	<div id = "content-middle">
+		<h1>${page.title}</h1>
+		${page.info}
 		<br>
-		Admin: ${page.admin}
-		<br>
-		<a href="@{Pages.deletePage(page.id)}">Delete this Page</a>
-		<br>
-		<div id="myPageInfo" name ="title">
-			Title: ${page.title}
-			<br>
-			Info:
-			<input type=text name=info value="${page.info}" /><br>
+		<div class="hideable">
+ 			<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
+ 			<a class="triggerhide" href='#' onclick='return false;'>-done</a>
+ 			<div class="post-teaser tohideopp">
+ 			</div>
+ 			<div class="post-content tohide hide">
+				Admin: ${page.admin}
+				<a href="@{Pages.deletePage(page.id)}" style="float:right">Delete this Page</a>
+				<br>Info:
+				<input type=text name=info value="${page.info}" style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;"/><br>
+				<div style="float:right">
+					<input type=submit value=Save>
+				</div>
+			</div>
 		</div>
-		<input type=submit value=Save>
-		<input type=submit value=Cancel>
 	</div>
 	#{/form}
+	#{include 'Pages/post.html' /}
 #{/if}
 #{elseif page != null}
-	<div id = "fanPage">
-		<div id = "pageTitle">
-			${page.title}
+	<div id = "content-middle">
+		<h1>${page.title}</h1> 
+		<div style="float:right">
+			#{if @Pages.isfan(page.id)}
+				unfan
+			#{/if}
+			#{else}
+				fan
+			#{/else}
 		</div>
+		<hr style="float:left; width: 100%; color: #98AFC7;"/> 
 		<div id = "pageInfo">
 			${page.info}
 		</div>
+		#{include 'Pages/post.html' /}
 	</div>
 #{/elseif}
 

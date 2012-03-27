@@ -11,6 +11,9 @@ import play.modules.elasticsearch.annotations.ElasticSearchable;
 
 @Entity
 public class Post extends Status {
+  
+  public enum type{NEWS,PAGE,GROUP,EVENT};
+  public type postType;
 
   public String title;
 
@@ -23,6 +26,14 @@ public class Post extends Status {
     super(author, content);
     this.title = title;
     this.text = content;
+    this.postType = type.NEWS;
+  }
+  
+  public Post(User author, String title, String content, type t) {
+    super(author, content);
+    this.title = title;
+    this.text = content;
+    this.postType = t;
   }
   
   public String contentTeaser() {

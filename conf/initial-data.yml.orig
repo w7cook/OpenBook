@@ -262,6 +262,7 @@ Post(cats post1):
     content:        >
                     I HATE CATZ!!!
                     
+<<<<<<< HEAD
 UserPage(1):
     page:           cats
     fan:            alice
@@ -280,7 +281,7 @@ Profile(jeffProfile):
     
 Profile(aliceProfile):
     owner:          alice
-
+=======
 Post(cats post2):
     postType:       "PAGE"
     title:          1
@@ -296,3 +297,4 @@ Post(nachoCheese post1):
     author:         alice
     content:        >
                     mmmmm delicious :D
+>>>>>>> ddd875b8478c8144b0f5af4625c3cce59963d774

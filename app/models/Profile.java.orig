@@ -1,30 +1,31 @@
 package models;
 
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import controllers.Application;
+import controllers.Photos;
 import controllers.Skins;
-
-import play.db.jpa.*;
 
 @Entity
 public class Profile extends Model {
   @OneToOne(cascade=CascadeType.ALL)
   public User owner;
-<<<<<<< HEAD
   public String gender; 
   /**
    * The user's locale (ISO Language Code and ISO Country
    */
   public String locale;
-=======
-  public String gender; // The user's gender:female or male
-  public String locale; // The user's locale (ISO Language Code and ISO Country
->>>>>>> adfcd8acfedd2e4dba55422bbc09da6bf775dd85
 
   @OneToOne
+<<<<<<< HEAD
   public User significantOther; 
   public Date anniversary;
 
@@ -43,6 +44,18 @@ public class Profile extends Model {
   /**
    *  The user's current city
    */
+=======
+  public User significantOther; // The user's significant other
+  public Date anniversary; // date of anniversary
+
+  public String bio; // The user's biography
+  public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
+  public Long profilePhoto; // The user's profile picture.
+
+
+  public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
+
+>>>>>>> 28287d8002958f329c390fe648f19b2bece97338
   @ManyToOne
   public Location location; 
   @ManyToOne
@@ -50,7 +63,6 @@ public class Profile extends Model {
 
   // not implemented yet!!
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-<<<<<<< HEAD
   public List<UserLanguage> languages; 
 
   /**
@@ -66,8 +78,8 @@ public class Profile extends Model {
   /**
    * The user's relationship
    * status:Single,In a relationship, Engaged,Married,It's
-   * complicated,�In an open relationship,�Widowed,Separated,�Divorced,�In
-   * a civil union,�In a domestic partnership
+   * complicated, In an open relationship, Widowed,Separated, Divorced, In
+   * a civil union, In a domestic partnership
    */
   public String relationshipStatus; 
 
@@ -79,19 +91,6 @@ public class Profile extends Model {
   /** 
    *  A list of the user's education history
    */
-=======
-  public List<UserLanguage> languages; // The user's languages
-
-  public String political; // The user's political view
-  public String quotes; // The user's favorite quotes
-  public String relationshipStatus; // The user's relationship
-  // status:Single,In a relationship, Engaged,Married,It's
-  // complicated,In an open relationship,Widowed,Separated,Divorced,In
-  // a civil union,In a domestic partnership
-
-  public String religion; // The user's religious views
-
->>>>>>> adfcd8acfedd2e4dba55422bbc09da6bf775dd85
    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
   public List<Enrollment> education; 
 
@@ -118,7 +117,6 @@ public class Profile extends Model {
   }
 
   public Profile(User owner) {
-
     this.anniversary = null;
     this.bio = "";
     this.birthday = null;
@@ -140,5 +138,10 @@ public class Profile extends Model {
     this.address = "";
     this.website = "";
     this.email = "";
+    this.profilePhoto = -1l;
+//    try{
+//    	this.profilePhoto = Photos.fileToPhoto(new File("/usr/home/2012spring/cs378sd/foo/OpenBook/public/images/default.png")).id;
+//    	//this.profilePhoto.save;
+//    } catch(FileNotFoundException e){System.out.println(e);};
   }
 }
