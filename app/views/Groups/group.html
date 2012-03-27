@@ -1,36 +1,126 @@
-#{extends 'main.html' /}
-<table>
-  <tr>
-    <td>
-      [Picture]
-      <br/>
-      ${user.email}
-      
-      <br/>
-      <a href="@{Application.news()}">news</a>
-      <br>
-      <a href="@{Events.events()}">Events</a>
-      <br>
-      <a href="@{Application.about()}">about</a>
-      <br>
-      <a href="@{Checkin.checkin()}">Checkin</a>
-      <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
-      #{list items:user.confirmedFriends(), as:'friendship'}
-        <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
-      #{/list}
-	  <br>Groups:<br>
-      #{list items:user.getGroups(), as:'Group'}
-        <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br>
-      #{/list}
-    </td>
-    <td>
-        <h1>${group.groupName}</h1>
+#{extends 'two_panel.html' /}
+<div class="grid_9">
+  <div id="contentArea">
+    <div class="pagelet">
+      <a href="#">Update Status</a>
+      <a href="#">Add Photo / Video</a>
+      <a href="#">Ask Question</a>
+      #{if user.id == currentUser.id}
+        <a id="about-button" href="@{Application.edit_basic}">About me</a>
+      #{/if}
+      #{else}
+        <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
+      #{/else}
+    </div>
+    <h1>${group.groupName}</h1>
         <h2>${group.description}</h2>
         <h3>The group is owned by ${group.owner}</h3>
         <h4>The Group members:</h4>
         #{list items:group.members, as:'member'}
         <a href="@{Application.about(member.id)}">${member.name}</a><br>
         #{/list}
-    </td>
-  </tr>
-</table>
+        <br />
+        #{if user.id == currentUser.id}
+      	  #{form @Groups.newGroupPost(group.id,user.id)}
+            <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
+            <input type="submit" value="Post" />
+          #{/form}
+    #{/if}
+    #{list items:group.getPosts(), as:'item'}
+      <div class="post">
+        <div class="hideable">
+          <div class="left">
+            <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
+          </div>
+          
+          <div class="individual-post">
+            <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>
+            <div class="post-content tohideopp">
+              ${item.contentTeaser().nl2br()}
+              <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
+            </div>
+            <div class="tohide hide">
+              <div class="post-content">
+                ${item.content.nl2br()}
+              </div>
+              #{list items:item.getComments(), as:'comment'}
+                <div class="comment">
+                  <div class="comment-metadata">
+                    <div class="comment-author">
+                      by ${comment.author},
+                    </div>
+                    <div class="comment-date">
+                      ${comment.updatedAt.format('dd MMM yy')}
+                    </div>
+                    #{if comment.author == currentUser.first_name}
+                      <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                    #{/if}
+                    #{ if comment.currentUserLiked()}
+                      <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                    #{/if}
+                    #{else}
+                      <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
+                    #{/else}
+                    <div> ${comment.likes.size()} likes</div>                   
+                  </div>
+                  <div class="comment-content">
+                    ${comment.content.escape().nl2br()}
+                  </div>
+                </div>
+              #{/list}
+              <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
+            </div>
+
+            <div class="individual-post-metadata">
+              ${item.likes.size()}
+              #{if user.isFriendsWith(currentUser) || user==currentUser}
+                #{ if item.currentUserLiked()}
+                  <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+                #{/if}
+                #{else}
+                  <a href="@{Application.addLike(item.id,user.id)}">Like</a>
+                #{/else}
+              #{/if}     
+              .
+              <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a>
+              .
+              ${item.updatedAt.format('dd MMM yy')}
+
+              #{if item.author == currentUser}
+                . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
+              #{/if}
+
+              <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
+                #{form @Comments.postComment(item.id, user.id, commentContent)}
+                  <div style="clear:both;">
+                    <textarea name="commentContent" id="commentContent" style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
+                  </div>
+                  <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
+                #{/form}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    #{/list}
+  </div>
+</div> <!-- grid_9 -->
+
+<div class="grid_3">
+  more newsfeed on the side<br />
+  birthdays<br />
+  create events<br />
+</div><!-- grid_4 -->
+
+<script>
+  $('textarea#postContent').autoResize({
+  maxHeight: 150,
+  minHeight: 50,
+  extraSpace: 30
+  });
+  $('textarea#commentContent').autoResize({
+  maxHeight: 70,
+  minHeight: 20,
+  extraSpace: 20
+  });
+</script>
