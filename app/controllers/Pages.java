@@ -18,7 +18,7 @@ public class Pages extends OBController {
 	public static void pageSave(String title, String info){
 		User currentUser = user();
 		Page page = new Page(currentUser, title, info).save();
-		UserPage pageLink = new UserPage(currentUser, page).save();
+		new UserPage(currentUser, page).save();
 		//renderText(page.admin+"\n"+page.title+"\n"+page.info+"\n"+pageLink.page.title+"\n"+pageLink.fan);
 		render("Pages/myPage.html", page,currentUser);
 	}
