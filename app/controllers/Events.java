@@ -1,35 +1,21 @@
 package controllers;
 
-import java.util.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-import controllers.Secure;
-
-import play.*;
-import play.mvc.*;
-import controllers.Secure;
-import models.*;
-
-;
+import models.Event;
+import models.User;
+import play.mvc.Before;
+import play.mvc.With;
 
 @With(Secure.class)
 public class Events extends OBController {
 
-	@Before
-	static void setConnectedUser() {
-		if (Security.isConnected()) {
-			renderArgs.put("currentUser", user());
-		}
-	}
-
-	public static User user() {
-		assert Secure.Security.connected() != null;
-		return User.find("byEmail", Secure.Security.connected()).first();
-	}
-
-	private static boolean given(String val) {
-		return val != null && val.length() > 0;
-	}
-
+  private static boolean given(String val) {
+    return val != null && val.length() > 0;
+  }
 	public static void events(Long id) {
 		User user = id == null ? user() : (User) User.findById(id);
 		render(user);
@@ -83,6 +69,7 @@ public class Events extends OBController {
 				&& !endDay.equals("-1") 
 				&& !endTime.equals("-1")) {
 				event.endDate = setDate(endTime, endMonth, endDay);
+				event.givenEndDate = true;
 			}
 
 			if (curEvent.privilege.equals("open")) {
@@ -103,9 +90,38 @@ public class Events extends OBController {
 		Event e = Event.findById(id);
 		String name = e.eventName;
 		String location = e.eventLocation;
-		Date start = e.startDate;
-		Date end = e.endDate;
-		render(name, location, start, end);
+		Date myDateStart = e.startDate;		
+		String myDate = convertDateToString(myDateStart);
+		String description = e.eventScript;
+		String myAuthor = e.author.name;
+		
+		String privacy = "";
+		if(e.open){ privacy = "Public Event"; }
+		else if(e.friends){ privacy = "Friends Event"; }
+		else { privacy = "Invite Only Event"; }
+		
+		if (e.givenEndDate){
+			Date myDateEnd = e.endDate;
+			// Check to see if the month and day are the same.
+			DateFormat df = new SimpleDateFormat("MMdd");
+			if (df.format(myDateStart).equals(df.format(myDateEnd))){
+				myDate += " until " + convertDateTime(myDateEnd);
+			}
+			else {
+				myDate += " until " + convertDateToString(myDateEnd);
+			}
+		}
+		render(name, privacy, myAuthor, myDate, location, description);
+	}
+	
+	public static String convertDateToString(Date myDate){
+	  DateFormat df = new SimpleDateFormat("MMMM d 'at' HH:mm a");
+    return df.format(myDate);
+	}
+	
+	public static String convertDateTime(Date myDate){
+	  DateFormat df = new SimpleDateFormat("HH:mm a");
+		return df.format(myDate);
 	}
 	
 	public static Date setDate(String time, String month, String day){
@@ -118,7 +134,9 @@ public class Events extends OBController {
 		else{
 			hours = Integer.parseInt(time);
 		}
-		Date newDate = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, Integer.parseInt(month), Integer.parseInt(day), hours, minutes);	
-		return newDate;
+		// Using Calendar because date manipulation with Date is deprecated.
+		Calendar cal = Calendar.getInstance();
+		cal.set(cal.get(Calendar.YEAR), Integer.parseInt(month), Integer.parseInt(day), hours, minutes);
+		return cal.getTime();
 	}
 }

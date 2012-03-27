@@ -1,20 +1,37 @@
-# Test data 
+# Test data
 
 User(bob):
-    email:          bob@gmail.com
-    password:       secret
-    fullname:       Bob
-    isAdmin:        true
+    first_name:         Bob
+    last_name:          Thomson
+    name:               Bob Thomson
+    username:           b3bob
+    email:              bob@gmail.com
+    password:           secret
+    isAdmin:            true
 
-    
 User(jeff):
-    email:          jeff@gmail.com
-    password:       secret
-    fullname:       Jeff
+    first_name:         Jeff
+    last_name:          Jones
+    username:           jj99
+    name:               Jeff Jones
+    email:              jeff@gmail.com
+    password:           secret
+    significant_other:  alice
+    anniversary:        2010-12-2
+    
+User(alice):
+    first_name:         Alice
+    last_name:          Xu
+    name:               Alice Xu
+    username:           axu
+    email:              alice@gmail.com
+    password:           secret
+    #significant_other: jeff
+    anniversary:        2010-12-2
     
 Post(firstBobPost):
     title:          About the model layer
-    date:       2009-06-14
+    date:           2009-06-14
     author:         bob
     content:        >
                     The model has a central position in a Play! application. It is the domain-specific 
@@ -29,14 +46,14 @@ Post(firstBobPost):
 
 Post(secondBobPost):
     title:          Just a test of YABE
-    date:       2009-03-25
+    date:           2009-03-25
     author:         bob
     content:        >
                     Well, it's just a test.
                     
 Post(jeffPost):
     title:          The MVC application
-    date:       2009-06-06
+    date:           2009-06-06
     author:         jeff
     content:        >
                     A Play! application follows the MVC architectural pattern as applied to the 
@@ -45,27 +62,28 @@ Post(jeffPost):
                     This pattern splits the application into separate layers: the Presentation 
                     layer and the Model layer. The Presentation layer is further split into a 
                     View and a Controller layer.
-                    
+
+
 Comment(c1):
-    author:         Guest
+    author:         jeff
     content:        >
-                    You are right !
-    date:       2009-06-14
-    post:           firstBobPost
+                    Nice post!
+    date:           2011-06-15
+    parentObj:      firstBobPost    
     
 Comment(c2):
-    author:         Mike
+    author:         alice
     content:        >
                     I knew that ...
-    date:       2009-06-15
-    post:           firstBobPost    
+    date:           2009-06-15
+    parentObj:      firstBobPost    
     
 Comment(c3):
-    author:         Tom
+    author:         bob
     content:        >
                     This post is useless ?
-    date:       2009-04-05
-    post:           secondBobPost    
-                 
+    date:           2009-04-05
+    parentObj:      secondBobPost    
+                     
 
                  

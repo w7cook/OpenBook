@@ -1,18 +1,24 @@
 package models;
 
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import controllers.Application;
-
-import play.db.jpa.*;
+import controllers.Photos;
+import controllers.Skins;
 
 @Entity
 public class Profile extends Model {
-  @OneToOne
+  @OneToOne(cascade=CascadeType.ALL)
   public User owner;
-  public String gender; // The user's gender: female or male
+  public String gender; // The user's gender:female or male
   public String locale; // The user's locale (ISO Language Code and ISO Country
 
   @OneToOne
@@ -21,6 +27,7 @@ public class Profile extends Model {
 
   public String bio; // The user's biography
   public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
+  public Long profilePhoto; // The user's profile picture.
 
 
   public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
@@ -38,8 +45,8 @@ public class Profile extends Model {
   public String quotes; // The user's favorite quotes
   public String relationshipStatus; // The user's relationship
   // status:Single,In a relationship, Engaged,Married,It's
-  // complicated, In an open relationship, Widowed,Separated, Divorced, In
-  // a civil union, In a domestic partnership
+  // complicated,In an open relationship,Widowed,Separated,Divorced,In
+  // a civil union,In a domestic partnership
 
   public String religion; // The user's religious views
 
@@ -48,6 +55,9 @@ public class Profile extends Model {
 
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   public List<Employment> work; // A list of the user's work history
+
+  @ManyToOne
+  public Skin skin;//Skin (StyleSheet) used by this Profile
 
 
   //CONTACT INFORMATION
@@ -80,11 +90,15 @@ public class Profile extends Model {
 
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
-
+    Skins.setSkin(this,this.owner.email);//the default skin look is used
     this.phone = "";
     this.address = "";
     this.website = "";
     this.email = "";
-
+    this.profilePhoto = -1l;
+//    try{
+//    	this.profilePhoto = Photos.fileToPhoto(new File("/usr/home/2012spring/cs378sd/foo/OpenBook/public/images/default.png")).id;
+//    	//this.profilePhoto.save;
+//    } catch(FileNotFoundException e){System.out.println(e);};
   }
 }

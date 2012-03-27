@@ -24,6 +24,7 @@ public class Event extends Model {
 	public String eventLocation;
 	public Date startDate;
 	public Date endDate;
+	public boolean givenEndDate = false;
 	
 	public String privilege; 
 	public boolean open = false;
