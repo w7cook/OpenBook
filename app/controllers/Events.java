@@ -1,11 +1,13 @@
 package controllers;
 
+import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import models.Event;
+import models.Post;
 import models.User;
 import play.mvc.Before;
 import play.mvc.With;
@@ -79,7 +81,8 @@ public class Events extends OBController {
 			} else if (curEvent.privilege.equals("inviteOnly")) {
 				event.inviteOnly = true;
 			}
-
+			event.members= new ArrayList<User>();
+			event.members.add(currentUser);
 			event.save();
 			displayEvent(event.id);
 
@@ -93,6 +96,7 @@ public class Events extends OBController {
 		Date myDateStart = e.startDate;		
 		String myDate = convertDateToString(myDateStart);
 		String description = e.eventScript;
+		User user = user();
 		String myAuthor = e.author.name;
 		
 		String privacy = "";
@@ -111,7 +115,7 @@ public class Events extends OBController {
 				myDate += " until " + convertDateToString(myDateEnd);
 			}
 		}
-		render(name, privacy, myAuthor, myDate, location, description);
+		render(e, user, name, privacy, myAuthor, myDate, location, description);
 	}
 	
 	public static String convertDateToString(Date myDate){
@@ -138,5 +142,10 @@ public class Events extends OBController {
 		Calendar cal = Calendar.getInstance();
 		cal.set(cal.get(Calendar.YEAR), Integer.parseInt(month), Integer.parseInt(day), hours, minutes);
 		return cal.getTime();
+	}
+	
+	public static void newEventPost(Long eventId, Long userId, String post_content){
+		new Post((User)User.findById(userId), eventId.toString(), post_content, Post.type.EVENT).save();
+		events(eventId);
 	}
 }
