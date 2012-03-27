@@ -108,7 +108,6 @@ public class User extends Model {
       return "";
     }
     Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ?1 AND r.to = ?2", current, this).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ?1 AND r.from = ?2", current, this).first();
     if (r1 != null) {
       if (r1.accepted) {
         return "Friends";
@@ -136,6 +135,23 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+  
+  /** Get a list of <numFriends> users who have requested to be friends
+  *
+  * @param numFriends the number of friends you want to fetch.
+  * @return a list of relationships related to incoming friend requests
+  */
+ public List<Relationship> requestedFriends(int numFriends) {
+   return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch(numFriends);
+ }
+  
+  /** Get the number of users users who have requested to be friends
+  *
+  * @return the number of relationships related to incoming friend requests
+  */
+ public long requestedFriendCount() {
+   return Relationship.count("to = ? and requested = true and accepted = false", this);
+ }
   
   public List<Group> getGroups(){
 	  List<Group> allGroups= Group.findAll();
