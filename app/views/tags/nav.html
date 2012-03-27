@@ -8,10 +8,11 @@
       <img src="@{Photos.getPhoto(_user.profile.profilePhoto)}" height = "120" width = "120" />
     #{/else}
   </div>
+  <div style="clear:both;">
   <a href="@{Application.account()}">
-    <span style="font-weight:bold;"> ${_user.name}</span>
-  </a><br />
-  <br />
+    <span style="font-weight:bold; clear:both;"> ${_user.name}</span>
+  </a>
+  </div>
   <br />
   <span class="note">FAVORITES</span><br/>
   <a href="@{Application.news()}">News Feed</a><br />
