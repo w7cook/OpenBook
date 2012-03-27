@@ -1,9 +1,22 @@
 #{extends 'main.html' /}
-<h1>${name}<h1>
-<h3> ${privacy} By ${myAuthor}<h3>
-<h3>${myDate}<h3>
-<h3>Location: ${location}<h3>
-<h3>Details: ${description}<h3>
+<head>
+	<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
+</head>
+<body onload="LoadMap()" onunload="UnloadMap()">
+<table>
+<tr valign="top">
+<td style="width:500px;text-align:top;">
+${name}<br />
+${privacy} By ${myAuthor}<br />
+${myDate}<br />
+Location: ${location}<br />
+Details: ${description}<br />
+</td>
+<td style="text-align:top;">
+<div style="position:relative;width:400px;height:400px;" id="mapDiv" /></td>
+</tr>
+</table>
+
 <h4>The Event members:</h4>
         #{list items:e.members, as:'member'}
         <a href="@{Application.about(member.id)}">${member.name}</a><br>
@@ -93,6 +106,66 @@
         </div>
       </div>
     #{/list}
-
+</body>
 
 <a class=button href="@{Events.events()}">< Events</a><br /><br />
+
+
+<script type="text/javascript">
+         var myMap = null;
+    
+         
+      
+         function UnloadMap()
+         {
+            if (myMap != null) {
+               myMap.Dispose();
+            }
+         }
+         function StartGeocoding( address )
+			{
+			   myMap.Find(null,    // what
+			              address, // where
+			              null,    // VEFindType (always VEFindType.Businesses)
+			              null,    // VEShapeLayer (base by default)
+			              null,    // start index for results (0 by default)
+			              null,    // max number of results (default is 10)
+			              null,    // show results? (default is true)
+			              null,    // create pushpin for what results? (ignored since what is null)
+			              null,    // use default disambiguation? (default is true)
+			              null,    // set best map view? (default is true)
+			              GeocodeCallback);  // call back function
+			}
+		function GeocodeCallback (shapeLayer, findResults, places, moreResults, errorMsg)
+			{
+			   // if there are no results, display any error message and return
+			   if(places == null)
+			   {
+			      alert( (errorMsg == null) ? "There were no results" : errorMsg );
+			      return;
+			   }
+			
+			   var bestPlace = places[0];
+			   
+			   // Add pushpin to the *best* place
+			   var location = bestPlace.LatLong;
+			   
+			   var newShape = new VEShape(VEShapeType.Pushpin, location);
+			   
+			   var desc = "Latitude: " + location.Latitude + "<br>Longitude:" + location.Longitude;
+			   newShape.SetDescription(desc);
+			   newShape.SetTitle(bestPlace.Name);
+			   myMap.AddShape(newShape);
+			}
+		function LoadMap()
+			{
+			   myMap = new VEMap("mapDiv");
+			   myMap.LoadMap();
+			   
+			   StartGeocoding("${location}");
+			}
+      </script>
+      
+ 
+      
+ 
