@@ -10,6 +10,21 @@
     <script type="text/javascript" src="@{'/public/javascripts/calendarDateInput.js'}"></script>
     <script type="text/javascript" src="public/javascripts/comments.js"></script>
     <script type="text/javascript" src="public/javascripts/jquery.autoresize.js"></script>
+    
+    <script type="text/javascript">
+    	
+    	function showFriendRequests(e)
+    	{
+    	e.stopPropagation();
+    	document.getElementById("friendRequest").style.display="block";
+    	document.addEventListener("click", hideFriendRequests);
+    	}
+    	
+    	function hideFriendRequests()
+    	{
+    	document.getElementById("friendRequest").style.display="none";
+    	}
+    </script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="@{Skins.stylesheet()}" />
     <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/fthread.css'}" />
@@ -18,14 +33,26 @@
 
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" />
   </head>
-  <body>
+  <body id="page">
     <div class="container_16">
 	  <header id="header">
 	    <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
-        <a href="@{Application.friendRequests()}"><img src="@{'public/images/friend_request_icon.png'}" /></a>
+        <a onclick="showFriendRequests(event)"><img src="@{'public/images/friend_request_icon.png'}" /></a>
         <body>${currentUser.requestedFriendCount()}</body>
         <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
         <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
+        <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >
+        		#{list items:currentUser.requestedFriends(), as:'request'}
+        			<div style="border: thin solid #000033; color: black; z-index: 3; height: 75px; ">
+        				<img style="width:50px; height:50px;" src=@{Photos.getPhoto(request.from.profile.profilePhoto)} />
+					    <a style="color: #000099;" href=@{Application.news(request.from.id)}> ${request.from}</a>
+					    <br>
+					    <a style="color: #000099;" href=@{Application.requestFriends(request.from.id)}>Accept</a> 
+					    <a style="color: #000099;" href=@{Application.removeFriends(request.from.id)}>Deny</a>
+					    <br>
+					</div>
+			  #{/list}
+		</div>        	
 	#{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
 	  <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
 	#{/form}
@@ -37,7 +64,7 @@
 	  <a href="@{Secure.logout()}">Logout</a>
         </div>
       </header>
-      <div class="main-content">
+      <div class="main-content" >
 	#{doLayout /}
       </div>
       <footer id="footer">
