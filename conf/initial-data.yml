@@ -270,10 +270,10 @@ Post(cats post2):
     content:        >
                     CHEEZEBURGAHZ!!
                     
-Post(nachoCheese post1):
-    postType:       "PAGE"
-    title:          2
-    date:           2009-06-07
-    author:         alice
-    content:        >
-                    mmmmm delicious :D
+UserPage(cats alice):
+    fan:            alice
+    page:           cats
+
+UserPage(nachoCheese jeff):
+    fan:            jeff
+    page:           nachoCheese

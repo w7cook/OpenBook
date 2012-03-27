@@ -1,4 +1,5 @@
 #{extends 'main.html' /}
+#{include 'two_panel.html' /}
 <div id = "newpage">
 	<br>
 	Admin: ${currentUser.name}     
@@ -9,7 +10,8 @@
 			Info:
 			<input type=text name=info style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;"/><br>
 		</div>
-		<input type=submit value=Save>
-		<input type=submit value=Cancel>
-	#{/form}
+		<div><input type=submit value=Save>
+		#{/form}
+		<input type=button value=Cancel onclick="account()">
+		</div>
 </div>

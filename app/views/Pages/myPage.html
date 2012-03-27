@@ -28,18 +28,18 @@
 #{elseif page != null}
 	<div id = "content-middle">
 		<h1>${page.title}</h1> 
+		<div id = "pageInfo" style="float:left">
+			${page.info}
+		</div>
 		<div style="float:right">
-			#{if @Pages.isfan(page.id)}
-				unfan
+			#{if pageLink == null}
+				<a href="@{Pages.fan(page.id)}">fan</a>
 			#{/if}
 			#{else}
-				fan
+				<a href="@{Pages.unfan(page.id)}">unfan</a>
 			#{/else}
 		</div>
 		<hr style="float:left; width: 100%; color: #98AFC7;"/> 
-		<div id = "pageInfo">
-			${page.info}
-		</div>
 		#{include 'Pages/post.html' /}
 	</div>
 #{/elseif}
