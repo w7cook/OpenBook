@@ -106,7 +106,7 @@ a:active {
 }
 
 .profile-pic img{
-  width: 140px;
+  max-width: 140px;
   vertical-align: middle;
 }
 
