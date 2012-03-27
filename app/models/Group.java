@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
+import models.Post;
 import play.db.jpa.*;
 import play.data.validation.*;
 import play.libs.Crypto;
@@ -52,4 +53,8 @@ public class Group extends Model{
 	public int getMemberCount(){
 		return members.size();
 	}
+	
+	public List<Post> getPosts(){
+      return Post.find("SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",Post.type.GROUP,this.id.toString()).fetch();
+  }
 }
