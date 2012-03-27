@@ -16,6 +16,8 @@ public class Post extends Status {
 
   @Lob
   public String text;
+  
+  public Long entityId;
 
   private static final int TEASER_LENGTH = 150;
 
@@ -45,5 +47,9 @@ public class Post extends Status {
 
   public boolean byCurrentUser() {
     return author.email.equals( Security.connected() );
+  }
+  
+  public void setId(Long id){
+  	this.entityId = id;
   }
 }

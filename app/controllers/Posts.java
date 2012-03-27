@@ -26,5 +26,4 @@ public class Posts extends OBController {
 		new Post((User)User.findById(userId), new Date().toString(), post_content).save();
 		posts(userId);
 	}
-
 }

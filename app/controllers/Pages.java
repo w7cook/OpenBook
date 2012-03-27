@@ -64,7 +64,9 @@ public class Pages extends OBController {
 		User user = user();
 		if(page == null){renderText("null page");}
 		//TODO: implement null/empty string check 
-		Post p = new Post(user,title,content).save();
+		Post p = new Post(user,new Date().toString(),content).save();
+		p.setId(page.id);
+		//renderText(p.entityId);
 		display(page.id, p);
 	}
 

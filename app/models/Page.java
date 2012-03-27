@@ -30,7 +30,7 @@ public class Page extends Model {
 	}
 		
 	public List<Post> news(){
-		return Post.find("SELECT p FROM Post p WHERE p.title = ?",this.title).fetch();
+		return Post.find("SELECT p FROM Post p WHERE p.entityId = ?",this.id).fetch();
 	}
 
 }
