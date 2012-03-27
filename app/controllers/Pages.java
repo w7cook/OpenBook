@@ -34,6 +34,7 @@ public class Pages extends OBController {
 	public static void myPages(){
 		User user = user(); 
 		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", user).fetch();
+		if(myPages == null){renderText("null");}
 		render(myPages, user);
 	}
 	
@@ -41,6 +42,11 @@ public class Pages extends OBController {
 		User user = user();
 		Page page = Page.findById(id);
 		UserPage pageLink = UserPage.find("select u from UserPage u where u.fan = ? and u.page = ?", user,page).first();
+		String temp = "";
+		List<UserPage> pageTest = UserPage.findAll();
+		for(UserPage c : pageTest){
+			temp+= c.page.title +" -- "+c.fan+"\n";
+		}
 		render("Pages/myPage.html", page, pageLink, user);
 	}
 
@@ -65,24 +71,14 @@ public class Pages extends OBController {
 		if(page == null){renderText("null page");}
 		//TODO: implement null/empty string check 
 		new Post(user,page.id.toString(),content,Post.type.PAGE).save();
-		//renderText(p.entityId);
 		display(page.id);
-	}
-	
-	public static boolean isfan(Long id){
-		User user = user();
-		UserPage fan = UserPage.find("select u from UserPage u where u.page.id = ?", id).first();
-		if(fan == null){renderText("null");}
-		if(fan != null){return true;}
-		else{return false;}
 	}
 	
 	public static void unfan(Long id){
 		Page page = Page.findById(id);
 		User user = user();
-		UserPage fan = UserPage.find("select u from UserPage u where u.fan  = ?", user).first();
-		if(fan != null){renderText("null");}
-		fan.delete();
+		UserPage fanPage = UserPage.find("select u from UserPage u where u.fan  = ? and u.page = ?", user, page).first();
+		fanPage.delete();
 		display(id);
 	}
 	
