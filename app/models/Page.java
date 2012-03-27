@@ -29,8 +29,8 @@ public class Page extends Model {
 		this.info = newInfo;
 	}
 		
-	public List<Post> news(){
-		return Post.find("SELECT p FROM Post p WHERE p.entityId = ?",this.id).fetch();
+	public List<Post> getPosts(){
+		return Post.find("SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",Post.type.PAGE,this.id.toString()).fetch();	
 	}
 
 }

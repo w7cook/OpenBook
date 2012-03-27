@@ -1,15 +1,19 @@
 <div class="grid_9">
   <div id="contentArea">
-    #{form @Pages.post(page.title)}
+    #{form @Pages.post(page.id)}
     <textarea name="content" id="content" style="resize: none;" rows="2" cols="45"></textarea>
     <input type="submit" value="Post" />
     #{/form}
-    #{list items:page.news(), as:'item'}
+    #{list items:page.getPosts(), as:'item'}
     <div class="post">
       <div class="hideable">
+       <div class="left">
+            <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
+       </div>
         <div class="individual-post">
           <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>
-          <div class="post-content tohideopp">        	
+          <div class="post-content tohideopp">  
+           	${item.contentTeaser().nl2br()}
             <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
           </div>
           <div class="tohide hide">

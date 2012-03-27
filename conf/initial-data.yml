@@ -253,11 +253,27 @@ Page(nachoCheese):
     title:          Nacho Cheese
     info:           >
                     What do you call cheese that isn't yours?
+    
+Post(cats post1):
+    postType:       "PAGE"
+    title:          1
+    date:           2009-06-07
+    author:         bob
+    content:        >
+                    I HATE CATZ!!!
                     
-UserPage(1):
-    page:           cats
-    fan:            alice
-
-UserPage(2):
-    page:           nachoCheese
-    fan:            jeff
+Post(cats post2):
+    postType:       "PAGE"
+    title:          1
+    date:           2009-06-07
+    author:         jeff
+    content:        >
+                    CHEEZEBURGAHZ!!
+                    
+Post(nachoCheese post1):
+    postType:       "PAGE"
+    title:          2
+    date:           2009-06-07
+    author:         alice
+    content:        >
+                    mmmmm delicious :D
