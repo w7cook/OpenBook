@@ -1,0 +1,41 @@
+<nav class="left-side-nav">
+  <div class="profile-pic">
+    <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a>
+    #{if (_user.profile.profilePhoto == -1 || _user.profile.profilePhoto == null)}
+      <img src="/public/images/default.png" />
+    #{/if}
+    #{else}
+      <img src=@{Photos.getPhoto(_user.profile.profilePhoto)} />
+    #{/else}
+  </div>
+  <a href="@{Application.account()}">
+    <span style="font-weight:bold;"> ${_user.name}</span>
+  </a><br />
+  <br />
+  <br />
+  <span class="note">FAVORITES</span><br/>
+  <a href="@{Application.news()}">News Feed</a><br />
+  <a href="@{Events.events()}">Events</a><br />
+  <a href="@{Checkin.checkin()}">Checkin</a><br />
+  <a href="@{Messages.inbox()}">Inbox</a><br />
+  <a href="/requests">Friend Requests</a><br />
+  <a href="/skin">Change Skin</a><br />
+  <br />
+  <span class="note">GROUPS</span><br />
+  #{list items:_user.getGroups(), as:'Group'}
+    <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br />
+  #{/list}
+  <br />
+  <span class="note">APPS</span><br />
+  <br />
+  <span class="note">PAGES</span><br />
+  <a href="@{Pages.pages()}">Pages</a><br />
+  <br />
+  <span class="note">FRIENDS</span><br />
+  #{list items:_user.confirmedFriends(), as:'friendship'}
+    <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br />
+  #{/list}
+  <br />
+  <a href="@{Relationships.relationships(_user.id)}">see all friends..</a><br />
+</nav>
+

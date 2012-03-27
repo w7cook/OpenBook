@@ -1,8 +1,171 @@
 #{extends 'main.html' /}
-<h1>${name}<h1>
-<h3> ${privacy} By ${myAuthor}<h3>
-<h3>${myDate}<h3>
-<h3>Location: ${location}<h3>
-<h3>Details: ${description}<h3>
+<head>
+	<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
+</head>
+<body onload="LoadMap()" onunload="UnloadMap()">
+<table>
+<tr valign="top">
+<td style="width:500px;text-align:top;">
+${name}<br />
+${privacy} By ${myAuthor}<br />
+${myDate}<br />
+Location: ${location}<br />
+Details: ${description}<br />
+</td>
+<td style="text-align:top;">
+<div style="position:relative;width:400px;height:400px;" id="mapDiv" /></td>
+</tr>
+</table>
+
+<h4>The Event members:</h4>
+        #{list items:e.members, as:'member'}
+        <a href="@{Application.about(member.id)}">${member.name}</a><br>
+        #{/list}
 </br>
+
+#{if user.id == currentUser.id}
+      	  #{form @Events.newEventPost(e.id,user.id)}
+            <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
+            <input type="submit" value="Post" />
+          #{/form}
+    #{/if}
+    #{list items:e.getPosts(), as:'item'}
+      <div class="post">
+        <div class="hideable">
+          <div class="left">
+            <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
+          </div>
+          
+          <div class="individual-post">
+            <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>
+            <div class="post-content tohideopp">
+              ${item.contentTeaser().nl2br()}
+              <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
+            </div>
+            <div class="tohide hide">
+              <div class="post-content">
+                ${item.content.nl2br()}
+              </div>
+              #{list items:item.getComments(), as:'comment'}
+                <div class="comment">
+                  <div class="comment-metadata">
+                    <div class="comment-author">
+                      by ${comment.author},
+                    </div>
+                    <div class="comment-date">
+                      ${comment.updatedAt.format('dd MMM yy')}
+                    </div>
+                    #{if comment.author == currentUser.first_name}
+                      <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                    #{/if}
+                    #{ if comment.currentUserLiked()}
+                      <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                    #{/if}
+                    #{else}
+                      <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
+                    #{/else}
+                    <div> ${comment.likes.size()} likes</div>                   
+                  </div>
+                  <div class="comment-content">
+                    ${comment.content.escape().nl2br()}
+                  </div>
+                </div>
+              #{/list}
+              <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
+            </div>
+
+            <div class="individual-post-metadata">
+              ${item.likes.size()}
+              #{if user.isFriendsWith(currentUser) || user==currentUser}
+                #{ if item.currentUserLiked()}
+                  <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+                #{/if}
+                #{else}
+                  <a href="@{Application.addLike(item.id,user.id)}">Like</a>
+                #{/else}
+              #{/if}     
+              .
+              <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a>
+              .
+              ${item.updatedAt.format('dd MMM yy')}
+
+              #{if item.author == currentUser}
+                . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
+              #{/if}
+
+              <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
+                #{form @Comments.postComment(item.id, user.id, commentContent)}
+                  <div style="clear:both;">
+                    <textarea name="commentContent" id="commentContent" style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
+                  </div>
+                  <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
+                #{/form}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    #{/list}
+</body>
+
 <a class=button href="@{Events.events()}">< Events</a><br /><br />
+
+
+<script type="text/javascript">
+         var myMap = null;
+    
+         
+      
+         function UnloadMap()
+         {
+            if (myMap != null) {
+               myMap.Dispose();
+            }
+         }
+         function StartGeocoding( address )
+			{
+			   myMap.Find(null,    // what
+			              address, // where
+			              null,    // VEFindType (always VEFindType.Businesses)
+			              null,    // VEShapeLayer (base by default)
+			              null,    // start index for results (0 by default)
+			              null,    // max number of results (default is 10)
+			              null,    // show results? (default is true)
+			              null,    // create pushpin for what results? (ignored since what is null)
+			              null,    // use default disambiguation? (default is true)
+			              null,    // set best map view? (default is true)
+			              GeocodeCallback);  // call back function
+			}
+		function GeocodeCallback (shapeLayer, findResults, places, moreResults, errorMsg)
+			{
+			   // if there are no results, display any error message and return
+			   if(places == null)
+			   {
+			      alert( (errorMsg == null) ? "There were no results" : errorMsg );
+			      return;
+			   }
+			
+			   var bestPlace = places[0];
+			   
+			   // Add pushpin to the *best* place
+			   var location = bestPlace.LatLong;
+			   
+			   var newShape = new VEShape(VEShapeType.Pushpin, location);
+			   
+			   var desc = "Latitude: " + location.Latitude + "<br>Longitude:" + location.Longitude;
+			   newShape.SetDescription(desc);
+			   newShape.SetTitle(bestPlace.Name);
+			   myMap.AddShape(newShape);
+			}
+		function LoadMap()
+			{
+			   myMap = new VEMap("mapDiv");
+			   myMap.LoadMap();
+			   
+			   StartGeocoding("${location}");
+			}
+      </script>
+      
+ 
+      
+ 

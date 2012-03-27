@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import controllers.Application;
+import controllers.Messages;
 import controllers.Skins;
 import controllers.Users;
 import play.db.jpa.*;
@@ -26,6 +27,8 @@ public class User extends Model {
   // Code)
 
   public String username; // The user's username
+  
+  @ElasticSearchIgnore
   public double timezone; // The user's timezone offset from UTC
   
   @ElasticSearchIgnore
@@ -76,10 +79,14 @@ public class User extends Model {
     return find("SELECT u FROM User u WHERE u.email = ?1 OR u.username = ?1", login).first();
   }
 
+  public List<Message> inbox() {
+    return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
+  }
+  
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by p.updatedAt desc",
-                     this.id).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",
+                     this.id, Post.type.NEWS).fetch();
   }
 
   public Profile getProfile(){
@@ -101,7 +108,6 @@ public class User extends Model {
       return "";
     }
     Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ?1 AND r.to = ?2", current, this).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ?1 AND r.from = ?2", current, this).first();
     if (r1 != null) {
       if (r1.accepted) {
         return "Friends";

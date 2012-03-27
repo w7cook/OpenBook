@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
-<div id = "pageList">
+#{include 'two_panel.html' /}
+<div id = "content-middle">
 	#{list items:allPages, as:'pages'}
 		<a href="@{Pages.display(pages.id)}">${pages.title}<br>
 	#{/list}

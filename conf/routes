@@ -5,6 +5,8 @@
 # Import Secure routes
 *       /                                       module:secure
 
+GET     /es-admin               						elasticsearch.ElasticSearchAdmin.index
+GET     /es-admin/               						elasticsearch.ElasticSearchAdmin.index
 
 # Home page
 GET     /                                       Application.news
@@ -35,11 +37,22 @@ GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
+POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
+GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
+GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
+POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
+POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+
+# Messages
+GET     /messages/inbox                         Messages.inbox
+GET     /messages/createMessage                 Messages.createMessage
+POST    /messages                               Messages.sendMessage
 
 # Search
 GET     /users/search                           UserSearch.search
+GET     /groups/search                          GroupSearch.search
 
 #Account
 #GET     /users/?                                #Get a list of all users
