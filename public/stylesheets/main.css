@@ -49,7 +49,6 @@ a:active {
 
 
 #logo {
-  font: ${skin.get("logoFontSize")}pt;
   color: ${skin.get("logoColor")};
   padding: 0px 10px 0px 20px;
 }
@@ -106,8 +105,7 @@ a:active {
 }
 
 .profile-pic img{
-  width: 50px;
-  height: 50px;
+  max-width: 140px;
   vertical-align: middle;
 }
 
@@ -149,7 +147,7 @@ a:active {
 }
 
 label {
-  font: ${skin.get("labelFontSize")}pt;
+  font-size: ${skin.get("labelFontSize")}pt;
   color: ${skin.get("labelColor")};
 }
 
@@ -171,7 +169,7 @@ label {
   box-shadow: 1px 1px 2px #${skin.get("buttonBoxShadowColor")};
   background-color: ${skin.get("buttonBGColor")};
   text-decoration: ${skin.get("buttonTextDec")};
-  padding: 0px 2px 0px 2px; // left and right padding
+  padding: 0px 2px 0px 2px;
 }
 
 a.button:link {color:${skin.get("buttonLinkUnvisitedColor")};}      /* unvisited link */

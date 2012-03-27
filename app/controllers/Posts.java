@@ -22,8 +22,18 @@ public class Posts extends OBController {
 		posts(userId);
 	}
 
-	public static void newPost(Long userId, String post_content) {
-		new Post((User)User.findById(userId), new Date().toString(), post_content).save();
-		posts(userId);
-	}
+  public static void newPost(Long userId, String post_content) {
+    new Post((User)User.findById(userId), new Date().toString(), post_content).save();
+    posts(userId);
+  }
+
+  public static void makeNewPost(String postContent) {
+    final Post p = new Post(user(), new Date().toString(), postContent).save();
+    Map<String, Object> m = new HashMap<String, Object>();
+    m.put("item", p);
+    m.put("user", user());
+    m.put("currentUser", user());
+    renderTemplate(m);
+  }
 }
+
