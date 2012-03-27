@@ -1,4 +1,11 @@
 #{extends 'main.html' /}
+	<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+        type="text/javascript">
+	</script>
+	<script src="/public/javascripts/checkin.js"
+        type="text/javascript">
+	</script>
+
 <h2>Create Event</h2>
 <hr />
 #{form @Events.event_create()}
@@ -7,22 +14,22 @@
 		
 		<td><label>Name: 
 		</td>
-		<td><input type=text name=curEvent.eventName />
+		<td><input type=text name=curEvent.eventName size="50">
 		</td>
 		
 	</tr>
 	<tr>
 		<td><label>Details: 
 		</td>
-		<td><input type=text name=curEvent.eventScript
-			 />
+		<td><input type=text name=curEvent.eventScript size="50">
 		</td>
 	</tr>
 	<tr>
 		<td><label>Where: 
 		</td>
-		<td><input type=text name=curEvent.eventLocation />
+		<td><input id ="searchTextField" type=text name=curEvent.eventLocation size="50">
 		</td>
+		
 	</tr>
 	<tr>
 		<td>When:</td>
@@ -297,4 +304,6 @@
 		</td>
 		</tr>
 </table>
+<div id="map_canvas"></div>
 #{/form}
+
