@@ -50,6 +50,11 @@ GET     /messages/inbox                         Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
+# Notes
+GET     /notes/all                              Notes.viewNotes
+GET     /notes/newNote                          Notes.newNote
+POST    /notes                                  Notes.saveNote
+
 # Search
 GET     /users/search                           UserSearch.search
 GET     /groups/search                          GroupSearch.search
