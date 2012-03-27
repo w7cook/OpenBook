@@ -127,7 +127,10 @@
          postContent : $("textarea#postContent").val(),
      };
      $.post("/posts/makeNewPost", postData, function(data) {
-       $("div#postsList").prepend(data);
+       var new_item = $(data).hide();
+       $("div#postsList").prepend(new_item);
+       new_item.slideDown();
+       $("textarea#postContent").val('');
      });
    });
 </script>
