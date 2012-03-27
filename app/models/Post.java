@@ -20,7 +20,6 @@ public class Post extends Status {
   @Lob
   public String text;
 
-
   private static final int TEASER_LENGTH = 150;
 
   public Post(User author, String title, String content) {
