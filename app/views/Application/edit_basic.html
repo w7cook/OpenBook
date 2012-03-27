@@ -1,37 +1,9 @@
 #{extends 'main.html' /}
-#{form @Application.updateBasic() }
+#{form @Profile.updateBasic(user.id) }
 
-<script src="jquery-1.6.4.min.js" type="text/javascript"></script>
 <script src="/public/javascripts/profile.js" type="text/javascript"></script>
-<script language="javascript">
-<!--
-$(document).ready(function()
-{
-    $(".defaultText").focus(function(srcc)
-    {
-        if ($(this).val() == $(this)[0].title)
-        {
-            $(this).removeClass("defaultTextActive");
-            $(this).val("");
-        }
-    });
-    
-    $(".defaultText").blur(function()
-    {
-        if ($(this).val() == "")
-        {
-            $(this).addClass("defaultTextActive");
-            $(this).val($(this)[0].title);
-        }
-    });
-    
-    $(".defaultText").blur();        
-});
-//-->
-</script>
 
 <table>
-	<form>
 	<tr><td><h3>About You</h3></td></tr>
 	<tr>
 		<td><label>Bio:</label>
@@ -205,11 +177,9 @@ $(document).ready(function()
 			value="${user.profile.quotes ? user.profile.quotes : 'Add a Favorite Quotation'}">
 		</td>
 	</tr>
-</form>
-
 </table>
-
+#{/form}
 </br>
 </br>
 <input type="submit" value="Save" />
-#{/form}
+

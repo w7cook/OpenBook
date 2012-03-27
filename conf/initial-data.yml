@@ -272,8 +272,6 @@ UserPage(2):
 
 Profile(bobProfile):
     owner:          bob
-    bio:            I am a student at UT
-    religion:       Jewish
 
 Profile(jeffProfile):
     owner:          jeff
