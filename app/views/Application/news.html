@@ -42,12 +42,12 @@
           </div>
           
           <div class="individual-post">
-            <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>
-            <div class="post-content tohideopp">
+            <div class="post-author" style="clear:both;"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></div>
+            <div class="post-content tohideopp" style="clear:both;">
               ${item.contentTeaser().nl2br()}
               <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
             </div>
-            <div class="tohide hide">
+            <div class="tohide hide"  style="clear:both;">
               <div class="post-content">
                 ${item.content.nl2br()}
               </div>
