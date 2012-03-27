@@ -1,57 +1,49 @@
 package models;
 
-import play.*;
-import play.db.jpa.*;
-
+import java.util.*;
 import javax.persistence.*;
 
 import controllers.Security;
 
-import java.util.*;
+import play.db.jpa.*;
+import play.modules.elasticsearch.annotations.ElasticSearchable;
+
 
 @Entity
-public class Note extends Commentable {
-	
-	public String title;
-	public Date date;
+public class Note extends Status {
 
-	@Lob
-	public String content;
+  public String title;
 
-	@ManyToOne
-	public User author;
+  @Lob
+  public String text;
 
+  private static final int TEASER_LENGTH = 150;
 
+  public Note(User author, String title, String content) {
+    super(author, content);
+    this.title = title;
+    this.text = content;
+  }
+  
+  public String contentTeaser() {
+	  if (this.content.length() < TEASER_LENGTH) {
+		  return this.content;
+	  } else {
+		  return this.content.substring(0, TEASER_LENGTH);
+	  }
+  }
 
-	public List<Comment> comments() {
-		return Comment.find("parentObj = ? AND approved=FALSE", this).fetch();
-	}
+  public Post previous() {
+    return Post.find("author = ? AND date < ? order by date desc",
+                     this.author, this.createdAt).first();
+  }
 
-	public Note(User author, String title, String content) {
-		this.allComments = new ArrayList<Comment>();
-		this.author = author;
-		this.title = title;
-		this.content = content;
-		this.date = new Date();
-	}
+  public Post next() {
+    return Post.find("date > ? order by date asc", this.createdAt)
+      .first();
+  }
 
-
-	public Post previous() {
-		return Post.find("author = ? AND date < ? order by date desc",
-				this.author, this.date).first();
-	}
-
-	public Post next() {
-		return Post.find("date > ? order by date asc", this.date)
-				.first();
-	}
-
-	public long numComments() {
-		return Post.find("Count(*)").first();
-	}
-	
-	public boolean byCurrentUser() {
-		return author.email.equals( Security.connected() );
-	}
-    
+  public boolean byCurrentUser() {
+    return author.email.equals( Security.connected() );
+  }
 }
