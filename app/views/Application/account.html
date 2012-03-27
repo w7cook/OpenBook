@@ -1,108 +1,52 @@
-#{extends 'main.html' /} #{form @Application.account_save()}
-
-<table>
-  <tr>
-    <td>
-    <a href="@{Skins.skin()}">Edit Skin</a>
-    <br>
-    </td>
-  </tr>
-  <tr>
-    
-    <td class=section width=15%>Name</td>
-    <td>
-      <table>
-	<tr>
-	  <td><label>First:</label></td>
-	  <td><input type=text name=update.first_name
-		     value="${currentUser.first_name}" />
-	  </td>
-	</tr>
-	<tr>
-	  <td><label>Middle:</label></td>
-	  <td><input type=text name=update.middle_name
-		     value="${currentUser.middle_name}" />
-	  </td>
-	</tr>
-	<tr>
-		<td><label>Email: 
-		</td>
-		<td><input type=text name=update.email value="${currentUser.email}" />
-		</td>
-	</tr>
-	<tr>
-		<td><label>New password: 
-		</td>
-		<td><input type=password name=update.password />
-		</td>
-	</tr>
-	</tr>
-	<td colspan=3><label>To save these settings, please enter
-			your password: 
-	</tr>
-	<tr>
-		<td><label>Password:</label>
-		</td>
-		<td><input type=password name=old_password /></td>
-	</tr>
-	<tr>
-		<td colspan=3><input type=submit value=Save> <input
-			type=submit value=Cancel /> 
-			#{ifErrors}
-			<ul style="color:red">
-			#{errors}<li>${error}</li> #{/errors} 
-			</ul>                     
-			#{/ifErrors}
-		</td>
-	  <td><label>Last:</label></td>
-	  <td><input type=text name=update.last_name
-		     value="${currentUser.last_name}" />
-	  </td>
-	</tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td><label>Username: 
-    </td>
-    <td><input type=text name=update.username
-	       value="${currentUser.username}" />
-    </td>
-  </tr>
-  <tr>
-    <td><label>Email: 
-    </td>
-    <td><input type=text name=update.email value="${currentUser.email}" />
-    </td>
-  </tr>
-  <tr>
-    <td><label>New password: 
-    </td>
-    <td><input type=password name=update.password />
-    </td>
-  </tr>
-</tr>
-<td colspan=3><label>To save these settings, please enter
-    your password: 
-</tr>
-<tr>
-  <td><label>Password:</label>
-  </td>
-  <td><input type=password name=old_password /></td>
-</tr>
-<tr>
-  <td colspan=3><input type=submit value=Save> <input
-			                          type=submit value=Cancel /> 
+#{extends 'main.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/account.css'}" />
+<a href="@{Skins.skin()}">Edit Skin</a>
+#{form @Application.account_save()}
+  <ul class="info-form">
+    <li>
+      <label>Username: </label>
+      <input type=text name=update.username value="${currentUser.username}" />
+    </li>
+    <li>
+      <label>First:</label>
+      <input type=text name=update.first_name value="${currentUser.first_name}" />
+    </li>
+    <li>
+      <label>Middle:</label>
+      <input type=text name=update.middle_name value="${currentUser.middle_name}" />
+    </li>
+    <li>
+      <label>Last:</label>
+      <input type=text name=update.last_name value="${currentUser.last_name}" />
+    </li>
+    <li>
+      <label>Email:</label>
+      <input type=text name=update.email value="${currentUser.email}" />
+    </li>
+    <li>
+      <label>New password:</label>
+      <input type=password name=update.password />
+    </li>
+    <li>
+      <label>To save these settings, please enter your password: </label>
+    </li>
+    <li>
+      <label>Password:</label>
+      <input type=password name=old_password />
+    </li>
+    <li>
+      <input type=submit value=Save />
+      <input type=submit value=Cancel /> 
+    </li>
     #{ifErrors}
-    <ul style="color:red">
-      #{errors}<li>${error}</li> #{/errors} 
-    </ul>
+      <ul style="color:red">
+        #{errors}<li>${error}</li> #{/errors} 
+      </ul>
     #{/ifErrors}
-  </td>
-</tr>
-</table>
+  </ul>
 #{/form}
 
 <div id="myPages">
-		<a href="@{Pages.myPages()}"> My pages 
-		<a href="@{Pages.newPage()}"> Create a Page!
+  <a href="@{Pages.myPages()}"> My pages </a>
+  <a href="@{Pages.newPage()}"> Create a Page!</a>
 </div>

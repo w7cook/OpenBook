@@ -27,6 +27,8 @@ public class User extends Model {
   // Code)
 
   public String username; // The user's username
+  
+  @ElasticSearchIgnore
   public double timezone; // The user's timezone offset from UTC
   
   @ElasticSearchIgnore
@@ -83,8 +85,8 @@ public class User extends Model {
   
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by p.updatedAt desc",
-                     this.id).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",
+                     this.id, Post.type.NEWS).fetch();
   }
 
   public Profile getProfile(){

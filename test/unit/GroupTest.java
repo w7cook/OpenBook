@@ -87,4 +87,25 @@ public class GroupTest extends UnitTest {
 		assertEquals(gl2.get(0).groupName,"Test3");
 		
 	}
+	
+	@Test
+	public void testGroupPosts(){
+		//Create a User
+		User u1= new User("test@gmail.com","secret", "T1").save();
+		
+		//Create a Group
+		Group g1= new Group(u1,"Test1","Group with posts").save();
+		
+		//Create a Post (but don't save it in the user table)
+		Post p1= new Post(u1,"Title","Content");
+		assertEquals(g1.groupPosts.size(),0);
+		g1.addPost(p1);
+		List posts= g1.getPosts();
+		
+		//Test
+		assertEquals(g1.groupPosts.size(),1);
+		assertEquals(posts.size(),1);
+		
+		
+	}
 }
