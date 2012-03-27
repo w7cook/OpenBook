@@ -28,5 +28,9 @@ public class Page extends Model {
 		this.title = newTitle;
 		this.info = newInfo;
 	}
+		
+	public List<Post> getPosts(){
+		return Post.find("SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",Post.type.PAGE,this.id.toString()).fetch();	
+	}
 
 }
