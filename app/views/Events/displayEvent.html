@@ -1,20 +1,39 @@
 #{extends 'main.html' /}
 <head>
-	<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
-</head>
-<body onload="LoadMap()" onunload="UnloadMap()">
+<link rel="stylesheet" type="text/css" media="screen" href="/public/stylesheets/displayEvent.css" />
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+ 
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places">
+    </script>
+    
+    <script src="/public/javascripts/checkin.js" type="text/javascript">
+	</script>
+    
+    <script type="text/javascript">
+    	function setText(){
+        	document.getElementById("searchTextField").value = "${location}";
+        }
+     </script>
+    
+  </head>
+<body onload="setText()">
+    
 <table>
-<tr valign="top">
-<td style="width:500px;text-align:top;">
-${name}<br />
-${privacy} By ${myAuthor}<br />
-${myDate}<br />
-Location: ${location}<br />
-Details: ${description}<br />
-</td>
-<td style="text-align:top;">
-<div style="position:relative;width:400px;height:400px;" id="mapDiv" /></td>
-</tr>
+	<tr >
+		<td id = "details">
+			${name}<br />
+			${privacy} By ${myAuthor}<br />
+			${myDate}<br />
+			Location: ${location}<br />
+			Details: ${description}<br />
+		</td>
+		<td id = "map" >
+			<input id="searchTextField" type="text" size="50">
+			<div id="map_canvas" style="width:335px; height:200px"></div>
+		</td>
+	</tr>
 </table>
 
 <h4>The Event members:</h4>
@@ -109,62 +128,20 @@ Details: ${description}<br />
 </body>
 
 <a class=button href="@{Events.events()}">< Events</a><br /><br />
-
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+        type="text/javascript">
+</script>
 
 <script type="text/javascript">
-         var myMap = null;
-    
-         
-      
-         function UnloadMap()
-         {
-            if (myMap != null) {
-               myMap.Dispose();
-            }
-         }
-         function StartGeocoding( address )
-			{
-			   myMap.Find(null,    // what
-			              address, // where
-			              null,    // VEFindType (always VEFindType.Businesses)
-			              null,    // VEShapeLayer (base by default)
-			              null,    // start index for results (0 by default)
-			              null,    // max number of results (default is 10)
-			              null,    // show results? (default is true)
-			              null,    // create pushpin for what results? (ignored since what is null)
-			              null,    // use default disambiguation? (default is true)
-			              null,    // set best map view? (default is true)
-			              GeocodeCallback);  // call back function
-			}
-		function GeocodeCallback (shapeLayer, findResults, places, moreResults, errorMsg)
-			{
-			   // if there are no results, display any error message and return
-			   if(places == null)
-			   {
-			      alert( (errorMsg == null) ? "There were no results" : errorMsg );
-			      return;
-			   }
-			
-			   var bestPlace = places[0];
-			   
-			   // Add pushpin to the *best* place
-			   var location = bestPlace.LatLong;
-			   
-			   var newShape = new VEShape(VEShapeType.Pushpin, location);
-			   
-			   var desc = "Latitude: " + location.Latitude + "<br>Longitude:" + location.Longitude;
-			   newShape.SetDescription(desc);
-			   newShape.SetTitle(bestPlace.Name);
-			   myMap.AddShape(newShape);
-			}
-		function LoadMap()
-			{
-			   myMap = new VEMap("mapDiv");
-			   myMap.LoadMap();
-			   
-			   StartGeocoding("${location}");
-			}
-      </script>
+function initialize() {
+  var myOptions = {
+    zoom: 8,
+    center: new google.maps.LatLng(-34.397, 150.644),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+}
+</script>
       
  
       
