@@ -86,6 +86,7 @@ Status(secondBobStatus):
                     @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
     
 Post(firstBobPost):
+    postType:       "NEWS"
     title:          About the model layer
     date:           2009-06-14
     author:         bob
@@ -101,6 +102,7 @@ Post(firstBobPost):
                     delegated to the infrastructure. This layer is the heart of business software.
 
 Post(secondBobPost):
+    postType:       "NEWS"
     title:          Just a test of YABE
     date:           2009-03-25
     author:         bob
@@ -108,6 +110,7 @@ Post(secondBobPost):
                     Well, it's just a test.
                     
 Post(jeffPost):
+    postType:       "NEWS"
     title:          The MVC application
     date:           2009-06-06
     author:         jeff
@@ -120,6 +123,7 @@ Post(jeffPost):
                     View and a Controller layer.
 
 Post(jeffPost2):
+    postType:       "NEWS"
     title:          The MVC application
     date:           2009-06-07
     author:         jeff
@@ -130,7 +134,6 @@ Group(g1):
     owner:          bob
     groupName:      Bob's cool group
     members:        [bob,jeff]
-    groupPosts:     [firstBobPost]
     description:    >
                     A group for cool people to talk about cool things in a cool place.
     
@@ -138,9 +141,32 @@ Group(g2):
     owner:          alice
     groupName:      Alice's first group
     members:        [alice]
-    groupPosts:     [jeffPost,secondBobPost]
     description:    >
                     This is a description for Alice's group.
+                    
+Post(g1 post1):
+    postType:       "GROUP"
+    title:          1
+    date:           2009-06-07
+    author:         bob
+    content:        >
+                    This is the first post for Bob's group. It shouldn't appear on his news feed!
+                    
+Post(g1 post2):
+    postType:       "GROUP"
+    title:          1
+    date:           2009-06-07
+    author:         jeff
+    content:        >
+                    And this is a second post.
+                    
+Post(g2 post1):
+    postType:       "GROUP"
+    title:          2
+    date:           2009-06-07
+    author:         alice
+    content:        >
+                    First post!                                                         
                     
 Category(main):
     name:           Main

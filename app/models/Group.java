@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import controllers.Application;
+import models.Post;
 import play.db.jpa.*;
 import play.data.validation.*;
 import play.libs.Crypto;
@@ -31,16 +32,12 @@ public class Group extends Model{
 	@OneToMany
 	public List<User> members;
 	
-	@OneToMany
-	public List<Post> groupPosts;
-	
 	public Group(User o, String n, String d){
 		this.owner= o;
 		this.groupName= n;
 		this.description= d;
 		this.members= new ArrayList<User>();
 		this.members.add(o);
-		groupPosts= new ArrayList<Post>();
 	}
 	
 	public void addMember(User u){
@@ -57,11 +54,7 @@ public class Group extends Model{
 		return members.size();
 	}
 	
-	public void addPost(Post p){
-		groupPosts.add(p);
-	}
-	
 	public List<Post> getPosts(){
-		return groupPosts;
-	}
+      return Post.find("SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",Post.type.GROUP,this.id.toString()).fetch();
+  }
 }
