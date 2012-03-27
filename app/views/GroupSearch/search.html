@@ -2,13 +2,12 @@
 
 <div id="elasticSearchList" class="${type.name}">
 	
-	<h2 id="Users">Users</h2>
-    <a href="/groups/search?search=${params.search?.escape()?.raw()}">Groups</a>
-    <br/>
-
+	<h2 id="Users">Groups</h2>
+	<a href="/users/search?search=${params.search?.escape()?.raw()}">Users</a>
+	<br/>
 	
 	<div id="elasticSearchListTable">
-		#{UserSearch.table /}
+		#{GroupSearch.table /}
 	</div>
 	
 	<div id="elasticSearchListPagination">

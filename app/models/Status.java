@@ -35,7 +35,7 @@ public class Status extends Commentable {
     this.content = content;
   }
  
-	private String parseContent(String unlinked_content){
+	public String parseContent(String unlinked_content){
 	  Matcher links_matcher = links_pattern.matcher(unlinked_content);
     
     while(links_matcher.find() ){

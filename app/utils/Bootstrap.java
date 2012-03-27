@@ -1,3 +1,4 @@
+package utils;
 import play.*;
 import play.jobs.*;
 import play.test.*;
@@ -20,17 +21,20 @@ public class Bootstrap extends Job {
 		if(User.count() == 0) {
 			Fixtures.loadModels("default-data.yml");//Default User
 			//load in pictures
-			Photo photo;
 			String path = new java.io.File(".").getCanonicalPath() + "/public/images/";
 			Photos.initFileToPhoto(path+"matrixWhite.jpg", "http://media.photobucket.com/image/matrix%20white/thomastamblyn/MatrixWhite.jpg");
 
 			Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
 			Fixtures.loadModels("initial-data.yml");//rest of the data
-			List<User> users= User.findAll();
-			for(User u : users) {
-				u.password = Crypto.passwordHash(u.password);
-				u.save();
-			}
+			hashPasswords();
 		}
 	}
+
+  public static void hashPasswords() {
+    List<User> users= User.findAll();
+    for(User u : users) {
+    	u.password = Crypto.passwordHash(u.password);
+    	u.save();
+    }
+  }
 }
