@@ -30,11 +30,9 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-    <form name='post_form'>
-        <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.post_form.post_content.value='';">Write something...(limit: 100 characters)</textarea>
+        <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.textarea.post_content.value='';">Write something...(limit: 100 characters)</textarea>
         
         <input type="submit" value="Post" id="postSubmit" />
-        </form>
     #{/if}
     
     <div id="postsList">
@@ -114,7 +112,7 @@
                #{form @Comments.postComment(item.id, user.id, commentContent)}
                   <div id="new_comment_for_post${item.id}" style="clear:both; display: none;">
                     <img style="width:50px; height:50px;" src=@{Photos.getPhoto(user.profile.profilePhoto)} display="inline"/>
-                    <input type="text" name="commentContent" id="commentContent" value="new comment...(limit: 100 characters)" maxlength="100" style="color:grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
+                    <input type="text" name="commentContent" id="commentContent" value="new comment...(limit: 50 characters)" maxlength="50" style="color:grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
                     <input type="submit" value="Submit" style="display:none"/>
                     <a id="cancel_action_for post${item.id}" href="#" onClick="hideDiv('new_comment_for_post${item.id}')" >Cancel</a>
                   </div>
