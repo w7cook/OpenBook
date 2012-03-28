@@ -10,10 +10,14 @@
   </ul>
   #{/ifErrors}
 
-  #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
-    <input type="file" name="image" />
-    <input type="submit" name="submit" value="Upload" />
-  #{/form}
+  <div class="photo-upload">
+    <h3>Upload a new photo</h3>
+    #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
+      <input type="file" name="image" />
+      <input type="submit" name="submit" value="Upload" />
+    #{/form}
+  </div>
+
   <ul class="photo-list">
     #{list items:photos, as:'photo' }
       <li>
