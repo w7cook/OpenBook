@@ -2,16 +2,17 @@
   <div class="profile-pic">
     <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a>
     #{if (_user.profile.profilePhoto == -1 || _user.profile.profilePhoto == null)}
-      <img src="/public/images/default.png" />
+      <img src="@{Photos.getPhoto(Bootstrap.defaultProfilePhotoID)}" height = "120" width = "120" />
     #{/if}
     #{else}
-      <img src=@{Photos.getPhoto(_user.profile.profilePhoto)} />
+      <img src="@{Photos.getPhoto(_user.profile.profilePhoto)}" height = "120" width = "120" />
     #{/else}
   </div>
+  <div style="clear:both;">
   <a href="@{Application.account()}">
-    <span style="font-weight:bold;"> ${_user.name}</span>
-  </a><br />
-  <br />
+    <span style="font-weight:bold; clear:both;"> ${_user.name}</span>
+  </a>
+  </div>
   <br />
   <span class="note">FAVORITES</span><br/>
   <a href="@{Application.news()}">News Feed</a><br />

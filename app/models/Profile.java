@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import utils.Bootstrap;
+
 import controllers.Photos;
 import controllers.Skins;
 
@@ -95,10 +97,6 @@ public class Profile extends Model {
     this.address = "";
     this.website = "";
     this.email = "";
-    this.profilePhoto = -1l;
-//    try{
-//    	this.profilePhoto = Photos.fileToPhoto(new File("/usr/home/2012spring/cs378sd/foo/OpenBook/public/images/default.png")).id;
-//    	//this.profilePhoto.save;
-//    } catch(FileNotFoundException e){System.out.println(e);};
-  }
+    this.profilePhoto = Bootstrap.defaultProfilePhotoID;
+    }
 }
