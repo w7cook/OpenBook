@@ -30,11 +30,9 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-    <form name='post_form'>
-        <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.post_form.post_content.value='';">Write something...(limit: 100 characters)</textarea>
-        
-        <input type="submit" value="Post" id="postSubmit" />
-        </form>
+      <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.post_form.post_content.value='';">Write something...(limit: 100 characters)</textarea>
+      
+      <input type="submit" value="Post" id="postSubmit" />
     #{/if}
     
     <div id="postsList">
