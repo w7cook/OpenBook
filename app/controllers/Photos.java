@@ -115,7 +115,7 @@ public class Photos extends OBController {
     if (photo.owner.equals(user())) {
       photo.delete();
     }
-    redirect("/photos");
+    redirect("/users/" + photo.owner.id + "/photos");
   }
   
   public static void setProfilePhotoPage()
