@@ -6,6 +6,7 @@ html, body {
 
 body {
   margin: 0;
+  background-color: #EEEEEE;
   background-image:url(${skin.get("bodyBGPhoto")});
   font-size: 15px;
 }
@@ -36,6 +37,8 @@ a:active {
 
 /** header **/
 #header {
+  background-image: url('/public/images/headerBG.png'); /*Little spiffier header bar */
+  background-repeat: repeat-x;
   background-color: #${skin.get("headerBGColor")};
   padding-top: 5px;
   width: 100%;
@@ -80,8 +83,14 @@ a:active {
 }
 
 /** left side nav **/
-.left-side-nav {
+.left-side-nav {	
   line-height: 25px;
+  /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
+  margin: 5px 5px 5px; /*top (right & left) left*/
+  
+  
 }
 
 .left-side-nav a {
@@ -185,6 +194,11 @@ a.logo:active {text-decoration:none;}
 .post {
   width: 100%;
   border-bottom: 1px solid #dddddd;
+   /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
+  margin: 10px 5px 10px; /*top (right & left) left*/
+  
 }
 
 .post .left {
