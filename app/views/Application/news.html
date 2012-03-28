@@ -1,3 +1,4 @@
+
 #{extends 'two_panel.html' /}
 <div class="grid_9">
   <div id="contentArea">
@@ -29,8 +30,11 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-        <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
+    <form name='post_form'>
+        <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.post_form.post_content.value='';">Write something...(limit: 100 characters)</textarea>
+        
         <input type="submit" value="Post" id="postSubmit" />
+        </form>
     #{/if}
     
     <div id="postsList">
@@ -52,7 +56,7 @@
                 ${item.content.nl2br()}
               </div>
               #{list items:item.getComments(), as:'comment'}
-                <div class="comment">
+                <div class="comment${comment.id}">
                   <div class="comment-metadata">
                     <div class="comment-author">
                       by ${comment.author},
@@ -76,6 +80,7 @@
                   </div>
                 </div>
               #{/list}
+
               <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
             </div>
 
@@ -90,7 +95,8 @@
                 #{/else}
               #{/if}     
               .
-              <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a>
+              <a id="comment_action_for_post${item.id}" href="#" onClick="showDiv('new_comment_for_post${item.id}')">Comment</a>
+             
               .
               ${item.updatedAt.format('dd MMM yy')}
 
@@ -98,14 +104,17 @@
                 . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
               #{/if}
 
-              <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
-                #{form @Comments.postComment(item.id, user.id, commentContent)}
-                  <div style="clear:both;">
-                    <textarea name="commentContent" id="commentContent" style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
-                  </div>
-                  <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
-                #{/form}
+              <div id="comment_for_post${item.id}" style="clear: both;"   class="comment-textarea">
+               
               </div>
+               #{form @Comments.postComment(item.id, user.id, commentContent)}
+                  <div id="new_comment_for_post${item.id}" style="clear:both; display: none;">
+                    <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} display="inline"/>
+                    <input type="text" name="commentContent" id="commentContent" value="new comment...(limit: 100 characters)" maxlength="100" style="color:grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
+                    <input type="submit" value="Submit" style="display:none"/>
+                    <a id="cancel_action_for post${item.id}" href="#" onClick="hideDiv('new_comment_for_post${item.id}')" >Cancel</a>
+                  </div>
+                #{/form}
             </div>
           </div>
         </div>
@@ -147,3 +156,19 @@
   extraSpace: 20
   });
 </script>
+
+<script>
+    $('#postContent')
+    .focusin(function() {
+        if ( this.value == 'Write something...(limit: 100 characters)' ) {
+            this.value = '';    
+        }
+    })
+    .focusout(function() {
+        if ( this.value == '' ) {
+            this.value = 'Write something...(limit: 100 characters)';    
+        }
+});
+</script>
+
+
