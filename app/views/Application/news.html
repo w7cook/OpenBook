@@ -58,13 +58,17 @@
               #{list items:item.getComments(), as:'comment'}
                 <div class="comment${comment.id}">
                   <div class="comment-metadata">
+                    <div class="comment-thumb">
+                      <img style="width:50px; height:50px;" src=@{Photos.getPhoto(comment.author.profile.profilePhoto)} /><br>
+                    </div>
                     <div class="comment-author">
-                      by ${comment.author},
+                      ${comment.author},
                     </div>
                     <div class="comment-date">
                       ${comment.updatedAt.format('dd MMM yy')}
                     </div>
-                    #{if comment.author == currentUser.first_name}
+                    <div> ${comment.likes.size()} like#{if comment.likes.size() != 1}s#{/if}</div> 
+                    #{if comment.author.id == currentUser.id}
                       <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                     #{/if}
                     #{ if comment.currentUserLiked()}
@@ -73,9 +77,9 @@
                     #{else}
                       <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
                     #{/else}
-                    <div> ${comment.likes.size()} likes</div>                   
+                                     
                   </div>
-                  <div class="comment-content">
+                  <div class="comment-content" >
                     ${comment.content.escape().nl2br()}
                   </div>
                 </div>
