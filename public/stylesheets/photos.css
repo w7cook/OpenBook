@@ -1,0 +1,35 @@
+div.photo-upload {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+ul.photo-list {
+  list-style-type: none;
+}
+
+ul.photo-list li {
+  float: left;
+  width: 142px;
+  height: 202px;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+ul.photo-list li form input {
+  font-size: 9px;
+  border: 1px gray solid;
+  background: white;
+  width: 100%;
+}
+
+ul.photo-list li form input:hover {
+  background: #eeeeee;
+}
+
+img.thumbnail {
+  border: 1px gray solid;
+  max-width: 140px;
+  max-height: 140px;
+}
