@@ -91,14 +91,20 @@ public class Photos extends OBController {
 
   public static void addPhoto(File image) throws FileNotFoundException,
                                                  IOException {
+
+    validation.keep(); /* Remember any errors after redirect. */
+
+    if (image == null) {
+      validation.addError("image", "You must specify an image to upload.");
+      redirect("/users/" + user().id + "/photos");
+    }
+
     shrinkImage(image);
     Photo photo = fileToPhoto(image);
     validation.match(photo.image.type(), IMAGE_TYPE);
     validation.max(photo.image.length(), MAX_FILE_SIZE);
 
-    if (validation.hasErrors()) {
-      validation.keep(); /* Remember errors after redirect. */
-    } else {
+    if (!validation.hasErrors()) {
       photo.save();
     }
     redirect("/users/" + photo.owner.id + "/photos");
@@ -109,7 +115,7 @@ public class Photos extends OBController {
     if (photo.owner.equals(user())) {
       photo.delete();
     }
-    redirect("/photos");
+    redirect("/users/" + photo.owner.id + "/photos");
   }
   
   public static void setProfilePhotoPage()
