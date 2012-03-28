@@ -18,6 +18,10 @@ ul.photo-list li form input {
   width: 100%;
 }
 
+ul.photo-list li form input:hover {
+  background: #eeeeee;
+}
+
 img.thumbnail {
   border: 1px gray solid;
   max-width: 140px;
