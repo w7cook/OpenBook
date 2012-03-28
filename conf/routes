@@ -34,6 +34,7 @@ GET     /application.next.gif 			staticFile:/public/images/next.gif
 GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
 
 # Photos
+GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
@@ -43,7 +44,6 @@ GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
-GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 
 # Messages
 GET     /messages/inbox                         Messages.inbox

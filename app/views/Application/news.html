@@ -30,11 +30,9 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-    <form name='post_form'>
-        <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.post_form.post_content.value='';">Write something...(limit: 100 characters)</textarea>
-        
-        <input type="submit" value="Post" id="postSubmit" />
-        </form>
+      <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.post_form.post_content.value='';">Write something...(limit: 100 characters)</textarea>
+      
+      <input type="submit" value="Post" id="postSubmit" />
     #{/if}
     
     <div id="postsList">
@@ -58,13 +56,17 @@
               #{list items:item.getComments(), as:'comment'}
                 <div class="comment${comment.id}">
                   <div class="comment-metadata">
+                    <div class="comment-thumb">
+                      <img style="width:50px; height:50px;" src=@{Photos.getPhoto(comment.author.profile.profilePhoto)} /><br>
+                    </div>
                     <div class="comment-author">
-                      by ${comment.author},
+                      ${comment.author},
                     </div>
                     <div class="comment-date">
                       ${comment.updatedAt.format('dd MMM yy')}
                     </div>
-                    #{if comment.author == currentUser.first_name}
+                    <div> ${comment.likes.size()} like#{if comment.likes.size() != 1}s#{/if}</div> 
+                    #{if comment.author.id == currentUser.id}
                       <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
                     #{/if}
                     #{ if comment.currentUserLiked()}
@@ -73,9 +75,9 @@
                     #{else}
                       <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
                     #{/else}
-                    <div> ${comment.likes.size()} likes</div>                   
+                                     
                   </div>
-                  <div class="comment-content">
+                  <div class="comment-content" >
                     ${comment.content.escape().nl2br()}
                   </div>
                 </div>
@@ -85,7 +87,7 @@
             </div>
 
             <div class="individual-post-metadata">
-              ${item.likes.size()}
+              ${item.likes.size()} Like#{if item.likes.size() != 1}s#{/if}
               #{if user.isFriendsWith(currentUser) || user==currentUser}
                 #{ if item.currentUserLiked()}
                   <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
@@ -109,8 +111,8 @@
               </div>
                #{form @Comments.postComment(item.id, user.id, commentContent)}
                   <div id="new_comment_for_post${item.id}" style="clear:both; display: none;">
-                    <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} display="inline"/>
-                    <input type="text" name="commentContent" id="commentContent" value="new comment...(limit: 100 characters)" maxlength="100" style="color:grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
+                    <img style="width:50px; height:50px;" src=@{Photos.getPhoto(user.profile.profilePhoto)} display="inline"/>
+                    <input type="text" name="commentContent" id="commentContent" value="new comment...(limit: 50 characters)" maxlength="50" style="color:grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
                     <input type="submit" value="Submit" style="display:none"/>
                     <a id="cancel_action_for post${item.id}" href="#" onClick="hideDiv('new_comment_for_post${item.id}')" >Cancel</a>
                   </div>
