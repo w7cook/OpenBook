@@ -30,12 +30,12 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-      #{form @Posts.newPost(user.id)}
         <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
-        <input type="submit" value="Post" />
-      #{/form}
+        <input type="submit" value="Post" id="postSubmit" />
     #{/if}
-    #{list items:user.news(), as:'item'}
+    
+    <div id="postsList">
+    #{list items:user.news(), as:'item'} 
       <div class="post">
         <div class="hideable">
           <div class="left">
@@ -43,12 +43,12 @@
           </div>
           
           <div class="individual-post">
-            <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>
-            <div class="post-content tohideopp">
+            <div class="post-author" style="clear:both;"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></div>
+            <div class="post-content tohideopp" style="clear:both;">
               ${item.contentTeaser().nl2br()}
               <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
             </div>
-            <div class="tohide hide">
+            <div class="tohide hide"  style="clear:both;">
               <div class="post-content">
                 ${item.content.nl2br()}
               </div>
@@ -113,6 +113,7 @@
         </div>
       </div>
     #{/list}
+    </div>
   </div>
 </div> <!-- grid_9 -->
 
@@ -121,6 +122,20 @@
   birthdays<br />
   create events<br />
 </div><!-- grid_4 -->
+
+<script type="text/javascript">
+   $('input#postSubmit').click(function(event) {
+     var postData = {
+         postContent : $("textarea#postContent").val(),
+     };
+     $.post("/posts/makeNewPost", postData, function(data) {
+       var new_item = $(data).hide();
+       $("div#postsList").prepend(new_item);
+       new_item.slideDown();
+       $("textarea#postContent").val('');
+     });
+   });
+</script>
 
 <script>
   $('textarea#postContent').autoResize({

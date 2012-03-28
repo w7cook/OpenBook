@@ -125,132 +125,132 @@ models.SkinPair(models_SkinPair_24):
  value: black
  
  
-#Matrix Skin
-models.Skin(matrixWhite):
- name: matrixWhite
+#Peace Skin
+models.Skin(peace):
+ name: peace
 
 models.SkinPair(models_SkinPair_25):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: bodyBGColor
  value: none
  
 models.SkinPair(models_SkinPair_26):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: bodyBGPhoto
- value: /photos/1 
+ value: /photos/1
  
 models.SkinPair(models_SkinPair_27):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: logoFontSize
  value: 30
  
 models.SkinPair(models_SkinPair_28):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: logoColor
  value: white
  
 models.SkinPair(models_SkinPair_29):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: logoFontType
  value: helvetica
 
 models.SkinPair(models_SkinPair_30):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: headerBGColor
  value: 008000 
  
 models.SkinPair(models_SkinPair_31):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: footerTextAlign
  value: center
  
 models.SkinPair(models_SkinPair_32):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: footerFontSize
  value: 10
  
 models.SkinPair(models_SkinPair_33):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: footerColor
  value: gray
 
 models.SkinPair(models_SkinPair_34):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: sectionAlign
  value: top
 
 models.SkinPair(models_SkinPair_35):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: labelFontSize
  value: 10
  
 models.SkinPair(models_SkinPair_36):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: labelColor
  value: black
  
 models.SkinPair(models_SkinPair_37):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: commentBorderSize
  value: 2
 
 models.SkinPair(models_SkinPair_38):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: commentBorderColor
  value: black
  
 models.SkinPair(models_SkinPair_39):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: commentBGColor
  value: EEEEEE
  
 models.SkinPair(models_SkinPair_40):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonBorderRadius
  value: 4
  
 models.SkinPair(models_SkinPair_41):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonBorderSize
  value: 1
  
 models.SkinPair(models_SkinPair_42):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonBorderColor
  value: black
  
 models.SkinPair(models_SkinPair_43):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonBoxShadowColor
  value: 008000
  
 models.SkinPair(models_SkinPair_44):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonBGColor
  value: white
  
 models.SkinPair(models_SkinPair_45):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonTextDec
  value: none
  
 models.SkinPair(models_SkinPair_46):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonLinkUnvisitedColor
  value: black
  
 models.SkinPair(models_SkinPair_47):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonLinkVisitedColor
  value: lightgreen
  
 models.SkinPair(models_SkinPair_48):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonLinkHoverColor
  value: 008000
  
 models.SkinPair(models_SkinPair_49):
- attachedSkin: matrixWhite
+ attachedSkin: peace
  name: buttonLinkSelectedColor
  value: black
  
