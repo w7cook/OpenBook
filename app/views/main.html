@@ -16,13 +16,13 @@
     	function showFriendRequests(e)
     	{
     	e.stopPropagation();
-    	document.getElementById("friendRequest").style.display="block";
-    	document.addEventListener("click", hideFriendRequests);
+    	$('#friendRequest').css('display', 'block');
+    	$(document).click(hideFriendRequests);
     	}
     	
     	function hideFriendRequests()
     	{
-    	document.getElementById("friendRequest").style.display="none";
+    	$('#friendRequest').css('display', 'none');
     	}
     </script>
 
@@ -43,7 +43,7 @@
         <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
         <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >
         		#{list items:currentUser.requestedFriends(), as:'request'}
-        			<div style="border: thin solid #000033; color: black; z-index: 3; height: 100px; ">
+        			<div style="border-bottom: thin solid #000033; color: black; z-index: 3; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 3px">
         				<img style="width:50px; height:50px;" src=@{Photos.getPhoto(request.from.profile.profilePhoto)} />
 					    <a style="color: #000099;" href=@{Application.news(request.from.id)}> ${request.from}</a>
 					    <br>
