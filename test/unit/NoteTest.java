@@ -21,10 +21,17 @@ public class NoteTest extends UnitTest {
     User bob = new User("bob@gmail.com", "secret", "Bob").save();
     
     //Create new note
+    Note n = new Note(bob, "This is a title", "This is content");
+    n.save();
+    
     
     //Assert there is one note
-    
+    assertTrue(Note.count() == 1);
     //Delete the note
+    n.delete();
+    
+    //Assert there are none
+    assertTrue(Note.count() == 0);
     
   }
 

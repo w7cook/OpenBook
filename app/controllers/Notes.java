@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Note;
 import models.User;
 import play.mvc.*;
 
@@ -21,9 +22,11 @@ public class Notes extends OBController {
         render(user);
     }
     
-    public static void saveNote() {
-    	User user = user();
-        render(user);
+    public static void saveNote(String title, String content) {
+    	
+    	Note n = new Note(user(), title, content);
+    	n.save();
+    	viewNotes();
     }
 
 }
