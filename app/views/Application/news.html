@@ -87,7 +87,7 @@
             </div>
 
             <div class="individual-post-metadata">
-              ${item.likes.size()}
+              ${item.likes.size()} Like#{if item.likes.size() != 1}s#{/if}
               #{if user.isFriendsWith(currentUser) || user==currentUser}
                 #{ if item.currentUserLiked()}
                   <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
