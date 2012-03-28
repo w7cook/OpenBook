@@ -1,5 +1,5 @@
 #{extends 'two_panel.html' /}
-<div id = "content-middle">
+<div id="content-middle">
   <link rel="stylesheet" type="text/css" media="screen"
         href="/public/stylesheets/photos.css" />
   #{ifErrors}
@@ -19,7 +19,7 @@
   </div>
 
   <ul class="photo-list">
-    #{list items:photos, as:'photo' }
+    #{list items:photos, as:'photo'}
       <li>
         <img class="thumbnail" src=@{Photos.getPhoto(photo.id)} />
         #{if currentUser.equals(photo.owner)}
@@ -39,5 +39,5 @@
     #{/list}
   </ul>
 </div>
-<div id = "content-right">
+<div id="content-right">
 </div>
