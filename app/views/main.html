@@ -12,19 +12,32 @@
     <script type="text/javascript" src="public/javascripts/jquery.autoresize.js"></script>
     
     <script type="text/javascript">
-    	
-    	function showFriendRequests(e)
-    	{
-    	e.stopPropagation();
-    	$('#friendRequest').css('display', 'block');
-    	$(document).click(hideFriendRequests);
-    	}
-    	
-    	function hideFriendRequests()
-    	{
-    	$('#friendRequest').css('display', 'none');
-    	}
-    </script>
+      $(document).ready(function(){
+        // The document can handle multiple popups as long as they're
+        // registered with document.add_popup.
+        // The popup handler behavior is to hide popups if the 
+        // document is clicked anywhere
+        document.popups = [];
+        $(document).click(function(event){
+          for(var i=0; i<document.popups.length; i++) 
+            document.popups[i].css('display','none');
+        });
+        document.add_popup = function(elem){
+          document.popups.push($(elem));
+        }
+
+        // Register the friend request popup
+        document.add_popup($('#friendRequest'));
+
+        // When the showFriends anchor is clicked
+        // show the friendRequest div
+        $('#showFriends').click(function(event){
+          event.stopPropagation();    // this stops the event from registering on the doc.
+          $('#friendRequest').css('display','block');
+        });
+      });
+   </script>
+
 
     <link rel="stylesheet" type="text/css" media="screen" href="@{Skins.stylesheet()}" />
     <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/fthread.css'}" />
@@ -37,7 +50,7 @@
     <div class="container_16">
 	  <header id="header">
 	    <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
-        <a onclick="showFriendRequests(event)"><img src="@{'public/images/friend_request_icon.png'}" /></a>
+        <a id="showFriends"><img src="@{'public/images/friend_request_icon.png'}" /></a>
         <body>${currentUser.requestedFriendCount()}</body>
         <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
         <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
