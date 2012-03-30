@@ -8,6 +8,7 @@ User(bob):
     email:              bob@gmail.com
     password:           secret
     isAdmin:            true
+    subscription:       true
 
 User(alice):
     first_name:         Alice
@@ -18,6 +19,7 @@ User(alice):
     password:           secret
     #significant_other: jeff
     anniversary:        2010-12-2
+    subscription:       true
     
 User(jeff):
     first_name:         Jeff
@@ -37,6 +39,7 @@ User(gparker):
     email:              grp@gparker.co
     password:           password
     isAdmin:            true
+    subscription:       true
 
 Relationship(s1):
     from:       bob
@@ -277,3 +280,19 @@ UserPage(cats alice):
 UserPage(nachoCheese jeff):
     fan:            jeff
     page:           nachoCheese
+
+Subscription(sub1):
+    subscribed:     alice
+    subscriber:     bob
+
+Subscription(sub2):
+    subscribed:     gparker
+    subscriber:     bob
+
+Subscription(sub3):
+    subscribed:     gparker
+    subscriber:     alice
+
+Subscription(sub4):
+    subscribed:     bob
+    subscriber:     alice
