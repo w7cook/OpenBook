@@ -65,7 +65,7 @@
                 #{/else}
               #{/if}   
                .
-              ${item.getComments().size()} Comments  
+              ${item.getComments().size()} Comment#{if item.getComments().size() != 1}s#{/if}  
               .
               ${item.updatedAt.format('dd MMM yy')}
               #{if item.author == currentUser}
