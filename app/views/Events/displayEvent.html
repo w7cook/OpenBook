@@ -1,20 +1,64 @@
 #{extends 'main.html' /}
-<head>
-	<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
-</head>
-<body onload="LoadMap()" onunload="UnloadMap()">
+<head> 
+
+
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript"> 
+  var geocoder;
+  var map;
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      zoom: 12,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+ 
+  function codeAddress() {
+    var address = document.getElementById("searchTextField").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map, 
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+</script>
+
+
+<script type'="text/javascript">
+	function runscript(){
+		document.getElementById("searchTextField").value = "${location}";
+		initialize();
+		codeAddress();
+	
+	} 
+	</script>
+</head> 
+<body onload="runscript()">
+    
 <table>
-<tr valign="top">
-<td style="width:500px;text-align:top;">
-${name}<br />
-${privacy} By ${myAuthor}<br />
-${myDate}<br />
-Location: ${location}<br />
-Details: ${description}<br />
-</td>
-<td style="text-align:top;">
-<div style="position:relative;width:400px;height:400px;" id="mapDiv" /></td>
-</tr>
+	<tr >
+		<td id = "details">
+			${name}<br />
+			${privacy} By ${myAuthor}<br />
+			${myDate}<br />
+			Location: ${location}<br />
+			Details: ${description}<br />
+		</td>
+		<td id = "map" >
+			<input id="searchTextField" type="text" size="50">
+			<div id="map_canvas" style="width:335px; height:200px"></div>
+		</td>
+	</tr>
 </table>
 
 <h4>The Event members:</h4>
@@ -107,65 +151,4 @@ Details: ${description}<br />
       </div>
     #{/list}
 </body>
-
 <a class=button href="@{Events.events()}">< Events</a><br /><br />
-
-
-<script type="text/javascript">
-         var myMap = null;
-    
-         
-      
-         function UnloadMap()
-         {
-            if (myMap != null) {
-               myMap.Dispose();
-            }
-         }
-         function StartGeocoding( address )
-			{
-			   myMap.Find(null,    // what
-			              address, // where
-			              null,    // VEFindType (always VEFindType.Businesses)
-			              null,    // VEShapeLayer (base by default)
-			              null,    // start index for results (0 by default)
-			              null,    // max number of results (default is 10)
-			              null,    // show results? (default is true)
-			              null,    // create pushpin for what results? (ignored since what is null)
-			              null,    // use default disambiguation? (default is true)
-			              null,    // set best map view? (default is true)
-			              GeocodeCallback);  // call back function
-			}
-		function GeocodeCallback (shapeLayer, findResults, places, moreResults, errorMsg)
-			{
-			   // if there are no results, display any error message and return
-			   if(places == null)
-			   {
-			      alert( (errorMsg == null) ? "There were no results" : errorMsg );
-			      return;
-			   }
-			
-			   var bestPlace = places[0];
-			   
-			   // Add pushpin to the *best* place
-			   var location = bestPlace.LatLong;
-			   
-			   var newShape = new VEShape(VEShapeType.Pushpin, location);
-			   
-			   var desc = "Latitude: " + location.Latitude + "<br>Longitude:" + location.Longitude;
-			   newShape.SetDescription(desc);
-			   newShape.SetTitle(bestPlace.Name);
-			   myMap.AddShape(newShape);
-			}
-		function LoadMap()
-			{
-			   myMap = new VEMap("mapDiv");
-			   myMap.LoadMap();
-			   
-			   StartGeocoding("${location}");
-			}
-      </script>
-      
- 
-      
- 
