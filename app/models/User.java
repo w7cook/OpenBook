@@ -62,6 +62,14 @@ public class User extends Model {
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
   public List<Relationship> friendedBy; // A list of the user's friendship history
+  
+  public boolean subscription; // Whether the user has allowed subscriptions or not
+  
+  @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
+  public List<Subscription> subscribedTo; // A list of subscriptions the user subscribed to
+  
+  @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
+  public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
 
   public User(String email, String password, String username) {
     this.email = email;
@@ -87,6 +95,12 @@ public class User extends Model {
     return Post.find(
                      "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",
                      this.id, Post.type.NEWS).fetch();
+  }
+  
+  public List<Post> subscriptionNews() {
+	  return Post.find(
+              "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postType = ?2 order by p.updatedAt desc",
+              this.id, Post.type.NEWS).fetch();
   }
 
   public Profile getProfile(){
