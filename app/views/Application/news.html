@@ -37,8 +37,7 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-      <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.post_form.post_content.value='';">Write something...(limit: 100 characters)</textarea>
-      
+      <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="400" onclick="document.post_form.post_content.value='';">Write something...</textarea>     
       <input type="submit" value="Post" id="postSubmit" />
     #{/if}
     
@@ -49,22 +48,47 @@
           <div class="left">
             <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
           </div>
-          
+           
           <div class="individual-post">
             <div class="post-author" style="clear:both;"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></div>
-            <div class="post-content tohideopp" style="clear:both;">
-              ${item.contentTeaser().nl2br()}
-              <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
+              <div class="post-content" style="width: 100%;">
+              ${item.content.nl2br()}
             </div>
-            <div class="tohide hide"  style="clear:both;">
-              <div class="post-content">
-                ${item.content.nl2br()}
+             <div class="individual-post-metadata">
+              ${item.likes.size()} Like#{if item.likes.size() != 1}s#{/if}
+              #{if user.isFriendsWith(currentUser) || user==currentUser}
+                #{ if item.currentUserLiked()}
+                  <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+                #{/if}
+                #{else}
+                  <a href="@{Application.addLike(item.id,user.id)}">Like</a>
+                #{/else}
+              #{/if}   
+               .
+              ${item.getComments().size()} Comment#{if item.getComments().size() != 1}s#{/if}  
+              .
+              ${item.updatedAt.format('dd MMM yy')}
+              #{if item.author == currentUser}
+                . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
+              #{/if}
+
+              <div id="comment_for_post${item.id}" style="clear: both;"   class="comment-textarea">
+               
               </div>
+            #{if item.getComments().size() > 0}
+            <div class="post-content tohideopp" style="clear:both;">
+            
+              <a class='triggershow showfirst' href='#' onclick='return false;'> +show comments </a>
+            </div>
+           
+           
+            <div class="tohide hide"  style="clear:both;">
+              
               #{list items:item.getComments(), as:'comment'}
                 <div class="comment${comment.id}">
                   <div class="comment-metadata">
                     <div class="comment-thumb">
-                      <img style="width:50px; height:50px;" src=@{Photos.getPhoto(comment.author.profile.profilePhoto)} /><br>
+                      <img style="width:30px; height:30px;" src=@{Photos.getPhoto(comment.author.profile.profilePhoto)} /><br>
                     </div>
                     <div class="comment-author">
                       ${comment.author},
@@ -84,43 +108,21 @@
                     #{/else}
                                      
                   </div>
-                  <div class="comment-content" >
+                  <div class="comment-content" style="width: 100%;">
                     ${comment.content.escape().nl2br()}
                   </div>
                 </div>
               #{/list}
 
-              <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
+              <a class='triggerhide' href='#' onclick='return false;'> -hide comments<br/></a>
             </div>
-
-            <div class="individual-post-metadata">
-              ${item.likes.size()} Like#{if item.likes.size() != 1}s#{/if}
-              #{if user.isFriendsWith(currentUser) || user==currentUser}
-                #{ if item.currentUserLiked()}
-                  <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-                #{/if}
-                #{else}
-                  <a href="@{Application.addLike(item.id,user.id)}">Like</a>
-                #{/else}
-              #{/if}     
-              .
-              <a id="comment_action_for_post${item.id}" href="#" onClick="showDiv('new_comment_for_post${item.id}')">Comment</a>
-             
-              .
-              ${item.updatedAt.format('dd MMM yy')}
-              #{if item.author == currentUser}
-                . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
-              #{/if}
-
-              <div id="comment_for_post${item.id}" style="clear: both;"   class="comment-textarea">
-               
-              </div>
+            #{/if}
+           
                #{form @Comments.postComment(item.id, user.id, commentContent)}
-                  <div id="new_comment_for_post${item.id}" style="clear:both; display: none;">
-                    <img style="width:50px; height:50px;" src=@{Photos.getPhoto(user.profile.profilePhoto)} display="inline"/>
-                    <input type="text" name="commentContent" id="commentContent" value="new comment...(limit: 50 characters)" maxlength="50" style="color:grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
+                  <div id="new_comment_for_post${item.id}" style="clear:both;">
+                    <img style="width:30px; height:30px;" src=@{Photos.getPhoto(user.profile.profilePhoto)} display="inline"/>
+                    <input type="text" name="commentContent" id="commentContent" value="new comment..." maxlength="200" style="color:grey; width: 320px; padding: 2px; height: 20px; font-family: serif; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
                     <input type="submit" value="Submit" style="display:none"/>
-                    <a id="cancel_action_for post${item.id}" href="#" onClick="hideDiv('new_comment_for_post${item.id}')" >Cancel</a>
                   </div>
                 #{/form}
             </div>
@@ -168,13 +170,13 @@
 <script>
     $('#postContent')
     .focusin(function() {
-        if ( this.value == 'Write something...(limit: 100 characters)' ) {
+        if ( this.value == 'Write something...' ) {
             this.value = '';    
         }
     })
     .focusout(function() {
         if ( this.value == '' ) {
-            this.value = 'Write something...(limit: 100 characters)';    
+            this.value = 'Write something...';    
         }
 });
 </script>
