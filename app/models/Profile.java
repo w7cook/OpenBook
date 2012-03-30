@@ -86,7 +86,7 @@ public class Profile extends Model {
     this.political = "";
     this.quotes = "";
     this.significantOther = null;
-    this.religion = "";
+    this.religion = "Jewish";
 
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
