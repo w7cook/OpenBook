@@ -35,5 +35,11 @@ public class Posts extends OBController {
     m.put("currentUser", user());
     renderTemplate(m);
   }
+
+  public static void poke (Long userId) {
+  	String poked = new String(user() + " has poked " + (User)User.findById(userId) + "!");
+  	new Post(user(), new Date().toString(), poked).save();
+    posts(userId);
+  }
 }
 

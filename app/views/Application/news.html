@@ -6,6 +6,13 @@
       <a href="#">Update Status</a>
       <a href="#">Add Photo / Video</a>
       <a href="#">Ask Question</a>
+
+	 #{if user.id == currentUser.id}
+      #{/if}
+      #{else}
+        <a href="@{Posts.poke(user.id)}">Poke!</a>
+      #{/else}
+
       #{if user.id == currentUser.id}
         <a id="about-button" href="@{Application.edit_basic}">About me</a>
       #{/if}
@@ -101,7 +108,6 @@
              
               .
               ${item.updatedAt.format('dd MMM yy')}
-
               #{if item.author == currentUser}
                 . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
               #{/if}
