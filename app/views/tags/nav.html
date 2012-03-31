@@ -40,5 +40,10 @@
   #{/list}
   <br />
   <a href="@{Relationships.relationships(_user.id)}">see all friends..</a><br />
+  <br />
+  <span class="note">INTERESTS</span><br />
+  #{if (_user.subscribedTo.size() > 0)}
+    <a href="@{Subscriptions.subscriptions(_user.id)}">Subscriptions</a><br />
+  #{/if}
 </nav>
 

@@ -230,7 +230,7 @@ a.logo:active {text-decoration:none;}
 }
 
 .comment-content {
-  width: 450px;
+  width: 100%;
   font-size: 0.95em;
 }
 .post-date {
@@ -249,7 +249,6 @@ a.logo:active {text-decoration:none;}
 .main-content div {
   padding:3px;
   float:left;
-  padding:2px;
   float:left;
 }
 #content-left {
