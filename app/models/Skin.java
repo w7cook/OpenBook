@@ -58,14 +58,8 @@ public class Skin extends Model {
     this.save();
     
     //body
-    addParam("bodyBGColor","none");
     
     addParam("bodyBGPhoto","none");
-    
-    //logo
-    addParam("logoFontSize", "30");
-    addParam("logoColor","white");
-    addParam("logoFontType","helvetica");// Helvetica, Arial, Sans !important;
 
     //header
     addParam("headerBGColor","CC5500");//000000 (BLACK) or CC5500 (orange)

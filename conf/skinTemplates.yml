@@ -8,21 +8,6 @@ models.SkinPair(models_SkinPair_1):
  attachedSkin: GREEN
  name: bodyBGPhoto
  value: none
- 
-models.SkinPair(models_SkinPair_2):
- attachedSkin: GREEN
- name: logoFontSize
- value: 30
- 
-models.SkinPair(models_SkinPair_3):
- attachedSkin: GREEN
- name: logoColor
- value: white
- 
-models.SkinPair(models_SkinPair_4):
- attachedSkin: GREEN
- name: logoFontType
- value: helvetica
 
 models.SkinPair(models_SkinPair_5):
  attachedSkin: GREEN
@@ -128,31 +113,11 @@ models.SkinPair(models_SkinPair_24):
 #Peace Skin
 models.Skin(peace):
  name: peace
-
-models.SkinPair(models_SkinPair_25):
- attachedSkin: peace
- name: bodyBGColor
- value: none
  
 models.SkinPair(models_SkinPair_26):
  attachedSkin: peace
  name: bodyBGPhoto
  value: /photos/1
- 
-models.SkinPair(models_SkinPair_27):
- attachedSkin: peace
- name: logoFontSize
- value: 30
- 
-models.SkinPair(models_SkinPair_28):
- attachedSkin: peace
- name: logoColor
- value: white
- 
-models.SkinPair(models_SkinPair_29):
- attachedSkin: peace
- name: logoFontType
- value: helvetica
 
 models.SkinPair(models_SkinPair_30):
  attachedSkin: peace
@@ -263,21 +228,6 @@ models.SkinPair(models_SkinPair_50):
  attachedSkin: default_skin
  name: bodyBGPhoto
  value: none
- 
-models.SkinPair(models_SkinPair_51):
- attachedSkin: default_skin
- name: logoFontSize
- value: 30
- 
-models.SkinPair(models_SkinPair_52):
- attachedSkin: default_skin
- name: logoColor
- value: white
- 
-models.SkinPair(models_SkinPair_53):
- attachedSkin: default_skin
- name: logoFontType
- value: helvetica
 
 models.SkinPair(models_SkinPair_54):
  attachedSkin: default_skin

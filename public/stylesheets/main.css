@@ -52,13 +52,13 @@ a:active {
 
 
 #logo {
-  color: ${skin.get("logoColor")};
+  color: #ffffff
   padding: 0px 10px 0px 20px;
 }
 
 .logo {
   font-weight: bold;
-  font-family: ${skin.get("logoFontType")};
+  font-family: helvetica
   font-size: 20px; /** i dont think a company's logo/identity should be customizable **/
 }
 

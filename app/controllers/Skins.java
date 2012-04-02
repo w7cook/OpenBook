@@ -61,7 +61,9 @@ public class Skins extends OBController {
   {
     User user = user();
     Skin currentUserSkin = user.profile.skin;
-    if(!val.contains(";") && !val.contains(".") && !val.contains(",")){//checks for SQL injection
+    System.out.println("val: " + val);
+    if(!val.contains(";") && !val.contains("."))
+    {//checks for SQL injection
       if(user.profile.skin.name != user.email){//each user gets a unique skin
         Skin newSkin = new Skin(user.email);
         newSkin.cloneSkin(currentUserSkin);
@@ -92,7 +94,7 @@ public class Skins extends OBController {
      
      
     }
-    editMySkin(null);//rerender the page for current user (input null will find user();
+    editMySkin(user.id);//rerender the page for current user (input null will find user();
   }
 
   /**

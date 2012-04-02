@@ -3,7 +3,6 @@
 <a href="@{Skins.skin}"> Change Skin to Template</a>
 <script type="text/javascript" src="jscolor/jscolor.js"></script>
 
-Click here: <input class="color" value="66ff00">
 #{form @Skins.editSkin()}
 
   </br><label><b>EDIT CURRENT SKIN</b></label>
@@ -19,36 +18,6 @@ Click here: <input class="color" value="66ff00">
       </table>
   </table>
   
-
-  <table>
-  <td class=section width=15%>Logo</td>
-    <td>
-      <table>
-  <tr>
-    <td><label>FontSize:</label></td>
-    <input type = "hidden" name = key value = "logoFontSize" />
-    <td><input type=text name=val
-         value="${currentUser.profile.skin.get("logoFontSize")}" />
-    </td>
-  </tr>
-  <tr>
-    <td><label>Color:</label></td>
-    <input type = "hidden" name = key value = "logoColor" />
-    <td><input class="color" name=val
-         value="${currentUser.profile.skin.get("logoColor")}" />
-    </td>
-  </tr>
-  <tr>
-    <td><label>FontType:</label></td>
-    <input type = "hidden" name = key value = "logoFontType" />
-    <td><input type=text name=val
-         value="${currentUser.profile.skin.get("logoFontType")}" />
-    </td>
-  </tr>
-      </table>
-  </table>
-
-  
   <table>
   <td class=section width=15%>Header</td>
     <td>
@@ -56,8 +25,8 @@ Click here: <input class="color" value="66ff00">
       <tr>
         <td><label>Background Color:</label></td>
         <input type = "hidden" name = key value = "headerBGColor" />
-        <td><input type=text name=val
-             value="${currentUser.profile.skin.get("headerBGColor")}" />
+        <td><input type=text name=val 
+        	value="${currentUser.profile.skin.get("headerBGColor")}" />
         </td>
       </tr>
       </table>
