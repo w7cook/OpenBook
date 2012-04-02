@@ -23,10 +23,20 @@ public class Skins extends OBController {
 
   /**
    * skin
-   * renders edit skin page
+   * renders change skin page
    * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
    */
   public static void skin(Long id) {
+    User user = id == null ? user() : (User) User.findById(id);
+    render(user);
+  }
+  
+  /**
+   * editMySkin
+   * renders edit skin page
+   * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
+   */
+  public static void editMySkin(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
     render(user);
   }
@@ -51,38 +61,38 @@ public class Skins extends OBController {
   {
     User user = user();
     Skin currentUserSkin = user.profile.skin;
-    
-    if(user.profile.skin.name != user.email){//each user gets a unique skin
-      Skin newSkin = new Skin(user.email);
-      newSkin.cloneSkin(currentUserSkin);
-      user.profile.skin = newSkin;
-    }
-    if(key != null){//null if theres no changes
-      
-      String[] keys = key.split(", ");//input is a list
-      String[] values = val.split(", ");
-      String keyUpdate = "";
-      String valueUpdate = "";
-      
-      //go through the attributes
-      for(int x = 0; x< keys.length; x++)
-      {
-        keyUpdate = keys[x];
-        valueUpdate = values[x];
-        
-        if(given(valueUpdate))//if the attribute has been filled, set parameter
-        {
-          user.profile.skin.setParam(keyUpdate,valueUpdate);
-        }
+    if(!val.contains(";") && !val.contains(".") && !val.contains(",")){//checks for SQL injection
+      if(user.profile.skin.name != user.email){//each user gets a unique skin
+        Skin newSkin = new Skin(user.email);
+        newSkin.cloneSkin(currentUserSkin);
+        user.profile.skin = newSkin;
       }
-      
+      if(key != null){//null if theres no changes
+        
+        String[] keys = key.split(", ");//input is a list
+        String[] values = val.split(", ");
+        String keyUpdate = "";
+        String valueUpdate = "";
+        
+        //go through the attributes
+        for(int x = 0; x< keys.length; x++)
+        {
+          keyUpdate = keys[x];
+          valueUpdate = values[x];
+          
+          if(given(valueUpdate))//if the attribute has been filled, set parameter
+          {
+            user.profile.skin.setParam(keyUpdate,valueUpdate);
+          }
+        }
+    }
      
       //save changes  
       user.profile.save();
      
      
     }
-    skin(null);//rerender the page for current user (input null will find user();
+    editMySkin(null);//rerender the page for current user (input null will find user();
   }
 
   /**

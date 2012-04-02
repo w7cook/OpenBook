@@ -39,7 +39,7 @@ a:active {
 #header {
   background-image: url('/public/images/headerBG.png'); /*Little spiffier header bar */
   background-repeat: repeat-x;
-  background-color: #${skin.get("headerBGColor")};
+  background-color: ${skin.get("headerBGColor")};
   padding-top: 5px;
   width: 100%;
   height: 40px;
