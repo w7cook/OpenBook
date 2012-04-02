@@ -29,4 +29,8 @@ public abstract class Commentable extends Likeable
     toRemove.delete();
     this.save();   
   }
+  
+  public List<Comment> getComments(){
+	  return Comment.find("SELECT c FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch();
+  }
 }
