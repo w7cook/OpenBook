@@ -1,12 +1,12 @@
 
 <div class="profile-pic">
-	<a class="change-img" href="/photos/setProfilePhotoPage">Change
-		picture</a> #{if (_user.profile.profilePhoto == -1 ||
-	_user.profile.profilePhoto == null)} <img
-		src="@{Photos.getPhoto(Bootstrap.defaultProfilePhotoID)}" height="120"
-		width="120" /> #{/if} #{else} <img
-		src="@{Photos.getPhoto(_user.profile.profilePhoto)}" height="120"
-		width="120" /> #{/else}
+	<a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a> 
+	#{if (_user.profile.profilePhoto == -1 || _user.profile.profilePhoto == null)} 
+	<img	src="@{Photos.getPhoto(Bootstrap.defaultProfilePhotoID)}" height="120" width="120" /> 
+	#{/if} 
+	#{else} 
+	<img src="@{Photos.getPhoto(_user.profile.profilePhoto)}" height="120" width="120" /> 
+	#{/else}
 </div>
 <div style="clear: both;">
 	<a href="@{Application.account()}"> <span
