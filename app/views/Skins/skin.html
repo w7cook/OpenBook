@@ -1,22 +1,17 @@
+
 #{extends 'main.html' /}
 
 <a href="@{Skins.editMySkin}">Edit My Skin</a>
-
-#{form @Skins.changeSkinToTemplate()} 
-  </br><label><b>CHANGE SKIN TO TEMPLATE</b></label>
-  <select name = skinName>
-    <option selected = "yes" value = "${currentUser.profile.skin.name}" > Current Skin </option>
-    <option value = default_skin> Default </option>
-    <option value = green> Green Header </option>
-    <option value = peace> Peace </option>
-  </select>
-         
-  <input type=submit value=Save> 
-    #{ifErrors}
-    <ul style="color:red">
-      #{errors}<li>${error}</li> #{/errors} 
-    </ul>
-    #{/ifErrors}
-         
-#{/form}  
-
+	#{form @Skins.changeSkinToTemplate()} </br>
+		<label><b>CHANGE SKIN TO TEMPLATE</b></label> <select name=skinName>
+			<option selected="yes" value="${currentUser.profile.skin.name}">
+				Current Skin</option>
+			<option value=default_skin>Default</option>
+			<option value=green>Green Header</option>
+			<option value=peace>Peace</option>
+		</select> <input type=submit value=Save> #{ifErrors}
+		<ul style="color: red">
+			#{errors}
+			<li>${error}</li> #{/errors}
+		</ul>
+	#{/form}
