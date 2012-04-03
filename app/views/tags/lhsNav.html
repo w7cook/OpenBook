@@ -8,10 +8,8 @@
 	<img src="@{Photos.getPhoto(_user.profile.profilePhoto)}" height="120" width="120" /> 
 	#{/else}
 </div>
-<div style="clear: both;">
-	<a href="@{Application.account()}"> <span
-		style="font-weight: bold; clear: both; text-align: center;">
-			${_user.name}</span>
+<div style="clear: both;text-align:center;width: 100%;">
+	<a href="@{Application.account()}"> <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${_user.name}</span>
 	</a>
 </div>
 

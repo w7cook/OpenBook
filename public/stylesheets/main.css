@@ -151,9 +151,8 @@ border-color: #CCCCCC; /*Forced to use a border here, because encasing everythin
 
 .profile-pic {
 position: relative;
-margin-left: 25%;
-width: 50%;
-height: 50%; /*Resize the profile-picture here, picture will take up all the space*/
+margin-left: 12.5%;
+width: 100%;
 
 }
 
@@ -163,11 +162,8 @@ height: 50%; /*Resize the profile-picture here, picture will take up all the spa
 
 .profile-pic img{
 	/*max-width: 140px;*/
-	width: 100%;
-	height: 100%;
-margin-left: auto;
-margin-right: auto;
-vertical-align: middle;
+	width: 80%;
+height: 80%; /*Resize the profile-picture here, picture will take up all the space*/
 }
 
 .profile-pic:hover a{
