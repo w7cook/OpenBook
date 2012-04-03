@@ -1,5 +1,4 @@
 
-
 $(document).ready(function()
 {
     $(".defaultText").focus(function(srcc)
