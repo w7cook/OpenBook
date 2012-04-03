@@ -1,6 +1,6 @@
 
 #{extends 'two_panel.html' /}
-<div class="grid_9">
+<div class="grid_15">
   <div id="contentArea">
     <div class="pagelet">
       <a href="#">Update Status</a>
@@ -37,8 +37,10 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-      <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="400" onclick="document.post_form.post_content.value='';">Write something...</textarea>     
-      <input type="submit" value="Post" id="postSubmit" />
+    <div class="ui_InputContainer">
+      <textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" onclick="document.post_form.post_content.value='';">Write something...</textarea>     
+      <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
+      </div>
     #{/if}
     
     <div id="postsList">
@@ -132,13 +134,29 @@
     #{/list}
     </div>
   </div>
-</div> <!-- grid_9 -->
+</div> <!-- grid_15 -->
 
-<div class="grid_3">
-  more newsfeed on the side<br />
-  birthdays<br />
-  create events<br />
-</div><!-- grid_4 -->
+<div class="grid_5">
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">RSS Feed</div>  
+  <div class="lhs-navBoxBody">
+ <a href="www.youtube.com/watch?v=oHg5SJYRHA0">Latest News</a><br />
+</div>
+  </div>
+
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">Upcoming Events</div>  
+  <div class="lhs-navBoxBody">
+<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Upcoming Events</a><br /></div>
+  </div>
+
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">ETC</div>  
+  <div class="lhs-navBoxBody">
+<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Extra Stuff</a><br /></div>
+	</div>
+
+</div><!-- grid_5 -->
 
 <script type="text/javascript">
    $('input#postSubmit').click(function(event) {
@@ -160,6 +178,8 @@
   minHeight: 50,
   extraSpace: 30
   });
+  /* use jQuery to set the size of the button to sit flush, because buttons do not take height:100% well*/
+  $('input#postSubmit').css('height', $('textarea#postContent').height());
   $('textarea#commentContent').autoResize({
   maxHeight: 70,
   minHeight: 20,

@@ -13,37 +13,70 @@
     <span style="font-weight:bold; clear:both;"> ${_user.name}</span>
   </a>
   </div>
-  <br />
-  <span class="note">FAVORITES</span><br/>
+  
+  <div class="lhs-navBox"><div class="lhs-navBoxHeader">FAVORITES</div>
+  <div class="lhs-navBoxBody">
   <a href="@{Application.news()}">News Feed</a><br />
   <a href="@{Events.events()}">Events</a><br />
   <a href="@{Checkin.checkin()}">Checkin</a><br />
   <a href="@{Messages.inbox()}">Inbox</a><br />
   <a href="/requests">Friend Requests</a><br />
   <a href="/skin">Change Skin</a><br />
-  <br />
-  <span class="note">GROUPS</span><br />
+  </div>
+  </div>
+  
+
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">GROUPS</div>  
+  <div class="lhs-navBoxBody">
   #{list items:_user.getGroups(), as:'Group'}
     <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br />
   #{/list}
   <br />
-  <span class="note">PHOTOS</span><br />
+</div>
+  </div>
+
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">PHOTOS</div>
+  
+   <div class="lhs-navBoxBody">
+  
   <a href="@{Photos.photos(_user.id)}">My Photos</a><br />
   <a href="@{Photos.photos()}">All Photos</a><br />
   <br />
-  <span class="note">PAGES</span><br />
+  </div>
+  </div>
+
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">PAGES</div>
+    <div class="lhs-navBoxBody">
+  
   <a href="@{Pages.pages()}">Pages</a><br />
   <br />
-  <span class="note">FRIENDS</span><br />
+  </div>
+  </div>
+
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">FRIENDS</div>
+    <div class="lhs-navBoxBody">
+  
   #{list items:_user.confirmedFriends(), as:'friendship'}
     <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br />
   #{/list}
   <br />
   <a href="@{Relationships.relationships(_user.id)}">see all friends..</a><br />
   <br />
-  <span class="note">INTERESTS</span><br />
+  </div>
+	</div>
+
+  <div class="lhs-navBox">
+  <div class="lhs-navBoxHeader">INTERESTS</div>
+    <div class="lhs-navBoxBody">
+  
   #{if (_user.subscribedTo.size() > 0)}
     <a href="@{Subscriptions.subscriptions(_user.id)}">Subscriptions</a><br />
   #{/if}
+  </div>
+  </div>
 </nav>
 

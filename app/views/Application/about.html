@@ -1,8 +1,8 @@
-#{extends 'main.html' /}
+#{extends 'two_panel.html' /}
 
-<div>
+<div class="grid_16">
+  <div id="contentArea-BigPage">
   <h3 tabindex="0" class="uiHeaderTitle">Profile</h3>
-</div>
 <div class="globalContentAbout">
 	<div class="LeftColumnAbout">
 		<div class=button>
@@ -14,7 +14,7 @@
       			<td class="data">${user.name}</td>
     		</tr>
     		<tr>
-      			<th class="label">email</th>
+      			<th class="label">Email</th>
       			<td class="data">${user.email}</td>
     		</tr>
     		<tr>
@@ -40,4 +40,5 @@
 	</div>
 	<br/><br/>
 </div>
-</br></br>
+</div>
+</div>
