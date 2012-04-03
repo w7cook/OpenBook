@@ -1,4 +1,11 @@
-#{extends 'two_panel.html' /}
+#{extends 'three_panel.html' /}
+
+<div class="grid_15">
+  <div id="contentArea-BigPage">
+
+    <h2>Upload a new photo</h2>
+    <hr/>
+
 <div id="content-middle">
   <link rel="stylesheet" type="text/css" media="screen"
         href="/public/stylesheets/photos.css" />
@@ -11,7 +18,6 @@
   #{/ifErrors}
 
   <div class="photo-upload">
-    <h3>Upload a new photo</h3>
     #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
       <input type="file" name="image" />
       <input type="submit" name="submit" value="Upload" />
@@ -40,4 +46,7 @@
   </ul>
 </div>
 <div id="content-right">
+</div>
+
+</div>
 </div>

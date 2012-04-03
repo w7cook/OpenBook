@@ -193,6 +193,15 @@ height: 50%; /*Resize the profile-picture here*/
   outline: #CCCCCC groove 1px;
 }
 
+#contentArea-AutoPage {
+	width: 100%;
+	height: auto;
+  /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
+}
+
+
 
 /** Shared UI Elements **/
 .ui_TextArea {
@@ -374,9 +383,6 @@ a.logo:active {text-decoration:none;}
   margin-left:10px;
   margin-top:10px;
   width:550px;
-  border-left: 1px;
-  border-left-color: #98AFC7;
-  border-left-style: dotted;
 }
 #content-right {
   margin-left:10px;

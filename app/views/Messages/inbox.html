@@ -1,7 +1,10 @@
-#{extends 'two_panel.html' /}
-<div class="grid_9">
-  <div id="contentArea">
+#{extends 'three_panel.html' /}
+
+<div class="grid_15">
+  <div id="contentArea-BigPage">
+
     <h1>Inbox</h1>
+    <hr/>
     <br />
     #{if user.checkFriendship(user.id) == 'Request Friendship'}
       <a id="friend-button" href="@{Application.requestFriends(user.id)}">
@@ -30,11 +33,6 @@
         Message: ${item.content.nl2br()}<br />
       </div>
     #{/list}
-  </div>
-</div> <!-- grid_9 -->
 
-<div class="grid_3">
-  more newsfeed on the side<br />
-  birthdays<br />
-  create events<br />
-</div><!-- grid_4 -->
+</div>
+</div>

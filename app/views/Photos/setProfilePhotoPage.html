@@ -1,4 +1,11 @@
-#{extends 'main.html' /}
+#{extends 'three_panel.html' /}
+
+<div class="grid_15">
+  <div id="contentArea-BigPage">
+
+<h2>Set Your Profile Photo</h2>
+<hr/>
+
 #{ifErrors}
 <ul class="errors">
   #{errors}
@@ -7,10 +14,8 @@
 </ul>
 #{/ifErrors}
 <br>
-<b> Set Your Profile Photo </b>
-<br>
 
-<b> Current Profile Photo:
+<h3>Current Profile Photo:</h3>
 <img src="@{Photos.getPhoto(user.profile.profilePhoto)}" width="120" height="150" />
 <br><br>
 
@@ -38,3 +43,5 @@
 </ul>
 
 
+</div>
+</div>

@@ -1,18 +1,9 @@
-#{extends 'two_panel.html' /}
-<div class="grid_9">
-  <div id="contentArea">
-    <div class="pagelet">
-      <a href="#">Update Status</a>
-      <a href="#">Add Photo / Video</a>
-      <a href="#">Ask Question</a>
-      #{if user.id == currentUser.id}
-        <a id="about-button" href="@{Application.edit_basic}">About me</a>
-      #{/if}
-      #{else}
-        <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
-      #{/else}
-    </div>
+#{extends 'three_panel.html' /}
+
+<div class="grid_15">
+  <div id="contentArea-AutoPage">  
     <h1>${group.groupName}</h1>
+    <hr/>
         <h2>${group.description}</h2>
         <h3>The group is owned by ${group.owner}</h3>
         <h4>The Group members:</h4>
@@ -22,10 +13,15 @@
         <br />
         #{if user.id == currentUser.id}
       	  #{form @Groups.newGroupPost(group.id,user.id)}
-            <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
-            <input type="submit" value="Post" />
+      	      <div class="ui_InputContainer">
+            <textarea name="post_content" id="postContent" class="ui_TextArea" style="resize: none;" rows="2" cols="45"></textarea>
+            <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />
+            </div>
           #{/form}
     #{/if}
+    
+      </div>
+    
     #{list items:group.getPosts(), as:'item'}
       <div class="post">
         <div class="hideable">
@@ -103,21 +99,17 @@
         </div>
       </div>
     #{/list}
-  </div>
-</div> <!-- grid_9 -->
-
-<div class="grid_3">
-  more newsfeed on the side<br />
-  birthdays<br />
-  create events<br />
-</div><!-- grid_4 -->
-
+    
+   </div> <!-- grid_15 -->
+    
 <script>
   $('textarea#postContent').autoResize({
   maxHeight: 150,
   minHeight: 50,
   extraSpace: 30
   });
+  /* use jQuery to set the size of the button to sit flush, because buttons do not take height:100% well*/
+  $('input#postSubmit').css('height', $('textarea#postContent').height());
   $('textarea#commentContent').autoResize({
   maxHeight: 70,
   minHeight: 20,
