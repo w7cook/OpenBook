@@ -84,18 +84,28 @@
 </script>
 
 <script>
+/*Show before resizing, with jQuery to avoid glitchy redisplay*/
+$('textarea#postContent').css('display','inline-block');
+$('input#postSubmit').css('display', 'inline-block');
+
+/*autoResize*/
   $('textarea#postContent').autoResize({
   maxHeight: 150,
   minHeight: 50,
   extraSpace: 30
   });
+  
   /* use jQuery to set the size of the button to sit flush, because buttons do not take height:100% well*/
   $('input#postSubmit').css('height', $('textarea#postContent').height());
+  
+  /*autoResize*/
   $('textarea#commentContent').autoResize({
   maxHeight: 70,
   minHeight: 20,
   extraSpace: 20
-  });
+  }); 
+  
+  
 </script>
 
 <script>

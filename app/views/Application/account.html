@@ -1,4 +1,8 @@
-#{extends 'main.html' /}
+#{extends 'three_panel.html' /}
+
+<div class="grid_15">
+  <div id="contentArea-AutoPage">  
+
 <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/account.css'}" />
 <a href="@{Skins.skin()}">Edit Skin</a>
 #{form @Application.account_save()}
@@ -49,4 +53,7 @@
 <div id="myPages">
   <a href="@{Pages.myPages()}"> My pages </a>
   <a href="@{Pages.newPage()}"> Create a Page!</a>
+</div>
+
+</div>
 </div>

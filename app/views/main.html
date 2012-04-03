@@ -52,8 +52,8 @@
 	    <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
         <a id="showFriends"><img src="@{'public/images/friend_request_icon.png'}" /></a>
         <body>${currentUser.requestedFriendCount()}</body>
-        <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
-        <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
+        <a href="@{Messages.inbox()}"><img src="@{'public/images/messages_icon.png'}" /></a>
+        <a href="@{Application.news()}"><img src="@{'public/images/notifications_icon.png'}" /></a>
         <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >
         		#{list items:currentUser.requestedFriends(), as:'request'}
         			<div style="border-bottom: thin solid #000033; color: black; z-index: 3; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 3px">
@@ -71,7 +71,8 @@
 	#{/form}
         <div class="account">
 	  <a href="@{Application.account()}">
-            <img style="width:30px; height:30px; vertical-align:middle" src=@{'/public/images/header-profile.jpg'} /> ${currentUser.first_name} ${currentUser.last_name}
+	          				<img src="@{Photos.getPhoto(currentUser.profile.profilePhoto)}" height = "30" width = "30" />           
+            ${currentUser.first_name} ${currentUser.last_name}
           </a>
           <a href="@{Application.news()}">Home</a>
 	  <a href="@{Secure.logout()}">Logout</a>

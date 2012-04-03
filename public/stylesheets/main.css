@@ -212,12 +212,11 @@ height: 200px;
 outline: #000000 groove 1px;
 border: none;
 margin: 0px 0px 0px 0px;
-display: inline-block;
+display: none;
 }
 
 .ui_TextAreaButton {
 	float: right;
-	display: inline-block;
 	width: 20%;
 	margin: 0px 0px 0px 0px;
 	border-left: 0px;
@@ -227,6 +226,7 @@ display: inline-block;
 	outline: #000000 groove 1px;
 	background-color: #e76509;
 	color: white;
+	display:none;
 }
 
 .ui_TextBox {
