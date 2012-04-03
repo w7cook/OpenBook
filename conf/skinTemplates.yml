@@ -2,7 +2,7 @@
 
 #Green Skin (greenHeader)
 models.Skin(GREEN):
- name: green
+ name: 148203
 
 models.SkinPair(models_SkinPair_1):
  attachedSkin: GREEN
@@ -12,7 +12,7 @@ models.SkinPair(models_SkinPair_1):
 models.SkinPair(models_SkinPair_5):
  attachedSkin: GREEN
  name: headerBGColor
- value: 008000 
+ value: 148203 
  
 models.SkinPair(models_SkinPair_6):
  attachedSkin: GREEN
@@ -27,7 +27,7 @@ models.SkinPair(models_SkinPair_7):
 models.SkinPair(models_SkinPair_8):
  attachedSkin: GREEN
  name: footerColor
- value: gray
+ value: 858A7B
 
 models.SkinPair(models_SkinPair_9):
  attachedSkin: GREEN
@@ -42,7 +42,7 @@ models.SkinPair(models_SkinPair_10):
 models.SkinPair(models_SkinPair_11):
  attachedSkin: GREEN
  name: labelColor
- value: green
+ value: 148203
  
 models.SkinPair(models_SkinPair_12):
  attachedSkin: GREEN
@@ -52,7 +52,7 @@ models.SkinPair(models_SkinPair_12):
 models.SkinPair(models_SkinPair_13):
  attachedSkin: GREEN
  name: commentBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_14):
  attachedSkin: GREEN
@@ -72,7 +72,7 @@ models.SkinPair(models_SkinPair_16):
 models.SkinPair(models_SkinPair_17):
  attachedSkin: GREEN
  name: buttonBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_18):
  attachedSkin: GREEN
@@ -82,7 +82,7 @@ models.SkinPair(models_SkinPair_18):
 models.SkinPair(models_SkinPair_19):
  attachedSkin: GREEN
  name: buttonBGColor
- value: white
+ value: FFFFFF
  
 models.SkinPair(models_SkinPair_20):
  attachedSkin: GREEN
@@ -92,12 +92,12 @@ models.SkinPair(models_SkinPair_20):
 models.SkinPair(models_SkinPair_21):
  attachedSkin: GREEN
  name: buttonLinkUnvisitedColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_22):
  attachedSkin: GREEN
  name: buttonLinkVisitedColor
- value: lightgreen
+ value: 148203
  
 models.SkinPair(models_SkinPair_23):
  attachedSkin: GREEN
@@ -107,7 +107,7 @@ models.SkinPair(models_SkinPair_23):
 models.SkinPair(models_SkinPair_24):
  attachedSkin: GREEN
  name: buttonLinkSelectedColor
- value: black
+ value: 000000
  
  
 #Peace Skin
@@ -122,7 +122,7 @@ models.SkinPair(models_SkinPair_26):
 models.SkinPair(models_SkinPair_30):
  attachedSkin: peace
  name: headerBGColor
- value: 008000 
+ value: 148203 
  
 models.SkinPair(models_SkinPair_31):
  attachedSkin: peace
@@ -137,7 +137,7 @@ models.SkinPair(models_SkinPair_32):
 models.SkinPair(models_SkinPair_33):
  attachedSkin: peace
  name: footerColor
- value: gray
+ value: 858A7B
 
 models.SkinPair(models_SkinPair_34):
  attachedSkin: peace
@@ -152,7 +152,7 @@ models.SkinPair(models_SkinPair_35):
 models.SkinPair(models_SkinPair_36):
  attachedSkin: peace
  name: labelColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_37):
  attachedSkin: peace
@@ -192,7 +192,7 @@ models.SkinPair(models_SkinPair_43):
 models.SkinPair(models_SkinPair_44):
  attachedSkin: peace
  name: buttonBGColor
- value: white
+ value: FFFFFF
  
 models.SkinPair(models_SkinPair_45):
  attachedSkin: peace
@@ -207,7 +207,7 @@ models.SkinPair(models_SkinPair_46):
 models.SkinPair(models_SkinPair_47):
  attachedSkin: peace
  name: buttonLinkVisitedColor
- value: lightgreen
+ value: 48203
  
 models.SkinPair(models_SkinPair_48):
  attachedSkin: peace
@@ -247,7 +247,7 @@ models.SkinPair(models_SkinPair_56):
 models.SkinPair(models_SkinPair_57):
  attachedSkin: default_skin
  name: footerColor
- value: gray
+ value: 858A7B
 
 models.SkinPair(models_SkinPair_58):
  attachedSkin: default_skin
@@ -262,7 +262,7 @@ models.SkinPair(models_SkinPair_59):
 models.SkinPair(models_SkinPair_60):
  attachedSkin: default_skin
  name: labelColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_61):
  attachedSkin: default_skin
@@ -272,7 +272,7 @@ models.SkinPair(models_SkinPair_61):
 models.SkinPair(models_SkinPair_62):
  attachedSkin: default_skin
  name: commentBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_63):
  attachedSkin: default_skin
@@ -292,7 +292,7 @@ models.SkinPair(models_SkinPair_65):
 models.SkinPair(models_SkinPair_66):
  attachedSkin: default_skin
  name: buttonBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_67):
  attachedSkin: default_skin
@@ -302,7 +302,7 @@ models.SkinPair(models_SkinPair_67):
 models.SkinPair(models_SkinPair_68):
  attachedSkin: default_skin
  name: buttonBGColor
- value: white
+ value: FFFFFF
  
 models.SkinPair(models_SkinPair_69):
  attachedSkin: default_skin
@@ -312,12 +312,12 @@ models.SkinPair(models_SkinPair_69):
 models.SkinPair(models_SkinPair_70):
  attachedSkin: default_skin
  name: buttonLinkUnvisitedColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_71):
  attachedSkin: default_skin
  name: buttonLinkVisitedColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_72):
  attachedSkin: default_skin
@@ -327,4 +327,4 @@ models.SkinPair(models_SkinPair_72):
 models.SkinPair(models_SkinPair_73):
  attachedSkin: default_skin
  name: buttonLinkSelectedColor
- value: black
+ value: 000000

@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 import controllers.Security;
 import play.db.jpa.*;
+import utils.Bootstrap;
 
 
 /**
@@ -58,41 +59,42 @@ public class Skin extends Model {
     this.save();
     
     //body
-    
+    addParam("bodyBGColor","FFFFFF");
     addParam("bodyBGPhoto","none");
 
     //header
+    addParam("headerBGPhoto","/photos/"+ Bootstrap.defaultHeaderPhotoID);
     addParam("headerBGColor","CC5500");//000000 (BLACK) or CC5500 (orange)
 
     //footer
     addParam("footerTextAlign","center");//center..
     addParam("footerFontSize","10");// >= 0
-    addParam("footerColor","gray");//white, black, gray, etc
+    addParam("footerColor","858A7B");//white, black, gray, etc
 
     //section
     addParam("sectionAlign","top");//top
 
     //label
     addParam("labelFontSize","10");
-    addParam("labelColor","black");
+    addParam("labelColor","000000");
 
     //comment
     addParam("commentBorderSize","2");//px size
-    addParam("commentBorderColor","white");
+    addParam("commentBorderColor","FFFFFF");
     addParam("commentBGColor","EEEEEE");
 
 
     //button
     addParam("buttonBorderRadius","4");//4
     addParam("buttonBorderSize","1");//1
-    addParam("buttonBorderColor","black");//black
+    addParam("buttonBorderColor","000000");//black
     addParam("buttonBoxShadowColor","888888");//888888;
-    addParam("buttonBGColor","white");//white;
+    addParam("buttonBGColor","FFFFFF");//white;
     addParam("buttonTextDec","none");//none, underline, overline, line-through, blink
-    addParam("buttonLinkUnvisitedColor","black");//black   
-    addParam("buttonLinkVisitedColor","black");//black 
+    addParam("buttonLinkUnvisitedColor","000000");//black   
+    addParam("buttonLinkVisitedColor","000000");//black 
     addParam("buttonLinkHoverColor","E0E0FF");//#E0E0FF;} 
-    addParam("buttonLinkSelectedColor","black");//black;}
+    addParam("buttonLinkSelectedColor","000000");//black;}
   
     this.save();
   }

@@ -1,17 +1,32 @@
 
 #{extends 'main.html' /}
 
-<a href="@{Skins.editMySkin}">Edit My Skin</a>
-	#{form @Skins.changeSkinToTemplate()} </br>
-		<label><b>CHANGE SKIN TO TEMPLATE</b></label> <select name=skinName>
-			<option selected="yes" value="${currentUser.profile.skin.name}">
-				Current Skin</option>
-			<option value=default_skin>Default</option>
-			<option value=green>Green Header</option>
-			<option value=peace>Peace</option>
-		</select> <input type=submit value=Save> #{ifErrors}
-		<ul style="color: red">
-			#{errors}
-			<li>${error}</li> #{/errors}
-		</ul>
-	#{/form}
+
+<div class="grid_15">
+	<div id="contentArea-BigPage">
+	
+		<a href="@{Skins.editMySkin}">Edit My Skin</a>
+		<br>
+		
+		#{form @Skins.changeSkinToTemplate()} </br>
+			<label><b>CHANGE SKIN TO TEMPLATE</b></label> <select name=skinName>
+				<option selected="yes" value="${currentUser.profile.skin.name}">
+					Current Skin</option>
+				<option value=default_skin>Default</option>
+				<option value=green>Green Header</option>
+				<option value=peace>Peace</option>
+			</select> 
+			
+			
+			<input type=submit value=Save> #{ifErrors}
+			<ul style="color: red">
+				#{errors}
+				<li>${error}</li> #{/errors}
+			</ul>
+			#{/ifErrors} #{/form} #{form @Skins.editSkin()} </br>
+			<iframe name="iframe_default" src="/" width = "100%" height = "100%" marginheight = "120" marginwidth= "120" scrolling = "no" ></iframe> 
+			#{/form}
+			<p><a href="@Skins.changeSkinToTemplate" target="iframe_default">Default</a></p> 
+
+	</div>
+</div>

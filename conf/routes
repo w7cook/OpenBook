@@ -22,7 +22,6 @@ GET		/editMySkin								Skins.editMySkin
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
 POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
-GET		/jscolor/jscolor.js						staticFile:/jscolor/jscolor.js
 
 # Threads
 GET     /threads                                Categories.listAll

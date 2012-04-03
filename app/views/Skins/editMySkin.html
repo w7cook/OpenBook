@@ -1,11 +1,11 @@
 #{extends 'three_panel.html' /}
 
-
-<a href="@{Skins.skin}"> Change Skin to Template</a>
-<script type="text/javascript" src="jscolor/jscolor.js"></script>
-
 <div class="grid_15">
 	<div id="contentArea-BigPage">
+
+		<a href="@{Skins.skin}"> Change Skin to Template</a>
+		<script type="text/javascript" src="/public/javascripts/jscolor/jscolor.js"></script>
+
 		#{form @Skins.editSkin()}
 		
 		  </br><label><b>EDIT CURRENT SKIN</b></label>
@@ -28,9 +28,9 @@
 		      <tr>
 		        <td><label>Background Color:</label></td>
 		        <input type = "hidden" name = key value = "headerBGColor" />
-		        <td><input type=text name=val 
+		        <td><input class="color" name=val 
 		        	value="${currentUser.profile.skin.get("headerBGColor")}" />
-		        </td>
+		        </td>        
 		      </tr>
 		      </table>
 		  </table>
@@ -56,7 +56,7 @@
 		      <tr>
 		        <td><label>Color:</label></td>
 		        <input type = "hidden" name = key value = "footerColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("footerColor")}" />
 		        </td>
 		      </tr>
@@ -91,7 +91,7 @@
 		      <tr>
 		        <td><label>Color:</label></td>
 		        <input type = "hidden" name = key value = "labelColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("labelColor")}" />
 		        </td>
 		      </tr>
@@ -112,14 +112,14 @@
 		      <tr>
 		        <td><label>Border Color:</label></td>
 		        <input type = "hidden" name = key value = "commentBorderColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("commentBorderColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
 		        <td><label>Background Color:</label></td>
 		        <input type = "hidden" name = key value = "commentBGColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("commentBGColor")}" />
 		        </td>
 		      </tr>
@@ -147,21 +147,21 @@
 		      <tr>
 		        <td><label>Border Color:</label></td>
 		        <input type = "hidden" name = key value = "buttonBorderColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonBorderColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
 		        <td><label>Border Box Shadow Color:</label></td>
 		        <input type = "hidden" name = key value = "buttonBoxShadowColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonBoxShadowColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
 		        <td><label>Background Color:</label></td>
 		        <input type = "hidden" name = key value = "buttonBGColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonBGColor")}" />
 		        </td>
 		      </tr>
@@ -175,28 +175,28 @@
 		      <tr>
 		        <td><label>Unvisited Link Color: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkUnvisitedColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkUnvisitedColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
 		        <td><label>Visited Link Color: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkVisitedColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkVisitedColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
 		        <td><label>Link Hover Color: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkHoverColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkHoverColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
 		        <td><label>Selected Link Color: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkSelectedColor" />
-		        <td><input type=text name=val
+		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkSelectedColor")}" />
 		        </td>
 		      </tr>
