@@ -1,77 +1,91 @@
- #{extends 'two_panel.html' /}
-<div class="grid_15">
-	<div id="contentArea">
-		<div class="pagelet">
-			<a href="#">Update Status</a> <a href="#">Add Photo / Video</a> <a
-				href="#">Ask Question</a> #{if user.id == currentUser.id} #{/if}
-			#{else} <a href="@{Posts.poke(user.id)}">Poke!</a> #{/else} #{if
-			user.id == currentUser.id} <a id="about-button"
-				href="@{Application.edit_basic}">About me</a> #{/if} #{else} <a
-				id="about-button" href="@{Application.about(user.id)}">About
-				${user.first_name}</a> #{/else}
-		</div>
-		<br /> #{if user.checkFriendship(user.id) == 'Request Friendship'} <a
-			id="friend-button" href="@{Application.requestFriends(user.id)}">
-			${user.checkFriendship(user.id)} </a> #{/if} #{elseif
-		user.checkFriendship(user.id) == 'Friendship Requested'} Friendship
-		Requested #{/elseif} #{elseif user.checkFriendship(user.id) ==
-		'Friends'} Friends :) <a id="friend-button"
-			href="@{Application.removeFriends(user.id)}"> Remove friend </a>
-		#{/elseif} #{if user.id == currentUser.id}
-		<div class="ui_InputContainer">
-			<textarea name="post_content" id="postContent" class="ui_TextArea"
-				rows="2" cols="45" maxlength="400"
-				onclick="document.post_form.post_content.value='';">Write something...</textarea>
-			<input type="submit" value="Post" id="postSubmit"
-				class="ui_TextAreaButton" />
-		</div>
-		#{/if}
+#{extends 'two_panel.html' /}
+<div class="grid_8">
+  <div id="contentArea">
+    <div class="pagelet">
+      <a href="#">Update Status</a>
+      <a href="#">Add Photo / Video</a>
+      <a href="#">Ask Question</a>
 
-		<div id="postsList">#{list items:user.news(), as:'item'} #{post
-			currentUser:currentUser,user:user,item:item /} #{/list}</div>
-	</div>
-</div>
-<!-- grid_15 -->
+	  #{if user.id == currentUser.id}
+      #{/if}
+      #{else}
+      <a href="@{Posts.poke(user.id)}">Poke!</a>
+      #{/else}
 
-<div class="grid_5">
-	<div class="lhs-navBoxHeader">RSS Feed</div>
-	<div class="lhs-navBoxBody">
-		<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Latest News</a>
-	</div>
+      #{if user.id == currentUser.id}
+      <a id="about-button" href="@{Application.edit_basic}">About me</a>
+      #{/if}
+      #{else}
+      <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
+      #{/else}
+    </div>
+    <br />
+    #{if user.checkFriendship(user.id) == 'Request Friendship'}
+    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
+      ${user.checkFriendship(user.id)}
+    </a>
+    #{/if}
+    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
+    Friendship Requested
+    #{/elseif}
+    #{elseif user.checkFriendship(user.id) == 'Friends'}
+    Friends :) 
+    <a id="friend-button" href="@{Application.removeFriends(user.id)}">
+      Remove friend
+    </a>
+    #{/elseif}
 
-	<div class="lhs-navBoxHeader">Upcoming Events</div>
-	<div class="lhs-navBoxBody">
-		<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Upcoming Events</a>
-	</div>
+    #{if user.id == currentUser.id}
+    <div class="ui_InputContainer">
+      <textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" onclick="document.post_form.post_content.value='';">Write something...</textarea>     
+      <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
+    </div>
+    #{/if}
+    
+    <div id="postsList">
+      #{list items:user.news(), as:'item'} 
+      #{post currentUser:currentUser,user:user,item:item /}
+      #{/list}
+    </div>
+  </div>
+</div> <!-- grid_8 -->
 
-	<div class="lhs-navBoxHeader">ETC</div>
-	<div class="lhs-navBoxBody">
-		<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Extra Stuff</a>
-	</div>
+<div class="grid_4">
+  <div class="lhs-navBoxHeader">RSS Feed</div>  
+  <div class="lhs-navBoxBody">
+    <a href="www.youtube.com/watch?v=oHg5SJYRHA0">Latest News</a>
+  </div>
+  <div class="lhs-navBoxHeader">Upcoming Events</div>
+  <div class="lhs-navBoxBody">
+	<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Upcoming Events</a>
+  </div>
 
-</div>
-<!-- grid_5 -->
+  <div class="lhs-navBoxHeader">ETC</div>
+  <div class="lhs-navBoxBody">
+	<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Extra Stuff</a>
+  </div>
+</div><!-- grid_4 -->
 
 <script type="text/javascript">
-   $('input#postSubmit').click(function(event) {
-     var postData = {
-         postContent : $("textarea#postContent").val(),
-     };
-     $.post("/posts/makeNewPost", postData, function(data) {
-       var new_item = $(data).hide();
-       $("div#postsList").prepend(new_item);
-       new_item.slideDown();
-       $("textarea#postContent").val('');
-     });
-   });
+  $('input#postSubmit').click(function(event) {
+  var postData = {
+  postContent : $("textarea#postContent").val(),
+  };
+  $.post("/posts/makeNewPost", postData, function(data) {
+  var new_item = $(data).hide();
+  $("div#postsList").prepend(new_item);
+  new_item.slideDown();
+  $("textarea#postContent").val('');
+  });
+  });
 </script>
 
 <script>
-/*Show before resizing, with jQuery to avoid glitchy redisplay*/
-$('textarea#postContent').css('display','inline-block');
-$('input#postSubmit').css('display', 'inline-block');
+  /*Show before resizing, with jQuery to avoid glitchy redisplay*/
+  $('textarea#postContent').css('display','inline-block');
+  $('input#postSubmit').css('display', 'inline-block');
 
-/*autoResize*/
+  /*autoResize*/
   $('textarea#postContent').autoResize({
   maxHeight: 150,
   minHeight: 50,
@@ -92,17 +106,17 @@ $('input#postSubmit').css('display', 'inline-block');
 </script>
 
 <script>
-    $('#postContent')
-    .focusin(function() {
-        if ( this.value == 'Write something...' ) {
-            this.value = '';    
-        }
-    })
-    .focusout(function() {
-        if ( this.value == '' ) {
-            this.value = 'Write something...';    
-        }
-});
+  $('#postContent')
+  .focusin(function() {
+  if ( this.value == 'Write something...' ) {
+  this.value = '';    
+  }
+  })
+  .focusout(function() {
+  if ( this.value == '' ) {
+  this.value = 'Write something...';    
+  }
+  });
 </script>
 
 
