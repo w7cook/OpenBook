@@ -1,44 +1,44 @@
 #{extends 'two_panel.html' /}
 
 <div class="grid_16">
-  <div id="contentArea-BigPage">
-  <h3 tabindex="0" class="uiHeaderTitle">Profile</h3>
-<div class="globalContentAbout">
-	<div class="LeftColumnAbout">
-		<div class=button>
-			<span id="PanelTitle">Basic Info</span>
+	<div id="contentArea-BigPage">
+		<h3 tabindex="0" class="uiHeaderTitle">Profile</h3>
+		<div class="globalContentAbout">
+			<div class="LeftColumnAbout">
+				<div class=button>
+					<span id="PanelTitle">Basic Info</span>
+				</div>
+				<table class="uiInfoTable profileInfoTable">
+					<tr>
+						<th class="label">Name</th>
+						<td class="data">${user.name}</td>
+					</tr>
+					<tr>
+						<th class="label">Email</th>
+						<td class="data">${user.email}</td>
+					</tr>
+					<tr>
+						<th class="label">Birthday</th> #{if user.profile.birthday}
+						<td class="data">${user.profile.birthday.format('MMM dd ')}</td>
+						#{/if}
+					</tr>
+					<tr>
+						<th class="label">Sex</th>
+						<td class="data">${user.profile.gender}</td>
+					</tr>
+					#{if user.profile.significantOther}
+					<tr>
+						<th class="label">Relationship Status</th>
+						<td class="data">In a relationship with <a
+							href="@{Application.news(user.significant_other.id)}">${user.significant_other.name}</a>
+						</td>
+					</tr>
+					#{/if}
+				</table>
+			</div>
+			<div class="RightColumnAbout"></div>
+			<br />
+			<br />
 		</div>
-		<table class="uiInfoTable profileInfoTable">
-    		<tr>
-      			<th class="label">Name</th>
-      			<td class="data">${user.name}</td>
-    		</tr>
-    		<tr>
-      			<th class="label">Email</th>
-      			<td class="data">${user.email}</td>
-    		</tr>
-    		<tr>
-      			<th class="label">Birthday</th>
-      			#{if user.profile.birthday}
-      			<td class="data">${user.profile.birthday.format('MMM dd ')}</td>
-      			#{/if}
-    		</tr>
-			<tr>
-				<th class="label">Sex</th>
-				<td class="data">${user.profile.gender}</td>
-			</tr>
-   			#{if user.profile.significantOther}
-    		<tr>
-      			<th class="label">Relationship Status</th>
-      			<td class="data">In a relationship with <a 		href="@{Application.news(user.significant_other.id)}">${user.significant_other.name}</a>
-      			</td>
-    		</tr>
-  			#{/if}
-		</table>
 	</div>
-	<div class="RightColumnAbout">
-	</div>
-	<br/><br/>
-</div>
-</div>
 </div>
