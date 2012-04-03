@@ -100,6 +100,21 @@ public class PhotoTest extends FunctionalTest {
   }
 
   @Test
+  public void testNullUpload() {
+    Map<String,File> files = new HashMap<String,File>();
+    files.put("image", null);
+    Response response = POST("/photos",
+                             this.setupParameters(),
+                             files);
+    assertNotNull(response);
+    assertStatus(Http.StatusCode.FOUND, response);
+    assertHeaderEquals("Location",
+                       "/users/" + this.user.id + "/photos",
+                       response);
+    assertEquals(0, Photo.count());
+  }
+
+  @Test
   public void testBadUploads() {
     Response response = POST("/photos",
                              this.setupParameters(),

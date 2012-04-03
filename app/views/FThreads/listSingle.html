@@ -1,59 +1,57 @@
-#{extends 'main.html' /}
-
-#{set 'title'}
-    OpenBook :: ${thread.title}
+#{extends 'main.html' /} #{set 'title'} OpenBook :: ${thread.title}
 #{/set}
 
 <div id="forumContainer">
 	<div id="forumHeader">
-		<div class="headerLeft"><a href="/threads">Forum</a> / <a href="/threads/${thread.category.id}">${thread.category.name}</a> / Thread: ${thread.title}</div>
+		<div class="headerLeft">
+			<a href="/threads">Forum</a> / <a
+				href="/threads/${thread.category.id}">${thread.category.name}</a> /
+			Thread: ${thread.title}
+		</div>
 	</div>
- 	
- 	<div class="forumInner">
-	 	<div class="threadAuthorInfo">
-		 	<a href="/?id=${thread.author.id}">${thread.author}</a>:<br />
-		 	<span class="threadDate">${thread.postedAt.format('M-d-yy, h:mm a')}</span>
-	 	</div>
-	 	
-	 	<div class="threadContent"> 
-	 		${thread.content}
-	 	</div>
-	</div>
-	
-	
-	#{list items:thread.comments(), as:'comment'}
-	
-		<div class="forumInner">
-			<div class="threadAuthorInfo">
-				<a href="/?id=${comment.author.id}">${comment.author}</a>:<br />
-			 	<span class="threadDate">${comment.createdAt.format('M-d-yy, h:mm a')}</span>
-		 	</div>
-		 	
-		 	<div class="threadContent"> 
-	 			${comment.content.escape().nl2br()}
-	 		</div>
-		 </div>
-	#{/list}
-	
+
 	<div class="forumInner">
 		<div class="threadAuthorInfo">
-				Post reply:
+			<a href="/?id=${thread.author.id}">${thread.author}</a>:<br /> <span
+				class="threadDate">${thread.postedAt.format('M-d-yy, h:mm
+				a')}</span>
 		</div>
-		 
-		<div class="threadContent"> 
-			<form action="">	
+
+		<div class="threadContent">${thread.content}</div>
+	</div>
+
+
+	#{list items:thread.comments(), as:'comment'}
+
+	<div class="forumInner">
+		<div class="threadAuthorInfo">
+			<a href="/?id=${comment.author.id}">${comment.author}</a>:<br /> <span
+				class="threadDate">${comment.createdAt.format('M-d-yy, h:mm
+				a')}</span>
+		</div>
+
+		<div class="threadContent">${comment.content.escape().nl2br()}</div>
+	</div>
+	#{/list}
+
+	<div class="forumInner">
+		<div class="threadAuthorInfo">Post reply:</div>
+
+		<div class="threadContent">
+			<form action="">
 				<textarea id="threadReply">
 			 	</textarea>
-			 		
-		 		<input style="float: right" id="threadSubmit" type="submit" value="Submit reply" />
-		 		<div style="clear:both;"></div>
-	 		</form>	
+
+				<input style="float: right" id="threadSubmit" type="submit"
+					value="Submit reply" />
+				<div style="clear: both;"></div>
+			</form>
 		</div>
-	 	 	
+
 	</div>
-	
-	
-	
+
+
+
 </div>
 
-<div style="clear:both;"></div>
+<div style="clear: both;"></div>

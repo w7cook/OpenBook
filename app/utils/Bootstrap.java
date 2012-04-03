@@ -15,15 +15,18 @@ import controllers.Photos;
 
 @OnApplicationStart
 public class Bootstrap extends Job {
-
+	public static Long peacePhotoID, defaultProfilePhotoID;
 	public void doJob() throws FileNotFoundException, IOException{
 		// Check if the database is empty
 		if(User.count() == 0) {
 			Fixtures.loadModels("default-data.yml");//Default User
 			//load in pictures
+			Photo photo;
 			String path = new java.io.File(".").getCanonicalPath() + "/public/images/";
-			Photos.initFileToPhoto(path+"matrixWhite.jpg", "http://media.photobucket.com/image/matrix%20white/thomastamblyn/MatrixWhite.jpg");
-
+			photo = Photos.initFileToPhoto(path+"GreenTaijitu.svg", "By Chinneeb (Own work) [Public domain], via Wikimedia Commons");
+			peacePhotoID = photo.id;
+			photo = Photos.initFileToPhoto(path+"default.png", "Default Profile Photo");
+			defaultProfilePhotoID = photo.id;
 			Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
 			Fixtures.loadModels("initial-data.yml");//rest of the data
 			hashPasswords();
