@@ -137,6 +137,13 @@ border-color: #CCCCCC; /*Forced to use a border here, because encasing everythin
 	
 	margin-bottom: 10px;			
 	}
+	
+	.lhs-navBoxBody a {
+	width: 100%;		
+	color: black;
+	display:block;
+}
+	
 
 
 

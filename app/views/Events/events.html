@@ -1,5 +1,9 @@
-#{extends 'main.html' /}
+#{extends 'three_panel.html' /}
+<div class="grid_15">
+  <div id="contentArea-BigPage">
+
 <h2> Events </h2>
+<hr/>
 <a class=button href="@{Events.addEvent()}">+ Create Event</a><br /><br />
 
 To Do: currently only lists events user authored, eventually list all attending by start date<br />
@@ -8,4 +12,7 @@ To Do: currently only lists events user authored, eventually list all attending 
   <a href="@{Events.displayEvent(authorEvent.id)}">${ authorEvent.eventName }</a>
   <a class=button href="@{Events.deleteEvent(authorEvent.id, user.id)}">Remove Event</a><br />
 #{/list}
+
+</div>
+</div>
 
