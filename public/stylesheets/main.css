@@ -130,10 +130,9 @@ a:active {
 }
 
 .profile-pic {
-  /*position: relative;*/
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
+position: relative;
+width: 50%;
+height: 50%; /*Resize the profile-picture here*/
 }
 
 .profile-pic a{
@@ -142,9 +141,8 @@ a:active {
 
 .profile-pic img{
 	/*max-width: 140px;*/
-	width: 65%;
-	height: 65%;
-
+	width: 100%;
+	height: 100%;
   vertical-align: middle;
 }
 
