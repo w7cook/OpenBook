@@ -2,7 +2,8 @@
 
 #Green Skin (greenHeader)
 models.Skin(GREEN):
- name: 148203
+ name: green
+ isPublic: "true"
 
 models.SkinPair(models_SkinPair_1):
  attachedSkin: GREEN
@@ -113,6 +114,7 @@ models.SkinPair(models_SkinPair_24):
 #Peace Skin
 models.Skin(peace):
  name: peace
+ isPublic: "true"
  
 models.SkinPair(models_SkinPair_26):
  attachedSkin: peace
@@ -223,6 +225,7 @@ models.SkinPair(models_SkinPair_49):
 #Default Skin (orange header)
 models.Skin(default_skin):
  name: default_skin
+ isPublic: "true"
 
 models.SkinPair(models_SkinPair_50):
  attachedSkin: default_skin

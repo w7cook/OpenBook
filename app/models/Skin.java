@@ -39,6 +39,7 @@ import utils.Bootstrap;
 public class Skin extends Model {
 
   public String name;//name of the skin
+  public String isPublic;//whether or not this skin is public
   
   @OneToMany(mappedBy = "attachedSkin", cascade = CascadeType.ALL)
   public List<SkinPair> parameters; // attributes of the skin
@@ -56,6 +57,7 @@ public class Skin extends Model {
   {
     this.name = name;
     parameters = new ArrayList<SkinPair>();
+    isPublic = "false";
     this.save();
     
     //body

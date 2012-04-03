@@ -17,8 +17,9 @@ GET     /requests                               Application.friendRequests
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
-GET     /skin                                   Skins.skin
+GET     /changeSkin                             Skins.changeSkin
 GET		/editMySkin								Skins.editMySkin
+GET		/sampleSkin								Skins.sampleSkin
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
 POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto

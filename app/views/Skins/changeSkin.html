@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+
+<div class="grid_15">
+	<div id="contentArea-BigPage">
+	
+		<a href="@{Skins.editMySkin}">Edit My Skin</a>
+		<br>
+	      #{list items: skinList, as:'skin'} 
+	     	 <iframe src="@{Skins.sampleSkin(user,skin)}" width = "120" height = "120"
+	     	 	scrolling = "no" />
+	      #{/list}
+	   			
+
+	</div>
+</div>

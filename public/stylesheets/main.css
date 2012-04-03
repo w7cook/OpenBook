@@ -7,7 +7,6 @@ html, body {
 body {
   height: auto;
   margin: 0;
-  background-color: #EEEEEE;
   font-size: 15px;
   background-image:url(skin.get("bodyBGPhoto"));
   background-color: #${skin.get("bodyBGColor")};

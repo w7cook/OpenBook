@@ -10,6 +10,15 @@ import models.*;
 @With(Secure.class)
 public class Skins extends OBController {
   
+  public static List<Skin> skins() {
+    List<Skin> skinList = Skin.find("isPublic = ?", "true").fetch();
+    return skinList;
+  }
+
+  public static void sampleSkin(User user, Skin skin)
+  {
+    render(user,skin);
+  }
   /**
    * stylesheet()
    * called by main.html
@@ -22,13 +31,12 @@ public class Skins extends OBController {
   }
 
   /**
-   * skin
    * renders change skin page
-   * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
    */
-  public static void skin(Long id) {
+  public static void changeSkin(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
-    render(user);
+    List<Skin> skinList = skins();
+    render(user, skinList);
   }
   
   /**
@@ -119,7 +127,7 @@ public class Skins extends OBController {
         updateParam.save(); 
       }
     }
-    skin(null);//rerender page
+    changeSkin(null);//rerender page
   }
 
   /**
