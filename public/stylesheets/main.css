@@ -86,12 +86,13 @@ a:active {
 /** left side nav **/
 .left-side-nav {	
   line-height: 25px;
-  height:auto;
-  margin-bottom: 10px;	
+  margin-bottom: 10px;
 }
 
 .left-side-nav a {
-  color: black;
+	width: 100%;		
+	color: black;
+	display:block;
 }
 
 .left-side-nav a:hover {
@@ -99,32 +100,45 @@ a:active {
   text-decoration: none;
 }
 
-.lhs-navBox {
-	width: 100%;
-  height: 100%;
-  margin: 10px 5px 10px; /*top (right & left) left*/
-  padding: 0px 0px 0px 0px;
-  /*Code to make the post stick out against changed background */
-  background-color: white;
-  outline: #CCCCCC groove 1px;
-}
-
-.lhs-navBox a {
-  color: black;
-}
-
-
 .lhs-navBoxHeader {
+padding: 0px;
 	width: 100%;
 	color: white;
 	background-color:black;
+	padding-left: 0px;	
   background-image: url('/public/images/headerBG.png'); /*Little spiffier header bar */
   background-repeat: repeat-x;
+  
+  	border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-top-style: solid;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-width: 1px;
+	
+	margin-top: 10px;
+  
 }
 
-.lhs-navBoxBody div {
+
+.lhs-navBoxBody {
+	display:block;
+	background-color: white;
 	width: 100%;
-}
+	height: auto;
+	padding: 0px;
+
+border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-top-style: none;
+	border-width: 1px;
+	
+	margin-bottom: 10px;			
+	}
+
+
 
 #name_avatar {
 }
