@@ -35,9 +35,8 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-    <div class="ui_InputContainer">
-      <textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" onclick="document.post_form.post_content.value='';">Write something...</textarea>     
-      <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
+    <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" onclick="document.post_form.post_content.value='';">Write something...</textarea>
+    <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
     </div>
     #{/if}
     
@@ -89,9 +88,6 @@
   minHeight: 50,
   extraSpace: 30
   });
-  
-  /* use jQuery to set the size of the button to sit flush, because buttons do not take height:100% well*/
-  $('input#postSubmit').css('height', $('textarea#postContent').height());
   
   /*autoResize*/
   $('textarea#commentContent').autoResize({
