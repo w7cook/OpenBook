@@ -201,5 +201,5 @@ public class Application extends OBController {
     c.removeLike(toRemove);
     news(userId);
   }
-
+  
 }

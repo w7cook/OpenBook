@@ -1,40 +1,29 @@
-#{extends 'two_panel.html' /}
-<div class="grid_9">
-  <div id="contentArea">
-    <h1>Inbox</h1>
-    <br />
-    #{if user.checkFriendship(user.id) == 'Request Friendship'}
-      <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-        ${user.checkFriendship(user.id)}
-      </a>
-    #{/if}
-    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-      Friendship Requested
-    #{/elseif}
-    #{elseif user.checkFriendship(user.id) == 'Friends'}
-      Friends :) 
-      <a id="friend-button" href="@{Application.removeFriends(user.id)}">
-        Remove friend
-      </a>
-    #{/elseif}
-    
-    <br> <a href ="@{Messages.createMessage()}">Create Message</a>
-    
-    <h2>Messages</h2>
-    #{list items:user.inbox(), as:'item'}
-      <div class="message">
-        <span class="message-author"><a href="@{Application.news(item.author.id)}">Author: ${ item.author.name }</a></span><br />
-        <span class="message-recipient"><a href="@{Application.news(item.recipient.id)}">Recipient: ${item.recipient.name}</a></span><br />
-        ${item.date.format('dd MMM yy')}<br />
-        Title: ${item.title}<br />
-        Message: ${item.content.nl2br()}<br />
-      </div>
-    #{/list}
-  </div>
-</div> <!-- grid_9 -->
+#{extends 'three_panel.html' /}
 
-<div class="grid_3">
-  more newsfeed on the side<br />
-  birthdays<br />
-  create events<br />
-</div><!-- grid_4 -->
+	<div id="contentArea-BigPage">
+
+		<h1>Inbox</h1>
+		<hr />
+		<br /> #{if user.checkFriendship(user.id) == 'Request Friendship'} <a
+			id="friend-button" href="@{Application.requestFriends(user.id)}">
+			${user.checkFriendship(user.id)} </a> #{/if} #{elseif
+		user.checkFriendship(user.id) == 'Friendship Requested'} Friendship
+		Requested #{/elseif} #{elseif user.checkFriendship(user.id) ==
+		'Friends'} Friends :) <a id="friend-button"
+			href="@{Application.removeFriends(user.id)}"> Remove friend </a>
+		#{/elseif} <br> <a href="@{Messages.createMessage()}">Create
+			Message</a>
+
+		<h2>Messages</h2>
+		#{list items:user.inbox(), as:'item'}
+		<div class="message">
+			<span class="message-author"><a
+				href="@{Application.news(item.author.id)}">Author: ${
+					item.author.name }</a></span><br /> <span class="message-recipient"><a
+				href="@{Application.news(item.recipient.id)}">Recipient:
+					${item.recipient.name}</a></span><br /> ${item.date.format('dd MMM yy')}<br />
+			Title: ${item.title}<br /> Message: ${item.content.nl2br()}<br />
+		</div>
+		#{/list}
+
+	</div>

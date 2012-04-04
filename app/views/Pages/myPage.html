@@ -1,46 +1,33 @@
-#{extends 'main.html' /}
-#{include 'two_panel.html' /}
-#{if page.admin == user}
-	#{form @Pages.pageUpdate(page.id, info)}
-	<div id = "content-middle">
-		<h1>${page.title}</h1>
-		${page.info}
-		<br>
-		<div class="hideable">
- 			<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
- 			<a class="triggerhide" href='#' onclick='return false;'>-done</a>
- 			<div class="post-teaser tohideopp">
- 			</div>
- 			<div class="post-content tohide hide">
-				Admin: ${page.admin}
-				<a href="@{Pages.deletePage(page.id)}" style="float:right">Delete this Page</a>
-				<br>Info:
-				<input type=text name=info value="${page.info}" style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;"/><br>
-				<div style="float:right">
-					<input type=submit value=Save>
-				</div>
+#{extends 'main.html' /} #{include 'two_panel.html' /} #{if page.admin
+== user} #{form @Pages.pageUpdate(page.id, info)}
+<div id="content-middle">
+	<h1>${page.title}</h1>
+	${page.info} <br>
+	<div class="hideable">
+		<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
+		<a class="triggerhide" href='#' onclick='return false;'>-done</a>
+		<div class="post-teaser tohideopp"></div>
+		<div class="post-content tohide hide">
+			Admin: ${page.admin} <a href="@{Pages.deletePage(page.id)}"
+				style="float: right">Delete this Page</a> <br>Info: <input
+				type=text name=info value="${page.info}"
+				style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;" /><br>
+			<div style="float: right">
+				<input type=submit value=Save>
 			</div>
 		</div>
 	</div>
-	#{/form}
-	#{include 'Pages/post.html' /}
-#{/if}
-#{elseif page != null}
-	<div id = "content-middle">
-		<h1>${page.title}</h1> 
-		<div id = "pageInfo" style="float:left">
-			${page.info}
-		</div>
-		<div style="float:right">
-			#{if pageLink == null}
-				<a href="@{Pages.fan(page.id)}">fan</a>
-			#{/if}
-			#{else}
-				<a href="@{Pages.unfan(page.id)}">unfan</a>
-			#{/else}
-		</div>
-		<hr style="float:left; width: 100%; color: #98AFC7;"/> 
-		#{include 'Pages/post.html' /}
+</div>
+#{/form} #{include 'Pages/post.html' /} #{/if} #{elseif page != null}
+<div id="content-middle">
+	<h1>${page.title}</h1>
+	<div id="pageInfo" style="float: left">${page.info}</div>
+	<div style="float: right">
+		#{if pageLink == null} <a href="@{Pages.fan(page.id)}">fan</a> #{/if}
+		#{else} <a href="@{Pages.unfan(page.id)}">unfan</a> #{/else}
 	</div>
+	<hr style="float: left; width: 100%; color: #98AFC7;" />
+	#{include 'Pages/post.html' /}
+</div>
 #{/elseif}
 

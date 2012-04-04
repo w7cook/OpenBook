@@ -1,40 +1,34 @@
-#{extends 'main.html' /}
-
-#{set 'title'}
-    OpenBook :: ${category.name}
+#{extends 'main.html' /} #{set 'title'} OpenBook :: ${category.name}
 #{/set}
 
 <div id="forumContainer">
 	<div id="forumHeader">
-		<div class="headerLeft"><a href="/threads">Forum</a> / ${category.name}</div>
+		<div class="headerLeft">
+			<a href="/threads">Forum</a> / ${category.name}
+		</div>
 		<div class="headerRight">Last post</div>
 	</div>
 
-	#{if FThreads.size()}        
-	   	#{list items:FThreads, as:'FThread'}
-		   	<div class="threadList">
-		   		<div class="forumInner">
-					<div class="threadLeft">
-						<a href="${FThread.category.id}/${FThread.id}">${FThread.title}</a>
-					</div>
-					<div class="threadRight" style="padding-top: 12px;">
-						<a href="/?id=${FThread.author.id}">${FThread.author}</a><br />
-							${FThread.postedAt.format('M-d-yy, h:mm a')}
-						</div>
-				</div>
+	#{if FThreads.size()} #{list items:FThreads, as:'FThread'}
+	<div class="threadList">
+		<div class="forumInner">
+			<div class="threadLeft">
+				<a href="${FThread.category.id}/${FThread.id}">${FThread.title}</a>
 			</div>
-		#{/list}
-	#{/if}
-	#{else}
-		<div class="threadList">
-		   		<div class="forumInner">
-					<div class="threadLeft">
-						This category has no threads.
-					</div>
-				</div>
+			<div class="threadRight" style="padding-top: 12px;">
+				<a href="/?id=${FThread.author.id}">${FThread.author}</a><br />
+				${FThread.postedAt.format('M-d-yy, h:mm a')}
+			</div>
 		</div>
+	</div>
+	#{/list} #{/if} #{else}
+	<div class="threadList">
+		<div class="forumInner">
+			<div class="threadLeft">This category has no threads.</div>
+		</div>
+	</div>
 	#{/else}
 
 </div>
 
-<div style="clear:both;"></div>
+<div style="clear: both;"></div>
