@@ -6,6 +6,7 @@ import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import controllers.Photos;
 
 @With(Secure.class)
 public class Skins extends OBController {
@@ -104,13 +105,6 @@ public class Skins extends OBController {
           {
             user.profile.skin.setParam(keyUpdate,valueUpdate);
             
-          //take out photo so the color can be seen
-            if(keyUpdate.equals("headerBGColor"))
-              user.profile.skin.setParam("headerBGPhoto", "none");
-            
-            if(keyUpdate.equals("bodyBGColor"))
-              user.profile.skin.setParam("bodyBGPhoto", "none");
-            
           }
         }
     }
@@ -139,14 +133,7 @@ public class Skins extends OBController {
       //reset currentSkin's parameters
       for(SkinPair updateTo: changeSkin.parameters)
       {
-        //find the parameter that we want to update
-        updateParam = SkinPair.find("attachedSkin = ? AND name = ?", user.profile.skin, updateTo.name).first();
-        updateParam.value = updateTo.value;
-        
-        if(updateParam.name.equals("headerBGColor"))
-          user.profile.skin.setParam("headerBGPhoto", "none");
-        
-        updateParam.save(); 
+        user.profile.skin.setParam(updateTo.name,updateTo.value);
       }
     }
     changeSkin(user.id);//rerender page
@@ -189,7 +176,7 @@ public class Skins extends OBController {
       update.value = "/photos/" + photoid.toString();
       update.save();
     }
-    redirect("/photos");
+    Photos.photos(user.id);
   }
 
 }

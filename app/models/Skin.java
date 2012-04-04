@@ -61,7 +61,6 @@ public class Skin extends Model {
     this.save();
     
     //body
-    addParam("bodyBGColor","FFFFFF");
     addParam("bodyBGPhoto","none");
 
     //header
@@ -138,9 +137,33 @@ public class Skin extends Model {
    * for the attribute the value is attached to.
    */
   public void setParam(String key, String value)
-  {
+  {  
        SkinPair s = SkinPair.find("attachedSkin = ? AND name = ?", this, key).first();
+       
        if(s != null){
+         
+         //take out photo so the color can be seen only if color is changed
+         if(key.equals("headerBGColor") && !value.equalsIgnoreCase(s.value) && 
+             !value.equalsIgnoreCase("none") && 
+             !value.equalsIgnoreCase("FFFFFF") &&
+             !value.equalsIgnoreCase("white"))//don't want white
+         {
+           SkinPair headerBGPhoto = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGPhoto").first();
+           headerBGPhoto.value = "none";
+           headerBGPhoto.save();
+         }
+         
+         if(key.equals("headerBGPhoto") && !value.equalsIgnoreCase(s.value))
+         {
+           SkinPair headerBGColor = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGColor").first();
+           headerBGColor.value = "none";
+           headerBGColor.save();
+         }
+         
+        
+         
+         
+         
          s.value = value;
          s.save();
        }
