@@ -70,7 +70,7 @@ public class Photos extends OBController {
              MimeTypes.getContentType(image.getName()));
     User user = User.find("username = ?", "default").first();//set owner as default owner
     Photo photo = new Photo(user, blob);
-    photo.caption = caption;//give credit
+    photo.content = caption;//give credit
     photo.save();
     return photo;
   }
