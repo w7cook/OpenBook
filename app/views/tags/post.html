@@ -35,7 +35,8 @@
                     #{comment user:_user,currentUser:_currentUser,comment:comment /} 
                   #{/list}
               </div>
-              
+             
+         
             </div>
 			<div class="tohide hide" style="clear: both; display: none;">
 			
@@ -51,7 +52,7 @@
 				<div id="new_comment_for_post${_item.id}" style="clear: both;" >
 					<img style="width: 30px; height: 30px;"	src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
 					
-					   <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" resize="none" rows="2" cols="35" maxlength="400" >new comment...</textarea>
+					   <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="color:grey;" resize="none" rows="2" cols="35" maxlength="400" >new comment...</textarea>
                        <input type="submit" value="Comment" id="commentSubmit${_item.id}" /> 
 				</div>
 <script type="text/javascript">
@@ -68,7 +69,19 @@
          });
    });
 </script>
-			
+<script>
+  $('#commentContent${_item.id}')
+  .focusin(function() {
+  if ( this.value == 'new comment...' ) {
+  this.value = '';    
+  }
+  })
+  .focusout(function() {
+  if ( this.value == '' ) {
+  this.value = 'new comment...';    
+  }
+  });
+</script>
 		</div>
 	</div>
 </div>
