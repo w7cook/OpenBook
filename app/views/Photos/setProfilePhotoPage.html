@@ -1,40 +1,33 @@
-#{extends 'main.html' /}
-#{ifErrors}
-<ul class="errors">
-  #{errors}
-    <li>${error}</li>
-  #{/errors}
-</ul>
-#{/ifErrors}
-<br>
-<b> Set Your Profile Photo </b>
-<br>
+#{extends 'three_panel.html' /}
 
-<b> Current Profile Photo:
-<img src="@{Photos.getPhoto(user.profile.profilePhoto)}" width="120" height="150" />
-<br><br>
+	<div id="contentArea-BigPage">
 
-#{form @Photos.addProfilePhoto(), enctype:'multipart/form-data'}
-  <b> New Photo: </b>
-  <input type="file" name="image" />
-  <input type="submit" name="submit" value="Upload" />
-#{/form}
+		<h2>Set Your Profile Photo</h2>
+		<hr />
 
-<br>
-<b> Use Existing Photo </b>
-<br>
+		#{ifErrors}
+		<ul class="errors">
+			#{errors}
+			<li>${error}</li> #{/errors}
+		</ul>
+		#{/ifErrors} <br>
 
-<ul class="photo-list">
-  #{list items:photos, as:'photo' }
-    <li>
-      <img src="@{Photos.getPhoto(photo.id)}"  width="120" height="150"/>
-      #{if currentUser.equals(photo.owner)}
-        #{form @Photos.setProfilePhoto(photo.id)}
-          <input type="submit" name="submit" value="Set as profile picture" />
-        #{/form}
-      #{/if}
-    </li>
-  #{/list}
-</ul>
+		<h3>Current Profile Photo:</h3>
+		<img src="@{Photos.getPhoto(user.profile.profilePhoto)}" width="120"
+			height="150" /> <br>
+		<br> #{form @Photos.addProfilePhoto(),
+		enctype:'multipart/form-data'} <b> New Photo: </b> <input type="file"
+			name="image" /> <input type="submit" name="submit" value="Upload" />
+		#{/form} <br> <b> Use Existing Photo </b> <br>
+
+		<ul class="photo-list">
+			#{list items:photos, as:'photo' }
+			<li><img src="@{Photos.getPhoto(photo.id)}" width="120"
+				height="150" /> #{if currentUser.equals(photo.owner)} #{form
+				@Photos.setProfilePhoto(photo.id)} <input type="submit"
+				name="submit" value="Set as profile picture" /> #{/form} #{/if}</li>
+			#{/list}
+		</ul>
 
 
+	</div>
