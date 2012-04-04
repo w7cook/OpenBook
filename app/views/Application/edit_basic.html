@@ -42,6 +42,7 @@
 							<td><label>Interested in:</label>
 							</td>
 							<td>#{select 'gender', value:user.profile.interestedIn} 
+							#{option 'Blank'}#{/option}
 							#{option 'Men'}Men#{/option} 
 							#{option 'Women'}Women#{/option} 
 							#{option 'Both'}Both#{/option} 
@@ -82,13 +83,13 @@
 						</tr>
 						<tr>
 							<td><label>Religious views: </label></td>
-							<td><input size=50 type=text name=religion
+							<td><input size=20 type=text name=religion
 								value="${user.profile.religion ? user.profile.religion : ''}">
 							</td>
 						</tr>
 						<tr>
 							<td><label>Political Views: </label></td>
-							<td><input size=50 type=text name=political
+							<td><input size=20 type=text name=political
 								value="${user.profile.political ? user.profile.political : ''}">
 							</td>
 						</tr>
