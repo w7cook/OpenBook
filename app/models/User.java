@@ -62,6 +62,14 @@ public class User extends Model {
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
   public List<Relationship> friendedBy; // A list of the user's friendship history
+  
+  public boolean subscription; // Whether the user has allowed subscriptions or not
+  
+  @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
+  public List<Subscription> subscribedTo; // A list of subscriptions the user subscribed to
+  
+  @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
+  public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
 
   public User(String email, String password, String username) {
     this.email = email;
@@ -85,8 +93,14 @@ public class User extends Model {
   
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) order by p.updatedAt desc",
-                     this.id).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",
+                     this.id, Post.type.NEWS).fetch();
+  }
+  
+  public List<Post> subscriptionNews() {
+	  return Post.find(
+              "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postType = ?2 order by p.updatedAt desc",
+              this.id, Post.type.NEWS).fetch();
   }
 
   public Profile getProfile(){
@@ -108,7 +122,6 @@ public class User extends Model {
       return "";
     }
     Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ?1 AND r.to = ?2", current, this).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ?1 AND r.from = ?2", current, this).first();
     if (r1 != null) {
       if (r1.accepted) {
         return "Friends";
@@ -136,6 +149,23 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
+  
+  /** Get a list of <numFriends> users who have requested to be friends
+  *
+  * @param numFriends the number of friends you want to fetch.
+  * @return a list of relationships related to incoming friend requests
+  */
+ public List<Relationship> requestedFriends(int numFriends) {
+   return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch(numFriends);
+ }
+  
+  /** Get the number of users users who have requested to be friends
+  *
+  * @return the number of relationships related to incoming friend requests
+  */
+ public long requestedFriendCount() {
+   return Relationship.count("to = ? and requested = true and accepted = false", this);
+ }
   
   public List<Group> getGroups(){
 	  List<Group> allGroups= Group.findAll();

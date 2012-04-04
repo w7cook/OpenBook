@@ -15,8 +15,6 @@ public abstract class Likeable extends Model {
   @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
   public List<Likes> likes;
   
-  public Date date;
-  
   public Likeable addLike(User user){
 	  Likes newLike = new Likes(this, user).save();
 	  this.likes.add(newLike);

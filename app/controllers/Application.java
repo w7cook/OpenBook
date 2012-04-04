@@ -52,6 +52,7 @@ public class Application extends OBController {
 
     if (r1 == null) {
       r1 = new Relationship(user, other, true);
+      r1.save();
     }
 
     if (r2 != null) {
@@ -83,6 +84,7 @@ public class Application extends OBController {
         return;
       }
     }
+    System.out.println(r1.requested);
     r1.save();
     news(id);
   }
@@ -161,7 +163,8 @@ public class Application extends OBController {
   public static void updateBasic() {
     long userID = 1;
     User user = User.findById(userID);
-    render(user);
+    user.profile.save();
+    renderTemplate("Application/edit_basic.html", user);
   }
 
   public static void search(String query) {
@@ -199,5 +202,5 @@ public class Application extends OBController {
     c.removeLike(toRemove);
     news(userId);
   }
-
+  
 }

@@ -8,6 +8,7 @@ User(bob):
     email:              bob@gmail.com
     password:           secret
     isAdmin:            true
+    subscription:       true
 
 User(alice):
     first_name:         Alice
@@ -18,6 +19,7 @@ User(alice):
     password:           secret
     #significant_other: jeff
     anniversary:        2010-12-2
+    subscription:       true
     
 User(jeff):
     first_name:         Jeff
@@ -37,6 +39,7 @@ User(gparker):
     email:              grp@gparker.co
     password:           password
     isAdmin:            true
+    subscription:       true
 
 Relationship(s1):
     from:       bob
@@ -86,6 +89,7 @@ Status(secondBobStatus):
                     @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
     
 Post(firstBobPost):
+    postType:       "NEWS"
     title:          About the model layer
     date:           2009-06-14
     author:         bob
@@ -101,6 +105,7 @@ Post(firstBobPost):
                     delegated to the infrastructure. This layer is the heart of business software.
 
 Post(secondBobPost):
+    postType:       "NEWS"
     title:          Just a test of YABE
     date:           2009-03-25
     author:         bob
@@ -108,6 +113,7 @@ Post(secondBobPost):
                     Well, it's just a test.
                     
 Post(jeffPost):
+    postType:       "NEWS"
     title:          The MVC application
     date:           2009-06-06
     author:         jeff
@@ -120,6 +126,7 @@ Post(jeffPost):
                     View and a Controller layer.
 
 Post(jeffPost2):
+    postType:       "NEWS"
     title:          The MVC application
     date:           2009-06-07
     author:         jeff
@@ -139,6 +146,30 @@ Group(g2):
     members:        [alice]
     description:    >
                     This is a description for Alice's group.
+                    
+Post(g1 post1):
+    postType:       "GROUP"
+    title:          1
+    date:           2009-06-07
+    author:         bob
+    content:        >
+                    This is the first post for Bob's group. It shouldn't appear on his news feed!
+                    
+Post(g1 post2):
+    postType:       "GROUP"
+    title:          1
+    date:           2009-06-07
+    author:         jeff
+    content:        >
+                    And this is a second post.
+                    
+Post(g2 post1):
+    postType:       "GROUP"
+    title:          2
+    date:           2009-06-07
+    author:         alice
+    content:        >
+                    First post!                                                         
                     
 Category(main):
     name:           Main
@@ -225,6 +256,14 @@ Page(nachoCheese):
     title:          Nacho Cheese
     info:           >
                     What do you call cheese that isn't yours?
+    
+Post(cats post1):
+    postType:       "PAGE"
+    title:          1
+    date:           2009-06-07
+    author:         bob
+    content:        >
+                    I HATE CATZ!!!
                     
 UserPage(1):
     page:           cats
@@ -233,3 +272,44 @@ UserPage(1):
 UserPage(2):
     page:           nachoCheese
     fan:            jeff
+
+Profile(bobProfile):
+    owner:          bob
+
+Profile(jeffProfile):
+    owner:          jeff
+    
+Profile(aliceProfile):
+    owner:          alice
+
+Post(cats post2):
+    postType:       "PAGE"
+    title:          1
+    date:           2009-06-07
+    author:         jeff
+    content:        >
+                    CHEEZEBURGAHZ!!
+                    
+UserPage(cats alice):
+    fan:            alice
+    page:           cats
+
+UserPage(nachoCheese jeff):
+    fan:            jeff
+    page:           nachoCheese
+
+Subscription(sub1):
+    subscribed:     alice
+    subscriber:     bob
+
+Subscription(sub2):
+    subscribed:     gparker
+    subscriber:     bob
+
+Subscription(sub3):
+    subscribed:     gparker
+    subscriber:     alice
+
+Subscription(sub4):
+    subscribed:     bob
+    subscriber:     alice
