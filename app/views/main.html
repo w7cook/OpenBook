@@ -78,7 +78,7 @@
 	    #{/form}
         <div class="account">
 	      <a href="@{Application.account()}">
-            <img style="width:30px; height:30px; vertical-align:middle" src=@{'/public/images/header-profile.jpg'} /> ${currentUser.first_name} ${currentUser.last_name}
+	      <img src="@{Photos.getPhoto(currentUser.profile.profilePhoto)}" height="30" width="30" style="vertical-align:middle;"/> ${currentUser.first_name} ${currentUser.last_name}
           </a>
           <a href="@{Application.news()}">Home</a>
 	      <a href="@{Secure.logout()}">Logout</a>

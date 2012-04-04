@@ -265,6 +265,23 @@ Post(cats post1):
     content:        >
                     I HATE CATZ!!!
                     
+UserPage(1):
+    page:           cats
+    fan:            alice
+
+UserPage(2):
+    page:           nachoCheese
+    fan:            jeff
+
+Profile(bobProfile):
+    owner:          bob
+
+Profile(jeffProfile):
+    owner:          jeff
+    
+Profile(aliceProfile):
+    owner:          alice
+
 Post(cats post2):
     postType:       "PAGE"
     title:          1
