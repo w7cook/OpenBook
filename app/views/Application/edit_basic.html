@@ -1,7 +1,9 @@
 #{extends 'three_panel.html' /}
 
 	<div id="contentArea-AutoPage">
-
+		<link rel="stylesheet" type="text/css" media="screen"
+			href="@{'/public/stylesheets/edit_basic.css'}" />
+		<script src="/public/javascripts/profile.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="@{'/public/stylesheets/about.css'}" />
 		#{form @Application.updateBasic() }
@@ -83,14 +85,16 @@
 						</tr>
 						<tr>
 							<td><label>Religious views: </label></td>
-							<td><input size=20 type=text name=religion
-								value="${user.profile.religion ? user.profile.religion : ''}">
+							<td><input class="defaultText" 
+								title="Add religious views"
+								type="text">
 							</td>
 						</tr>
 						<tr>
 							<td><label>Political Views: </label></td>
-							<td><input size=20 type=text name=political
-								value="${user.profile.political ? user.profile.political : ''}">
+							<td><input class="defaultText"
+								title="Add political views"
+								type="text">
 							</td>
 						</tr>
 					</table>
