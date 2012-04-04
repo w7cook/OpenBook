@@ -3,7 +3,9 @@ package controllers;
 import java.util.*;
 
 import play.*;
+import play.db.jpa.GenericModel.JPAQuery;
 import play.mvc.*;
+import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
@@ -41,5 +43,15 @@ public class Comments extends OBController {
       c.removeLike(toRemove);
 	    comments(userId);
 	  }
+	  
+	  public static void makeNewComment(String commentContent, Long statusId, Long userId) {
+		  final Commentable cc = Commentable.findById(statusId);
+		    final Comment c = new Comment(cc, Application.user(), HTML.htmlEscape(commentContent)).save();
+		    Map<String, Object> m = new HashMap<String, Object>();
+		    m.put("item", c);
+		    m.put("user", user());
+		    m.put("currentUser", user());
+		    renderTemplate(m);
+		  }
 	  
 }

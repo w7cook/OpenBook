@@ -6,6 +6,13 @@
       <a href="#">Update Status</a>
       <a href="#">Add Photo / Video</a>
       <a href="#">Ask Question</a>
+
+	 #{if user.id == currentUser.id}
+      #{/if}
+      #{else}
+        <a href="@{Posts.poke(user.id)}">Poke!</a>
+      #{/else}
+
       #{if user.id == currentUser.id}
         <a id="about-button" href="@{Application.edit_basic}">About me</a>
       #{/if}
@@ -30,9 +37,10 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-        <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="100" onclick="document.textarea.post_content.value='';">Write something...</textarea>
-        
-        <input type="submit" value="Post" id="postSubmit" />
+
+      <textarea name="post_content" id="postContent" style="resize: none;color:grey;" rows="2" cols="45" maxlength="400" onclick="document.post_content.value='';">Write something...</textarea>     
+      <input type="submit" value="Post" id="postSubmit" />
+                    
     #{/if}
     
     <div id="postsList">
@@ -42,21 +50,44 @@
           <div class="left">
             <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
           </div>
-          
+           
           <div class="individual-post">
-            <div class="post-author" style="clear:both;"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></div>
-             #{if item.author == currentUser}
+            <div class="post-author" style="clear:both;">
+              <a href="@{Application.news(item.author.id)}">${ item.author.name }</a>
+            </div>
+
+              <div class="post-content" style="width: 100%;">
+              ${item.content.nl2br()}
+            </div>
+             <div class="individual-post-metadata">
+              ${item.likes.size()} Like#{if item.likes.size() != 1}s#{/if}
+              #{if user.isFriendsWith(currentUser) || user==currentUser}
+                #{ if item.currentUserLiked()}
+                  <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+                #{/if}
+                #{else}
+                  <a href="@{Application.addLike(item.id,user.id)}">Like</a>
+                #{/else}
+              #{/if}   
+               .
+              ${item.getComments().size()} Comment#{if item.getComments().size() != 1}s#{/if}  
+              .
+              ${item.updatedAt.format('dd MMM yy')}
+              #{if item.author == currentUser}
                 . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
               #{/if}
-            <div class="post-content tohideopp" style="clear:both;">
-              ${item.contentTeaser().nl2br()}
-              <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
-            </div>
-            <div class="tohide hide"  style="clear:both;">
-              <div class="post-content">
-                ${item.content.nl2br()}
               </div>
-              
+            #{if item.getComments().size() > 0}
+            <div class="post-content tohideopp" style="clear:both;">
+            
+              <a class='triggershow showfirst' href='#' onclick='return false;'> +show comments </a>
+            </div>
+           
+           
+            <div class="tohide hide"  style="clear:both;">
+              <a class='triggerhide' href='#' onclick='return false;'> -hide comments</a>
+
+              <div id="commentsList${item.id}">
               #{list items:item.getComments(), as:'comment'}
                 <div class="comment${comment.id}">
                   <div class="comment-metadata">
@@ -69,56 +100,41 @@
                     <div class="comment-date">
                       ${comment.updatedAt.format('dd MMM yy')}
                     </div>
-                    <div> ${comment.likes.size()} like#{if comment.likes.size() != 1}s#{/if}</div> 
-                    #{if comment.author.id == currentUser.id}
-                      <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
-                    #{/if}
-                    #{ if comment.currentUserLiked()}
-                      <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
-                    #{/if}
-                    #{else}
-                      <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
-                    #{/else}
-                                     
+                    <div> 
+                      ${comment.likes.size()} like#{if comment.likes.size() != 1}s#{/if}
+                    </div> 
+                      #{if comment.author.id == currentUser.id}
+                        <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                      #{/if}
+                      #{ if comment.currentUserLiked()}
+                        <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                      #{/if}
+                      #{else}
+                        <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
+                      #{/else}
                   </div>
-                  <div class="comment-content" >
+                  <div class="comment-content" style="width: 100%;">
                     ${comment.content.escape().nl2br()}
                   </div>
                 </div>
               #{/list}
-
-              <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
-            </div>
-
-            <div class="individual-post-metadata" style="background-color:#e9e9e9;">
-              ${item.likes.size()} Like#{if item.likes.size() != 1}s#{/if}
-              #{if user.isFriendsWith(currentUser) || user==currentUser}
-                #{ if item.currentUserLiked()}
-                  <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-                #{/if}
-                #{else}
-                  <a href="@{Application.addLike(item.id,user.id)}">Like</a>
-                #{/else}
-              #{/if} 
-              .
-              ${item.updatedAt.format('dd MMM yy')}
-
-             
-
-              <div id="comment_for_post${item.id}" style="clear: both;"   class="comment-textarea">
-               
               </div>
-               #{form @Comments.postComment(item.id, user.id, commentContent)}
-                  <div id="new_comment_for_post${item.id}" style="clear:both; ">
-                    <input type="text" name="commentContent" id="commentContent" value="new comment..." maxlength="50" style="color:grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;" maxlength="100" onclick="this.value='';"/>
-                    <input type="submit" value="Submit" style="display:none"/>
-                  </div>
-                #{/form}
+
             </div>
+
+            #{/if}
+            <div id="test">
+            <img style="width:30px; height:30px;" src=@{Photos.getPhoto(user.profile.profilePhoto)} display="inline"/>
+                    <textarea name="commentContent" id="commentContent" maxlength="200" style="resize: none; color:grey; rows="1" cols="45" font-family: serif; overflow-y: hidden;" onclick="this.value='';">new comment...</textarea>
+                    <textarea id="userId" style="display:none;">${user.id}</textarea>
+                    <textarea id="statusId" style="display:none;">${item.id}</textarea>
+                    <input type="submit" value="Comment" id="commentSubmit"/>
+                    </div>
           </div>
         </div>
       </div>
     #{/list}
+   
     </div>
   </div>
 </div> <!-- grid_9 -->
@@ -168,6 +184,23 @@
             this.value = 'Write something...';    
         }
 });
+</script>
+
+<script type="text/javascript">
+   $('input#commentSubmit').click(function(event) {
+	   alert("here!");
+	   var commentData = {
+	         commentContent : $("textarea#commentContent").val(),
+	         statusId : parseInt($("textarea#statusId").val()),
+	         userId : parseInt($("textarea#userId").val()),
+	     };
+	     $.post("/comments/makeNewComment", commentData, function(data) {
+	       var new_item = $(data).hide();
+	       $("div#commentsList").prepend(new_item);
+	       new_item.slideDown();
+	       $("textarea#commentContent").val('');
+	     });
+   });
 </script>
 
 

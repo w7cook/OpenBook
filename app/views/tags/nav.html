@@ -27,7 +27,9 @@
     <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br />
   #{/list}
   <br />
-  <span class="note">APPS</span><br />
+  <span class="note">PHOTOS</span><br />
+  <a href="@{Photos.photos(_user.id)}">My Photos</a><br />
+  <a href="@{Photos.photos()}">All Photos</a><br />
   <br />
   <span class="note">PAGES</span><br />
   <a href="@{Pages.pages()}">Pages</a><br />
@@ -38,5 +40,10 @@
   #{/list}
   <br />
   <a href="@{Relationships.relationships(_user.id)}">see all friends..</a><br />
+  <br />
+  <span class="note">INTERESTS</span><br />
+  #{if (_user.subscribedTo.size() > 0)}
+    <a href="@{Subscriptions.subscriptions(_user.id)}">Subscriptions</a><br />
+  #{/if}
 </nav>
 

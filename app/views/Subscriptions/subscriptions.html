@@ -1,79 +1,15 @@
 #{extends 'main.html' /}
-<head> 
-
-
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script> 
-<script type="text/javascript"> 
-  var geocoder;
-  var map;
-  function initialize() {
-    geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
-    var myOptions = {
-      zoom: 12,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  }
- 
-  function codeAddress() {
-    var address = document.getElementById("searchTextField").value;
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map, 
-            position: results[0].geometry.location
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  }
-</script>
-
-
-<script type'="text/javascript">
-	function runscript(){
-		document.getElementById("searchTextField").value = "${location}";
-		initialize();
-		codeAddress();
-	
-	} 
-	</script>
-</head> 
-<body onload="runscript()">
-    
-<table>
-	<tr >
-		<td id = "details">
-			${name}<br />
-			${privacy} By ${myAuthor}<br />
-			${myDate}<br />
-			Location: ${location}<br />
-			Details: ${description}<br />
-		</td>
-		<td id = "map" >
-			<input id="searchTextField" type="text" size="50">
-			<div id="map_canvas" style="width:335px; height:200px"></div>
-		</td>
-	</tr>
-</table>
-
-<h4>The Event members:</h4>
-        #{list items:e.members, as:'member'}
-        <a href="@{Application.about(member.id)}">${member.name}</a><br>
-        #{/list}
-</br>
-
-#{if user.id == currentUser.id}
-      	  #{form @Events.newEventPost(e.id,user.id)}
-            <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
-            <input type="submit" value="Post" />
-          #{/form}
-    #{/if}
-    #{list items:e.getPosts(), as:'item'}
+Subscriptions:<br />
+<br />
+<div class="grid_9">
+  <div id="contentArea">
+    <div class="subscibeList">
+      <span class="note">On the List</span><br />
+      #{list items:user.subscribedTo, as:'Subscribed'}
+        <a href="@{Application.news(Subscribed.subscribed.id)}">${Subscribed.subscribed.name}</a><br/>
+      #{/list}
+    </div>
+    #{list items:user.subscriptionNews(), as:'item'}
       <div class="post">
         <div class="hideable">
           <div class="left">
@@ -150,5 +86,18 @@
         </div>
       </div>
     #{/list}
-</body>
-<a class=button href="@{Events.events()}">< Events</a><br /><br />
+  </div>
+</div> <!-- grid_9 -->
+
+<script>
+  $('textarea#postContent').autoResize({
+  maxHeight: 150,
+  minHeight: 50,
+  extraSpace: 30
+  });
+  $('textarea#commentContent').autoResize({
+  maxHeight: 70,
+  minHeight: 20,
+  extraSpace: 20
+  });
+</script>
