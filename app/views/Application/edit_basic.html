@@ -1,23 +1,45 @@
 #{extends 'main.html' /}
 <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/about.css'}" />
-#{form @Application.updateBasic() }
+ <!--#{form @Application.updateBasic() } -->
+
+<script>
+	$(document).ready(function(){
+   		$("button#AboutMeEditButton").click(function(){$("div.editData").toggle(); 
+												$("div.Data").toggle(); return false;});
+	});
+</script>
 
 <div class="globalContentAbout">	
 	<div class="LeftColumnAbout">		
 		<div class="Panel">
 			<span class="PanelTitle">About You</span>
-			<table>
-				<tr>
-					<td><label>Bio:</label>
-					</td>
-					<td><input size=50 type=text name=birthday
-						value="${user.profile.bio ? user.profile.bio : 'Write About Yourself'}">
-					</td>
-				</tr>
-			</table>
+			<button class="EditButton" id="AboutMeEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
+			</button><br/>
+			<div class="editData" style="display:none;">
+				<table>
+					<tr>
+						<td><label>Bio:</label>
+						</td>
+						<td><input size=50 type=text value="${user.profile.bio ? user.profile.bio : 'Write About Yourself'}">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="Data" style="display:block;">
+				<table>
+					#{if user.profile.bio}
+					<tr>
+						<td><label>Bio:</label></td>
+						<td>${user.profile.bio}</td>
+					</tr>
+					#{/if}
+				</table>
+			</div>
 		</div>
 		<div class="Panel">
 			<span class="PanelTitle">Information</span>
+			<button class="EditButton" id="InformationEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
+			</button><br/>
 			<table>
 				<tr>
 					<td><label>Birthday: </br> </label>
@@ -104,6 +126,8 @@
 		</div>
 		<div class="Panel">
 			<span class="PanelTitle">Contact Info</span>
+			<button class="EditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
+			</button>
 			<table>
 				<tr>
 		        <td><label>Phone: </label></td>
@@ -175,4 +199,4 @@
 	
 </div>
 
-Save Cancel #{/form}
+<!--Save Cancel #{/form}-->
