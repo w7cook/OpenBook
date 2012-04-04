@@ -118,3 +118,18 @@
 </script>
 
 
+<script >
+function likeClicked(itemId){
+  var postData = {
+     likeableId  : itemId,
+  };
+  window.alert("WHAT?");
+  $.post("/Application/addLikeAjax", postData, function(data) {
+    $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+  });
+  document.getElementById("likeButton").innerHTML = "Unlike";
+  }
+  return;
+}
+</script>
+

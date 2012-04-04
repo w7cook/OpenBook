@@ -10,28 +10,35 @@
 				<a href="@{Application.news(_item.author.id)}">${_item.author.name}</a>
 			</div>
 			<div class="post-content tohideopp" style="clear: both;">
-				${_item.contentTeaser().nl2br()} <a class='triggershow showfirst'
-					href='#' onclick='return false;'> +more </a>
+				${_item.contentTeaser().nl2br()} 
+				<a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
 			</div>
 			<div class="tohide hide" style="clear: both; display: none;">
 				<div class="post-content">${_item.content.nl2br()}</div>
-				#{list items:_item.getComments(), as:'comment'} #{comment
-				user:_user,currentUser:_currentUser,comment:comment /} #{/list} <a
-					class='triggerhide' href='#' onclick='return false;'> -less<br /></a>
+				#{list items:_item.getComments(), as:'comment'} 
+				#{comment user:_user,currentUser:_currentUser,comment:comment /} #{/list} 
+				<a class='triggerhide' href='#' onclick='return false;'> -less<br /></a>
 			</div>
 
 			<div class="individual-post-metadata">
-				${_item.likes.size()} #{if _user.isFriendsWith(_currentUser) ||
-				_user==_currentUser} #{if _item.currentUserLiked()} <a
-					href="@{Application.unLike(_item.id,_user.id)}">Unlike</a> #{/if}
-				#{else} <a href="@{Application.addLike(_item.id,_user.id)}">Like</a>
-				#{/else} #{/if} . <a id="comment_action_for_post${_item.id}"
-					href="#" onclick="showDiv('new_comment_for_post${_item.id}')">Comment</a>
-				. ${_item.updatedAt.format('dd MMM yy')} #{if _item.author ==
-				_currentUser} . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete
-					my post</a> #{/if}
+				#{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
+				  #{if _item.currentUserLiked()} 
+				    <a href="@{Application.unLike(_item.id,_user.id)}">Unlike</a> 
+				  #{/if}
+				  #{else} 
+            <a href="@{Application.addLike(_item.id,_user.id)}">Like</a>
+          #{/else} 
+				#{/if} . 
+				<a id="comment_action_for_post${_item.id}" href="#" onclick="showDiv('new_comment_for_post${_item.id}')">Comment</a>
+				
+				#{if _item.author == _currentUser} . 
+				<a href="@{Posts.deletePost(_item.id,_user.id)}">delete	my post</a> #{/if}
+        
+        ${_item.updatedAt.format('dd MMM yy')}
+        <span id = "numLikesPost${_item.id}"> ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} </span>
+         ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}
 
-				<div id="comment_for_post${_item.id}" style="clear: both;"
+ 				<div id="comment_for_post${_item.id}" style="clear: both;"
 					class="comment-textarea"></div>
 				#{form @Comments.postComment(_item.id, _user.id, commentContent)}
 				<div id="new_comment_for_post${_item.id}"
@@ -52,3 +59,5 @@
 		</div>
 	</div>
 </div>
+
+

@@ -7,11 +7,9 @@
     <script src=@{'/public/javascripts/util.js'}></script>
     <script src=@{'/public/javascripts/jquery.autoresize.js'}></script>
 
-    <script type="text/javascript"
-	        src="@{'/public/javascripts/calendarDateInput.js'}"></script>
+    <script type="text/javascript" src="@{'/public/javascripts/calendarDateInput.js'}"></script>
     <script type="text/javascript" src="public/javascripts/comments.js"></script>
-    <script type="text/javascript"
-	        src="public/javascripts/jquery.autoresize.js"></script>
+    <script type="text/javascript" src="public/javascripts/jquery.autoresize.js"></script>
 
     <script type="text/javascript">
       $(document).ready(function(){
@@ -22,23 +20,22 @@
       document.popups = [];
       $(document).click(function(event){
       for(var i=0; i<document.popups.length; i++) 
-                                             document.popups[i].css('display','none');
-                                             });
-                                             document.add_popup = function(elem){
-                                             document.popups.push($(elem));
-                                             }
+        document.popups[i].css('display','none');
+      });
 
-                                             // Register the friend request popup
-                                             document.add_popup($('#friendRequest'));
-
-                                             // When the showFriends anchor is clicked
-                                             // show the friendRequest div
-                                             $('#showFriends').click(function(event){
-                                             event.stopPropagation();    // this stops the event from registering on the doc.
-                                             $('#friendRequest').css('display','block');
-                                             });
-                                             });
-                                             </script>
+      document.add_popup = function(elem){
+        document.popups.push($(elem));
+      }
+       // Register the friend request popup
+      document.add_popup($('#friendRequest'));
+      // When the showFriends anchor is clicked
+      // show the friendRequest div
+      $('#showFriends').click(function(event){
+        event.stopPropagation();    // this stops the event from registering on the doc.
+        $('#friendRequest').css('display','block');
+        });
+      });
+    </script>
 
 
     <link rel="stylesheet" type="text/css" media="screen"

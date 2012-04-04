@@ -202,4 +202,26 @@ public class Application extends OBController {
     news(userId);
   }
   
+  public static void addLikeAjax (Long likeableId){
+    User u = user();
+    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),u).save();
+    Likeable l = Likeable.findById(likeableId);
+    l.addLike(newOne);
+    Map<String,String> m = new HashMap<String,String>();
+    m.put("numLikes", Integer.toString(l.likes.size()));
+    m.put("likeableID",likeableId.toString());
+    renderJSON(m);
+  }
+  
+  public static void removeLikeAjax (Long likeableId){
+    User u = user();
+    Likeable l = Likeable.findById(likeableId);
+    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, l).first();
+    l.removeLike(toRemove);
+    Map<String,String> m = new HashMap<String,String>();
+    m.put("numLikes", Integer.toString(l.likes.size()));
+    m.put("likeableID",likeableId.toString());
+    renderJSON(m);
+  }
+
 }
