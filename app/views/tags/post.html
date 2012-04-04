@@ -4,51 +4,102 @@
 			<img style="width: 50px; height: 50px;"
 				src="@{Photos.getPhoto(_item.author.profile.profilePhoto)}" />
 		</div>
-
-		<div class="individual-post">
+  <div class="individual-post-metadata">
+    <span id = "numLikesPost${_item.id}"> ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
+    </span> 
+    #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
+        <a id = "likeButton${_item.id}" href = '#' onclick = "likeClicked(${_item.id})">Like</a>
+     
+      . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}
+      . ${_item.updatedAt.format('dd MMM yy')} #{if _item.author ==  _currentUser} 
+      . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete my post</a> #{/if}
+      <div id="comment_for_post${_item.id}" style="clear: both;" class="comment-textarea"></div>
+   #{/if}   
+  </div>
+	
+  <div class="individual-post">
 			<div class="post-author" style="clear: both;">
 				<a href="@{Application.news(_item.author.id)}">${_item.author.name}</a>
 			</div>
+			#{if _item.comments.size() > 2}
+        <a class='triggershow showfirst' href='#' onclick='return false;'> +${_item.comments.size() - 2} more comment#{if _item.comments.size()-2 != 1}s#{/if}</a>
+        <a class='triggerhide' href='#' onclick='return false;'> -hide comment#{if _item.comments.size() != 1}s#{/if}</a>
+      #{/if}
+			<div class="post-content">${_item.content.nl2br()}</div>
 			<div class="post-content tohideopp" style="clear: both;">
-				${_item.contentTeaser().nl2br()} <a class='triggershow showfirst'
-					href='#' onclick='return false;'> +more </a>
-			</div>
-			<div class="tohide hide" style="clear: both; display: none;">
-				<div class="post-content">${_item.content.nl2br()}</div>
-				#{list items:_item.getComments(), as:'comment'} #{comment
-				user:_user,currentUser:_currentUser,comment:comment /} #{/list} <a
-					class='triggerhide' href='#' onclick='return false;'> -less<br /></a>
-			</div>
-
-			<div class="individual-post-metadata">
-				${_item.likes.size()} #{if _user.isFriendsWith(_currentUser) ||
-				_user==_currentUser} #{if _item.currentUserLiked()} <a
-					href="@{Application.unLike(_item.id,_user.id)}">Unlike</a> #{/if}
-				#{else} <a href="@{Application.addLike(_item.id,_user.id)}">Like</a>
-				#{/else} #{/if} . <a id="comment_action_for_post${_item.id}"
-					href="#" onclick="showDiv('new_comment_for_post${_item.id}')">Comment</a>
-				. ${_item.updatedAt.format('dd MMM yy')} #{if _item.author ==
-				_currentUser} . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete
-					my post</a> #{/if}
-
-				<div id="comment_for_post${_item.id}" style="clear: both;"
-					class="comment-textarea"></div>
-				#{form @Comments.postComment(_item.id, _user.id, commentContent)}
-				<div id="new_comment_for_post${_item.id}"
-					style="clear: both; display: none;">
-					<img style="width: 50px; height: 50px;"
-						src=@{Photos.getPhoto(_user.profile.profilePhoto)}
-						display="inline" /> <input type="text" name="commentContent"
-						id="commentContent" value="new comment...(limit: 100 characters)"
-						maxlength="100"
-						style="color: grey; width: 320px; padding: 2px; height: 20px; display: inline; font-family: serif; resize: none; overflow-y: hidden;"
-						maxlength="100" onclick="this.value='';" /> <input type="submit"
-						value="Submit" style="display: none" /> <a
-						id="cancel_action_for post${_item.id}" href="#"
-						onClick="hideDiv('new_comment_for_post${_item.id}')">Cancel</a>
+			  <div class="commentsList">
+                #{list items:_item.getSomeComments(), as:'comment'} 
+                    #{comment user:_user,currentUser:_currentUser,comment:comment /} 
+                  #{/list}
+        </div>
+     </div>
+		 <div class="tohide hide" style="clear: both; display: none;">
+				<div class="commentsList">
+				  #{list items:_item.getComments(), as:'comment'} 
+				    #{comment user:_user,currentUser:_currentUser,comment:comment /} 
+				  #{/list}
 				</div>
-				#{/form}
-			</div>
+		</div>
+    <div id="newComments"></div> 
+			<div id="new_comment_for_post${_item.id}" style="clear: both;" >
+			<img style="width: 30px; height: 30px;"	
+          src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
+		  <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" 
+                style="color:grey;" resize="none" rows="2" cols="35" 
+                maxlength="400" >new comment...</textarea>
+      <input type="submit" value="Comment" id="commentSubmit${_item.id}" /> 
+  		</div>
+
+<script type="text/javascript">
+   $('input#commentSubmit${_item.id}').click(function(event) {
+       var commentData = {
+             commentContent : $("textarea#commentContent${_item.id}").val(),
+             statusId : ${_item.id},
+             userId : ${_user.id},
+         };
+   $.post("/comments/makeNewComment", commentData, function(data) {
+     $("div#newComments").append(data);
+     $("textarea#commentContent${_item.id}").val('');
+   });
+ });
+</script>
+
+<script>
+  $('#commentContent${_item.id}')
+  .focusin(function() {
+  if ( this.value == 'new comment...' ) {
+  this.value = '';    
+  }
+  })
+  .focusout(function() {
+  if ( this.value == '' ) {
+  this.value = 'new comment...';    
+  }
+  });
+</script>
+
+<script >
+function likeClicked(itemId){
+  var postData = {
+     likeableId  : itemId,
+     
+  };
+  if (document.getElementById("likeButton"+itemId).innerHTML == "Like"){
+    $.post("/Application/addLikeAjax", postData, function(data) {
+      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+    });
+    document.getElementById("likeButton"+itemId).innerHTML = "Unlike";
+  } else{
+    $.post("/Application/removeLikeAjax", postData, function(data) {
+      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+    });
+    document.getElementById("likeButton"+itemId).innerHTML = "Like";
+  }
+}
+</script>
+
 		</div>
 	</div>
 </div>
+
+

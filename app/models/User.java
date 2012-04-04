@@ -63,11 +63,14 @@ public class User extends Model {
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
   public List<Relationship> friendedBy; // A list of the user's friendship history
   
+  @ElasticSearchIgnore
   public boolean subscription; // Whether the user has allowed subscriptions or not
   
+  @ElasticSearchIgnore
   @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
   public List<Subscription> subscribedTo; // A list of subscriptions the user subscribed to
   
+  @ElasticSearchIgnore
   @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
   public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
 

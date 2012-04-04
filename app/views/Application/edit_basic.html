@@ -1,55 +1,78 @@
-#{extends 'three_panel.html' /}
+#{extends 'main.html' /}
+	<link rel="stylesheet" type="text/css" media="screen"
+		href="@{'/public/stylesheets/about.css'}" />
+	#{form @Application.updateBasic() }
 
-<div class="grid_15">
-	<div id="contentArea-AutoPage">
+<script>
+	$(document).ready(function(){
+   		$("button#AboutMeEditButton").click(function(){$("div.editData").toggle(); 
+												$("div.Data").toggle(); return false;});
+	});
+</script>
 
-		<link rel="stylesheet" type="text/css" media="screen"
-			href="@{'/public/stylesheets/about.css'}" />
-		#{form @Application.updateBasic() }
-
-		<div class="globalContentAbout">
-			<div class="LeftColumnAbout">
-				<div class="Panel">
-					<span class="PanelTitle">About You</span>
-					<table>
-						<tr>
-							<td><label>Bio:</label></td>
-							<td><input size=50 type=text name=birthday
-								value="${user.profile.bio ? user.profile.bio : 'Write About Yourself'}">
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div class="Panel">
-					<span class="PanelTitle">Information</span>
-					<table>
-						<tr>
-							<td><label>Birthday: </br>
-							</label></td>
-							<td><script>DateInput('orderdate', true)</script> <input
-								type=text name=birthday
+<div class="globalContentAbout">	
+	<div class="LeftColumnAbout">		
+		<div class="Panel">
+			<span class="PanelTitle">About You</span>
+			<button class="EditButton" id="AboutMeEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
+			</button><br/>
+			<div class="editData" style="display:none;">
+				<table>
+					<tr>
+						<td><label>Bio:</label>
+						</td>
+						<td><input size=50 type=text value="${user.profile.bio ? user.profile.bio : 'Write About Yourself'}">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="Data" style="display:block;">
+				<table>
+					#{if user.profile.bio}
+					<tr>
+						<td><label>Bio:</label></td>
+						<td>${user.profile.bio}</td>
+					</tr>
+					#{/if}
+				</table>
+			</div>
+		</div>
+		<div class="Panel">
+			<span class="PanelTitle">Information</span>
+			<button class="EditButton" id="InformationEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
+			</button><br/>
+			<table>
+				<tr>
+					<td><label>Birthday: </br> </label>
+					</td>
+					<td>
+						<script>DateInput('orderdate', true)</script>
+							<input type=text name=birthday
 								value="${user.profile.birthday ? user.profile.birthday.format('MMM dd ') : 'extra bday field?'}">
-							</td>
-						</tr>
-						<tr>
-							<td><label>Sex:</label></td>
-							<td>#{select 'gender', value:user.profile.gender} #{option
+					</td>
+				</tr>
+				<tr>
+					<td><label>Sex:</label></td>
+					<td>#{select 'gender', value:user.profile.gender} #{option
 								'Male'}Male#{/option} #{option 'Female'}Female#{/option}
 								#{/select}</td>
-							<!--  Show my sex on my timeline  -->
-						</tr>
+					<!--  Show my sex on my timeline  -->
+				</tr>
 
-						<tr>
-							<td><label>Interested in:</label></td>
-							<td>#{select 'gender', value:user.profile.interestedIn}
-								#{option 'Male'}Male#{/option} #{option
-								'Female'}Female#{/option} #{option 'Both'}Both#{/option}
-								#{option 'Neither'}Neither#{/option} #{/select}</td>
-						</tr>
+				<tr>
+					<td><label>Interested in:</label></td>
+					<td>#{select 'gender', value:user.profile.interestedIn} 
+							#{option 'Blank'}#{/option}
+							#{option 'Men'}Men#{/option} 
+							#{option 'Women'}Women#{/option} 
+							#{option 'Both'}Both#{/option} 
+							#{option 'Neither'}Neither#{/option} 
+							#{/select}</td>
+				</tr>
 
-						<tr>
-							<td><label>Relationship Status: </label></td>
-							<td>#{select 'status',
+				<tr>
+					<td><label>Relationship Status: </label></td>
+					<td>#{select 'status',
 								value:user.profile.relationshipStatus} #{option
 								'Single'}Single#{/option} #{option 'In a relationship'}In a
 								relationship#{/option} #{option 'Engaged'}Engaged#{/option}
@@ -61,40 +84,40 @@
 								'Divorced'}Divorced#{/option} #{option 'In a civil union'}In a
 								civil union#{/option} #{option 'In a domestic partnership'}In a
 								domestic partnership#{/option} #{/select}</td>
-						</tr>
+				</tr>
 
-						#{if user.profile.hasAnniversary()}
-						<tr>
-							<td><label>Anniversary: </br></label></td>
+				#{if user.profile.hasAnniversary()}
+				<tr>
+					<td><label>Anniversary: </br></label></td>
+					<td><script>DateInput('orderdate', true)</script></td>
+				</tr>
+				#{/if}
 
-							<td><script>DateInput('orderdate', true)</script></td>
-						</tr>
-						#{/if}
-
-						<tr>
-							<td><label>Languages: </label></td>
-							<td>#{list items:user.profile.languages, as:'lang'}
+				<tr>
+					<td><label>Languages: </label>
+					</td>
+					<td>#{list items:user.profile.languages, as:'lang'}
 								${lang.toString()} #{/list} <input type=text name=work
 								value="Add language">
-							</td>
-						</tr>
-						<tr>
-							<td><label>Religious views: </label></td>
-							<td><input size=50 type=text name=religion
+					</td>
+				</tr>
+				<tr>
+					<td><label>Religious views: </label></td>
+					<td><input size=20 type=text name=religion
 								value="${user.profile.religion ? user.profile.religion : ''}">
-							</td>
-						</tr>
-						<tr>
-							<td><label>Political Views: </label></td>
-							<td><input size=50 type=text name=political
+					</td>
+				</tr>
+				<tr>
+					<td><label>Political Views: </label></td>
+					<td><input size=20 type=text name=political
 								value="${user.profile.political ? user.profile.political : ''}">
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div class="Panel">
-					<span class="PanelTitle">Contact Info</span>
-					<table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="Panel">
+			<span class="PanelTitle">Contact Info</span>
+				<table>
 						<tr>
 							<td><label>Phone: </label></td>
 							<td><input type=text name=phone
@@ -155,8 +178,7 @@
 				</div>
 			</div>
 
-		</div>
-
-		Save Cancel #{/form}
-	</div>
 </div>
+<input type="submit" value="Save" id="updateBasic" />
+<input type="submit" value="Cancel" id="cancelUpdate" />
+#{/form}
