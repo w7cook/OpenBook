@@ -163,7 +163,8 @@ public class Application extends OBController {
   public static void updateBasic() {
     long userID = 1;
     User user = User.findById(userID);
-    render(user);
+    user.profile.save();
+    renderTemplate("Application/edit_basic.html", user);
   }
 
   public static void search(String query) {
@@ -201,5 +202,5 @@ public class Application extends OBController {
     c.removeLike(toRemove);
     news(userId);
   }
-
+  
 }

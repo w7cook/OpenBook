@@ -1,6 +1,7 @@
 package models;
 
 import java.util.*;
+
 import javax.persistence.*;
 
 import controllers.Security;
@@ -56,5 +57,18 @@ public class Post extends Status {
 
   public boolean byCurrentUser() {
     return author.email.equals( Security.connected() );
+  }
+  
+  public List<Object> getSomeComments(){
+	  ArrayList<Object> ret = new ArrayList<Object>();
+	  ArrayList<Object> list = (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch(2);
+
+	  for(int i=list.size()-1;i>=0;i--)
+		  ret.add(list.get(i));
+
+	  return ret;
+  }
+  public ArrayList<Object> getComments(){
+	  return (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt asc", this.id).fetch();
   }
 }
