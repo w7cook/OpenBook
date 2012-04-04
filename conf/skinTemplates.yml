@@ -331,3 +331,115 @@ models.SkinPair(models_SkinPair_73):
  attachedSkin: default_skin
  name: buttonLinkSelectedColor
  value: 000000
+ 
+ 
+#UT Skin
+models.Skin(ut_skin):
+ name: ut_skin
+ isPublic: "true"
+
+models.SkinPair(models_SkinPair_74):
+ attachedSkin: ut_skin
+ name: bodyBGPhoto
+ value: /photos/4
+
+models.SkinPair(models_SkinPair_75):
+ attachedSkin: ut_skin
+ name: headerBGColor
+ value: CC5500 
+ 
+models.SkinPair(models_SkinPair_76):
+ attachedSkin: ut_skin
+ name: footerTextAlign
+ value: center
+ 
+models.SkinPair(models_SkinPair_77):
+ attachedSkin: ut_skin
+ name: footerFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_78):
+ attachedSkin: ut_skin
+ name: footerColor
+ value: 858A7B
+
+models.SkinPair(models_SkinPair_79):
+ attachedSkin: ut_skin
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_80):
+ attachedSkin: ut_skin
+ name: labelFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_81):
+ attachedSkin: ut_skin
+ name: labelColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_82):
+ attachedSkin: ut_skin
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_83):
+ attachedSkin: ut_skin
+ name: commentBorderColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_84):
+ attachedSkin: ut_skin
+ name: commentBGColor
+ value: EEEEEE
+ 
+models.SkinPair(models_SkinPair_85):
+ attachedSkin: ut_skin
+ name: buttonBorderRadius
+ value: 4
+ 
+models.SkinPair(models_SkinPair_86):
+ attachedSkin: ut_skin
+ name: buttonBorderSize
+ value: 1
+ 
+models.SkinPair(models_SkinPair_87):
+ attachedSkin: ut_skin
+ name: buttonBorderColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_88):
+ attachedSkin: ut_skin
+ name: buttonBoxShadowColor
+ value: 888888
+ 
+models.SkinPair(models_SkinPair_89):
+ attachedSkin: ut_skin
+ name: buttonBGColor
+ value: FFFFFF
+ 
+models.SkinPair(models_SkinPair_90):
+ attachedSkin: ut_skin
+ name: buttonTextDec
+ value: none
+ 
+models.SkinPair(models_SkinPair_91):
+ attachedSkin: ut_skin
+ name: buttonLinkUnvisitedColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_92):
+ attachedSkin: ut_skin
+ name: buttonLinkVisitedColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_93):
+ attachedSkin: ut_skin
+ name: buttonLinkHoverColor
+ value: E0E0FF
+ 
+models.SkinPair(models_SkinPair_94):
+ attachedSkin: ut_skin
+ name: buttonLinkSelectedColor
+ value: 000000
+ 

@@ -15,8 +15,18 @@ public class Skins extends OBController {
     return skinList;
   }
 
-  public static void sampleSkin(User user, Skin skin)
+  public static void sampleSkin(Long skinId)
   {
+    User user = user();
+    Skin skin;
+    if(skinId == null)
+    {
+        skin = Skin.find("name = ?","default_skin").first();//get default skin
+    }
+    else
+    {
+       skin = Skin.findById(skinId);
+    }
     render(user,skin);
   }
   /**
@@ -93,6 +103,14 @@ public class Skins extends OBController {
           if(given(valueUpdate))//if the attribute has been filled, set parameter
           {
             user.profile.skin.setParam(keyUpdate,valueUpdate);
+            
+          //take out photo so the color can be seen
+            if(keyUpdate.equals("headerBGColor"))
+              user.profile.skin.setParam("headerBGPhoto", "none");
+            
+            if(keyUpdate.equals("bodyBGColor"))
+              user.profile.skin.setParam("bodyBGPhoto", "none");
+            
           }
         }
     }
@@ -124,10 +142,14 @@ public class Skins extends OBController {
         //find the parameter that we want to update
         updateParam = SkinPair.find("attachedSkin = ? AND name = ?", user.profile.skin, updateTo.name).first();
         updateParam.value = updateTo.value;
+        
+        if(updateParam.name.equals("headerBGColor"))
+          user.profile.skin.setParam("headerBGPhoto", "none");
+        
         updateParam.save(); 
       }
     }
-    changeSkin(null);//rerender page
+    changeSkin(user.id);//rerender page
   }
 
   /**

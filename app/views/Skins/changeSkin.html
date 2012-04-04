@@ -1,15 +1,16 @@
-#{extends 'main.html' /}
+#{extends 'three_panel.html' /}
 
 <div class="grid_15">
 	<div id="contentArea-BigPage">
-	
+	  <br>
 		<a href="@{Skins.editMySkin}">Edit My Skin</a>
-		<br>
+		<br> <br>
+		<frameset cols = "50%, 50%">
 	      #{list items: skinList, as:'skin'} 
-	     	 <iframe src="@{Skins.sampleSkin(user,skin)}" width = "120" height = "120"
-	     	 	scrolling = "no" />
+	     	 <iframe src="@{Skins.sampleSkin(skin.id)}" width = "150" height = "100%"
+	     	 	scrolling = "no" align = "middle" marginheight = "0" 
+	     	 	marginwidth = "0" hspace = "5" vspace = "5" > </iframe>        
 	      #{/list}
-	   			
+	  </frameset> 			
 
 	</div>
-</div>

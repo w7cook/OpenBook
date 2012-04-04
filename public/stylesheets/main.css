@@ -8,7 +8,7 @@ body {
   height: auto;
   margin: 0;
   font-size: 15px;
-  background-image:url(skin.get("bodyBGPhoto"));
+  background-image:url(${skin.get("bodyBGPhoto")});
   background-color: #${skin.get("bodyBGColor")};
   
 }

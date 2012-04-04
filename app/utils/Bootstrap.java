@@ -23,12 +23,17 @@ public class Bootstrap extends Job {
 			//load in pictures
 			Photo photo;
 			String path = new java.io.File(".").getCanonicalPath() + "/public/images/";
-			photo = Photos.initFileToPhoto(path+"GreenTaijitu.svg", "By Chinneeb via Wikimedia Commons");
+			photo = Photos.initFileToPhoto(path+"GreenTaijitu.svg", 
+			    "By Chinneeb via Wikimedia Commons");
 			peacePhotoID = photo.id;
-			photo = Photos.initFileToPhoto(path+"default.png", "Default Profile Photo");
+			photo = Photos.initFileToPhoto(path+"default.png", 
+			    "Default Profile Photo");
 			defaultProfilePhotoID = photo.id;
-			photo = Photos.initFileToPhoto(path + "headerBG.png", "Default Header Background Photo");
+			photo = Photos.initFileToPhoto(path + "headerBG.png", 
+			    "Default Header Background Photo");
 			defaultHeaderPhotoID = photo.id;
+			photo = Photos.initFileToPhoto(path + "UT-Austin-Tower.jpg", 
+			    "UT Austin via Wikimedia Commons");
 			Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
 			Fixtures.loadModels("initial-data.yml");//rest of the data
 			hashPasswords();

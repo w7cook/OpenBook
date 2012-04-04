@@ -120,7 +120,7 @@ public class Skin extends Model {
    * @return value associated to key in parameters
    */
   public String get(String key)
-  {
+  {    
     SkinPair param =  SkinPair.find("attachedSkin = ? AND name = ?",this,key).first();
     if(param != null)
       return param.value;

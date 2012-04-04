@@ -1,0 +1,39 @@
+<base target="_parent" />
+<div  width = "300" height = "300" style = "
+    
+    text-align: center;
+  "
+  >
+	<div width = "300" height = "100" 
+		style = "
+			background-image: url(${skin.get("headerBGPhoto")});
+			background-repeat: repeat-x; 
+			background-color: #${skin.get("headerBGColor")};
+			font-weight: bold;
+	  	font-family: Arial;
+	  	font-size: 20px;
+	  	color: white;
+	  	padding: 0px 10px 0px 20px;
+	 		"	
+		>
+		OpenBook
+	</div>
+	
+  <div width = "300" height = "200"
+			style = "
+			background-image:url(${skin.get("bodyBGPhoto")});
+      background-color: #${skin.get("bodyBGColor")};
+			font-family: helvetica;
+			font-size: ${skin.get("labelFontSize")}pt;
+	 		font-color: #${skin.get("labelColor")};
+	 		text-align: center;
+	 		"
+		>
+		<br>
+		This is the Skin:		${skin.name}. <br>
+		This is example text.
+		Blah blah
+		Blah blah
+	</div>
+	<a href="@{Skins.changeSkinToTemplate(skin.name)}">Set Skin as My Skin</a>
+</div>
