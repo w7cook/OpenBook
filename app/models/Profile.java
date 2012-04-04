@@ -99,4 +99,16 @@ public class Profile extends Model {
     this.email = "";
     this.profilePhoto = Bootstrap.defaultProfilePhotoID;
     }
+
+	public Profile(User owner, String bio, String gender, String quotes, String phone, String website){
+		this.owner = owner;
+		this.bio = bio;
+		this.gender = gender;
+		this.phone = phone;
+		this.quotes = quotes;
+		this.website = website;
+	}
+
 }
+
+
