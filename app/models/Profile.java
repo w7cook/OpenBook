@@ -70,8 +70,8 @@ public class Profile extends Model {
 
   public boolean hasAnniversary()
   {
-  	return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
-  		|| relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
+    return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
+      || relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
   }
 
   public Profile(User owner) {
