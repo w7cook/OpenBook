@@ -11,12 +11,26 @@ import play.modules.elasticsearch.annotations.ElasticSearchable;
 
 
 @Entity
-public class Post extends Status {
+public class Post extends Commentable {
+  
+  private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
+  // private static final Pattern youtube_pattern = Pattern.compile();
+  // private static final Pattern vimeo_pattern = Pattern.compile();
   
   public enum type{NEWS,PAGE,GROUP,EVENT};
   public type postType;
 
   public String title;
+  
+  @Required
+  @ManyToOne
+  public User author; // The User who authored the status update
+  
+  @ManyToMany(cascade=CascadeType.PERSIST)
+  public List<Tag> tags;
+  
+  @ManyToMany(cascade=CascadeType.PERSIST)
+  public List<User> mentions;
 
   @Lob
   public String text;
@@ -24,17 +38,21 @@ public class Post extends Status {
   private static final int TEASER_LENGTH = 150;
 
   public Post(User author, String title, String content) {
-    super(author, content);
+    this.author = author;
     this.title = title;
-    this.text = content;
+    this.text = parseContent(content);
     this.postType = type.NEWS;
+    this.tags = new List<Tag>;
+    this.mentions = new List<User>;
   }
   
   public Post(User author, String title, String content, type t) {
-    super(author, content);
+    this.author = author;
     this.title = title;
-    this.text = content;
+    this.text = parseContenst(content);
     this.postType = t;
+    this.tags = new List<Tag>;
+    this.mentions = new List<User>;
   }
   
   public String contentTeaser() {
@@ -70,5 +88,32 @@ public class Post extends Status {
   }
   public ArrayList<Object> getComments(){
 	  return (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt asc", this.id).fetch();
+  }
+  
+  public String parseContent(String unlinked_content){
+	  Matcher links_matcher = links_pattern.matcher(unlinked_content);
+    
+    while(links_matcher.find() ){
+      String match = links_matcher.group();
+      if(match.startsWith("#")) { // tag
+        String newTag = match.substring(1);
+        tags.add(Tag.findOrCreateByName(newTag));
+      }
+      else if(match.startsWith("@")) { // mention
+        User newMention = User.find("byUsername", match.substring(1)).first();
+        mentions.add(newMention);
+      }
+      else
+       System.out.print("Error occured");
+    }
+    
+    return unlinked_content;
+	}
+	
+  
+  public static List<Status> findTaggedWith(String... tags) {
+    return Status.find(
+            "select distiinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.message, p.update_time having count(t.id) = :size"
+    ).bind("tags", tags).bind("size", tags.length).fetch();
   }
 }

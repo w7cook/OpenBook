@@ -6,7 +6,7 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-public class Photo extends Status {
+public class Photo extends Post {
   @Required
   public Blob image;
 
@@ -15,7 +15,7 @@ public class Photo extends Status {
   public User owner;
 
   public Photo(User owner, Blob image) {
-    super(owner, null);
+    super(owner, '');
     this.owner = owner;
     this.image = image;
   }
