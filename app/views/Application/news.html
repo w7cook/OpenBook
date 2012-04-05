@@ -35,7 +35,8 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-    <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" onclick="document.post_form.post_content.value='';">Write something...</textarea>
+
+    <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" >new post...</textarea>
     <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
     </div>
     #{/if}
@@ -102,15 +103,30 @@
 <script>
   $('#postContent')
   .focusin(function() {
-  if ( this.value == 'Write something...' ) {
+  if ( this.value == 'new post...' ) {
   this.value = '';    
   }
   })
   .focusout(function() {
   if ( this.value == '' ) {
-  this.value = 'Write something...';    
+  this.value = 'new post...';    
   }
   });
 </script>
 
+
+<script >
+function likeClicked(itemId){
+  var postData = {
+     likeableId  : itemId,
+  };
+  window.alert("WHAT?");
+  $.post("/Application/addLikeAjax", postData, function(data) {
+    $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+  });
+  document.getElementById("likeButton").innerHTML = "Unlike";
+  }
+  return;
+}
+</script>
 

@@ -30,6 +30,7 @@ public abstract class Commentable extends Likeable
     this.save();   
   }
   
+
   public ArrayList<Object> getComments(){
 	  return (ArrayList<Object>) Comment.find("SELECT c FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch();
   }
