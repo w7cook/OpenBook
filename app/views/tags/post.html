@@ -64,7 +64,9 @@
          };
        
          $.post("/comments/makeNewComment", commentData, function(data) {
-           $("div#newComments").append(data);
+           var new_item = $(data).hide();
+           $("div#newComments").append(new_item);
+           new_item.slideDown();
            $("textarea#commentContent${_item.id}").val('');
          });
    });
