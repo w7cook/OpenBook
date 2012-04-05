@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 import controllers.Security;
 import play.db.jpa.*;
+import utils.Bootstrap;
 
 
 /**
@@ -38,6 +39,7 @@ import play.db.jpa.*;
 public class Skin extends Model {
 
   public String name;//name of the skin
+  public String isPublic;//whether or not this skin is public
   
   @OneToMany(mappedBy = "attachedSkin", cascade = CascadeType.ALL)
   public List<SkinPair> parameters; // attributes of the skin
@@ -55,50 +57,45 @@ public class Skin extends Model {
   {
     this.name = name;
     parameters = new ArrayList<SkinPair>();
+    isPublic = "false";
     this.save();
     
     //body
-    addParam("bodyBGColor","none");
-    
     addParam("bodyBGPhoto","none");
-    
-    //logo
-    addParam("logoFontSize", "30");
-    addParam("logoColor","white");
-    addParam("logoFontType","helvetica");// Helvetica, Arial, Sans !important;
 
     //header
+    addParam("headerBGPhoto","/photos/"+ Bootstrap.defaultHeaderPhotoID);
     addParam("headerBGColor","CC5500");//000000 (BLACK) or CC5500 (orange)
 
     //footer
     addParam("footerTextAlign","center");//center..
     addParam("footerFontSize","10");// >= 0
-    addParam("footerColor","gray");//white, black, gray, etc
+    addParam("footerColor","858A7B");//white, black, gray, etc
 
     //section
     addParam("sectionAlign","top");//top
 
     //label
     addParam("labelFontSize","10");
-    addParam("labelColor","black");
+    addParam("labelColor","000000");
 
     //comment
     addParam("commentBorderSize","2");//px size
-    addParam("commentBorderColor","white");
+    addParam("commentBorderColor","FFFFFF");
     addParam("commentBGColor","EEEEEE");
 
 
     //button
     addParam("buttonBorderRadius","4");//4
     addParam("buttonBorderSize","1");//1
-    addParam("buttonBorderColor","black");//black
+    addParam("buttonBorderColor","000000");//black
     addParam("buttonBoxShadowColor","888888");//888888;
-    addParam("buttonBGColor","white");//white;
+    addParam("buttonBGColor","FFFFFF");//white;
     addParam("buttonTextDec","none");//none, underline, overline, line-through, blink
-    addParam("buttonLinkUnvisitedColor","black");//black   
-    addParam("buttonLinkVisitedColor","black");//black 
+    addParam("buttonLinkUnvisitedColor","000000");//black   
+    addParam("buttonLinkVisitedColor","000000");//black 
     addParam("buttonLinkHoverColor","E0E0FF");//#E0E0FF;} 
-    addParam("buttonLinkSelectedColor","black");//black;}
+    addParam("buttonLinkSelectedColor","000000");//black;}
   
     this.save();
   }
@@ -122,7 +119,7 @@ public class Skin extends Model {
    * @return value associated to key in parameters
    */
   public String get(String key)
-  {
+  {    
     SkinPair param =  SkinPair.find("attachedSkin = ? AND name = ?",this,key).first();
     if(param != null)
       return param.value;
@@ -140,9 +137,33 @@ public class Skin extends Model {
    * for the attribute the value is attached to.
    */
   public void setParam(String key, String value)
-  {
+  {  
        SkinPair s = SkinPair.find("attachedSkin = ? AND name = ?", this, key).first();
+       
        if(s != null){
+         
+         //take out photo so the color can be seen only if color is changed
+         if(key.equals("headerBGColor") && !value.equalsIgnoreCase(s.value) && 
+             !value.equalsIgnoreCase("none") && 
+             !value.equalsIgnoreCase("FFFFFF") &&
+             !value.equalsIgnoreCase("white"))//don't want white
+         {
+           SkinPair headerBGPhoto = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGPhoto").first();
+           headerBGPhoto.value = "none";
+           headerBGPhoto.save();
+         }
+         
+         if(key.equals("headerBGPhoto") && !value.equalsIgnoreCase(s.value))
+         {
+           SkinPair headerBGColor = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGColor").first();
+           headerBGColor.value = "none";
+           headerBGColor.save();
+         }
+         
+        
+         
+         
+         
          s.value = value;
          s.save();
        }

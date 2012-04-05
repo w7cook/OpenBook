@@ -6,10 +6,30 @@ import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import controllers.Photos;
 
 @With(Secure.class)
 public class Skins extends OBController {
   
+  public static List<Skin> skins() {
+    List<Skin> skinList = Skin.find("isPublic = ?", "true").fetch();
+    return skinList;
+  }
+
+  public static void sampleSkin(Long skinId)
+  {
+    User user = user();
+    Skin skin;
+    if(skinId == null)
+    {
+        skin = Skin.find("name = ?","default_skin").first();//get default skin
+    }
+    else
+    {
+       skin = Skin.findById(skinId);
+    }
+    render(user,skin);
+  }
   /**
    * stylesheet()
    * called by main.html
@@ -22,11 +42,20 @@ public class Skins extends OBController {
   }
 
   /**
-   * skin
+   * renders change skin page
+   */
+  public static void changeSkin(Long id) {
+    User user = id == null ? user() : (User) User.findById(id);
+    List<Skin> skinList = skins();
+    render(user, skinList);
+  }
+  
+  /**
+   * editMySkin
    * renders edit skin page
    * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
    */
-  public static void skin(Long id) {
+  public static void editMySkin(Long id) {
     User user = id == null ? user() : (User) User.findById(id);
     render(user);
   }
@@ -51,38 +80,41 @@ public class Skins extends OBController {
   {
     User user = user();
     Skin currentUserSkin = user.profile.skin;
-    
-    if(user.profile.skin.name != user.email){//each user gets a unique skin
-      Skin newSkin = new Skin(user.email);
-      newSkin.cloneSkin(currentUserSkin);
-      user.profile.skin = newSkin;
-    }
-    if(key != null){//null if theres no changes
-      
-      String[] keys = key.split(", ");//input is a list
-      String[] values = val.split(", ");
-      String keyUpdate = "";
-      String valueUpdate = "";
-      
-      //go through the attributes
-      for(int x = 0; x< keys.length; x++)
-      {
-        keyUpdate = keys[x];
-        valueUpdate = values[x];
-        
-        if(given(valueUpdate))//if the attribute has been filled, set parameter
-        {
-          user.profile.skin.setParam(keyUpdate,valueUpdate);
-        }
+    System.out.println("val: " + val);
+    if(!val.contains(";") && !val.contains("."))
+    {//checks for SQL injection
+      if(user.profile.skin.name != user.email){//each user gets a unique skin
+        Skin newSkin = new Skin(user.email);
+        newSkin.cloneSkin(currentUserSkin);
+        user.profile.skin = newSkin;
       }
-      
+      if(key != null){//null if theres no changes
+        
+        String[] keys = key.split(", ");//input is a list
+        String[] values = val.split(", ");
+        String keyUpdate = "";
+        String valueUpdate = "";
+        
+        //go through the attributes
+        for(int x = 0; x< keys.length; x++)
+        {
+          keyUpdate = keys[x];
+          valueUpdate = values[x];
+          
+          if(given(valueUpdate))//if the attribute has been filled, set parameter
+          {
+            user.profile.skin.setParam(keyUpdate,valueUpdate);
+            
+          }
+        }
+    }
      
       //save changes  
       user.profile.save();
      
      
     }
-    skin(null);//rerender the page for current user (input null will find user();
+    editMySkin(user.id);//rerender the page for current user (input null will find user();
   }
 
   /**
@@ -101,13 +133,10 @@ public class Skins extends OBController {
       //reset currentSkin's parameters
       for(SkinPair updateTo: changeSkin.parameters)
       {
-        //find the parameter that we want to update
-        updateParam = SkinPair.find("attachedSkin = ? AND name = ?", user.profile.skin, updateTo.name).first();
-        updateParam.value = updateTo.value;
-        updateParam.save(); 
+        user.profile.skin.setParam(updateTo.name,updateTo.value);
       }
     }
-    skin(null);//rerender page
+    changeSkin(user.id);//rerender page
   }
 
   /**
@@ -147,7 +176,7 @@ public class Skins extends OBController {
       update.value = "/photos/" + photoid.toString();
       update.save();
     }
-    redirect("/photos");
+    Photos.photos(user.id);
   }
 
 }
