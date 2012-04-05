@@ -7,9 +7,10 @@ html, body {
 body {
   height: auto;
   margin: 0;
-  background-color: #EEEEEE;
-  background-image:url(${skin.get("bodyBGPhoto")});
   font-size: 15px;
+  background-image:url(${skin.get("bodyBGPhoto")});
+  background-color: #${skin.get("bodyBGColor")};
+  
 }
 
 a:link {
@@ -38,28 +39,29 @@ a:active {
 
 /** header **/
 #header {
-  background-image: url('/public/images/headerBG.png'); /*Little spiffier header bar */
-  background-repeat: repeat-x;
+  background-image: url(${skin.get("headerBGPhoto")});
+  background-repeat: repeat-x; 
   background-color: #${skin.get("headerBGColor")};
   padding-top: 5px;
   height: 40px;
-  line-height:30px;
+  line-height:30px;  
 }
 
 #header a {
-  color:white;
+  color:black;
 }
 
 
 #logo {
-  color: ${skin.get("logoColor")};
+  color: white
   padding: 0px 10px 0px 20px;
 }
 
 .logo {
+ /** Company's logo/identity should NOT be customizable **/
   font-weight: bold;
-  font-family: ${skin.get("logoFontType")};
-  font-size: 20px; /** i dont think a company's logo/identity should be customizable **/
+  font-family: helvetica
+  font-size: 30px;
 }
 
 
@@ -105,10 +107,11 @@ padding: 0px;
 	color: white;
 	background-color:black;
 	padding-left: 0px;	
-  background-image: url('/public/images/headerBG.png'); /*Little spiffier header bar */
+  background-image: url(${skin.get("headerBGPhoto")}); /*Little spiffier header bar */
   background-repeat: repeat-x;
+  background-color: #${skin.get("headerBGColor")};
   
-  	border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
 	border-top-style: solid;
 	border-left-style: solid;
 	border-right-style: solid;
@@ -127,7 +130,7 @@ padding: 0px;
 	height: auto;
 	padding: 0px;
 
-border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
 	border-left-style: solid;
 	border-bottom-style: solid;
 	border-right-style: solid;
@@ -204,23 +207,25 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 
 /** Shared UI Elements **/
 .ui_TextArea {
-width: 100%;
-resize: none;
-color:grey;
-border: none;
-margin: none;
-display: none;
+  width: 100%;
+  resize: none;
+  color:grey;
+  border: none;
+  margin: none;
+  display: none;
 }
 
 .ui_TextAreaButton {
-width: 100%;
-height: 30px;
-margin: none;
-border: none;
-padding: none;
-background-color: #e76509;
-color: white;
-display:none;
+  width: 100%;
+  height: 30px;
+  margin: none;
+  border: none;
+  padding: none;
+  background-image: url(${skin.get("headerBGPhoto")}); /*Little spiffier header bar */
+  background-repeat: repeat-x;
+  background-color: #${skin.get("headerBGColor")};
+  color: white;
+  display:none;
 }
 
 .ui_TextBox {
@@ -303,15 +308,15 @@ label {
   border-radius:${skin.get("buttonBorderRadius")}px;
   border: ${skin.get("buttonBorderSize")}px solid ${skin.get("buttonBorderColor")};
   box-shadow: 1px 1px 2px #${skin.get("buttonBoxShadowColor")};
-  background-color: ${skin.get("buttonBGColor")};
+  background-color: #${skin.get("buttonBGColor")};
   text-decoration: ${skin.get("buttonTextDec")};
   padding: 0px 2px 0px 2px;
 }
 
-a.button:link {color:${skin.get("buttonLinkUnvisitedColor")};}      /* unvisited link */
-a.button:visited {color:${skin.get("buttonLinkVisitedColor")};}  /* visited link */
+a.button:link {color:#${skin.get("buttonLinkUnvisitedColor")};}      /* unvisited link */
+a.button:visited {color:#${skin.get("buttonLinkVisitedColor")};}  /* visited link */
 a.button:hover {background-color:#${skin.get("buttonLinkHoverColor")};}  /* mouse over link */
-a.button:active {color:${skin.get("buttonLinkSelectedColor")};}  /* selected link */
+a.button:active {color:#${skin.get("buttonLinkSelectedColor")};}  /* selected link */
 
 a.logo:link {text-decoration:none;}
 a.logo:visited {text-decoration:none;}

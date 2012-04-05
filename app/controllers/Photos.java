@@ -124,12 +124,18 @@ public class Photos extends OBController {
     //make sure get all of the photos
     List<Photo> photos;
     if (user.id == null) {
-      photos = Photo.findAll();
+      photos = null;
     }
     else {
       photos = Photo.find("byOwner", user).fetch();
     }
     render(user,photos);
+  }
+  
+  public static void changeBGImage()
+  {
+    User user = user();
+    photos(user.id);
   }
   
   public static void setProfilePhoto(Long photoId) {

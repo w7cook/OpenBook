@@ -57,9 +57,13 @@
              statusId : ${_item.id},
              userId : ${_user.id},
          };
-   $.post("/comments/makeNewComment", commentData, function(data) {
-     $("div#newComments").append(data);
-     $("textarea#commentContent${_item.id}").val('');
+       
+         $.post("/comments/makeNewComment", commentData, function(data) {
+           var new_item = $(data).hide();
+           $("div#newComments").append(new_item);
+           new_item.slideDown();
+           $("textarea#commentContent${_item.id}").val('');
+         });
    });
  });
 </script>

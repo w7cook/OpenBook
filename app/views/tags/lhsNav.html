@@ -2,7 +2,7 @@
 <div class="profile-pic">
 	<a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a> 
 	#{if (_user.profile.profilePhoto == -1 || _user.profile.profilePhoto == null)} 
-	<img	src="@{Photos.getPhoto(Bootstrap.defaultProfilePhotoID)}" height="120" width="120" /> 
+	<img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
 	#{/if} 
 	#{else} 
 	<img src="@{Photos.getPhoto(_user.profile.profilePhoto)}" height="120" width="120" /> 
@@ -19,7 +19,7 @@
 	<a href="@{Application.news()}">News Feed</a> <a
 		href="@{Events.events()}">Events</a> <a href="@{Checkin.checkin()}">Checkin</a>
 	<a href="@{Messages.inbox()}">Inbox</a> <a href="/requests">Friend
-		Requests</a> <a href="/skin">Change Skin</a>
+		Requests</a> <a href="/changeSkin">Change Skin</a>
 </div>
 
 
