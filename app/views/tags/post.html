@@ -12,7 +12,8 @@
      
       . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}
       . ${_item.updatedAt.format('dd MMM yy')} #{if _item.author ==  _currentUser} 
-      . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete my post</a> #{/if}
+      . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete my post</a> 
+    #{/if}
       <div id="comment_for_post${_item.id}" style="clear: both;" class="comment-textarea"></div>
    #{/if}   
   </div>
@@ -40,7 +41,7 @@
 				  #{/list}
 				</div>
 		</div>
-    <div id="newComments"></div> 
+    <div id="newComments${_item.id}"></div> 
 			<div id="new_comment_for_post${_item.id}" style="clear: both;" >
 			<img style="width: 30px; height: 30px;"	
           src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
@@ -60,12 +61,11 @@
        
          $.post("/comments/makeNewComment", commentData, function(data) {
            var new_item = $(data).hide();
-           $("div#newComments").append(new_item);
+           $("div#newComments${_item.id}").append(new_item);
            new_item.slideDown();
            $("textarea#commentContent${_item.id}").val('');
          });
    });
- });
 </script>
 
 <script>
