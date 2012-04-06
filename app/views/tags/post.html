@@ -8,11 +8,12 @@
     <span id = "numLikesPost${_item.id}"> ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
     </span> 
     #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
-        <a id = "likeButton${_item.id}" href = '#' onclick = "likeClicked(${_item.id})">Like</a>
+        <a id = "likeButton${_item.id}" href = '#' onclick = "likeClicked(${_item.id});  return false;">Like</a>
      
       . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}
       . ${_item.updatedAt.format('dd MMM yy')} #{if _item.author ==  _currentUser} 
-      . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete my post</a> #{/if}
+      . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete my post</a> 
+    #{/if}
       <div id="comment_for_post${_item.id}" style="clear: both;" class="comment-textarea"></div>
    #{/if}   
   </div>
@@ -39,17 +40,15 @@
 				    #{comment user:_user,currentUser:_currentUser,comment:comment /} 
 				  #{/list}
 				</div>
-		</div>
-    <div id="newComments"></div> 
-			<div id="new_comment_for_post${_item.id}" style="clear: both;" >
-			<img style="width: 30px; height: 30px;"	
-          src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
-		  <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" 
-                style="color:grey;" resize="none" rows="2" cols="35" 
-                maxlength="400" >new comment...</textarea>
-      <input type="submit" value="Comment" id="commentSubmit${_item.id}" /> 
-  		</div>
 
+			</div>
+            <div id="newComments${_item.id}"></div> 
+				<div id="new_comment_for_post${_item.id}" style="clear: both;" >
+					<img style="width: 30px; height: 30px;"	src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
+					
+					   <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="color:grey;" resize="none" rows="2" cols="35" maxlength="400" >new comment...</textarea>
+                       <input type="submit" value="Comment" id="commentSubmit${_item.id}" /> 
+				</div>
 <script type="text/javascript">
    $('input#commentSubmit${_item.id}').click(function(event) {
        var commentData = {
@@ -59,13 +58,12 @@
          };
        
          $.post("/comments/makeNewComment", commentData, function(data) {
-           var new_item = $(data).hide();
-           $("div#newComments").append(new_item);
-           new_item.slideDown();
+         var new_item = $(data).hide();
+           $("div#newComments${_item.id}").append(new_item);
+          new_item.slideDown();
            $("textarea#commentContent${_item.id}").val('');
          });
    });
- });
 </script>
 
 <script>
