@@ -1,6 +1,8 @@
 package models;
 
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import javax.persistence.*;
 
@@ -14,15 +16,12 @@ import play.modules.elasticsearch.annotations.ElasticSearchable;
 public class Post extends Commentable {
   
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
-  // private static final Pattern youtube_pattern = Pattern.compile();
-  // private static final Pattern vimeo_pattern = Pattern.compile();
   
   public enum type{NEWS,PAGE,GROUP,EVENT};
   public type postType;
 
   public String title;
   
-  @Required
   @ManyToOne
   public User author; // The User who authored the status update
   
@@ -33,26 +32,26 @@ public class Post extends Commentable {
   public List<User> mentions;
 
   @Lob
-  public String text;
+  public String content;
 
   private static final int TEASER_LENGTH = 150;
 
   public Post(User author, String title, String content) {
     this.author = author;
     this.title = title;
-    this.text = parseContent(content);
+    this.content = parseContent(content);
     this.postType = type.NEWS;
-    this.tags = new List<Tag>;
-    this.mentions = new List<User>;
+    this.tags = new ArrayList<Tag>();
+    this.mentions = new ArrayList<User>();
   }
   
   public Post(User author, String title, String content, type t) {
     this.author = author;
     this.title = title;
-    this.text = parseContenst(content);
+    this.content = parseContent(content);
     this.postType = t;
-    this.tags = new List<Tag>;
-    this.mentions = new List<User>;
+    this.tags = new ArrayList<Tag>();
+    this.mentions = new ArrayList<User>();
   }
   
   public String contentTeaser() {

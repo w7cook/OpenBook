@@ -25,7 +25,18 @@
         <a class='triggershow showfirst' href='#' onclick='return false;'> +${_item.comments.size() - 2} more comment#{if _item.comments.size()-2 != 1}s#{/if}</a>
         <a class='triggerhide' href='#' onclick='return false;'> -hide comment#{if _item.comments.size() != 1}s#{/if}</a>
       #{/if}
-			<div class="post-content">${_item.content.nl2br()}</div>
+			<div class="post-content">
+			#{if _item.getClass().getName() == "models.Photo"}
+			  <div class="post-image"><img src="@{Photos.getPhoto(_item.id)}" /></div>
+			#{/if}
+			#{if _item.getClass().getName() == "models.Link"}
+			  <div class="post-link">
+			    <iframe src="${((models.Link)_item).external_url}"></iframe>
+			  </div>
+			#{/if}
+			${_item.content.nl2br()}
+			
+			</div>
 			<div class="post-content tohideopp" style="clear: both;">
 			  <div class="commentsList">
                 #{list items:_item.getSomeComments(), as:'comment'} 

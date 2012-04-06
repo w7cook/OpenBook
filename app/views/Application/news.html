@@ -2,7 +2,8 @@
   <div id="contentArea">
     <div class="pagelet">
       <a href="#">Update Status</a>
-      <a href="#">Add Photo / Video</a>
+      <a href="#">Add Photo</a>
+      <a href="#">Share Link</a>
       <a href="#">Ask Question</a>
 
 	  #{if user.id == currentUser.id}
@@ -35,7 +36,20 @@
     #{/elseif}
 
     #{if user.id == currentUser.id}
-
+    <div class="photo-upload" style="display: none;">
+			#{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
+			  <input type="file" name="image" />
+			  <input type="text" name="content" value="Add a caption" />
+			  <input type="submit" name="submit" value="Upload" /> 
+			#{/form}
+	  </div>
+	  <div class="link-upload" style="display: none">
+	    #{form @Links.addLink(), enctype:'multipart/form-data'}
+	      <input type="text" name="url" value="video url" />
+	      <input type="text" name="content" value="new post..." />
+	      <input type="submit" name="submit" value="Upload" />
+	    #{/form}
+	  </div>
     <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" >new post...</textarea>
     <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
     </div>
