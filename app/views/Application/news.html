@@ -6,7 +6,7 @@
       <a href="#">Share Link</a>
       <a href="#">Ask Question</a>
 
-	  #{if user.id == currentUser.id}
+    #{if user.id == currentUser.id}
       #{/if}
       #{else}
       <a href="@{Posts.poke(user.id)}">Poke!</a>
@@ -70,12 +70,12 @@
   </div>
   <div class="lhs-navBoxHeader">Upcoming Events</div>
   <div class="lhs-navBoxBody">
-	<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Upcoming Events</a>
+  <a href="www.youtube.com/watch?v=oHg5SJYRHA0">Upcoming Events</a>
   </div>
 
   <div class="lhs-navBoxHeader">ETC</div>
   <div class="lhs-navBoxBody">
-	<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Extra Stuff</a>
+  <a href="www.youtube.com/watch?v=oHg5SJYRHA0">Extra Stuff</a>
   </div>
 
 <script type="text/javascript">
@@ -127,20 +127,3 @@
   }
   });
 </script>
-
-
-<script >
-function likeClicked(itemId){
-  var postData = {
-     likeableId  : itemId,
-  };
-  window.alert("WHAT?");
-  $.post("/Application/addLikeAjax", postData, function(data) {
-    $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
-  });
-  document.getElementById("likeButton").innerHTML = "Unlike";
-  }
-  return;
-}
-</script>
-
