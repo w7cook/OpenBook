@@ -1,11 +1,13 @@
-#{extends 'main.html' /}
+#{extends 'three_panel.html' /}
 
-<td>
-  <h3>Friend Requests</h3>
-  #{list items:user.requestedFriends(), as:'request'}
-    <a href=@{Application.requestFriends(request.from.id)}>Accept</a> 
-    <a href=@{Application.removeFriends(request.from.id)}>Deny</a>
-    <a href=@{Application.news(request.from.id)}> ${request.from}</a>
-    <br>
-  #{/list}
-</td>
+	<div id="contentArea-BigPage">
+
+		<td>
+			<h3>Friend Requests</h3> #{list items:user.requestedFriends(),
+			as:'request'} <a href=@{Application.requestFriends(request.from.id)}>Accept</a>
+			<a href=@{Application.removeFriends(request.from.id)}>Deny</a> <a
+			href=@{Application.news(request.from.id)}> ${request.from}</a> <br>
+			#{/list}
+		</td>
+
+	</div>

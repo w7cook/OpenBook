@@ -169,7 +169,16 @@ Post(g2 post1):
     date:           2009-06-07
     author:         alice
     content:        >
-                    First post!                                                         
+                    First post!  
+                    
+Profile(jeffP):
+    User:           jeff
+    gender:         male
+    phone:          555-888-1234
+    website:        www.jeffisawesome.com  
+    quotes:         qwertyyuiop
+    bio:            >
+                    Hi, my name is Jeff, I have a really cool bio. Stay tuned for more                    
                     
 Category(main):
     name:           Main
@@ -265,6 +274,23 @@ Post(cats post1):
     content:        >
                     I HATE CATZ!!!
                     
+UserPage(1):
+    page:           cats
+    fan:            alice
+
+UserPage(2):
+    page:           nachoCheese
+    fan:            jeff
+
+Profile(bobProfile):
+    owner:          bob
+
+Profile(jeffProfile):
+    owner:          jeff
+    
+Profile(aliceProfile):
+    owner:          alice
+
 Post(cats post2):
     postType:       "PAGE"
     title:          1

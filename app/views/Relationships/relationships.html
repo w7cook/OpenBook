@@ -1,5 +1,17 @@
-#{extends 'main.html' /}
-All Friends:<br />
+#{extends 'three_panel.html' /}
+
+	<div id="contentArea-BigPage">
+
+<h2>All Friends:</h2>
+<hr/>
+
+<br />
 #{list items:user.confirmedFriends(), as:'friendship'}
-<a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a>  <a id="friend-button" href="@{Relationships.removeFriends(user.id)}">remove friend</a><br />
+<a href="@{Application.news(friendship.to.id)}">${
+	friendship.to.name }</a>
+<a id="friend-button" href="@{Relationships.removeFriends(user.id)}">remove
+	friend</a>
+<br />
 #{/list}
+
+</div>

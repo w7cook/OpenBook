@@ -1,17 +1,15 @@
 #{extends 'main.html' /}
 
 <div id="elasticSearchList" class="${type.name}">
-	
+
 	<h2 id="Users">Groups</h2>
-	<a href="/users/search?search=${params.search?.escape()?.raw()}">Users</a>
-	<br/>
-	
-	<div id="elasticSearchListTable">
-		#{GroupSearch.table /}
-	</div>
-	
-	<div id="elasticSearchListPagination">
-		#{elasticSearch.pagination /}
-	</div>
+	<a href="/users/search?search=${params.search?.escape()?.raw()}">Users</a> | <p style="display:inline">Groups</p>
+	<br />
+	<br />
+
+	<div id="elasticSearchListTable">#{GroupSearch.table /}</div>
+
+	<div id="elasticSearchListPagination">#{elasticSearch.pagination
+		/}</div>
 
 </div>

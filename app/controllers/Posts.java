@@ -4,6 +4,7 @@ import java.util.*;
 
 import play.*;
 import play.mvc.*;
+import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
@@ -28,7 +29,8 @@ public class Posts extends OBController {
   }
 
   public static void makeNewPost(String postContent) {
-    final Post p = new Post(user(), new Date().toString(), postContent).save();
+    final Post p = new Post(user(), new Date().toString(), 
+        HTML.htmlEscape(postContent)).save();
     Map<String, Object> m = new HashMap<String, Object>();
     m.put("item", p);
     m.put("user", user());

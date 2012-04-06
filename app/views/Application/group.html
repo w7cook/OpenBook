@@ -1,36 +1,28 @@
-#{extends 'main.html' /}
-<table>
-  <tr>
-    <td>
-      [Picture]
-      <br/>
-      ${user.email}
-      
-      <br/>
-      <a href="@{Application.news()}">news</a>
-      <br>
-      <a href="@{Events.events()}">Events</a>
-      <br>
-      <a href="@{Application.about()}">about</a>
-      <br>
-      <a href="@{Checkin.checkin()}">Checkin</a>
-      <br><a href="@{Relationships.relationships(user.id)}">friends:</a><br>
-      #{list items:user.confirmedFriends(), as:'friendship'}
-        <a href="@{Application.news(friendship.to.id)}">${ friendship.to.name }</a><br>
-      #{/list}
-	  <br>Groups:<br>
-      #{list items:user.getGroups(), as:'Group'}
-        <a href="@{Application.group(Group.id)}">${Group.groupName}</a><br>
-      #{/list}
-    </td>
-    <td>
-        <h1>${group.groupName}</h1>
-        <h2>${group.description}</h2>
-        <h3>The group is owned by ${group.owner}</h3>
-        <h4>The Group members:</h4>
-        #{list items:group.members, as:'member'}
-        <a href="@{Application.about(member.id)}">${member.name}</a><br>
-        #{/list}
-    </td>
-  </tr>
-</table>
+#{extends 'three_panel.html' /}
+
+	<div id="contentArea-AutoPage">
+		<table>
+			<tr>
+				<td>[Picture] <br /> ${user.email} <br /> <a
+					href="@{Application.news()}">news</a> <br> <a
+					href="@{Events.events()}">Events</a> <br> <a
+					href="@{Application.about()}">about</a> <br> <a
+					href="@{Checkin.checkin()}">Checkin</a> <br>
+				<a href="@{Relationships.relationships(user.id)}">friends:</a><br>
+					#{list items:user.confirmedFriends(), as:'friendship'} <a
+					href="@{Application.news(friendship.to.id)}">${friendship.to.name }</a><br> #{/list} <br>Groups:<br>
+					#{list items:user.getGroups(), as:'Group'} <a
+					href="@{Application.group(Group.id)}">${Group.groupName}</a><br>
+					#{/list}
+				</td>
+				<td>
+					<h1>${group.groupName}</h1>
+					<h2>${group.description}</h2>
+					<h3>The group is owned by ${group.owner}</h3>
+					<h4>The Group members:</h4> #{list items:group.members,
+					as:'member'} <a href="@{Application.about(member.id)}">${member.name}</a><br>
+					#{/list}
+				</td>
+			</tr>
+		</table>
+	</div>
