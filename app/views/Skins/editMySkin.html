@@ -7,8 +7,14 @@
 		<script type="text/javascript" src="/public/javascripts/jscolor/jscolor.js"></script>
 
 		#{form @Skins.editSkin()}
-		
-		  </br><label><b>EDIT CURRENT SKIN</b></label>
+		  <br><label><b>MAKE NEW SKIN</b></label>
+		  #{ifErrors}
+      <ul class="errors">
+        #{errors}
+        <li>Name has already been taken. Please choose another.</li> #{/errors}
+      </ul>
+      #{/ifErrors}
+		  <br><label><b>EDIT CURRENT SKIN</b></label>
 		
 		  <table>
 		  <td class=section width=15%>Body</td>

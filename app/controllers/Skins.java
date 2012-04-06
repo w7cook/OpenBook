@@ -83,11 +83,13 @@ public class Skins extends OBController {
     System.out.println("val: " + val);
     if(!val.contains(";") && !val.contains("."))
     {//checks for SQL injection
-      if(user.profile.skin.name != user.email){//each user gets a unique skin
-        Skin newSkin = new Skin(user.email);
+      if(user.profile.skin.userName != user.username){//each user gets a unique skin
+        Skin newSkin = new Skin(user.username,"mySkin");//make a skin for that user
         newSkin.cloneSkin(currentUserSkin);
         user.profile.skin = newSkin;
+        user.profile.save();
       }
+      
       if(key != null){//null if theres no changes
         
         String[] keys = key.split(", ");//input is a list
@@ -129,47 +131,24 @@ public class Skins extends OBController {
     Skin changeSkin = Skin.find("name = ?", skinName).first();
     if(changeSkin != null)
     {
-      SkinPair updateParam;
-      //reset currentSkin's parameters
-      for(SkinPair updateTo: changeSkin.parameters)
-      {
-        user.profile.skin.setParam(updateTo.name,updateTo.value);
-      }
+     user.profile.skin = changeSkin;
+     user.profile.save();
     }
     changeSkin(user.id);//rerender page
-  }
-
-  /**
-   * setSkin
-   * @param calling client who wants this skin
-   * @return true if the skin has been sucessfully set, false otherwise
-   * Sets the client's skin to the skin of skin name and returns true
-   * If the skin name is not found, does not reset and returns false
-   *
-   */
-  public static boolean setSkin(Profile profile, String skinName)
-  {
-    //find skin
-    Skin changeSkin = Skin.find("name = ?", skinName).first();
-
-    if(changeSkin == null)//name hasn't been added so skin doesn't exist
-    {
-      profile.skin = new Skin(skinName).save();
-      profile.save();
-      return true;
-    }
-    else
-    {
-      profile.skin = changeSkin;
-      profile.save();//made a change in the database so need to save it
-      return true;
-    }
   }
   
   public static void setBackgroundPhoto(Long photoid)
   {
     User user = user();
     Skin changeSkin = user.profile.skin;
+    if(user.profile.skin.userName != user.username){//each user gets a unique skin
+      Skin newSkin = new Skin(user.username,"mySkin");//make a skin for that user
+      newSkin.cloneSkin(changeSkin);
+      user.profile.skin = newSkin;
+      user.profile.save();
+      changeSkin = user.profile.skin;
+    }
+    
     SkinPair update = SkinPair.find("attachedSkin = ? AND name = ?", changeSkin, "bodyBGPhoto").first();
     if(update != null)
     {
@@ -178,5 +157,12 @@ public class Skins extends OBController {
     }
     Photos.photos(user.id);
   }
+  
+  public static Skin getSkin(String userName, String skinName)
+  {
+    return Skin.find("userName = ? AND skinName = ?",userName, skinName).first();
+  }
+  
+  
 
 }

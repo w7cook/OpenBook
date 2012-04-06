@@ -284,13 +284,21 @@ UserPage(2):
 
 Profile(bobProfile):
     owner:          bob
+    skin:           ut_skin
+    
 
 Profile(jeffProfile):
     owner:          jeff
+    skin:           default_skin
     
 Profile(aliceProfile):
     owner:          alice
+    skin:           default_skin
 
+Profile(gparkerProfile):
+    owner:          gparker
+    skin:           default_skin
+    
 Post(cats post2):
     postType:       "PAGE"
     title:          1
