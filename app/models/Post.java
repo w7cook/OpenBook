@@ -26,7 +26,7 @@ public class Post extends Commentable {
   public User author; // The User who authored the status update
   
   @ManyToMany(cascade=CascadeType.PERSIST)
-  public List<Tag> tags;
+  public Set<Tag> tags;
   
   @ManyToMany(cascade=CascadeType.PERSIST)
   public List<User> mentions;
@@ -37,21 +37,21 @@ public class Post extends Commentable {
   private static final int TEASER_LENGTH = 150;
 
   public Post(User author, String title, String content) {
+    this.tags = new TreeSet<Tag>();
+    this.mentions = new ArrayList<User>();
     this.author = author;
     this.title = title;
     this.content = parseContent(content);
     this.postType = type.NEWS;
-    this.tags = new ArrayList<Tag>();
-    this.mentions = new ArrayList<User>();
   }
   
   public Post(User author, String title, String content, type t) {
+    this.tags = new TreeSet<Tag>();
+    this.mentions = new ArrayList<User>();
     this.author = author;
     this.title = title;
     this.content = parseContent(content);
     this.postType = t;
-    this.tags = new ArrayList<Tag>();
-    this.mentions = new ArrayList<User>();
   }
   
   public String contentTeaser() {
@@ -95,12 +95,17 @@ public class Post extends Commentable {
     while(links_matcher.find() ){
       String match = links_matcher.group();
       if(match.startsWith("#")) { // tag
-        String newTag = match.substring(1);
-        tags.add(Tag.findOrCreateByName(newTag));
+        String tag = match.substring(1);
+        Tag newTag = Tag.findOrCreateByName(tag);
+        tags.add(newTag);
+        unlinked_content = unlinked_content.replace(match, ("<a href=\"#\"}>" + match + "</a>"));
       }
       else if(match.startsWith("@")) { // mention
         User newMention = User.find("byUsername", match.substring(1)).first();
-        mentions.add(newMention);
+        if(newMention != null){
+          unlinked_content = unlinked_content.replace(match, ("<a href=\"#\">" + newMention.name + "</a>"));
+          mentions.add(newMention);
+        }
       }
       else
        System.out.print("Error occured");
