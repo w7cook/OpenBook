@@ -2,14 +2,14 @@
 
 <div class="grid_15">
 	<div id="contentArea-BigPage">
+	  <font color="red"><b>${makeSkinOutput}</b></font>
     <br>
 		<a href="@{Skins.changeSkin}"> Change Skin to Template</a>
 		<script type="text/javascript" src="/public/javascripts/jscolor/jscolor.js"></script>
-
+    
 		#{form @Skins.editSkin()}
-		
-		  </br><label><b>EDIT CURRENT SKIN</b></label>
-		
+		  <br><label><b>EDIT CURRENT SKIN:  ${currentUser.profile.skin.skinName}</b></label>
+		  
 		  <table>
 		  <td class=section width=15%>Body</td>
 		    <td>
@@ -215,5 +215,30 @@
 		</tr>
 		  </table>
 		#{/form}
+		
+		#{form @Skins.makeSkin()}
+    <br><label><b>MAKE NEW PUBLIC SKIN (Visible to Everyone)</b></label>
+    
+      <table>
+        <td>
+          <table>
+          <tr>
+            <td><label>SkinName:</label></td>
+            <td><input type= text name=skinName 
+              value="${currentUser.profile.skin.skinName}" />
+            </td>        
+          </tr>
+          </table>
+      </table>
+      
+      <table>
+      <tr>  
+      <td colspan=3><input type=submit value=Save> 
+      </td>
+    </tr>
+      </table>
+     #{/form}
+		
 	</div>
 </div>
+

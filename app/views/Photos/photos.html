@@ -9,10 +9,12 @@
 			<link rel="stylesheet" type="text/css" media="screen"
 				href="/public/stylesheets/photos.css" />
 			#{ifErrors}
+			<p>
 			<ul class="errors">
 				#{errors}
 				<li>${error}</li> #{/errors}
 			</ul>
+			</p>
 			#{/ifErrors}
 
 			<div class="photo-upload">
