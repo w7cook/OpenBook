@@ -17,6 +17,11 @@ models.SkinPair(models_SkinPair_a_1):
  name: bodyBGColor
  value: none 
 
+models.SkinPair(models_SkinPair_2):
+ attachedSkin: GREEN
+ name: headerBGPhoto
+ value: none 
+
 models.SkinPair(models_SkinPair_5):
  attachedSkin: GREEN
  name: headerBGColor
@@ -134,6 +139,11 @@ models.SkinPair(models_SkinPair_a_2):
  attachedSkin: peace
  name: bodyBGColor
  value: none  
+
+models.SkinPair(models_SkinPair_27):
+ attachedSkin: peace
+ name: headerBGPhoto
+ value: none 
 
 models.SkinPair(models_SkinPair_30):
  attachedSkin: peace
@@ -254,6 +264,11 @@ models.SkinPair(models_SkinPair_54):
  name: headerBGPhoto
  value: /photos/3
  
+ models.SkinPair(models_SkinPair_51):
+ attachedSkin: default_skin
+ name: headerBGColor
+ value: none
+ 
 models.SkinPair(models_SkinPair_55):
  attachedSkin: default_skin
  name: footerTextAlign
@@ -366,6 +381,11 @@ models.SkinPair(models_SkinPair_75):
  attachedSkin: ut_skin
  name: headerBGPhoto
  value: /photos/3 
+ 
+models.SkinPair(models_SkinPair_75_2):
+ attachedSkin: ut_skin
+ name: headerBGColor
+ value: none
  
 models.SkinPair(models_SkinPair_76):
  attachedSkin: ut_skin

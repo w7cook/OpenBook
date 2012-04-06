@@ -10,7 +10,6 @@ import controllers.Photos;
 
 @With(Secure.class)
 public class Skins extends OBController {
-  
   public static List<Skin> skins() {
     List<Skin> skinList = Skin.find("isPublic = ?", "true").fetch();
     return skinList;
@@ -22,7 +21,7 @@ public class Skins extends OBController {
     Skin skin;
     if(skinId == null)
     {
-        skin = Skin.find("name = ?","default_skin").first();//get default skin
+        skin = Skin.find("skinName = ?","default_skin").first();//get default skin
     }
     else
     {
@@ -55,9 +54,9 @@ public class Skins extends OBController {
    * renders edit skin page
    * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
    */
-  public static void editMySkin(Long id) {
+  public static void editMySkin(Long id,String makeSkinOutput) {
     User user = id == null ? user() : (User) User.findById(id);
-    render(user);
+    render(user, makeSkinOutput);
   }
 
   /**
@@ -116,7 +115,7 @@ public class Skins extends OBController {
      
      
     }
-    editMySkin(user.id);//rerender the page for current user (input null will find user();
+    editMySkin(user.id,null);//rerender the page for current user (input null will find user();
   }
 
   /**
@@ -128,7 +127,7 @@ public class Skins extends OBController {
   {
     //find skin
     User user = user();
-    Skin changeSkin = Skin.find("name = ?", skinName).first();
+    Skin changeSkin = Skin.find("userName = ? AND skinName = ?", "default", skinName).first();
     if(changeSkin != null)
     {
      user.profile.skin = changeSkin;
@@ -163,6 +162,40 @@ public class Skins extends OBController {
     return Skin.find("userName = ? AND skinName = ?",userName, skinName).first();
   }
   
-  
+  public static void makeSkin(String skinName)
+  {
+    User user = user();
+    String makeSkinOutput = "";
+
+    if(!user.profile.skin.userName.equals(user.username))
+    {
+      makeSkinOutput = "You cannot make a new Skin from a template.";
+    }
+    else
+    {
+      //security check
+      if(!skinName.contains(";") && !skinName.contains("."))
+      {
+        //we want anyone to be able to use this skin, so it can't be allowed to change
+          Skin s2 = Skin.find("userName = ? AND skinName = ?", "default", skinName).first();
+          if(s2!=null)
+            makeSkinOutput = ("Skin Name has already been used in the templates." +
+                " Please specify another skin name.");
+          else{
+            Skin newSkin = new Skin("default",skinName);//make a template skin of that user
+            newSkin.cloneSkin(user.profile.skin);
+            newSkin.isPublic = "true";
+            newSkin.save();
+            //change the profile's skin
+            user.profile.skin = newSkin;
+            user.profile.save();
+            makeSkinOutput = "SUCCESS!";
+          }
+        
+      }
+    }
+    editMySkin(user.id,makeSkinOutput);//rerender the page for current user (input null will find user();
+    
+  }
 
 }

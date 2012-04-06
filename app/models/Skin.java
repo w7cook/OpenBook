@@ -38,7 +38,6 @@ import utils.Bootstrap;
 @Entity
 public class Skin extends Model {
 
-  public String name;//name of the skin
   public String userName;//creator's UserName
   public String skinName;//the skin's name
   
@@ -60,7 +59,6 @@ public class Skin extends Model {
   {
     this.userName = uN;
     this.skinName = sN;
-    this.name = uN + sN;
     parameters = new ArrayList<SkinPair>();
     isPublic = "false";
     this.save();
@@ -109,10 +107,12 @@ public class Skin extends Model {
   {  
        SkinPair s = SkinPair.find("attachedSkin = ? AND name = ?", this, key).first();
        
-       if(s != null){
+       if(s != null && !value.equalsIgnoreCase(s.value)){
+         
+         
          
          //take out photo so the color can be seen only if color is changed
-         if(key.equals("headerBGColor") && !value.equalsIgnoreCase(s.value) && 
+         if(key.equals("headerBGColor") &&
              !value.equalsIgnoreCase("none") && 
              !value.equalsIgnoreCase("FFFFFF") &&
              !value.equalsIgnoreCase("white"))//don't want white
@@ -127,17 +127,7 @@ public class Skin extends Model {
            headerBGPhoto.save();
          }
          
-         if(key.equals("headerBGPhoto") && !value.equalsIgnoreCase(s.value))
-         {
-           SkinPair headerBGColor = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGColor").first();
-           if(headerBGColor == null)
-           {
-             addParam("headerBGColor","none");
-             headerBGColor = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGColor").first();
-           }
-           headerBGColor.value = "none";
-           headerBGColor.save();
-         }    
+           
 
          s.value = value;
          s.save();
