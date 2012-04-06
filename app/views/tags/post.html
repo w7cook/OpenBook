@@ -40,17 +40,15 @@
 				    #{comment user:_user,currentUser:_currentUser,comment:comment /} 
 				  #{/list}
 				</div>
-		</div>
-    <div id="newComments${_item.id}"></div> 
-			<div id="new_comment_for_post${_item.id}" style="clear: both;" >
-			<img style="width: 30px; height: 30px;"	
-          src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
-		  <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" 
-                style="color:grey;" resize="none" rows="2" cols="35" 
-                maxlength="400" >new comment...</textarea>
-      <input type="submit" value="Comment" id="commentSubmit${_item.id}" /> 
-  		</div>
 
+			</div>
+            <div id="newComments${_item.id}"></div> 
+				<div id="new_comment_for_post${_item.id}" style="clear: both;" >
+					<img style="width: 30px; height: 30px;"	src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
+					
+					   <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="color:grey;" resize="none" rows="2" cols="35" maxlength="400" >new comment...</textarea>
+                       <input type="submit" value="Comment" id="commentSubmit${_item.id}" /> 
+				</div>
 <script type="text/javascript">
    $('input#commentSubmit${_item.id}').click(function(event) {
        var commentData = {
@@ -60,9 +58,9 @@
          };
        
          $.post("/comments/makeNewComment", commentData, function(data) {
-           var new_item = $(data).hide();
+         var new_item = $(data).hide();
            $("div#newComments${_item.id}").append(new_item);
-           new_item.slideDown();
+          new_item.slideDown();
            $("textarea#commentContent${_item.id}").val('');
          });
    });
