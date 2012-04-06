@@ -8,7 +8,7 @@
     <span id = "numLikesPost${_item.id}"> ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
     </span> 
     #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
-        <a id = "likeButton${_item.id}" href = '#' onclick = "likeClicked(${_item.id})">Like</a>
+        <a id = "likeButton${_item.id}" href = '#' onclick = "likeClicked(${_item.id});  return false;">Like</a>
      
       . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}
       . ${_item.updatedAt.format('dd MMM yy')} #{if _item.author ==  _currentUser} 
