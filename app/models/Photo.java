@@ -6,18 +6,22 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-public class Photo extends Model {
+public class Photo extends Post {
   @Required
   public Blob image;
-
-  public String caption;
 
   @Required
   @ManyToOne
   public User owner;
 
   public Photo(User owner, Blob image) {
+    super(owner, "", "");
     this.owner = owner;
+    this.image = image;
+  }
+  
+  public Photo(User owner, Blob image, String caption){
+    super(owner, "", caption);
     this.image = image;
   }
 }
