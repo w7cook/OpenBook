@@ -1,5 +1,4 @@
 # Test data
-
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -40,6 +39,20 @@ User(gparker):
     password:           password
     isAdmin:            true
     subscription:       true
+
+
+Profile(bobProfile):
+    owner:          bob
+    
+Profile(jeffProfile):
+    owner:          jeff
+    
+Profile(aliceProfile):
+    owner:          alice
+
+Profile(gparkerProfile):
+    owner:          gparker
+    
 
 Relationship(s1):
     from:       bob
@@ -281,15 +294,6 @@ UserPage(1):
 UserPage(2):
     page:           nachoCheese
     fan:            jeff
-
-Profile(bobProfile):
-    owner:          bob
-
-Profile(jeffProfile):
-    owner:          jeff
-    
-Profile(aliceProfile):
-    owner:          alice
 
 Post(cats post2):
     postType:       "PAGE"

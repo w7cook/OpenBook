@@ -38,7 +38,9 @@ import utils.Bootstrap;
 @Entity
 public class Skin extends Model {
 
-  public String name;//name of the skin
+  public String userName;//creator's UserName
+  public String skinName;//the skin's name
+  
   public String isPublic;//whether or not this skin is public
   
   @OneToMany(mappedBy = "attachedSkin", cascade = CascadeType.ALL)
@@ -53,50 +55,12 @@ public class Skin extends Model {
     this.parameters.add(param);
   }
   
-  public Skin(String name)
+  public Skin(String uN, String sN)
   {
-    this.name = name;
+    this.userName = uN;
+    this.skinName = sN;
     parameters = new ArrayList<SkinPair>();
     isPublic = "false";
-    this.save();
-    
-    //body
-    addParam("bodyBGPhoto","none");
-
-    //header
-    addParam("headerBGPhoto","/photos/"+ Bootstrap.defaultHeaderPhotoID);
-    addParam("headerBGColor","CC5500");//000000 (BLACK) or CC5500 (orange)
-
-    //footer
-    addParam("footerTextAlign","center");//center..
-    addParam("footerFontSize","10");// >= 0
-    addParam("footerColor","858A7B");//white, black, gray, etc
-
-    //section
-    addParam("sectionAlign","top");//top
-
-    //label
-    addParam("labelFontSize","10");
-    addParam("labelColor","000000");
-
-    //comment
-    addParam("commentBorderSize","2");//px size
-    addParam("commentBorderColor","FFFFFF");
-    addParam("commentBGColor","EEEEEE");
-
-
-    //button
-    addParam("buttonBorderRadius","4");//4
-    addParam("buttonBorderSize","1");//1
-    addParam("buttonBorderColor","000000");//black
-    addParam("buttonBoxShadowColor","888888");//888888;
-    addParam("buttonBGColor","FFFFFF");//white;
-    addParam("buttonTextDec","none");//none, underline, overline, line-through, blink
-    addParam("buttonLinkUnvisitedColor","000000");//black   
-    addParam("buttonLinkVisitedColor","000000");//black 
-    addParam("buttonLinkHoverColor","E0E0FF");//#E0E0FF;} 
-    addParam("buttonLinkSelectedColor","000000");//black;}
-  
     this.save();
   }
 
@@ -109,8 +73,11 @@ public class Skin extends Model {
   public void cloneSkin(Skin c)
   {
     //body
-    this.parameters = SkinPair.find("attachedSkin = ?",c).fetch();
-
+    List <SkinPair> parameters = SkinPair.find("attachedSkin = ?",c).fetch();
+    for(SkinPair update : parameters)
+    {
+      this.addParam(update.name,update.value);
+    }
   }
 
   /**
@@ -140,33 +107,36 @@ public class Skin extends Model {
   {  
        SkinPair s = SkinPair.find("attachedSkin = ? AND name = ?", this, key).first();
        
-       if(s != null){
+       if(s != null && !value.equalsIgnoreCase(s.value)){
+         
+         
          
          //take out photo so the color can be seen only if color is changed
-         if(key.equals("headerBGColor") && !value.equalsIgnoreCase(s.value) && 
+         if(key.equals("headerBGColor") &&
              !value.equalsIgnoreCase("none") && 
              !value.equalsIgnoreCase("FFFFFF") &&
              !value.equalsIgnoreCase("white"))//don't want white
          {
            SkinPair headerBGPhoto = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGPhoto").first();
+           if(headerBGPhoto == null)
+           {
+             addParam("headerBGPhoto","none");
+             headerBGPhoto = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGPhoto").first();
+           }
            headerBGPhoto.value = "none";
            headerBGPhoto.save();
          }
          
-         if(key.equals("headerBGPhoto") && !value.equalsIgnoreCase(s.value))
-         {
-           SkinPair headerBGColor = SkinPair.find("attachedSkin = ? AND name = ?", this, "headerBGColor").first();
-           headerBGColor.value = "none";
-           headerBGColor.save();
-         }
-         
-        
-         
-         
-         
+           
+
          s.value = value;
          s.save();
        }
+       else //s is null so it doesn't exist in the skin, so we make it
+       {
+        addParam(key,value); 
+       }
+       
   }
 
 
