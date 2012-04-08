@@ -205,9 +205,8 @@ public class Application extends OBController {
   
   public static void addLikeAjax (Long likeableId){
     User u = user();
-    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),u).save();
     Likeable l = Likeable.findById(likeableId);
-    l.addLike(newOne);
+    l.addLike(u);
     Map<String,String> m = new HashMap<String,String>();
     m.put("numLikes", Integer.toString(l.likes.size()));
     m.put("likeableID",likeableId.toString());
@@ -217,8 +216,7 @@ public class Application extends OBController {
   public static void removeLikeAjax (Long likeableId){
     User u = user();
     Likeable l = Likeable.findById(likeableId);
-    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, l).first();
-    l.removeLike(toRemove);
+    l.removeLike(u);
     Map<String,String> m = new HashMap<String,String>();
     m.put("numLikes", Integer.toString(l.likes.size()));
     m.put("likeableID",likeableId.toString());
