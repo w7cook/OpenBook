@@ -9,7 +9,7 @@ import play.test.*;
 import models.*;
 
 public class SkinTest extends UnitTest {
-  
+
   /**
    * Does unit testing on the Skins in the database, and, creating new Skins and
    * adding to the database
@@ -19,6 +19,7 @@ public class SkinTest extends UnitTest {
   {   
     // Create a new user and save it
     User tester = new User("tester@gmail.com", "secret", "tester").save();
+    Profile testerProfile = new Profile(tester).save();
 
     //User tester should have a default skin
     assertNotNull(tester.profile);

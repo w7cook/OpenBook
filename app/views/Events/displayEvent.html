@@ -94,8 +94,8 @@
 							<div class="comment">
 								<div class="comment-metadata">
 									<div class="comment-author">by ${comment.author},</div>
-									<div class="comment-date">${comment.updatedAt.format('dd
-										MMM yy')}</div>
+									<div class="comment-date">${comment.updatedAt.format('dd MMM yy')}
+									</div>
 									#{if comment.author == currentUser.first_name} <a class=button
 										href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
 									#{/if} #{ if comment.currentUserLiked()} <a class=button
