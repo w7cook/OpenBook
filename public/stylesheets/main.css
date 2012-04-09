@@ -277,7 +277,7 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 }
 
 .pagelet a {
-  padding: 0 15px 0 15px;
+  padding: 0 5px;
   font-weight: bold;
   font-size: 12px;
 }
@@ -355,6 +355,12 @@ a.logo:active {text-decoration:none;}
 .post-content {
   width: 100%;
   margin-bottom: 3px;
+}
+
+.post-content .post-image img{
+  width: 350px;
+  height: auto;
+  
 }
 
 .post .individual-post-metadata {
