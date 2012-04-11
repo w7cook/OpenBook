@@ -1,4 +1,4 @@
-<div class="post">
+<div class="post" id="post${_item.id}">
 	<div class="hideable">
 		<div class="left">
 			<img style="width: 50px; height: 50px;"
@@ -12,7 +12,7 @@
      
       . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}
       . ${_item.updatedAt.format('dd MMM yy')} #{if _item.author ==  _currentUser} 
-      . <a href="@{Posts.deletePost(_item.id,_user.id)}">delete my post</a> 
+      . <a id="deletePostSubmit${_item.id}" onclick="return false;" href="#">delete my post</a> 
     #{/if}
       <div id="comment_for_post${_item.id}" style="clear: both;" class="comment-textarea"></div>
    #{/if}   
@@ -73,6 +73,18 @@
            $("div#newComments${_item.id}").append(new_item);
           new_item.slideDown();
            $("textarea#commentContent${_item.id}").val('');
+         });
+   });
+</script>
+<script type="text/javascript">
+   $('a#deletePostSubmit${_item.id}').click(function(event) {
+       var deleteData = {
+             id : ${_item.id},
+             userId : ${_user.id},
+         };
+       
+         $.post("/posts/deletepost", deleteData, function() {
+         $('div#post${_item.id}').slideUp();
          });
    });
 </script>
