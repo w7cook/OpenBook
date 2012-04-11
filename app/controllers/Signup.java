@@ -3,7 +3,10 @@ package controllers;
 import java.util.*;
 import models.User;
 import play.data.validation.Error;
+import controllers.Secure;
+import play.mvc.With;
 
+@With(Secure.class)
 public class Signup extends OBController {
 	
 	public static void signup() {
@@ -33,13 +36,15 @@ public class Signup extends OBController {
 		}
 		else {
 			final User newUser = new User(email, password, username, firstName, lastName).save();
-			renderTemplate("Application/news.html", newUser.id);
+			renderText("");
 		}
 	}
 	
 	public static void isValidUserName(String name) {
 		if (User.count("username = ?", name) > 0) {
 			renderText("This username has been taken");
+		} else if (name.length() < 4) {
+			renderText("The username must have at least 4 characters");
 		} else {
 			renderText("Username available :)");
 		}

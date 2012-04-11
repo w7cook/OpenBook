@@ -84,11 +84,17 @@
 	  password2 : $("#confirmpassword").val(),
 	};
 	$.post("@{Signup.signup_user()}", postData, function(data) {
-	    $('#errors').html(data);
+		if (data != "")
+			$('#errors').html(data);
+		else {
+			$('#errors').html("Success");
+			window.location = "login"
+		}
     });
   });
   });
   </script>
+	<center>
 		<h2>Sign up</h2>
 		<hr />
 		<table>
@@ -156,4 +162,5 @@
 					</td>
 			</tr>
 		</table>
+	</center>
 
