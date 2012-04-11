@@ -3,11 +3,10 @@ package controllers;
 import java.util.*;
 import models.User;
 import play.data.validation.Error;
-import controllers.Secure;
-import play.mvc.With;
+import play.mvc.*;
+//import controllers.Secure;
 
-@With(Secure.class)
-public class Signup extends OBController {
+public class Signup extends Controller {
 	
 	public static void signup() {
 		render();
