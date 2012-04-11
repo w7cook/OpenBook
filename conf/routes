@@ -85,6 +85,9 @@ GET     /groups/search                          GroupSearch.search
 #Relationships
 GET 	/relationships							Relationships.relationships
 
+#Pages
+POST		/pages/post															Pages.post
+
 # Checkin
 GET     /checkin                                Checkin.checkin
 GET     /checkin/at                             Checkin.at
