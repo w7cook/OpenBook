@@ -74,6 +74,9 @@ GET     /groups/search                          GroupSearch.search
 #DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
 #GET     /users/{<[0-9]+>userId}/posts/?         #get all posts by a user
 
+#Links
+#Post    /links/?                                #Add/update link
+
 #Comments
 #GET     /comment/?                              #Get all comments
 #GET     /comment/{<[0-9]+>commentId}            #Get a specific comment

@@ -13,20 +13,21 @@
 		<hr />
 		#{form @Events.event_create()}
 		<table>
+		<font color="red">* = required</font>
 			<tr>
 
-				<td><label>Name: </td>
+				<td><label>Name:<font color="red">*</font> </td>
 				<td><input type=text name=curEvent.eventName size="50">
 				</td>
 
 			</tr>
 			<tr>
-				<td><label>Details: </td>
+				<td><label>Details:<font color="red">*</font> </td>
 				<td><input type=text name=curEvent.eventScript size="50">
 				</td>
 			</tr>
 			<tr>
-				<td><label>Where: </td>
+				<td><label>Where:<font color="red">*</font> </td>
 				<td><input id="searchTextField" type=text
 					name=curEvent.eventLocation size="50"></td>
 
@@ -37,7 +38,7 @@
 				<td></td>
 				<td>
 					<table>
-						<tr>Start:
+						<tr>Start:<font color="red">*</font>
 						</tr>
 
 						<td></td>
