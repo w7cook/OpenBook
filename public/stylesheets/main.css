@@ -5,10 +5,12 @@ html, body {
 }
 
 body {
+  height: auto;
   margin: 0;
-  background-color: #EEEEEE;
-  background-image:url(${skin.get("bodyBGPhoto")});
   font-size: 15px;
+  background-image:url(${skin.get("bodyBGPhoto")});
+  background-color: #${skin.get("bodyBGColor")};
+  
 }
 
 a:link {
@@ -37,29 +39,29 @@ a:active {
 
 /** header **/
 #header {
-  background-image: url('/public/images/headerBG.png'); /*Little spiffier header bar */
-  background-repeat: repeat-x;
+  background-image: url(${skin.get("headerBGPhoto")});
+  background-repeat: repeat-x; 
   background-color: #${skin.get("headerBGColor")};
   padding-top: 5px;
-  width: 100%;
   height: 40px;
-  line-height:30px;
+  line-height:30px;  
 }
 
 #header a {
-  color:white;
+  color:black;
 }
 
 
 #logo {
-  color: ${skin.get("logoColor")};
+  color: white
   padding: 0px 10px 0px 20px;
 }
 
 .logo {
+ /** Company's logo/identity should NOT be customizable **/
   font-weight: bold;
-  font-family: ${skin.get("logoFontType")};
-  font-size: 20px; /** i dont think a company's logo/identity should be customizable **/
+  font-family: helvetica
+  font-size: 30px;
 }
 
 
@@ -85,16 +87,13 @@ a:active {
 /** left side nav **/
 .left-side-nav {	
   line-height: 25px;
-  /*Code to make the post stick out against changed background */
-  background-color: white;
-  outline: #CCCCCC groove 1px;
-  margin: 5px 5px 5px; /*top (right & left) left*/
-  
-  
+  margin-bottom: 10px;
 }
 
 .left-side-nav a {
-  color: black;
+	width: 100%;		
+	color: black;
+	display:block;
 }
 
 .left-side-nav a:hover {
@@ -102,11 +101,62 @@ a:active {
   text-decoration: none;
 }
 
+.lhs-navBoxHeader {
+padding: 0px;
+	width: 100%;
+	color: white;
+	background-color:black;
+	padding-left: 0px;	
+  background-image: url(${skin.get("headerBGPhoto")}); /*Little spiffier header bar */
+  background-repeat: repeat-x;
+  background-color: #${skin.get("headerBGColor")};
+  
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-top-style: solid;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-width: 1px;
+	
+	margin-top: 10px;
+  
+}
+
+
+.lhs-navBoxBody {
+	display:block;
+	background-color: white;
+	width: 100%;
+	height: auto;
+	padding: 0px;
+
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-top-style: none;
+	border-width: 1px;
+	
+	margin-bottom: 10px;			
+	}
+	
+	.lhs-navBoxBody a {
+	width: 100%;		
+	color: black;
+	display:block;
+}
+	
+
+
+
 #name_avatar {
 }
 
 .profile-pic {
-  position: relative;
+position: relative;
+margin-left: 12.5%;
+width: 100%;
+
 }
 
 .profile-pic a{
@@ -114,8 +164,9 @@ a:active {
 }
 
 .profile-pic img{
-  max-width: 140px;
-  vertical-align: middle;
+	/*max-width: 140px;*/
+	width: 80%;
+height: 80%; /*Resize the profile-picture here, picture will take up all the space*/
 }
 
 .profile-pic:hover a{
@@ -132,20 +183,101 @@ a:active {
 /** contentArea **/
 #contentArea {
 
-  border-left: 1px solid #dddddd;    
+  /*border-left: 1px solid #dddddd;*/    
+}
+
+#contentArea-BigPage {
+	width: 100%;
+	min-height: 1024px;
+	height: auto;
+  /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
+}
+
+#contentArea-AutoPage {
+	width: 100%;
+	height: auto;
+  /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
 }
 
 
-/** pagelet **/
+
+/** Shared UI Elements **/
+.ui_TextArea {
+  width: 100%;
+  resize: none;
+  color:grey;
+  border: none;
+  margin: none;
+  display: none;
+}
+
+.ui_TextAreaButton {
+  width: 100%;
+  height: 30px;
+  margin: none;
+  border: none;
+  padding: none;
+  background-image: url(${skin.get("headerBGPhoto")}); /*Little spiffier header bar */
+  background-repeat: repeat-x;
+  background-color: #${skin.get("headerBGColor")};
+  color: white;
+  display:none;
+}
+
+.ui_TextBox {
+	height:25px;
+	width: 75%;
+	display: inline-block;
+	outline: #000000 groove 1px;
+}
+
+.ui_TextBoxButton {
+	position: relative;
+	height:25px;
+	float: right;
+	display: inline-block;
+	width: 20%;
+	margin: 0px 0px 0px 0px;
+	border-left: 0px;
+	border-right:0px;
+	border-bottom:0px;
+	border-top:0px;
+	outline: #000000 groove 1px;
+}
+
+.ui_InputContainer {
+  outline: black groove 1px;
+	width: 100%;
+	height: auto;
+	background-color: white;
+}
+
+.ui_ButtonText {
+	background-color: #e76509;	
+	color: white;
+	height: 100%;
+	width: 100%;
+}
+
+
+
+/** pagelet **/ui
 .pagelet {
   height: 40px;
   width: 100%;
   border-bottom: 1px solid #bbbbbb;
   margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .pagelet a {
-  padding: 0 15px 0 15px;
+  padding: 0 5px;
   font-weight: bold;
   font-size: 12px;
 }
@@ -176,15 +308,15 @@ label {
   border-radius:${skin.get("buttonBorderRadius")}px;
   border: ${skin.get("buttonBorderSize")}px solid ${skin.get("buttonBorderColor")};
   box-shadow: 1px 1px 2px #${skin.get("buttonBoxShadowColor")};
-  background-color: ${skin.get("buttonBGColor")};
+  background-color: #${skin.get("buttonBGColor")};
   text-decoration: ${skin.get("buttonTextDec")};
   padding: 0px 2px 0px 2px;
 }
 
-a.button:link {color:${skin.get("buttonLinkUnvisitedColor")};}      /* unvisited link */
-a.button:visited {color:${skin.get("buttonLinkVisitedColor")};}  /* visited link */
+a.button:link {color:#${skin.get("buttonLinkUnvisitedColor")};}      /* unvisited link */
+a.button:visited {color:#${skin.get("buttonLinkVisitedColor")};}  /* visited link */
 a.button:hover {background-color:#${skin.get("buttonLinkHoverColor")};}  /* mouse over link */
-a.button:active {color:${skin.get("buttonLinkSelectedColor")};}  /* selected link */
+a.button:active {color:#${skin.get("buttonLinkSelectedColor")};}  /* selected link */
 
 a.logo:link {text-decoration:none;}
 a.logo:visited {text-decoration:none;}
@@ -197,7 +329,7 @@ a.logo:active {text-decoration:none;}
    /*Code to make the post stick out against changed background */
   background-color: white;
   outline: #CCCCCC groove 1px;
-  margin: 10px 5px 10px; /*top (right & left) left*/
+  margin: 10px 0px 10px; /*top (right & left) left*/
   
 }
 
@@ -225,12 +357,18 @@ a.logo:active {text-decoration:none;}
   margin-bottom: 3px;
 }
 
+.post-content .post-image img{
+  width: 350px;
+  height: auto;
+  
+}
+
 .post .individual-post-metadata {
   color: gray;
 }
 
 .comment-content {
-  width: 450px;
+  width: 100%;
   font-size: 0.95em;
 }
 .post-date {
@@ -249,7 +387,6 @@ a.logo:active {text-decoration:none;}
 .main-content div {
   padding:3px;
   float:left;
-  padding:2px;
   float:left;
 }
 #content-left {
@@ -260,9 +397,6 @@ a.logo:active {text-decoration:none;}
   margin-left:10px;
   margin-top:10px;
   width:550px;
-  border-left: 1px;
-  border-left-color: #98AFC7;
-  border-left-style: dotted;
 }
 #content-right {
   margin-left:10px;
@@ -270,13 +404,14 @@ a.logo:active {text-decoration:none;}
 }
 
 #footer {
-  float:left;  
+	margin-left: auto;
+	margin-right: auto;
   padding:10px;
   width:878px;
-  margin-top:10px;
+  margin-top:20px;
   margin-bottom:10px;
   text-align: ${skin.get("footerTextAlign")};
   font: ${skin.get("footerFontSize")}pt italic;
-  color: ${skin.get("footerColor")};
+  color: ${skin.get("footerColor")};  
   border-top:thin solid;
 }

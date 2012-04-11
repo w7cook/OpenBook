@@ -1,21 +1,28 @@
-#{extends 'main.html' /}
+#{extends 'main.html' /} #{if FThreads.size()}
 
-#{if FThreads.size()}
+<div id="thread-list">
+	<div id="thread-list-header">
+		<div style="width: 60%; float: left;">Thread title</div>
+		<div style="width: 20%; float: left;">Author</div>
+		<div style="width: 20%; float: right;">Date</div>
+	</div>
+	#{list items:FThreads, as:'FThread'}
+	<div class="thread">
+		<div style="width: 60%; float: left;">
+			<a href="threads/${FThread.id}">${FThread.title}</a>
+		</div>
+		<div style="width: 20%; float: left;">
+			<a href="/?id=${FThread.author.id}">${FThread.author}</a>
+		</div>
+		<div style="width: 20%; float: right;">
+			${FThread.postedAt.format('M-d-yy')}</a>
+		</div>
+	</div>
+	#{/list}
+</div>
+<div
+	style="width: 700px; margin-left: auto; margin-right: auto; text-align: right; padding-right: 5px; margin-top: 5px;">
+	<a href="">New thread</a>
+</div>
 
-        <div id="thread-list">
-        	<div id="thread-list-header">
-        		<div style="width: 60%; float: left;">Thread title</div>
-        		<div style="width: 20%; float: left;">Author</div>
-        		<div style="width: 20%; float: right;">Date</div>
-        	</div>
-            #{list items:FThreads, as:'FThread'}
-            	<div class="thread">
-                <div style="width: 60%; float: left;"><a href="threads/${FThread.id}">${FThread.title}</a></div>
-                <div style="width: 20%; float: left;"><a href="/?id=${FThread.author.id}">${FThread.author}</a></div>
-                <div style="width: 20%; float: right;">${FThread.postedAt.format('M-d-yy')}</a></div>
-                </div>
-            #{/list}
-        </div>
-        <div style="width: 700px; margin-left: auto; margin-right: auto; text-align: right; padding-right: 5px; margin-top: 5px;"><a href="">New thread</a></div>
-
-    #{/if}
+#{/if}

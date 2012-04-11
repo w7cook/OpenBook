@@ -1,0 +1,25 @@
+<div id="comment${_comment.id}" class="comments${_comment.id}">
+	<div class="comment-metadata">
+		<div class="comment-thumb">
+			<img style="width: 30px; height: 30px;"	src="@{Photos.getPhoto(_comment.author.profile.profilePhoto)}" />
+			<br>
+		</div>
+		<div class="comment-author">              
+      <a href="@{Application.news(_comment.author.id)}">${_comment.author.name}</a>
+    </div>
+		<div class="comment-date">${_comment.updatedAt.format('dd MMM yy')}</div>
+		<div>${_comment.likes.size()} like${_comment.likes.size().pluralize()}</div>
+		#{if _comment.author.id == _currentUser.id} 
+		<a class=button href="@{Comments.deleteComment(_comment.id,_user.id)}">delete</a>
+		#{/if} 
+		
+    #{if _comment.currentUserLiked()} 
+		  <a class=button href="@{Comments.unLike(_comment.id,_user.id)}">Unlike</a> 
+    #{/if}
+		#{else} 
+		  <a class=button href="@{Comments.addLike(_comment.id,_user.id)}">Like</a> 
+    #{/else}
+	</div>
+	<div class="comment-content">
+		${_comment.content.escape().nl2br()}</div>
+</div>

@@ -70,8 +70,8 @@ public class Profile extends Model {
 
   public boolean hasAnniversary()
   {
-  	return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
-  		|| relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
+    return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
+      || relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
   }
 
   public Profile(User owner) {
@@ -92,11 +92,23 @@ public class Profile extends Model {
 
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
-    Skins.setSkin(this,this.owner.email);//the default skin look is used
+    this.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
     this.phone = "";
     this.address = "";
     this.website = "";
     this.email = "";
     this.profilePhoto = Bootstrap.defaultProfilePhotoID;
     }
+
+	public Profile(User owner, String bio, String gender, String quotes, String phone, String website){
+		this.owner = owner;
+		this.bio = bio;
+		this.gender = gender;
+		this.phone = phone;
+		this.quotes = quotes;
+		this.website = website;
+	}
+
 }
+
+

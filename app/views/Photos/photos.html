@@ -1,43 +1,41 @@
-#{extends 'two_panel.html' /}
-<div id="content-middle">
-  <link rel="stylesheet" type="text/css" media="screen"
-        href="/public/stylesheets/photos.css" />
-  #{ifErrors}
-  <ul class="errors">
-    #{errors}
-      <li>${error}</li>
-    #{/errors}
-  </ul>
-  #{/ifErrors}
+#{extends 'three_panel.html' /}
 
-  <div class="photo-upload">
-    <h3>Upload a new photo</h3>
-    #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
-      <input type="file" name="image" />
-      <input type="submit" name="submit" value="Upload" />
-    #{/form}
-  </div>
+	<div id="contentArea-BigPage">
 
-  <ul class="photo-list">
-    #{list items:photos, as:'photo'}
-      <li>
-        <img class="thumbnail" src=@{Photos.getPhoto(photo.id)} />
-        #{if currentUser.equals(photo.owner)}
-          #{form @Photos.removePhoto(photo.id)}
-            <input type="submit" name="submit" value="Delete" />
-          #{/form}
-          #{form @Photos.setProfilePhoto(photo.id)}
-            <input type="submit" name="Set Profile Picture"
-                   value="Set as profile picture" />
-          #{/form}
-          #{form @Skins.setBackgroundPhoto(photo.id)}
-            <input type="submit" name="Set Background Photo"
-                   value="Set as background" />
-          #{/form}
-        #{/if}
-      </li>
-    #{/list}
-  </ul>
-</div>
-<div id="content-right">
-</div>
+		<h2>Upload a new photo</h2>
+		<hr />
+
+		<div id="content-middle">
+			<link rel="stylesheet" type="text/css" media="screen"
+				href="/public/stylesheets/photos.css" />
+			#{ifErrors}
+			<p>
+			<ul class="errors">
+				#{errors}
+				<li>${error}</li> #{/errors}
+			</ul>
+			</p>
+			#{/ifErrors}
+
+			<div class="photo-upload">
+				#{form @Photos.addPhoto(), enctype:'multipart/form-data'} <input
+					type="file" name="image" /> <input type="submit" name="submit"
+					value="Upload" /> #{/form}
+			</div>
+
+			<ul class="photo-list">
+				#{list items:photos, as:'photo'}
+				<li><img class="thumbnail" src=@{Photos.getPhoto(photo.id)} />
+					#{if currentUser.equals(photo.owner)} #{form
+					@Photos.removePhoto(photo.id)} <input type="submit" name="submit"
+					value="Delete" /> #{/form} #{form
+					@Photos.setProfilePhoto(photo.id)} <input type="submit"
+					name="Set Profile Picture" value="Set as profile picture" />
+					#{/form} #{form @Skins.setBackgroundPhoto(photo.id)} <input
+					type="submit" name="Set Background Photo" value="Set as background" />
+					#{/form} #{/if}</li> #{/list}
+			</ul>
+		</div>
+		<div id="content-right"></div>
+
+	</div>

@@ -12,6 +12,9 @@ import play.data.validation.*;
 public class Status extends Commentable {
 
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
+  // private static final Pattern youtube_pattern = Pattern.compile();
+  // private static final Pattern vimeo_pattern = Pattern.compile();
+  
  
   @Required
   @ManyToOne

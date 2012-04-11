@@ -6,43 +6,47 @@
     <script src=@{'/public/javascripts/jquery-1.6.4.min.js'}></script>
     <script src=@{'/public/javascripts/util.js'}></script>
     <script src=@{'/public/javascripts/jquery.autoresize.js'}></script>
-    
+
     <script type="text/javascript" src="@{'/public/javascripts/calendarDateInput.js'}"></script>
     <script type="text/javascript" src="public/javascripts/comments.js"></script>
     <script type="text/javascript" src="public/javascripts/jquery.autoresize.js"></script>
-    
+
     <script type="text/javascript">
       $(document).ready(function(){
-        // The document can handle multiple popups as long as they're
-        // registered with document.add_popup.
-        // The popup handler behavior is to hide popups if the 
-        // document is clicked anywhere
-        document.popups = [];
-        $(document).click(function(event){
-          for(var i=0; i<document.popups.length; i++) 
-            document.popups[i].css('display','none');
-        });
-        document.add_popup = function(elem){
-          document.popups.push($(elem));
-        }
+      // The document can handle multiple popups as long as they're
+      // registered with document.add_popup.
+      // The popup handler behavior is to hide popups if the 
+      // document is clicked anywhere
+      document.popups = [];
+      $(document).click(function(event){
+      for(var i=0; i<document.popups.length; i++) 
+        document.popups[i].css('display','none');
+      });
 
-        // Register the friend request popup
-        document.add_popup($('#friendRequest'));
-
-        // When the showFriends anchor is clicked
-        // show the friendRequest div
-        $('#showFriends').click(function(event){
-          event.stopPropagation();    // this stops the event from registering on the doc.
-          $('#friendRequest').css('display','block');
+      document.add_popup = function(elem){
+        document.popups.push($(elem));
+      }
+       // Register the friend request popup
+      document.add_popup($('#friendRequest'));
+      // When the showFriends anchor is clicked
+      // show the friendRequest div
+      $('#showFriends').click(function(event){
+        event.stopPropagation();    // this stops the event from registering on the doc.
+        $('#friendRequest').css('display','block');
         });
       });
-   </script>
+    </script>
 
 
-    <link rel="stylesheet" type="text/css" media="screen" href="@{Skins.stylesheet()}" />
-    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/fthread.css'}" />
-    <link rel="stylesheet" type="text/css" media="screen" href="@('/public/stylesheets/960.css'}" />
-    <link rel="stylesheet" type="text/css" media="screen" href="../../public/stylesheets/960.css" /><!-- using this because above line isn't working atm.. -->
+    <link rel="stylesheet" type="text/css" media="screen"
+	      href="@{Skins.stylesheet()}" />
+    <link rel="stylesheet" type="text/css" media="screen"
+	      href="@{'/public/stylesheets/fthread.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen"
+	      href="@{'/public/stylesheets/960.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen"
+	      href="../../public/stylesheets/960.css" />
+    <!-- using this because above line isn't working atm.. -->
 
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" />
   </head>
@@ -55,36 +59,38 @@
         <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
         <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
         <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >
-        		#{list items:currentUser.requestedFriends(), as:'request'}
-        			<div style="border-bottom: thin solid #000033; color: black; z-index: 3; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 3px">
-        				<img style="width:50px; height:50px;" src=@{Photos.getPhoto(request.from.profile.profilePhoto)} />
-					    <a style="color: #000099;" href=@{Application.news(request.from.id)}> ${request.from}</a>
-					    <br>
-					    <a style="color: #000099;" href=@{Application.requestFriends(request.from.id)}>Accept</a> 
-					    <a style="color: #000099;" href=@{Application.removeFriends(request.from.id)}>Deny</a>
-					    <br>
-					</div>
-			  #{/list}
+          #{list items:currentUser.requestedFriends(), as:'request'}
+          <div style="border-bottom: thin solid #000033; color: black; z-index: 3; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 3px">
+        	<img style="width:50px; height:50px;" src=@{Photos.getPhoto(request.from.profile.profilePhoto)} />
+			<a style="color: #000099;" href=@{Application.news(request.from.id)}> ${request.from}</a>
+			<br>
+			<a style="color: #000099;" href=@{Application.requestFriends(request.from.id)}>Accept</a> 
+			<a style="color: #000099;" href=@{Application.removeFriends(request.from.id)}>Deny</a>
+			<br>
+		  </div>
+		  #{/list}
 		</div>        	
-	#{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
-	  <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
-	#{/form}
+	    #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
+	    <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
+	    #{/form}
         <div class="account">
-	  <a href="@{Application.account()}">
-            <img style="width:30px; height:30px; vertical-align:middle" src=@{'/public/images/header-profile.jpg'} /> ${currentUser.first_name} ${currentUser.last_name}
+	      <a href="@{Application.account()}">
+	      <img src="@{Photos.getPhoto(currentUser.profile.profilePhoto)}" height="30" width="30" style="vertical-align:middle;"/> ${currentUser.first_name} ${currentUser.last_name}
           </a>
           <a href="@{Application.news()}">Home</a>
-	  <a href="@{Secure.logout()}">Logout</a>
+	      <a href="@{Secure.logout()}">Logout</a>
         </div>
       </header>
       <div class="main-content" >
-	#{doLayout /}
+	    #{doLayout /}
       </div>
-      <footer id="footer">
-	<span class="logo">openbook</span> is a 
-	<a href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class project</a>
-	to create a simple social networking web site
-      </footer>
-    </div> <!-- end .container_24 -->
+      <div class="grid_16">
+        <footer id="footer">
+	      <span class="logo">openbook</span> is a 
+	      <a href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class project</a>
+	      to create a simple social networking web site
+        </footer>
+      </div><!-- end .grid_16 -->
+    </div> <!-- end .container_16 -->    
   </body>
 </html>

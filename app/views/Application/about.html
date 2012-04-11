@@ -1,43 +1,179 @@
 #{extends 'main.html' /}
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/about.css'}" />
 
-<div>
-  <h3 tabindex="0" class="uiHeaderTitle">Profile</h3>
-</div>
-<div class="globalContentAbout">
-	<div class="LeftColumnAbout">
-		<div class=button>
-			<span id="PanelTitle">Basic Info</span>
+&nbsp;&nbsp;&nbsp;<a href="@{Application.news()}" style="font:15;">${user.name}</a>
+
+<div class="globalContentAbout">	
+	<div class="LeftColumnAbout">		
+		<div class="Panel">
+			<span class="PanelTitle">About You</span>
+			<table>
+				<tr>
+	      			<th class="label">Name</th>
+	      			<td class="data">${user.name}</td>
+	    		</tr>
+	    		<tr>
+	      			<th class="label">email</th>
+	      			<td class="data">${user.email}</td>
+	    		</tr>
+				#{if user.profile.bio}
+				<tr>
+					<td><label>Bio:</label>
+					</td>
+					<td class="data">${user.profile.bio}</td>
+				</tr>
+				#{/if}
+			</table>
 		</div>
-		<table class="uiInfoTable profileInfoTable">
-    		<tr>
-      			<th class="label">Name</th>
-      			<td class="data">${user.name}</td>
-    		</tr>
-    		<tr>
-      			<th class="label">email</th>
-      			<td class="data">${user.email}</td>
-    		</tr>
-    		<tr>
-      			<th class="label">Birthday</th>
-      			#{if user.profile.birthday}
-      			<td class="data">${user.profile.birthday.format('MMM dd ')}</td>
+		<div class="Panel">
+			<span class="PanelTitle">Information</span>
+			<table>
+				#{if user.profile.birthday}
+				<tr>
+					<td><label>Birthday:</label></td>
+      				<td class="data">${user.profile.birthday.format('MMM dd ')}</td>
+				</tr>
       			#{/if}
-    		</tr>
-			<tr>
-				<th class="label">Sex</th>
-				<td class="data">${user.profile.gender}</td>
+				#{if user.profile.gender}
+				<tr>
+					<td><label>Sex:</label></td>
+					<td class="data">${user.profile.gender}</td>
+				</tr>
+				#{/if}
+
+				<tr>
+					<td><label>Interested in:</label>
+					</td>
+					<td>#{select 'gender', value:user.profile.interestedIn} 
+					#{option 'Male'}Male#{/option} 
+					#{option 'Female'}Female#{/option} 
+					#{option 'Both'}Both#{/option} 
+					#{option 'Neither'}Neither#{/option} 
+					#{/select}</td>
+				</tr>
+
+				<tr>
+					<td><label>Relationship Status: </label></td>
+					<td>#{select 'status', value:user.profile.relationshipStatus} 
+						#{option 'Single'}Single#{/option} 
+						#{option 'In a relationship'}In a relationship#{/option} 
+						#{option 'Engaged'}Engaged#{/option} 
+						#{option 'Married'}Married#{/option} 
+						#{option 'It\'s complicated'}It's complicated#{/option}
+						#{option 'In an open relationship'}In an open relationship#{/option} 
+						#{option 'Widowed'}Widowed#{/option} 
+						#{option 'Separated'}Separated#{/option}
+						#{option 'Divorced'}Divorced#{/option}
+						#{option 'In a civil union'}In a civil union#{/option}
+						#{option 'In a domestic partnership'}In a domestic partnership#{/option}
+						#{/select}
+					</td>
+				</tr>
+
+				#{if user.profile.hasAnniversary()}
+				<tr>
+					<td><label>Anniversary: </br></label></td>
+
+					<td><script>DateInput('orderdate', true)</script>
+					</td>
+				</tr>
+				#{/if}
+
+				<tr>
+					<td><label>Languages: </label></td>
+					<td>
+					#{list items:user.profile.languages, as:'lang'}
+						${lang.toString()}
+					#{/list}	
+					<input type=text name=work value="Add language">
+					</td>
+				</tr>
+				<tr>
+					<td><label>Religious views: </label></td>
+					<td>
+					<input size=50 type=text name=religion
+						value="${user.profile.religion ? user.profile.religion : ''}">
+					</td>
+			    </tr>
+			    <tr>
+			        <td><label>Political Views: </label></td>
+					<td>
+					<input size=50 type=text name=political
+						value="${user.profile.political ? user.profile.political : ''}">
+					</td>
+			    </tr>
+			</table>
+		</div>
+		<div class="Panel">
+			<span class="PanelTitle">Contact Info</span>
+			<table>
+				<tr>
+		        <td><label>Phone: </label></td>
+				<td>
+				<input type=text name=phone
+					value="${user.profile.phone ? user.profile.phone : 'Add phone number'}">
+				</td>
 			</tr>
-   			#{if user.profile.significantOther}
-    		<tr>
-      			<th class="label">Relationship Status</th>
-      			<td class="data">In a relationship with <a 		href="@{Application.news(user.significant_other.id)}">${user.significant_other.name}</a>
-      			</td>
-    		</tr>
-  			#{/if}
-		</table>
+				<tr>
+		        <td><label>Address: </label></td>
+				<td>
+				<input type=text name=address
+					value="${user.profile.address ? user.profile.address : 'Add current address'}">
+				</td>
+			</tr>
+			</table>
+		</div>
 	</div>
+	
 	<div class="RightColumnAbout">
+		<div class="Panel">
+			<span class="PanelTitle">Work and Education</span>
+			<table>
+				<tr>
+				<td><label>Education:</label>
+				</td>
+				<td>
+				#{list items:user.profile.education, as:'enrollment'}
+					${enrollment.toString()}
+				#{/list}	
+				<input type=text name=education value="Add a School">    
+				</td>
+			</tr>
+				<tr>
+				<td><label>Work History:</label></td>
+				<td>
+				#{list items:user.profile.work, as:'work'}
+					${work.toString()}
+				#{/list}	
+				<input type=text name=work value="Add a Job"></td>
+			</tr>
+			</table>
+		</div>
+		<div class="Panel">
+			<span class="PanelTitle">Living</span>
+			<table>
+		    	<tr>
+		        <td><label>Hometown: </label></td>
+				<td>
+				<input type=text name=hometown
+					value="${user.profile.hometown ? user.profile.hometown : 'Add hometown'}">
+				</td>
+			</tr>
+			</table>
+		</div>
+		<div class="Panel">
+			<span class="PanelTitle">Favorite Quotations</span>
+			<table>
+		    	<tr>
+		        <td><label>Quote: </label></td>
+				<td>
+				<input type=text name=hometown
+					value="${user.profile.quotes ? user.profile.quotes : 'Add a Favorite Quotation'}">
+				</td>
+			</tr>
+			</table>
+		</div>
 	</div>
-	<br/><br/>
+	
 </div>
-</br></br>
+

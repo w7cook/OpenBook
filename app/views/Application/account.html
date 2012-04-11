@@ -1,52 +1,40 @@
-#{extends 'main.html' /}
-<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/account.css'}" />
-<a href="@{Skins.skin()}">Edit Skin</a>
-#{form @Application.account_save()}
-  <ul class="info-form">
-    <li>
-      <label>Username: </label>
-      <input type=text name=update.username value="${currentUser.username}" />
-    </li>
-    <li>
-      <label>First:</label>
-      <input type=text name=update.first_name value="${currentUser.first_name}" />
-    </li>
-    <li>
-      <label>Middle:</label>
-      <input type=text name=update.middle_name value="${currentUser.middle_name}" />
-    </li>
-    <li>
-      <label>Last:</label>
-      <input type=text name=update.last_name value="${currentUser.last_name}" />
-    </li>
-    <li>
-      <label>Email:</label>
-      <input type=text name=update.email value="${currentUser.email}" />
-    </li>
-    <li>
-      <label>New password:</label>
-      <input type=password name=update.password />
-    </li>
-    <li>
-      <label>To save these settings, please enter your password: </label>
-    </li>
-    <li>
-      <label>Password:</label>
-      <input type=password name=old_password />
-    </li>
-    <li>
-      <input type=submit value=Save />
-      <input type=submit value=Cancel /> 
-    </li>
-    #{ifErrors}
-      <ul style="color:red">
-        #{errors}<li>${error}</li> #{/errors} 
-      </ul>
-    #{/ifErrors}
-  </ul>
-#{/form}
+#{extends 'three_panel.html' /}
+	<div id="contentArea-AutoPage">
 
-<div id="myPages">
-  <a href="@{Pages.myPages()}"> My pages </a>
-  <a href="@{Pages.newPage()}"> Create a Page!</a>
-</div>
+		<link rel="stylesheet" type="text/css" media="screen"
+			href="@{'/public/stylesheets/account.css'}" />
+		<a href="@{Skins.changeSkin()}">Change Skin</a> #{form
+		@Application.account_save()}
+		<ul class="info-form">
+			<li><label>Username: </label> <input type=text
+				name=update.username value="${currentUser.username}" /></li>
+			<li><label>First:</label> <input type=text
+				name=update.first_name value="${currentUser.first_name}" /></li>
+			<li><label>Middle:</label> <input type=text
+				name=update.middle_name value="${currentUser.middle_name}" /></li>
+			<li><label>Last:</label> <input type=text name=update.last_name
+				value="${currentUser.last_name}" /></li>
+			<li><label>Email:</label> <input type=text name=update.email
+				value="${currentUser.email}" /></li>
+			<li><label>New password:</label> <input type=password
+				name=update.password /></li>
+			<li><label>To save these settings, please enter your
+					password: </label></li>
+			<li><label>Password:</label> <input type=password
+				name=old_password /></li>
+			<li><input type=submit value=Save /> <input type=submit
+				value=Cancel /></li> #{ifErrors}
+			<ul style="color: red">
+				#{errors}
+				<li>${error}</li> #{/errors}
+			</ul>
+			#{/ifErrors}
+		</ul>
+		#{/form}
+
+		<div id="myPages">
+			<a href="@{Pages.myPages()}"> My pages </a> <a
+				href="@{Pages.newPage()}"> Create a Page!</a>
+		</div>
+
+	</div>

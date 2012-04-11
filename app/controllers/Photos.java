@@ -70,7 +70,7 @@ public class Photos extends OBController {
              MimeTypes.getContentType(image.getName()));
     User user = User.find("username = ?", "default").first();//set owner as default owner
     Photo photo = new Photo(user, blob);
-    photo.caption = caption;//give credit
+    photo.content = caption;//give credit
     photo.save();
     return photo;
   }
@@ -124,12 +124,18 @@ public class Photos extends OBController {
     //make sure get all of the photos
     List<Photo> photos;
     if (user.id == null) {
-      photos = Photo.findAll();
+      photos = null;
     }
     else {
       photos = Photo.find("byOwner", user).fetch();
     }
     render(user,photos);
+  }
+  
+  public static void changeBGImage()
+  {
+    User user = user();
+    photos(user.id);
   }
   
   public static void setProfilePhoto(Long photoId) {

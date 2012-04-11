@@ -1,8 +1,4 @@
-#{extends 'main.html' /}
-
-#{set 'title'}
-    OpenBook :: Forums
-#{/set}
+#{extends 'main.html' /} #{set 'title'} OpenBook :: Forums #{/set}
 
 <div id="forumContainer">
 	<div id="forumHeader">
@@ -10,25 +6,21 @@
 		<div class="headerRight">Last post</div>
 	</div>
 
-	#{if Categories.size()}
-		#{list items:Categories, as:'category'}
-			<div class="threadList">
-				<div class="forumInner">
-					<div class="threadLeft">
-						<a href="threads/${category.id}">${category.name}</a>
-					</div>
-					<div class="threadRight">
-						#{if category.get_most_recent() != null}
-							<a href="/threads/${category.get_most_recent().category.id}/${category.get_most_recent().id}">${category.get_most_recent().title}</a><br />
-							Posted by: <a href="/?id=${category.get_most_recent().author.id}">${category.get_most_recent().author}</a><br />
-							${category.get_most_recent().postedAt.format('M-d-yy, h:mm a')}
-						#{/if}
-					</div>
-				</div>
-			</div>	
-		#{/list}
-	#{/if}
-	#{else}
-		There currently no categories configured.
+	#{if Categories.size()} #{list items:Categories, as:'category'}
+	<div class="threadList">
+		<div class="forumInner">
+			<div class="threadLeft">
+				<a href="threads/${category.id}">${category.name}</a>
+			</div>
+			<div class="threadRight">
+				#{if category.get_most_recent() != null} <a
+					href="/threads/${category.get_most_recent().category.id}/${category.get_most_recent().id}">${category.get_most_recent().title}</a><br />
+				Posted by: <a href="/?id=${category.get_most_recent().author.id}">${category.get_most_recent().author}</a><br />
+				${category.get_most_recent().postedAt.format('M-d-yy, h:mm a')}
+				#{/if}
+			</div>
+		</div>
+	</div>
+	#{/list} #{/if} #{else} There currently no categories configured.
 	#{/else}
 </div>

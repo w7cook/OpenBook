@@ -12,12 +12,16 @@ GET     /es-admin/               						elasticsearch.ElasticSearchAdmin.index
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
+GET		/edit_basic								Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
-GET     /skin                                   Skins.skin
+GET     /changeSkin                             Skins.changeSkin
+GET		  /editMySkin				              				Skins.editMySkin
+GET		  /sampleSkin		              						Skins.sampleSkin
+GET     /changeBGImage                          Photos.changeBGImage
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
 POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
@@ -66,6 +70,9 @@ GET     /groups/search                          GroupSearch.search
 #GET     /posts/{<[0-9]+>postId}                 #Get a specific post
 #DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
 #GET     /users/{<[0-9]+>userId}/posts/?         #get all posts by a user
+
+#Links
+#Post    /links/?                                #Add/update link
 
 #Comments
 #GET     /comment/?                              #Get all comments
