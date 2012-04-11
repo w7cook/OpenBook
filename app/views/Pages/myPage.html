@@ -1,7 +1,10 @@
-#{extends 'main.html' /} #{include 'two_panel.html' /} #{if page.admin
-== user} #{form @Pages.pageUpdate(page.id, info)}
-<div id="content-middle">
-	<h1>${page.title}</h1>
+#{extends 'main.html' /} 
+#{extends 'three_panel.html' /} 
+<script type="text/JavaScript" src="pages.js"></script> 
+<div id="pageTop">
+#{if page.admin == user}
+#{form @Pages.pageUpdate(page.id, info)}
+<h1>${page.title}</h1>
 	${page.info} <br>
 	<div class="hideable">
 		<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
@@ -18,8 +21,9 @@
 		</div>
 	</div>
 </div>
-#{/form} #{include 'Pages/post.html' /} #{/if} #{elseif page != null}
-<div id="content-middle">
+#{/form} 
+#{/if} 
+#{elseif page != null}
 	<h1>${page.title}</h1>
 	<div id="pageInfo" style="float: left">${page.info}</div>
 	<div style="float: right">
@@ -27,7 +31,8 @@
 		#{else} <a href="@{Pages.unfan(page.id)}">unfan</a> #{/else}
 	</div>
 	<hr style="float: left; width: 100%; color: #98AFC7;" />
-	#{include 'Pages/post.html' /}
+	</div>
+#{/elseif}		       
+#{include 'Pages/post.html' /}
 </div>
-#{/elseif}
 

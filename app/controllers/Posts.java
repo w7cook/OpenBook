@@ -28,7 +28,7 @@ public class Posts extends OBController {
     posts(userId);
   }
 
-  public static void makeNewPost(String postContent) {
+  public static void makeNewPost(String pid, String postContent) {
     final Post p = new Post(user(), new Date().toString(), 
         HTML.htmlEscape(postContent)).save();
     Map<String, Object> m = new HashMap<String, Object>();

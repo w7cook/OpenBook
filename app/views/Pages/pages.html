@@ -6,8 +6,9 @@
 <hr/>
 
 <div id="content-middle">
-	#{list items:allPages, as:'pages'} <a href="@{Pages.display(pages.id)}">${pages.title}<br>
-		#{/list} 
+	#{list items:allPages, as:'pages'} 
+		<a href="@{Pages.display(pages.id)}">${pages.title}<br>
+	#{/list} 
 </div>
 
 </div>
