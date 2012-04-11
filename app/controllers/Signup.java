@@ -20,6 +20,7 @@ public class Signup extends Controller {
 		validation.isTrue(firstName.trim().length() >= 1).message("Please enter a first name");
 		validation.isTrue(lastName.trim().length() >= 1).message("Please enter a last name");
 		username = username.trim();
+		validation.isTrue(checkUniqueUsername(username)).message("This username is in use");
 		validation.isTrue(username.trim().length() >= 4).message("Username must be at least 4 characters");
 		validation.isTrue(password.length() >= 6).message("Password must be at least 6 characters");
 		validation.match(password, ".*[A-Z]+.*").message("Password must contain an uppercase letter");
@@ -40,12 +41,20 @@ public class Signup extends Controller {
 	}
 	
 	public static void isValidUserName(String name) {
-		if (User.count("username = ?", name) > 0) {
+		if (!checkUniqueUsername(name)) {
 			renderText("This username has been taken");
 		} else if (name.length() < 4) {
 			renderText("The username must have at least 4 characters");
 		} else {
 			renderText("Username available :)");
+		}
+	}
+	
+	private static boolean checkUniqueUsername(String name) {
+		if (User.count("username = ?", name) > 0) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 	
