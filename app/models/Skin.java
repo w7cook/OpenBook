@@ -107,7 +107,14 @@ public class Skin extends Model {
   {  
        SkinPair s = SkinPair.find("attachedSkin = ? AND name = ?", this, key).first();
        
-       if(s != null && !value.equalsIgnoreCase(s.value)){
+       if(s == null)
+       {
+         //s is null so it doesn't exist in the skin, so we make it
+          addParam(key,""); 
+          s = SkinPair.find("attachedSkin = ? AND name = ?", this, key).first();
+       }
+       
+       if(!value.equalsIgnoreCase(s.value)){
          
          
          
@@ -132,10 +139,7 @@ public class Skin extends Model {
          s.value = value;
          s.save();
        }
-       else //s is null so it doesn't exist in the skin, so we make it
-       {
-        addParam(key,value); 
-       }
+       
        
   }
 

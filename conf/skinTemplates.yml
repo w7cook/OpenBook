@@ -264,11 +264,7 @@ models.SkinPair(models_SkinPair_54):
  name: headerBGPhoto
  value: /photos/3
  
- models.SkinPair(models_SkinPair_51):
- attachedSkin: default_skin
- name: headerBGColor
- value: none
- 
+
 models.SkinPair(models_SkinPair_55):
  attachedSkin: default_skin
  name: footerTextAlign
