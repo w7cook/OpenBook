@@ -37,6 +37,9 @@ GET     /application.prev.gif 			staticFile:/public/images/prev.gif
 GET     /application.next.gif 			staticFile:/public/images/next.gif
 GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
 
+#Pages
+GET		/pages/post/														Pages.post
+
 # Photos
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 GET     /photos/?                               Photos.photos
@@ -84,9 +87,6 @@ GET     /groups/search                          GroupSearch.search
 
 #Relationships
 GET 	/relationships							Relationships.relationships
-
-#Pages
-POST		/pages/post															Pages.post
 
 # Checkin
 GET     /checkin                                Checkin.checkin

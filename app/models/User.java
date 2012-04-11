@@ -90,7 +90,6 @@ public class User extends Model {
     
     profile = new Profile(this);
     
-    //Skins.setSkin(this.profile,"DEFAULT");//set skin as default skin
     // this.education = new ArrayList<Enrollment>();
   }
 

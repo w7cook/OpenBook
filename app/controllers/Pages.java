@@ -99,11 +99,11 @@ public class Pages extends OBController {
     renderTemplate(m);
 	}
 	*/
-	public static void post(String pid, String pContent){ 
+	public static void post(String pid, String content){ 
 		final User u = user();
-		final Post po = new Post(u,HTML.htmlEscape(pid),HTML.htmlEscape(pContent),Post.type.PAGE).save();
+		final Post p = new Post(u,HTML.htmlEscape(pid),HTML.htmlEscape(content),Post.type.PAGE).save();
     Map<String, Object> m = new HashMap<String, Object>();
-		m.put("item", po);
+		m.put("item", p);
 		m.put("user", user());
 		m.put("currentUser", user());
     renderTemplate(m);
