@@ -92,7 +92,7 @@ public class Profile extends Model {
 
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
-    this.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
+    this.skin = Skins.getSkin("default","default_skin");//the default skin look is used
     this.phone = "";
     this.address = "";
     this.website = "";
