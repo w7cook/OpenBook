@@ -81,6 +81,19 @@ public class User extends Model {
     // this.education = new ArrayList<Enrollment>();
   }
 
+  public User(String email, String password, String username, String first_name, String last_name) {
+    this.email = email;
+    this.password = Crypto.passwordHash(password);
+    this.username = username;
+    this.first_name = first_name;
+    this.last_name = last_name;
+    
+    profile = new Profile(this);
+    
+    Skins.setSkin(this.profile,"DEFAULT");//set skin as default skin
+    // this.education = new ArrayList<Enrollment>();
+  }
+
   public static User connect(String login, String password) {
     return find("SELECT u FROM User u WHERE (u.email = ?1 OR u.username = ?1) and u.password = ?2", login, Crypto.passwordHash(password)).first();
   }
