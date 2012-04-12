@@ -10,18 +10,21 @@
   #{ifErrors}
     <ul class="errors">
       #{errors}
-      <li>${error}</li> #{/errors}
+        <li>${error}</li>
+      #{/errors}
     </ul>
   #{/ifErrors}
 
   <div class="photo-upload">
-    #{form @Photos.addPhoto(), enctype:'multipart/form-data'} <input
-      type="file" name="image" /> <input type="submit" name="submit"
-      value="Upload" /> #{/form}
+    #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
+      <input type="file" name="image" />
+      <input type="submit" name="submit" value="Upload" />
+    #{/form}
   </div>
 
   <h2>Your photos</h2>
   <hr />
+
   <ul class="photo-list">
     #{list items:photos, as:'photo'}
       #{photo currentUser:currentUser, photo:photo /}
