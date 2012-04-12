@@ -28,9 +28,19 @@ public class Posts extends OBController {
     posts(userId);
   }
 
-  public static void makeNewPost(String pid, String postContent) {
+  public static void makeNewPost(String postContent) {
     final Post p = new Post(user(), new Date().toString(), 
         HTML.htmlEscape(postContent)).save();
+    Map<String, Object> m = new HashMap<String, Object>();
+    m.put("item", p);
+    m.put("user", user());
+    m.put("currentUser", user());
+    renderTemplate(m);
+  }
+  
+  public static void makeNewPagePost(String postContent, String pid) {
+    final Post p = new Post(user(), HTML.htmlEscape(pid), 
+        HTML.htmlEscape(postContent),Post.type.PAGE).save();
     Map<String, Object> m = new HashMap<String, Object>();
     m.put("item", p);
     m.put("user", user());

@@ -1,7 +1,7 @@
 #{extends 'main.html' /} 
 #{extends 'three_panel.html' /} 
 <script type="text/JavaScript" src="pages.js"></script> 
-<div id="pageTop">
+<div id="content">
 #{if page.admin == user}
 #{form @Pages.pageUpdate(page.id, info)}
 <h1>${page.title}</h1>
@@ -10,17 +10,17 @@
 		<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
 		<a class="triggerhide" href='#' onclick='return false;'>-done</a>
 		<div class="post-teaser tohideopp"></div>
-		<div class="post-content tohide hide">
+			<div class="post-content tohide hide">
 			Admin: ${page.admin} <a href="@{Pages.deletePage(page.id)}"
 				style="float: right">Delete this Page</a> <br>Info: <input
 				type=text name=info value="${page.info}"
 				style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;" /><br>
-			<div style="float: right">
-				<input type=submit value=Save>
+				<div style="float: right">
+					<input type=submit value=Save>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 #{/form} 
 #{/if} 
 #{elseif page != null}

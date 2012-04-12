@@ -18,37 +18,40 @@ public class Pages extends OBController {
 	
 	public static void pageSave(String title, String info){
 		User user = user();
+		User currentUser = user();
 		Page page = new Page(user, title, info).save();
 		new UserPage(user, page).save();
 		//renderText(page.admin+"\n"+page.title+"\n"+page.info+"\n"+pageLink.page.title+"\n"+pageLink.fan);
-		render("Pages/myPage.html", page,user);
+		render("Pages/myPage.html", page,user, currentUser);
 	}
 	
 	public static void pageUpdate(Long id, String info){
 		Page page = Page.findById(id); 
 		page.info = info;
 		page.save();
-		User user = user();
-		render("Pages/myPage.html", page, user);
+		User _user = user();
+		User _currentUser = user();
+		render("Pages/myPage.html", page, _user, _currentUser);
 	}
 	
 	public static void myPages(){
-		User user = user(); 
-		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", user).fetch();
+		User _user = user(); 
+		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
 		if(myPages == null){renderText("null");}
-		render(myPages, user);
+		render(myPages, _user);
 	}
 	
 	public static void display(Long id){
-		User user = user();
+		User _user = user();
+		User _currentUser = user();
 		Page page = Page.findById(id);
-		UserPage pageLink = UserPage.find("select u from UserPage u where u.fan = ? and u.page = ?", user,page).first();
+		UserPage pageLink = UserPage.find("select u from UserPage u where u.fan = ? and u.page = ?", _user, page).first();
 		String temp = "";
 		List<UserPage> pageTest = UserPage.findAll();
 		for(UserPage c : pageTest){
 			temp+= c.page.title +" -- "+c.fan+"\n";
 		}
-		render("Pages/myPage.html", page, pageLink, user);
+		render("Pages/myPage.html", page, pageLink, _user, _currentUser);
 	}
 	/*
 	public static void display(Long id, Map m){
@@ -99,14 +102,13 @@ public class Pages extends OBController {
     renderTemplate(m);
 	}
 	*/
-	public static void post(String pid, String content){ 
-		final User u = user();
-		final Post p = new Post(u,HTML.htmlEscape(pid),HTML.htmlEscape(content),Post.type.PAGE).save();
-    Map<String, Object> m = new HashMap<String, Object>();
-		m.put("item", p);
-		m.put("user", user());
-		m.put("currentUser", user());
-    renderTemplate(m);
+	public static void newPost(Long pid, String postContent){ 
+		Page page = Page.find("select p from Page p where p.id = ?", pid).first();
+		User user = user();
+		if(page == null){renderText("null page");}
+		//TODO: implement null/empty string check 
+		new Post(user,page.id.toString(),postContent,Post.type.PAGE).save();
+		display(page.id);
 	}
 	
 	public static void unfan(Long id){

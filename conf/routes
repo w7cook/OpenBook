@@ -12,7 +12,7 @@ GET     /es-admin/               						elasticsearch.ElasticSearchAdmin.index
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
-GET		/edit_basic								Application.edit_basic
+GET			/edit_basic															Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
 
@@ -36,9 +36,6 @@ GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
 GET     /application.prev.gif 			staticFile:/public/images/prev.gif
 GET     /application.next.gif 			staticFile:/public/images/next.gif
 GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
-
-#Pages
-GET		/pages/post/														Pages.post
 
 # Photos
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
