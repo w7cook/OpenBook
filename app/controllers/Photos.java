@@ -22,7 +22,7 @@ public class Photos extends OBController {
   public static void photos(Long ownerId) {
     List<Photo> photos;
     if (ownerId == null) {
-      photos = Photo.findAll();
+      photos = Photo.find("byOwner", user()).fetch();
     }
     else {
       User user = User.findById(ownerId);
