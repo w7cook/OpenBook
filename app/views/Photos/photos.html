@@ -8,12 +8,10 @@
   <hr />
 
   #{ifErrors}
-  <p>
-  <ul class="errors">
-    #{errors}
-    <li>${error}</li> #{/errors}
-  </ul>
-  </p>
+    <ul class="errors">
+      #{errors}
+      <li>${error}</li> #{/errors}
+    </ul>
   #{/ifErrors}
 
   <div class="photo-upload">
@@ -22,6 +20,8 @@
       value="Upload" /> #{/form}
   </div>
 
+  <h2>Your photos</h2>
+  <hr />
   <ul class="photo-list">
     #{list items:photos, as:'photo'}
       <li>
