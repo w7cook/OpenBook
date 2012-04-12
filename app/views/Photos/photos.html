@@ -24,20 +24,7 @@
   <hr />
   <ul class="photo-list">
     #{list items:photos, as:'photo'}
-      <li>
-        <img class="thumbnail" src=@{Photos.getPhoto(photo.id)} />
-        #{if currentUser.equals(photo.owner)}
-          <br />
-          <a href="@{Photos.removePhoto(photo.id)}"
-             class="button">Delete picture</a>
-          <br />
-          <a href="@{Photos.setProfilePhoto(photo.id)}"
-             class="button">Set as profile picture</a>
-          <br />
-          <a href="@{Skins.setBackgroundPhoto(photo.id)}"
-             class="button">Set as background</a>
-        #{/if}
-      </li>
+      #{photo currentUser:currentUser, photo:photo /}
     #{/list}
   </ul>
 
