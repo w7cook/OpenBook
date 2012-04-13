@@ -55,7 +55,7 @@
                 #{doBody body:handler /}
             %{ } else { }%
                 <td>
-                    <a href="/?id=${object.id}">${object.first_name + " " + object.last_name ?: '(no value)'}</a>
+                    <a href="/users/${object.id}">${object.first_name + " " + object.last_name ?: '(no value)'}</a>
                 </td>
             %{ } }%
         %{ } }%

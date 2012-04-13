@@ -1,0 +1,9 @@
+#{extends 'two_panel.html' /}
+
+<ul class="userList">
+  #{list items:users, as:'user'}
+    <li>
+      <a href="/users/${user.id}">${user}</a>
+    </li>
+  #{/list}
+</ul>
