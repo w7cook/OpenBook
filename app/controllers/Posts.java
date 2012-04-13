@@ -26,11 +26,12 @@ public class Posts extends OBController {
   }
 
   public static void deletePost(Long postId) {
+    User user = user();
     Post p = Post.findById(postId);
-    if (!p.author.equals(user()))
+    if (!p.author.equals(user))
       forbidden();
     p.delete();
-    posts(user().id);
+    posts(user.id);
   }
 
   public static void newPost(Long userId, String post_content) {
