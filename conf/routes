@@ -49,6 +49,9 @@ GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 
+#Signup
+GET     /signup                                 Signup.signup
+
 # Messages
 GET     /messages/inbox                         Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
