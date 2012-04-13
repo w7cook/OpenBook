@@ -105,6 +105,14 @@ public class User extends Model {
     return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
   }
 
+  public List<Post> posts() {
+    return Post.find("byAuthor", this).fetch();
+  }
+
+  public List<Comment> comments() {
+    return Comment.find("byAuthor", this).fetch();
+  }
+
   public List<Post> news() {
     return Post.find(
                      "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",

@@ -1,0 +1,7 @@
+#{extends 'two_panel.html' /}
+
+<div id="postsList">
+  #{list items:posts, as:'item'} 
+    #{post currentUser:currentUser,user:user,item:item /}
+  #{/list}
+</div>
