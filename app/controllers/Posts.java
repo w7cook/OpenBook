@@ -37,6 +37,17 @@ public class Posts extends OBController {
     m.put("currentUser", user());
     renderTemplate(m);
   }
+  
+  public static void makeNewPagePost(String postContent, String pid) {
+    final Post p = new Post(user(), HTML.htmlEscape(pid), 
+        HTML.htmlEscape(postContent),Post.type.PAGE).save();
+    Page page = Page.findById(Long.parseLong(pid));
+    Map<String, Object> m = new HashMap<String, Object>();
+    m.put("item", p);
+    m.put("user", user());
+    m.put("currentUser", user());
+    renderTemplate(m);
+  }
 
   public static void poke (Long userId) {
   	String poked = new String(user() + " has poked " + (User)User.findById(userId) + "!");
