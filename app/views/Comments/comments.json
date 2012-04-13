@@ -1,0 +1,8 @@
+[
+  #{list items:user.comments(), as:'item'} 
+    {
+      "author"  : "${item.author.username}",
+      "content" : "${item.content}"
+    }#{if !item_isLast},#{/if}
+  #{/list}
+]
