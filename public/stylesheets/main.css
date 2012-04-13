@@ -182,8 +182,7 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 
 /** contentArea **/
 #contentArea {
-
-  /*border-left: 1px solid #dddddd;*/    
+  width: 100%;
 }
 
 #contentArea-BigPage {
