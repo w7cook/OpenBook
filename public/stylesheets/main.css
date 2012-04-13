@@ -45,7 +45,7 @@ a:active {
   background-repeat: repeat-x; 
   background-color: #${skin.get("headerBGColor")};
   height: 40px;
-  line-height:30px;  
+  line-height:40px;  
 }
 
 #header a {
