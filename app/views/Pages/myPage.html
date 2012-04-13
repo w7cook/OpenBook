@@ -1,5 +1,6 @@
 #{extends 'main.html' /} #{include 'two_panel.html' /} #{if page.admin
 == user} #{form @Pages.pageUpdate(page.id, info)}
+        <div id="contentArea-AutoPage">
 <div id="content-middle">
 	<h1>${page.title}</h1>
 	${page.info} <br>
