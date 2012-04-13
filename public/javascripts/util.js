@@ -103,7 +103,3 @@ function relevantToHide(elem) {
 function relevantToHideOpp(elem) {
   return elem.closest(".hideable").find(".tohideopp:first");
 }
-
-function account(){
-	window.location = "../account"
-}

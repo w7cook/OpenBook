@@ -1,41 +1,35 @@
 #{extends 'three_panel.html' /}
+<link rel="stylesheet" type="text/css" media="screen"
+  href="/public/stylesheets/photos.css" />
 
-	<div id="contentArea-BigPage">
+        <div id="contentArea-AutoPage">
 
-		<h2>Upload a new photo</h2>
-		<hr />
+  <h2>Upload a new photo</h2>
+  <hr />
 
-		<div id="content-middle">
-			<link rel="stylesheet" type="text/css" media="screen"
-				href="/public/stylesheets/photos.css" />
-			#{ifErrors}
-			<p>
-			<ul class="errors">
-				#{errors}
-				<li>${error}</li> #{/errors}
-			</ul>
-			</p>
-			#{/ifErrors}
+  #{ifErrors}
+    <ul class="errors">
+      #{errors}
+        <li>${error}</li>
+      #{/errors}
+    </ul>
+  #{/ifErrors}
 
-			<div class="photo-upload">
-				#{form @Photos.addPhoto(), enctype:'multipart/form-data'} <input
-					type="file" name="image" /> <input type="submit" name="submit"
-					value="Upload" /> #{/form}
-			</div>
+  <div class="photo-upload">
+    #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
+      <input type="file" name="image" />
+      <input type="submit" name="submit" value="Upload"
+             class="ui_TextAreaButton" style="display: inline-block; " />
+    #{/form}
+  </div>
 
-			<ul class="photo-list">
-				#{list items:photos, as:'photo'}
-				<li><img class="thumbnail" src=@{Photos.getPhoto(photo.id)} />
-					#{if currentUser.equals(photo.owner)} #{form
-					@Photos.removePhoto(photo.id)} <input type="submit" name="submit"
-					value="Delete" /> #{/form} #{form
-					@Photos.setProfilePhoto(photo.id)} <input type="submit"
-					name="Set Profile Picture" value="Set as profile picture" />
-					#{/form} #{form @Skins.setBackgroundPhoto(photo.id)} <input
-					type="submit" name="Set Background Photo" value="Set as background" />
-					#{/form} #{/if}</li> #{/list}
-			</ul>
-		</div>
-		<div id="content-right"></div>
+  <h2>Your photos</h2>
+  <hr />
 
-	</div>
+  <ul class="photo-list">
+    #{list items:photos, as:'photo'}
+      #{photo currentUser:currentUser, photo:photo /}
+    #{/list}
+  </ul>
+
+</div>

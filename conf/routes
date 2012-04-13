@@ -5,22 +5,22 @@
 # Import Secure routes
 *       /                                       module:secure
 
-GET     /es-admin               						elasticsearch.ElasticSearchAdmin.index
-GET     /es-admin/               						elasticsearch.ElasticSearchAdmin.index
+GET     /es-admin                               elasticsearch.ElasticSearchAdmin.index
+GET     /es-admin/                              elasticsearch.ElasticSearchAdmin.index
 
 # Home page
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
-GET		/edit_basic								Application.edit_basic
+GET			/edit_basic															Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /changeSkin                             Skins.changeSkin
-GET		  /editMySkin				              				Skins.editMySkin
-GET		  /sampleSkin		              						Skins.sampleSkin
+GET     /editMySkin                             Skins.editMySkin
+GET     /sampleSkin                             Skins.sampleSkin
 GET     /changeBGImage                          Photos.changeBGImage
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
@@ -28,30 +28,33 @@ POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 
 # Threads
 GET     /threads                                Categories.listAll
-GET     /threads/{<[0-9]+>catId}          		Categories.listSingle
+GET     /threads/{<[0-9]+>catId}                Categories.listSingle
 GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
 POST    /threads/[0-9]+/{<[0-9]+>threadId}      Comments.postThreadComment
 
 
 # Profile
-GET     /application.prev.gif 			staticFile:/public/images/prev.gif
-GET     /application.next.gif 			staticFile:/public/images/next.gif
-GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
+GET     /application.prev.gif                   staticFile:/public/images/prev.gif
+GET     /application.next.gif                   staticFile:/public/images/next.gif
+GET     /application.calendar.jpg               staticFile:/public/images/calendar.gif
 
 # Photos
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
-POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
-DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
+GET     /photos/setProfilePhoto                 Photos.setProfilePhoto
+GET     /photos/{<[0-9]+>photoId}/delete        Photos.removePhoto
 GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
-POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
+POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 
+#Signup
+GET     /signup                                 Signup.signup
+
 # Messages
-GET     /messages/inbox                         Messages.inbox
+GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
@@ -66,25 +69,25 @@ GET     /groups/search                          GroupSearch.search
 #DELETE  /users/{<[0-9]+>userId}                 #Delete a user
 
 #Posts
-#GET     /posts/?                                #Get all posts
+GET     /posts/?                                Posts.posts #Get all posts
 #POST    /posts/?                                #Add/update post
-#GET     /posts/{<[0-9]+>postId}                 #Get a specific post
+GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
 #DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
-#GET     /users/{<[0-9]+>userId}/posts/?         #get all posts by a user
+GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
 
 #Links
 #Post    /links/?                                #Add/update link
 
 #Comments
-#GET     /comment/?                              #Get all comments
-#GET     /comment/{<[0-9]+>commentId}            #Get a specific comment
-#DELETE  /comment/{<[0-9]+>commentId}            #Delete a comment
+GET     /comments/?                              Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specific comment
+#DELETE  /comments/{<[0-9]+>commentId}            #Delete a comment
 #GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
-#GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
+GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
 
 #Relationships
-GET 	/relationships							Relationships.relationships
+GET     /relationships                                                  Relationships.relationships
 
 # Checkin
 GET     /checkin                                Checkin.checkin
@@ -92,12 +95,6 @@ GET     /checkin/at                             Checkin.at
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
-
-# Comments
-GET		/                                       Comments.comments
-
-# Posts
-GET     /                                       Posts.posts
 
 # Groups
 GET     /groups/{id}                            Groups.group
