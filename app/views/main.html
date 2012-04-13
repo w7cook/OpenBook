@@ -53,7 +53,7 @@
   <body id="page">
     <div class="container_16">
 	  <header id="header">
-	    <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
+	   <a id="logo" class="logo" href="@{Application.news()}" style="padding-left:5px;">Openbook</a>
         <a id="showFriends"><img src="@{'public/images/friend_request_icon.png'}" /></a>
         <body>${currentUser.requestedFriendCount()}</body>
         <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
@@ -73,13 +73,13 @@
 	    #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
 	    <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
 	    #{/form}
-        <div class="account">
+	    <div class="account">
 	      <a href="@{Application.account()}">
 	      <img src="@{Photos.getPhoto(currentUser.profile.profilePhoto)}" height="30" width="30" style="vertical-align:middle;"/> ${currentUser.first_name} ${currentUser.last_name}
           </a>
           <a href="@{Application.news()}">Home</a>
 	      <a href="@{Secure.logout()}">Logout</a>
-        </div>
+</div>
       </header>
       <div class="main-content" >
 	    #{doLayout /}
