@@ -21,7 +21,7 @@
 
     <div class="individual-post">
       <div class="post-author" style="clear: both;">
-        <a href="@{Application.news(_item.author.id)}">${_item.author.name}</a>
+        <a href="/users/${_item.author.id}">${_item.author.name}</a>
       </div>
       #{if _item.comments.size() > 2}
         <a class='triggershow showfirst' href='#' onclick='return false;'> +${_item.comments.size() - 2} more comment#{if _item.comments.size()-2 != 1}s#{/if}</a>

@@ -62,10 +62,11 @@ GET     /users/search                           UserSearch.search
 GET     /groups/search                          GroupSearch.search
 
 #Account
-#GET     /users/?                                #Get a list of all users
-#POST    /users/?                                #Add / update a user
-#GET     /users/{<[0-9]+>userId}                 #Get account info for a specific user
-#DELETE  /users/{<[0-9]+>userId}                 #Delete a user
+GET     /users/?                                Users.users #Get a list of all users
+#POST    /users/?                                Signup.signup #Add / update a user
+PUT     /users/{<[0-9]+>userId}                 Users.updateUser
+GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
+DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
 GET     /posts/?                                Posts.posts #Get all posts
