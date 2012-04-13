@@ -53,7 +53,7 @@ POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /signup                                 Signup.signup
 
 # Messages
-GET     /messages/inbox                         Messages.inbox
+GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
@@ -96,10 +96,10 @@ GET     /checkin/at                             Checkin.at
 *       /users/{anything}/photos/?              Application.notFound
 
 # Comments
-GET             /                                       Comments.comments
+GET     /comments                               Comments.comments
 
 # Posts
-GET     /                                       Posts.posts
+GET     /posts                                  Posts.posts
 
 # Groups
 GET     /groups/{id}                            Groups.group
