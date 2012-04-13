@@ -39,16 +39,17 @@ a:active {
 
 /** header **/
 #header {
+    width: 100%;
+    color: black;
   background-image: url(${skin.get("headerBGPhoto")});
   background-repeat: repeat-x; 
   background-color: #${skin.get("headerBGColor")};
-  padding-top: 5px;
   height: 40px;
   line-height:30px;  
 }
 
 #header a {
-  color:black;
+color:white;
 }
 
 
@@ -182,8 +183,7 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 
 /** contentArea **/
 #contentArea {
-
-  /*border-left: 1px solid #dddddd;*/    
+  width: 100%;
 }
 
 #contentArea-BigPage {
@@ -217,7 +217,7 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 
 .ui_TextAreaButton {
   width: 100%;
-  height: 30px;
+  height: 100%;
   margin: none;
   border: none;
   padding: none;
@@ -237,7 +237,7 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 
 .ui_TextBoxButton {
 	position: relative;
-	height:25px;
+	height:100%;
 	float: right;
 	display: inline-block;
 	width: 20%;
@@ -304,7 +304,7 @@ label {
 }
 
 .button {
-  font-size:x-small;
+  font-size:100%;
   border-radius:${skin.get("buttonBorderRadius")}px;
   border: ${skin.get("buttonBorderSize")}px solid ${skin.get("buttonBorderColor")};
   box-shadow: 1px 1px 2px #${skin.get("buttonBoxShadowColor")};
@@ -414,4 +414,13 @@ a.logo:active {text-decoration:none;}
   font: ${skin.get("footerFontSize")}pt italic;
   color: ${skin.get("footerColor")};  
   border-top:thin solid;
+}
+
+#leftBorder{
+position:relative;
+height: 100%;
+width: 1px;
+border-width: 1px;
+border-color:grey;
+border-left-style:groove;
 }

@@ -5,22 +5,22 @@
 # Import Secure routes
 *       /                                       module:secure
 
-GET     /es-admin               						elasticsearch.ElasticSearchAdmin.index
-GET     /es-admin/               						elasticsearch.ElasticSearchAdmin.index
+GET     /es-admin                               elasticsearch.ElasticSearchAdmin.index
+GET     /es-admin/                              elasticsearch.ElasticSearchAdmin.index
 
 # Home page
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
-GET		/edit_basic								Application.edit_basic
+GET			/edit_basic															Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
 GET     /changeSkin                             Skins.changeSkin
-GET		  /editMySkin				              				Skins.editMySkin
-GET		  /sampleSkin		              						Skins.sampleSkin
+GET     /editMySkin                             Skins.editMySkin
+GET     /sampleSkin                             Skins.sampleSkin
 GET     /changeBGImage                          Photos.changeBGImage
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
 POST    /skins/editSkin                         Skins.editSkin
@@ -28,26 +28,29 @@ POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 
 # Threads
 GET     /threads                                Categories.listAll
-GET     /threads/{<[0-9]+>catId}          		Categories.listSingle
+GET     /threads/{<[0-9]+>catId}                Categories.listSingle
 GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
 
 
 # Profile
-GET     /application.prev.gif 			staticFile:/public/images/prev.gif
-GET     /application.next.gif 			staticFile:/public/images/next.gif
-GET     /application.calendar.jpg 			staticFile:/public/images/calendar.gif
+GET     /application.prev.gif                   staticFile:/public/images/prev.gif
+GET     /application.next.gif                   staticFile:/public/images/next.gif
+GET     /application.calendar.jpg               staticFile:/public/images/calendar.gif
 
 # Photos
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
-POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
-DELETE  /photos/{<[0-9]+>photoId}               Photos.removePhoto
+GET     /photos/setProfilePhoto                 Photos.setProfilePhoto
+GET     /photos/{<[0-9]+>photoId}/delete        Photos.removePhoto
 GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
-POST	  /photos/setProfilePhoto			         		Photos.setProfilePhoto
+POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
+
+#Signup
+GET     /signup                                 Signup.signup
 
 # Messages
 GET     /messages/inbox                         Messages.inbox
@@ -83,7 +86,7 @@ GET     /groups/search                          GroupSearch.search
 #GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
 
 #Relationships
-GET 	/relationships							Relationships.relationships
+GET     /relationships                                                  Relationships.relationships
 
 # Checkin
 GET     /checkin                                Checkin.checkin
@@ -93,7 +96,7 @@ GET     /checkin/at                             Checkin.at
 *       /users/{anything}/photos/?              Application.notFound
 
 # Comments
-GET		/                                       Comments.comments
+GET             /                                       Comments.comments
 
 # Posts
 GET     /                                       Posts.posts

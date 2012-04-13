@@ -45,7 +45,7 @@
 </head>
 <body onload="runscript()">
 
-	#{extends 'three_panel.html' /}
+	#{extends 'two_panel.html' /}
 
 		<div id="contentArea-BigPage">
 
@@ -54,13 +54,18 @@
 
 			<table>
 				<tr>
-					<td id="details">${name}<br /> ${privacy} By ${myAuthor}<br />
-						${myDate}<br /> Location: ${location}<br /> Details:
-						${description}<br />
+					<td id="details" width = "100%"><b>Event Name: </b> ${name}<br /> 
+					  ${privacy} <br /> 
+					  <b>Created By: </b>${myAuthor}<br />
+						<b>Date: </b>${myDate}<br /> 
+						<b>Location: </b>${location}<br /> 
+						<b>Details: </b>${description}<br />
 					</td>
-					<td id="map"><input id="searchTextField" type="text"
-						size="50">
-						<div id="map_canvas" style="width: 335px; height: 200px"></div></td>
+					
+					<td id="map" width = "10%">
+					  <input id="searchTextField" type="text"
+						size="23%" style="align:center; text-align:center">
+						<div id="map_canvas" style="width: 300px; height: 200px"></div></td>
 				</tr>
 			</table>
 
