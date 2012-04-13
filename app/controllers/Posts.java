@@ -25,10 +25,12 @@ public class Posts extends OBController {
       notFound("That post does not exist.");
   }
 
-  public static void deletePost(Long id, Long userId) {
-    Post p = Post.findById(id);
+  public static void deletePost(Long postId) {
+    Post p = Post.findById(postId);
+    if (!p.author.equals(user()))
+      forbidden();
     p.delete();
-    posts(userId);
+    posts(user().id);
   }
 
   public static void newPost(Long userId, String post_content) {

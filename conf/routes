@@ -12,7 +12,7 @@ GET     /es-admin/                              elasticsearch.ElasticSearchAdmin
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
-GET			/edit_basic															Application.edit_basic
+GET     /edit_basic                             Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
 
@@ -62,16 +62,17 @@ GET     /users/search                           UserSearch.search
 GET     /groups/search                          GroupSearch.search
 
 #Account
-#GET     /users/?                                #Get a list of all users
-#POST    /users/?                                #Add / update a user
-#GET     /users/{<[0-9]+>userId}                 #Get account info for a specific user
-#DELETE  /users/{<[0-9]+>userId}                 #Delete a user
+GET     /users/?                                Users.users #Get a list of all users
+#POST    /users/?                                Signup.signup #Add / update a user
+PUT     /users/{<[0-9]+>userId}                 Users.updateUser
+GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
+DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
 GET     /posts/?                                Posts.posts #Get all posts
-#POST    /posts/?                                #Add/update post
+POST    /posts/?                                Posts.makeNewPost #Add/update post
 GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
-#DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
+DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
 GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
 
 #Links
