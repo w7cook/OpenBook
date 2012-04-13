@@ -1,9 +1,9 @@
 <div class="post" id="post${_item.id}">
-	<div class="hideable">
-		<div class="left">
-			<img style="width: 50px; height: 50px;"
-				src="@{Photos.getPhoto(_item.author.profile.profilePhoto)}" />
-		</div>
+        <div class="hideable">
+                <div class="left">
+                        <img style="width: 50px; height: 50px;"
+                                src="@{Photos.getPhoto(_item.author.profile.profilePhoto)}" />
+                </div>
   <div class="individual-post-metadata">
     <span id = "numLikesPost${_item.id}"> ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
     </span> 
@@ -27,39 +27,39 @@
         <a class='triggerhide' href='#' onclick='return false;'> -hide comment#{if _item.comments.size() != 1}s#{/if}</a>
       #{/if}
       
-			<div class="post-content">
-			#{if _item.getClass().getName() == "models.Photo"}
-			  <div class="post-image"><img src="@{Photos.getPhoto(_item.id)}" /></div>
-			#{/if}
-			#{if _item.getClass().getName() == "models.Link"}
-			  <div class="post-link">
-			    <iframe src="${((models.Link)_item).external_url}"></iframe>
-			  </div>
-			#{/if}
-			${_item.content.nl2br()}
-			
-			</div>
+                        <div class="post-content">
+                        #{if _item.getClass().getName() == "models.Photo"}
+                          <div class="post-image"><img src="@{Photos.getPhoto(_item.id)}" /></div>
+                        #{/if}
+                        #{if _item.getClass().getName() == "models.Link"}
+                          <div class="post-link">
+                            <iframe src="${((models.Link)_item).external_url}"></iframe>
+                          </div>
+                        #{/if}
+                        ${_item.content.nl2br()}
+                        
+                        </div>
         <div class="commentsList">
                 #{list items:_item.getSomeComments(), as:'comment'} 
                     #{comment user:_user,currentUser:_currentUser,comment:comment /} 
                   #{/list}
         </div>
      </div>
-		 <div class="tohide hide" style="clear: both; display: none;">
-				<div class="commentsList">
-				  #{list items:_item.getComments(), as:'comment'} 
-				    #{comment user:_user,currentUser:_currentUser,comment:comment /} 
-				  #{/list}
-				</div>
+                 <div class="tohide hide" style="clear: both; display: none;">
+                                <div class="commentsList">
+                                  #{list items:_item.getComments(), as:'comment'} 
+                                    #{comment user:_user,currentUser:_currentUser,comment:comment /} 
+                                  #{/list}
+                                </div>
 
-			</div>
+                        </div>
             <div id="newComments${_item.id}"></div> 
-				<div id="new_comment_for_post${_item.id}" style="clear: both;" >
-					<img style="width: 30px; height: 30px;"	src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
-					
-					   <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="color:grey;" resize="vertical" rows="2" cols="35" maxlength="400" >new comment...</textarea>
-					   <a class=button id="commentSubmit${_item.id}" href="#" onclick="return false;">Comment</a>
-				</div>
+                                <div id="new_comment_for_post${_item.id}" style="clear: both;" >
+                                        <img style="width: 30px; height: 30px;" src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
+                                        
+                                           <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="color:grey;" resize="vertical" rows="2" cols="35" maxlength="400" >new comment...</textarea>
+                                           <a class=button id="commentSubmit${_item.id}" href="#" onclick="return false;">Comment</a>
+                                </div>
 <script type="text/javascript">
    $('a#commentSubmit${_item.id}').click(function(event) {
        var commentData = {
