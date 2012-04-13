@@ -78,6 +78,8 @@ public class User extends Model {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
+    this.save();
+    new Relationship(this).save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -88,8 +90,11 @@ public class User extends Model {
     this.first_name = first_name;
     this.last_name = last_name;
 
+    this.save();
     profile = new Profile(this);
     profile.save();
+    new Relationship(this).save();
+    this.save();
     // this.education = new ArrayList<Enrollment>();
   }
 
