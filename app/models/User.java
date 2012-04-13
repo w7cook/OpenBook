@@ -89,6 +89,7 @@ public class User extends Model {
     this.last_name = last_name;
 
     profile = new Profile(this);
+    profile.save();
     // this.education = new ArrayList<Enrollment>();
   }
 
