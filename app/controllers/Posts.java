@@ -10,9 +10,19 @@ import models.*;
 
 public class Posts extends OBController {
   //comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
-  public static void posts(Long id) {
-    User user = id == null ? user() : (User) User.findById(id);
-    render(user);
+  public static void posts(Long userId) {
+    User user = userId == null ? user() : (User) User.findById(userId);
+    List<Post> posts = userId == null ? user.news() : user.posts();
+    render(user, posts);
+  }
+
+  public static void post(Long postId) {
+    User user = user();
+    Post post = Post.findById(postId);
+    if(post != null)
+      render(post, user);
+    else
+      notFound("That post does not exist.");
   }
 
   public static void deletePost(Long id, Long userId) {
@@ -35,9 +45,9 @@ public class Posts extends OBController {
     m.put("currentUser", user());
     renderTemplate(m);
   }
-  
+
   public static void makeNewPagePost(String postContent, String pid) {
-    final Post p = new Post(user(), HTML.htmlEscape(pid), 
+    final Post p = new Post(user(), HTML.htmlEscape(pid),
         HTML.htmlEscape(postContent),Post.type.PAGE).save();
     Page page = Page.findById(Long.parseLong(pid));
     Map<String, Object> m = new HashMap<String, Object>();

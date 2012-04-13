@@ -1,8 +1,5 @@
 [
-  #{list items:user.comments(), as:'item'} 
-    {
-      "author"  : "${item.author.username}",
-      "content" : "${item.content}"
-    }#{if !item_isLast},#{/if}
+  #{list items:comments, as:'item'} 
+    "/comments/${item.id}"#{if !item_isLast},#{/if}
   #{/list}
 ]

@@ -1,7 +1,7 @@
 #{extends 'two_panel.html' /}
 
 <div id="comments">
-  #{list user.comments(), as:'comment'} 
+  #{list comments, as:'comment'} 
     #{comment user:user, currentUser:currentUser, comment:comment /} 
   #{/list}
 </div>

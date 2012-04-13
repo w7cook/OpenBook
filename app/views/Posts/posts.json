@@ -1,10 +1,5 @@
 [
-  #{list items:user.posts(), as:'item'} 
-    {
-      "title"   : "${item.title}",
-      "author"  : "${item.author.username}",
-      "type"    : "${item.postType}",
-      "content" : "${item.content}"
-    }#{if !item_isLast},#{/if}
+  #{list items:posts, as:'item'} 
+    "/posts/${item.id}"#{if !item_isLast},#{/if}
   #{/list}
 ]
