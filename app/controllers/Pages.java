@@ -21,7 +21,6 @@ public class Pages extends OBController {
 		User currentUser = user();
 		Page page = new Page(user, title, info).save();
 		new UserPage(user, page).save();
-		//renderText(page.admin+"\n"+page.title+"\n"+page.info+"\n"+pageLink.page.title+"\n"+pageLink.fan);
 		render("Pages/myPage.html", page,user, currentUser);
 	}
 	
@@ -45,13 +44,9 @@ public class Pages extends OBController {
 		User _user = user();
 		User _currentUser = user();
 		Page page = Page.findById(id);
-		UserPage pageLink = UserPage.find("select u from UserPage u where u.fan = ? and u.page = ?", _user, page).first();
-		String temp = "";
-		List<UserPage> pageTest = UserPage.findAll();
-		for(UserPage c : pageTest){
-			temp+= c.page.title +" -- "+c.fan+"\n";
-		}
-		render("Pages/myPage.html", page, pageLink, _user, _currentUser);
+		boolean fan = isFan(id);
+		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
+		render("Pages/myPage.html", page, fan, _user, _currentUser);
 	}
 
 	public static void pages(){
@@ -69,19 +64,29 @@ public class Pages extends OBController {
 		render(user);
 	}
 	
-	public static void unfan(Long id){
-		Page page = Page.findById(id);
+	public static void unfan(String pid){
 		User user = user();
-		UserPage fanPage = UserPage.find("select u from UserPage u where u.fan  = ? and u.page = ?", user, page).first();
-		fanPage.delete();
-		display(id);
+		Page page = Page.findById(Long.parseLong(HTML.htmlEscape(pid)));
+		UserPage u = UserPage.find("select u from UserPage u where u.page = ?", page).first();
+    u.delete();
+		Map<String, Object> m = new HashMap<String, Object>();
+    m.put("fan",false);
+    renderJSON(m);
 	}
 	
-	public static void fan(Long id){
+	public static void fan(String pid){
 		User user = user();
-		Page page = Page.find("select p from Page p where p.id = ?", id).first();
-		new UserPage(user, page).save();
-		display(id);
+		Page page = Page.findById(Long.parseLong(HTML.htmlEscape(pid)));
+		final UserPage u = new UserPage(user, page).save();
+    Map<String, Object> m = new HashMap<String, Object>();
+    m.put("fan",true);
+    renderJSON(m);
 	}
 	
+	public static boolean isFan(Long id){
+		User user = user();
+		UserPage u = UserPage.find("select u from UserPage u where u.page.id = ? and u.fan = ?", id, user).first();
+		if(u == null){return false;}
+		else{return true;}
+	}
 }
