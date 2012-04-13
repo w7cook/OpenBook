@@ -1,9 +1,7 @@
-<script type="text/JavaScript" src="util.js"></script> 
-<div class="hideable">
-	<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
-	<a class="triggerhide" href='#' onclick='return false;'>-done</a>
-	<div class="post-teaser tohideopp"></div>
-		<div class="post-content tohide hide">
+<script type="text/JavaScript" src="util.js"></script>
+<div class="hideable" style="width:100%">
+	<a class="triggershow showfirst" href='#' onclick='return false;' style="float:right">+edit</a>
+	<a class="triggerhide" href='#' onclick='return false;'style="float:right">-done</a>		<div class="post-content tohide hide">
 		Admin: ${page.admin} 
 		<a href="@{Pages.deletePage(page.id)}" style="float: right">Delete this Page</a> <br>Info:<br>
 			#{if page.info != null}

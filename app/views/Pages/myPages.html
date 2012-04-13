@@ -2,6 +2,6 @@
 <div id="contentArea">
 <h1>Your Pages</h1>
 	#{list items:myPages, as:'up'} 
-		<a href="@{Pages.display(up.page.id)}" >${up.page.title}</a>
+		<a href="@{Pages.display(up.page.id)}" >${up.page.title}</a><br>
 	#{/list} 
 </div>
