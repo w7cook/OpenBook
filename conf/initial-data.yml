@@ -286,14 +286,6 @@ Post(cats post1):
     author:         bob
     content:        >
                     I HATE CATZ!!!
-                    
-UserPage(1):
-    page:           cats
-    fan:            alice
-
-UserPage(2):
-    page:           nachoCheese
-    fan:            jeff
 
 Post(cats post2):
     postType:       "PAGE"

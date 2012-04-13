@@ -2,7 +2,7 @@
   <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
 </div>
 	
-<div id="contentArea">
+<div id="pagePosts">
 		#{list items:page.getPosts(), as:'_item'}
 			#{include 'tags/post.html' /}
 		#{/list} 
@@ -11,13 +11,11 @@
   $('input#postSubmit').click(function(event) {
   var postData = {
   postContent : $("textarea#postContent").val(),
-  pid : ${page.id},
+  pid : ${page.id}
   };
-  var makeNewPagePost = #{ jsAction @Posts.makeNewPagePost(':postContent',':pid') /}
-  //$.post("/posts/makeNewPagePost", postData, function(data) {
-  $.load(makeNewPagePost({postContent:postData.postContent},{pid:postData.pid}), function(data) {
+  $.post("/posts/makeNewPagePost", postData, function(data) {
   var new_item = $(data).hide();
-  $("div#postsList").prepend(new_item);
+  $("div#pagePosts").prepend(new_item);
   new_item.slideDown();
   $("textarea#postContent").val('');
   });
