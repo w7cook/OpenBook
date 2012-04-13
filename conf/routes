@@ -69,7 +69,7 @@ GET     /groups/search                          GroupSearch.search
 
 #Posts
 GET     /posts/?                                Posts.posts #Get all posts
-#POST    /posts/?                                #Add/update post
+POST    /posts/?                                Posts.makeNewPost #Add/update post
 GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
 DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
 GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
