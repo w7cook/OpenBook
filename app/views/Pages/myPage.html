@@ -1,28 +1,10 @@
-<<<<<<< HEAD
 #{extends 'main.html' /} 
 #{extends 'three_panel.html' /} 
 <div id="contentArea">
 #{if page.admin == _user}
 <h1>${page.title}</h1>
 	<div id="pageInfo${page.id}">${page.info}</div> <br>
-	<script type="text/JavaScript" src="util.js"></script> 
-	<div class="hideable">
-		<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
-		<a class="triggerhide" href='#' onclick='return false;'>-done</a>
-		<div class="post-teaser tohideopp"></div>
-			<div class="post-content tohide hide">
-			Admin: ${page.admin} <a href="@{Pages.deletePage(page.id)}"
-				style="float: right">Delete this Page</a> <br>Info:<br>
-				#{if page.info != null}
-					<textarea name="post_content" id="pageInfo" class="ui_TextBox" rows="2" cols="45" maxlength="400">${page.info}</textarea>
-					<input type="submit" value="Save" id="pageUpdate" class="button" style="float:right"/>
-				#{/if}
-				#{else}
-					<textarea name="post_content" id="pageInfo$" class="ui_TextBox" rows="2" cols="45" maxlength="400">write something about the page</textarea>
-					<input type="submit" value="Save" id="pageUpdate" class="button" style="float:right"/>
-				#{/else}
-			</div>
-		</div>
+		#{include 'Pages/admin.html' /}
 	</div>
 #{/if} 
 #{elseif page != null}
@@ -60,7 +42,7 @@ $('#fan${page.id}').click(function(){
     });
   }
   else{
-    $.post("/Pages/fan", postData, function(data) {
+    $.post("/Pages/unfan", postData, function(data) {
       fan_${page.id} = !fan_${page.id};
       drawFanButton_${page.id}(bttn);
     });
@@ -68,14 +50,4 @@ $('#fan${page.id}').click(function(){
 
 });
 
-$('input#pageUpdate').click(function(event) {
-  var postData = {
-  info : $("textarea#pageInfo${page.id}").val(),
-  pid : ${page.id}
-  };
-  var pUpdate = #{jsAction @Pages.pageUpdate(':pid',':info') /};
-   $.post(pUpdate, postData, function(data) {
-   		 $('#pageInfo${page.id}').html(data);
-   };
-  });
 </script>
