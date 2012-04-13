@@ -163,7 +163,8 @@ public class Application extends OBController {
   public static void updateBasic() {
     long userID = 1;
     User user = User.findById(userID);
-    render(user);
+    user.profile.save();
+    renderTemplate("Application/edit_basic.html", user);
   }
 
   public static void search(String query) {
@@ -200,6 +201,26 @@ public class Application extends OBController {
     Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
     c.removeLike(toRemove);
     news(userId);
+  }
+  
+  public static void addLikeAjax (Long likeableId){
+    User u = user();
+    Likeable l = Likeable.findById(likeableId);
+    l.addLike(u);
+    Map<String,String> m = new HashMap<String,String>();
+    m.put("numLikes", Integer.toString(l.likes.size()));
+    m.put("likeableID",likeableId.toString());
+    renderJSON(m);
+  }
+  
+  public static void removeLikeAjax (Long likeableId){
+    User u = user();
+    Likeable l = Likeable.findById(likeableId);
+    l.removeLike(u);
+    Map<String,String> m = new HashMap<String,String>();
+    m.put("numLikes", Integer.toString(l.likes.size()));
+    m.put("likeableID",likeableId.toString());
+    renderJSON(m);
   }
 
 }

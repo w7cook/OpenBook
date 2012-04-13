@@ -6,10 +6,29 @@ import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import controllers.Photos;
 
 @With(Secure.class)
 public class Skins extends OBController {
-  
+  public static List<Skin> skins() {
+    List<Skin> skinList = Skin.find("isPublic = ?", "true").fetch();
+    return skinList;
+  }
+
+  public static void sampleSkin(Long skinId)
+  {
+    User user = user();
+    Skin skin;
+    if(skinId == null)
+    {
+        skin = Skin.find("skinName = ?","default_skin").first();//get default skin
+    }
+    else
+    {
+       skin = Skin.findById(skinId);
+    }
+    render(user,skin);
+  }
   /**
    * stylesheet()
    * called by main.html
@@ -22,13 +41,22 @@ public class Skins extends OBController {
   }
 
   /**
-   * skin
+   * renders change skin page
+   */
+  public static void changeSkin(Long id) {
+    User user = id == null ? user() : (User) User.findById(id);
+    List<Skin> skinList = skins();
+    render(user, skinList);
+  }
+  
+  /**
+   * editMySkin
    * renders edit skin page
    * if we are editing the skin, then we need to create a new skin so we can only edit our own skin
    */
-  public static void skin(Long id) {
+  public static void editMySkin(Long id,String makeSkinOutput) {
     User user = id == null ? user() : (User) User.findById(id);
-    render(user);
+    render(user, makeSkinOutput);
   }
 
   /**
@@ -51,38 +79,43 @@ public class Skins extends OBController {
   {
     User user = user();
     Skin currentUserSkin = user.profile.skin;
-    
-    if(user.profile.skin.name != user.email){//each user gets a unique skin
-      Skin newSkin = new Skin(user.email);
-      newSkin.cloneSkin(currentUserSkin);
-      user.profile.skin = newSkin;
-    }
-    if(key != null){//null if theres no changes
-      
-      String[] keys = key.split(", ");//input is a list
-      String[] values = val.split(", ");
-      String keyUpdate = "";
-      String valueUpdate = "";
-      
-      //go through the attributes
-      for(int x = 0; x< keys.length; x++)
-      {
-        keyUpdate = keys[x];
-        valueUpdate = values[x];
-        
-        if(given(valueUpdate))//if the attribute has been filled, set parameter
-        {
-          user.profile.skin.setParam(keyUpdate,valueUpdate);
-        }
+    System.out.println("val: " + val);
+    if(!val.contains(";") && !val.contains("."))
+    {//checks for SQL injection
+      if(user.profile.skin.userName != user.username){//each user gets a unique skin
+        Skin newSkin = new Skin(user.username,"mySkin");//make a skin for that user
+        newSkin.cloneSkin(currentUserSkin);
+        user.profile.skin = newSkin;
+        user.profile.save();
       }
       
+      if(key != null){//null if theres no changes
+        
+        String[] keys = key.split(", ");//input is a list
+        String[] values = val.split(", ");
+        String keyUpdate = "";
+        String valueUpdate = "";
+        
+        //go through the attributes
+        for(int x = 0; x< keys.length; x++)
+        {
+          keyUpdate = keys[x];
+          valueUpdate = values[x];
+          
+          if(given(valueUpdate))//if the attribute has been filled, set parameter
+          {
+            user.profile.skin.setParam(keyUpdate,valueUpdate);
+            
+          }
+        }
+    }
      
       //save changes  
       user.profile.save();
      
      
     }
-    skin(null);//rerender the page for current user (input null will find user();
+    editMySkin(user.id,null);//rerender the page for current user (input null will find user();
   }
 
   /**
@@ -94,60 +127,75 @@ public class Skins extends OBController {
   {
     //find skin
     User user = user();
-    Skin changeSkin = Skin.find("name = ?", skinName).first();
+    Skin changeSkin = Skin.find("userName = ? AND skinName = ?", "default", skinName).first();
     if(changeSkin != null)
     {
-      SkinPair updateParam;
-      //reset currentSkin's parameters
-      for(SkinPair updateTo: changeSkin.parameters)
-      {
-        //find the parameter that we want to update
-        updateParam = SkinPair.find("attachedSkin = ? AND name = ?", user.profile.skin, updateTo.name).first();
-        updateParam.value = updateTo.value;
-        updateParam.save(); 
-      }
+     user.profile.skin = changeSkin;
+     user.profile.save();
     }
-    skin(null);//rerender page
-  }
-
-  /**
-   * setSkin
-   * @param calling client who wants this skin
-   * @return true if the skin has been sucessfully set, false otherwise
-   * Sets the client's skin to the skin of skin name and returns true
-   * If the skin name is not found, does not reset and returns false
-   *
-   */
-  public static boolean setSkin(Profile profile, String skinName)
-  {
-    //find skin
-    Skin changeSkin = Skin.find("name = ?", skinName).first();
-
-    if(changeSkin == null)//name hasn't been added so skin doesn't exist
-    {
-      profile.skin = new Skin(skinName).save();
-      profile.save();
-      return true;
-    }
-    else
-    {
-      profile.skin = changeSkin;
-      profile.save();//made a change in the database so need to save it
-      return true;
-    }
+    changeSkin(user.id);//rerender page
   }
   
   public static void setBackgroundPhoto(Long photoid)
   {
     User user = user();
     Skin changeSkin = user.profile.skin;
+    if(user.profile.skin.userName != user.username){//each user gets a unique skin
+      Skin newSkin = new Skin(user.username,"mySkin");//make a skin for that user
+      newSkin.cloneSkin(changeSkin);
+      user.profile.skin = newSkin;
+      user.profile.save();
+      changeSkin = user.profile.skin;
+    }
+    
     SkinPair update = SkinPair.find("attachedSkin = ? AND name = ?", changeSkin, "bodyBGPhoto").first();
     if(update != null)
     {
       update.value = "/photos/" + photoid.toString();
       update.save();
     }
-    redirect("/photos");
+    Photos.photos(user.id);
+  }
+  
+  public static Skin getSkin(String userName, String skinName)
+  {
+    return Skin.find("userName = ? AND skinName = ?",userName, skinName).first();
+  }
+  
+  public static void makeSkin(String skinName)
+  {
+    User user = user();
+    String makeSkinOutput = "";
+
+    if(!user.profile.skin.userName.equals(user.username))
+    {
+      makeSkinOutput = "You cannot make a new Skin from a template.";
+    }
+    else
+    {
+      //security check
+      if(!skinName.contains(";") && !skinName.contains("."))
+      {
+        //we want anyone to be able to use this skin, so it can't be allowed to change
+          Skin s2 = Skin.find("userName = ? AND skinName = ?", "default", skinName).first();
+          if(s2!=null)
+            makeSkinOutput = ("Skin Name has already been used in the templates." +
+                " Please specify another skin name.");
+          else{
+            Skin newSkin = new Skin("default",skinName);//make a template skin of that user
+            newSkin.cloneSkin(user.profile.skin);
+            newSkin.isPublic = "true";
+            newSkin.save();
+            //change the profile's skin
+            user.profile.skin = newSkin;
+            user.profile.save();
+            makeSkinOutput = "SUCCESS!";
+          }
+        
+      }
+    }
+    editMySkin(user.id,makeSkinOutput);//rerender the page for current user (input null will find user();
+    
   }
 
 }

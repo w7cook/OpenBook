@@ -1,0 +1,13 @@
+*{ You can use plain selenium command using the selenium tag }*
+
+#{selenium}
+    // Open the each Event page, and check that no error occured
+    open('/addEvent')
+    assertNotTitle('Application error')
+    
+    open('/displayEvent')
+    assertNotTitle('Application error')
+    
+    open('/events')
+    assertNotTitle('Application error')
+#{/selenium}
