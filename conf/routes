@@ -53,7 +53,7 @@ POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /signup                                 Signup.signup
 
 # Messages
-GET     /messages/inbox                         Messages.inbox
+GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
@@ -68,22 +68,22 @@ GET     /groups/search                          GroupSearch.search
 #DELETE  /users/{<[0-9]+>userId}                 #Delete a user
 
 #Posts
-#GET     /posts/?                                #Get all posts
+GET     /posts/?                                Posts.posts #Get all posts
 #POST    /posts/?                                #Add/update post
-#GET     /posts/{<[0-9]+>postId}                 #Get a specific post
+GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
 #DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
-#GET     /users/{<[0-9]+>userId}/posts/?         #get all posts by a user
+GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
 
 #Links
 #Post    /links/?                                #Add/update link
 
 #Comments
-#GET     /comment/?                              #Get all comments
-#GET     /comment/{<[0-9]+>commentId}            #Get a specific comment
-#DELETE  /comment/{<[0-9]+>commentId}            #Delete a comment
+GET     /comments/?                              Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specific comment
+#DELETE  /comments/{<[0-9]+>commentId}            #Delete a comment
 #GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
-#GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
+GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
 
 #Relationships
 GET     /relationships                                                  Relationships.relationships
@@ -94,12 +94,6 @@ GET     /checkin/at                             Checkin.at
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
-
-# Comments
-GET             /                                       Comments.comments
-
-# Posts
-GET     /                                       Posts.posts
 
 # Groups
 GET     /groups/{id}                            Groups.group

@@ -9,13 +9,26 @@ import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
 public class Comments extends OBController {
 
   //comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
-  public static void comments(Long id) {
-    User user = id == null ? Application.user() : (User) User.findById(id);
-    render(user);
+  public static void comments(Long userId) {
+    User user = userId == null ? Application.user() : (User) User.findById(userId);
+    List<Comment> comments;
+    if (userId == null)
+      comments = Comment.findAll();
+    else
+      comments = user.comments();
+    render(user, comments);
+  }
+
+  public static void comment(Long commentId) {
+    User user = user();
+    Comment comment = Comment.findById(commentId);
+    if(comment != null)
+      render(comment, user);
+    else
+      notFound("That comment does not exist.");
   }
 
   public static void deleteComment(Long id, Long userId) {
@@ -30,7 +43,7 @@ public class Comments extends OBController {
     c.addLike(newOne);
     comments(userId);
   }
-  
+
   public static void unLike (Long commentId, Long userId){
     Comment c = Comment.findById(commentId);
     User u = User.findById(userId);
@@ -38,7 +51,7 @@ public class Comments extends OBController {
           c.removeLike(toRemove);
     comments(userId);
   }
-	  
+
   public static void postComment(Long statusId, Long userId, String commentContent) {
     ((Status) Status.findById(statusId)).addComment(Application.user(), commentContent);
     comments(userId);
