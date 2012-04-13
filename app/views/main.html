@@ -53,7 +53,7 @@
   <body id="page">
     <div class="container_16">
 	  <header id="header">
-	    <a id="logo" class="logo" href="@{Application.news()}">Openbook</a>
+	   <a id="logo" class="logo" href="@{Application.news()}" style="padding-left:5px;">Openbook</a>
         <a id="showFriends"><img src="@{'public/images/friend_request_icon.png'}" /></a>
         <body>${currentUser.requestedFriendCount()}</body>
         <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
@@ -73,24 +73,24 @@
 	    #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
 	    <input type="text" name="search" value="${params.search?.escape()?.raw()}" /> <input type="submit" value="&{'elasticsearch.search'}" />
 	    #{/form}
-        <div class="account">
+	    <div class="account">
 	      <a href="@{Application.account()}">
 	      <img src="@{Photos.getPhoto(currentUser.profile.profilePhoto)}" height="30" width="30" style="vertical-align:middle;"/> ${currentUser.first_name} ${currentUser.last_name}
           </a>
           <a href="@{Application.news()}">Home</a>
 	      <a href="@{Secure.logout()}">Logout</a>
-        </div>
+</div>
       </header>
       <div class="main-content" >
 	    #{doLayout /}
       </div>
-      <div class="grid_16">
-        <footer id="footer">
+    </div> <!-- end .container_16 -->    
+<div class="container_16">
+        <footer id="footer"> 
 	      <span class="logo">openbook</span> is a 
 	      <a href="http://www.cs.utexas.edu/~wcook/Courses/devclass/index.htm">class project</a>
 	      to create a simple social networking web site
-        </footer>
-      </div><!-- end .grid_16 -->
-    </div> <!-- end .container_16 -->    
+        </footer> 
+</div class="container_16">
   </body>
 </html>

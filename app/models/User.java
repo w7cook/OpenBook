@@ -23,14 +23,14 @@ public class User extends Model {
   public String first_name; // The user's first name
   public String middle_name; // The user's middle name
   public String last_name; // The user's last name
- 
+
   // Code)
 
   public String username; // The user's username
-  
+
   @ElasticSearchIgnore
   public double timezone; // The user's timezone offset from UTC
-  
+
   @ElasticSearchIgnore
   public Date updated_time; // The last time the user's profile was updated;
   // changes to the
@@ -48,7 +48,7 @@ public class User extends Model {
 
   @ManyToOne
   public Skin skin;//Skin (StyleSheet) used by this User
-  
+
   public String password;
 
   //  User's basic profile information
@@ -62,14 +62,14 @@ public class User extends Model {
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
   public List<Relationship> friendedBy; // A list of the user's friendship history
-  
+
   @ElasticSearchIgnore
   public boolean subscription; // Whether the user has allowed subscriptions or not
-  
+
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
   public List<Subscription> subscribedTo; // A list of subscriptions the user subscribed to
-  
+
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
   public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
@@ -87,9 +87,9 @@ public class User extends Model {
     this.username = username;
     this.first_name = first_name;
     this.last_name = last_name;
-    
+
     profile = new Profile(this);
-    
+    profile.save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -104,17 +104,17 @@ public class User extends Model {
   public List<Message> inbox() {
     return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
   }
-  
+
   public List<Post> news() {
     return Post.find(
                      "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",
                      this.id, Post.type.NEWS).fetch();
   }
-  
+
   public List<Post> subscriptionNews() {
-	  return Post.find(
-              "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postType = ?2 order by p.updatedAt desc",
-              this.id, Post.type.NEWS).fetch();
+    return Post.find(
+                     "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postType = ?2 order by p.updatedAt desc",
+                     this.id, Post.type.NEWS).fetch();
   }
 
   public Profile getProfile(){
@@ -163,36 +163,36 @@ public class User extends Model {
   public List<Relationship> requestedFriends() {
     return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
   }
-  
+
   /** Get a list of <numFriends> users who have requested to be friends
-  *
-  * @param numFriends the number of friends you want to fetch.
-  * @return a list of relationships related to incoming friend requests
-  */
- public List<Relationship> requestedFriends(int numFriends) {
-   return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch(numFriends);
- }
-  
+   *
+   * @param numFriends the number of friends you want to fetch.
+   * @return a list of relationships related to incoming friend requests
+   */
+  public List<Relationship> requestedFriends(int numFriends) {
+    return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch(numFriends);
+  }
+
   /** Get the number of users users who have requested to be friends
-  *
-  * @return the number of relationships related to incoming friend requests
-  */
- public long requestedFriendCount() {
-   return Relationship.count("to = ? and requested = true and accepted = false", this);
- }
-  
+   *
+   * @return the number of relationships related to incoming friend requests
+   */
+  public long requestedFriendCount() {
+    return Relationship.count("to = ? and requested = true and accepted = false", this);
+  }
+
   public List<Group> getGroups(){
-	  List<Group> allGroups= Group.findAll();
-	  List<Group> answer= new ArrayList<Group>();
-	  for(Group g : allGroups){
-		  for(User u : g.members){
-			  if(u.equals(this)){
-				  answer.add(g);
-				  break;
-			  }
-		  }
-	  }
-	  return answer;
+    List<Group> allGroups= Group.findAll();
+    List<Group> answer= new ArrayList<Group>();
+    for(Group g : allGroups){
+      for(User u : g.members){
+        if(u.equals(this)){
+          answer.add(g);
+          break;
+        }
+      }
+    }
+    return answer;
   }
 
   public boolean equals(Object obj) {
@@ -204,24 +204,24 @@ public class User extends Model {
       return false;
     return username.equals(((User) obj).username);
   }
-  
+
   public List getPages(){
-		return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this).fetch();
-	}
-	
+    return Page.find("SELECT p FROM Page p WHERE p.admin = ?", this).fetch();
+  }
+
   public String toString(){
     return first_name + " " + last_name;
   }
-  
+
   public boolean isFriendsWith(User user) {
-  	for(Relationship f: this.confirmedFriends()){
-  		if(f.to == this && f.from == user)
-  			return true;
-  		if(f.to == user && f.from == this)
-  			return true;
-			}
-		return false;
-	}
+    for(Relationship f: this.confirmedFriends()){
+      if(f.to == this && f.from == user)
+        return true;
+      if(f.to == user && f.from == this)
+        return true;
+    }
+    return false;
+  }
 
   /** Get all authored events
    *

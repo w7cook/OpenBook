@@ -1,33 +1,53 @@
-#{extends 'main.html' /} #{include 'two_panel.html' /} #{if page.admin
-== user} #{form @Pages.pageUpdate(page.id, info)}
-<div id="content-middle">
+#{extends 'main.html' /} 
+#{extends 'three_panel.html' /} 
+<div id="contentArea">
+#{if page.admin == _user}
+<h1>${page.title}</h1>
+	<div id="pageInfo${page.id}">${page.info}</div> <br>
+		#{include 'Pages/admin.html' /}
+	</div>
+#{/if} 
+#{elseif page != null}
 	<h1>${page.title}</h1>
-	${page.info} <br>
-	<div class="hideable">
-		<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
-		<a class="triggerhide" href='#' onclick='return false;'>-done</a>
-		<div class="post-teaser tohideopp"></div>
-		<div class="post-content tohide hide">
-			Admin: ${page.admin} <a href="@{Pages.deletePage(page.id)}"
-				style="float: right">Delete this Page</a> <br>Info: <input
-				type=text name=info value="${page.info}"
-				style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;" /><br>
-			<div style="float: right">
-				<input type=submit value=Save>
-			</div>
+	<div id="pageInfo${page.id}" style="float: left">${page.info}</div>
+		<div style="float: right">
+			<a class=button id = "fan${page.id}" href='#' onclick="return false;">*{text}*</a>
 		</div>
+		<hr style="float: left; width: 100%; color: #98AFC7;" />
 	</div>
+#{/elseif}		       
+#{include 'Pages/post.html' /}
 </div>
-#{/form} #{include 'Pages/post.html' /} #{/if} #{elseif page != null}
-<div id="content-middle">
-	<h1>${page.title}</h1>
-	<div id="pageInfo" style="float: left">${page.info}</div>
-	<div style="float: right">
-		#{if pageLink == null} <a href="@{Pages.fan(page.id)}">fan</a> #{/if}
-		#{else} <a href="@{Pages.unfan(page.id)}">unfan</a> #{/else}
-	</div>
-	<hr style="float: left; width: 100%; color: #98AFC7;" />
-	#{include 'Pages/post.html' /}
-</div>
-#{/elseif}
 
+<script>
+var fan_${page.id} = ${fan};
+
+function drawFanButton_${page.id}( elem ) {
+  if( !fan_${page.id} ) {
+    elem.text('Fan');
+  } else {
+    elem.text('UnFan');
+  }
+}
+
+drawFanButton_${page.id}( $('#fan${page.id}') );
+
+$('#fan${page.id}').click(function(){
+  var postData = {pid  : ${page.id}};
+  var bttn = $(this);
+  if( !fan_${page.id} ) {
+    $.post("/Pages/fan", postData, function(data) {
+      fan_${page.id} = !fan_${page.id};
+      drawFanButton_${page.id}(bttn);
+    });
+  }
+  else{
+    $.post("/Pages/unfan", postData, function(data) {
+      fan_${page.id} = !fan_${page.id};
+      drawFanButton_${page.id}(bttn);
+    });
+  }
+
+});
+
+</script>
