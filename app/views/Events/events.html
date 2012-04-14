@@ -12,7 +12,7 @@
     <h3>All Events:</h3>
   #{/else}
   #{list items:events, as:'event'} 
-    <a href="/events/${event.id}">${event.eventName}</a>
+    <a href="/events/${event.id}">${event.name}</a>
     #{if event.author.equals(currentUser)}
       <a class="button" href="@{Events.deleteEvent(event.id)}">
         Remove Event
