@@ -25,10 +25,10 @@ public class Profiles extends OBController {
     u.profile.address = address;
     u.profile.education = education;
     u.profile.work = work;
-    u.profile.hometown = hometown;
+  //  u.profile.hometown = hometown;
     u.profile.quotes = quotes;
     u.profile.save();
     System.out.println("Relgion = " + religion);
-    render();
+    renderTemplate("Application/edit_basic.html", u);
   }
 }

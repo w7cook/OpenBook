@@ -13,13 +13,13 @@
 <div class="globalContentAbout">	
 	<div class="LeftColumnAbout">		
 		<div class="Panel">
-			<span class="PanelTitle">About You</span>
+			<span class="PanelTitle">&{'about.you'}</span>
 			<button class="EditButton" id="AboutMeEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
 			</button><br/>
 			<div class="editData" style="display:none;">
 				<table>
 					<tr>
-						<td><label>Bio:</label>
+						<td><label>&{'bio'}:</label>
 						</td>
 						<td><input size=50 type=text value="${user.profile.bio ? user.profile.bio : 'Write About Yourself'}">
 						</td>
@@ -30,7 +30,7 @@
 				<table>
 					#{if user.profile.bio}
 					<tr>
-						<td><label>Bio:</label></td>
+						<td><label>&{'bio'}:</label></td>
 						<td>${user.profile.bio}</td>
 					</tr>
 					#{/if}
@@ -38,12 +38,12 @@
 			</div>
 		</div>
 		<div class="Panel">
-			<span class="PanelTitle">Information</span>
+			<span class="PanelTitle">&{'info'}</span>
 			<button class="EditButton" id="InformationEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
 			</button><br/>
 			<table>
 				<tr>
-					<td><label>Birthday: </br> </label>
+					<td><label>&{'birthday'}: </br> </label>
 					</td>
 					<td>
 						<script>DateInput('orderdate', true)</script>
@@ -52,7 +52,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label>Sex:</label></td>
+					<td><label>&{'sex'}:</label></td>
 					<td>#{select 'gender', value:user.profile.gender} #{option
 								'Male'}Male#{/option} #{option 'Female'}Female#{/option}
 								#{/select}</td>
@@ -60,7 +60,7 @@
 				</tr>
 
 				<tr>
-					<td><label>Interested in:</label></td>
+					<td><label>&{'interested.in'}:</label></td>
 					<td>#{select 'gender', value:user.profile.interestedIn} 
 							#{option 'Blank'}#{/option}
 							#{option 'Men'}Men#{/option} 
@@ -71,7 +71,7 @@
 				</tr>
 
 				<tr>
-					<td><label>Relationship Status: </label></td>
+					<td><label>&{'relationship.status'}: </label></td>
 					<td>#{select 'status',
 								value:user.profile.relationshipStatus} #{option
 								'Single'}Single#{/option} #{option 'In a relationship'}In a
@@ -88,13 +88,13 @@
 
 				#{if user.profile.hasAnniversary()}
 				<tr>
-					<td><label>Anniversary: </br></label></td>
+					<td><label>&{'anniversary'}: </br></label></td>
 					<td><script>DateInput('orderdate', true)</script></td>
 				</tr>
 				#{/if}
 
 				<tr>
-					<td><label>Languages: </label>
+					<td><label>&{'languages'}: </label>
 					</td>
 					<td>#{list items:user.profile.languages, as:'lang'}
 								${lang.toString()} #{/list} <input type=text name=work
@@ -102,13 +102,13 @@
 					</td>
 				</tr>
 				<tr>
-					<td><label>Religious views: </label></td>
+					<td><label>&{'religious.views'}: </label></td>
 					<td><input size=20 type=text name=religion
 								value="${user.profile.religion ? user.profile.religion : ''}">
 					</td>
 				</tr>
 				<tr>
-					<td><label>Political Views: </label></td>
+					<td><label>&{'political.views'}: </label></td>
 					<td><input size=20 type=text name=political
 								value="${user.profile.political ? user.profile.political : ''}">
 					</td>
@@ -116,16 +116,16 @@
 			</table>
 		</div>
 		<div class="Panel">
-			<span class="PanelTitle">Contact Info</span>
+			<span class="PanelTitle">&{'contact.info'}</span>
 				<table>
 						<tr>
-							<td><label>Phone: </label></td>
+							<td><label>&{'phone'}: </label></td>
 							<td><input type=text name=phone
 								value="${user.profile.phone ? user.profile.phone : 'Add phone number'}">
 							</td>
 						</tr>
 						<tr>
-							<td><label>Address: </label></td>
+							<td><label>&{'address'}: </label></td>
 							<td><input type=text name=address
 								value="${user.profile.address ? user.profile.address : 'Add current address'}">
 							</td>
@@ -136,17 +136,17 @@
 
 			<div class="RightColumnAbout">
 				<div class="Panel">
-					<span class="PanelTitle">Work and Education</span>
+					<span class="PanelTitle">&{'work.and.education'}</span>
 					<table>
 						<tr>
-							<td><label>Education:</label></td>
+							<td><label>&{'education'}:</label></td>
 							<td>#{list items:user.profile.education, as:'enrollment'}
 								${enrollment.toString()} #{/list} <input type=text
 								name=education value="Add a School">
 							</td>
 						</tr>
 						<tr>
-							<td><label>Work History:</label></td>
+							<td><label>&{'work.history'}:</label></td>
 							<td>#{list items:user.profile.work, as:'work'}
 								${work.toString()} #{/list} <input type=text name=work
 								value="Add a Job">
@@ -155,10 +155,10 @@
 					</table>
 				</div>
 				<div class="Panel">
-					<span class="PanelTitle">Living</span>
+					<span class="PanelTitle">&{'living'}</span>
 					<table>
 						<tr>
-							<td><label>Hometown: </label></td>
+							<td><label>&{'hometown'}: </label></td>
 							<td><input type=text name=hometown
 								value="${user.profile.hometown ? user.profile.hometown : 'Add hometown'}">
 							</td>
@@ -166,10 +166,10 @@
 					</table>
 				</div>
 				<div class="Panel">
-					<span class="PanelTitle">Favorite Quotations</span>
+					<span class="PanelTitle">&{'favorite.quotations'}</span>
 					<table>
 						<tr>
-							<td><label>Quote: </label></td>
+							<td><label>&{'quote'}: </label></td>
 							<td><input type=text name=hometown
 								value="${user.profile.quotes ? user.profile.quotes : 'Add a Favorite Quotation'}">
 							</td>
