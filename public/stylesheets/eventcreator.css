@@ -6,6 +6,10 @@
   margin-bottom: 1em;
 }
 
+.text-input {
+  width: 350px;
+}
+
 .input-label {
   display: block;
 }
