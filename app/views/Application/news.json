@@ -1,0 +1,11 @@
+{
+  "things" : 
+  [
+    "posts" : "/posts",
+    "comments" : "/comments",
+    "photos" : "/photos",
+    "events" : "/events",
+    "threads" : "/threads",
+    "messages" : "/messages/inbox"
+  ]
+}

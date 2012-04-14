@@ -1,66 +1,66 @@
 #{extends 'three_panel.html' /}
-  <div id="contentArea">
-    <div class="pagelet">
-      <a href="#">Update Status</a>
-      <a href="#">Add Photo</a>
-      <a href="#">Share Link</a>
-      <a href="#">Ask Question</a>
-
+<div id="contentArea">
+  <div class="pagelet">
+    <a href="#">Update Status</a>
+    <a href="#">Add Photo</a>
+    <a href="#">Share Link</a>
+    <a href="#">Ask Question</a>
+    
     #{if user.id == currentUser.id}
-      #{/if}
-      #{else}
+    #{/if}
+    #{else}
       <a href="@{Posts.poke(user.id)}">Poke!</a>
-      #{/else}
-
-      #{if user.id == currentUser.id}
+    #{/else}
+        
+    #{if user.id == currentUser.id}
       <a id="about-button" href="@{Application.edit_basic}">About me</a>
-      #{/if}
-      #{else}
+    #{/if}
+    #{else}
       <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
-      #{/else}
-    </div>
-    <br />
-    #{if user.checkFriendship(user.id) == 'Request Friendship'}
+    #{/else}
+  </div>
+  <br />
+  #{if user.checkFriendship(user.id) == 'Request Friendship'}
     <a id="friend-button" href="@{Application.requestFriends(user.id)}">
       ${user.checkFriendship(user.id)}
     </a>
-    #{/if}
-    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
+  #{/if}
+  #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
     Friendship Requested
-    #{/elseif}
-    #{elseif user.checkFriendship(user.id) == 'Friends'}
+  #{/elseif}
+  #{elseif user.checkFriendship(user.id) == 'Friends'}
     Friends :) 
     <a id="friend-button" href="@{Application.removeFriends(user.id)}">
       Remove friend
     </a>
-    #{/elseif}
-
-    #{if user.id == currentUser.id}
+  #{/elseif}
+    
+  #{if user.id == currentUser.id}
     <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" >new post...</textarea>
-    <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
+      <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
     </div>
     <div class="ui_InputContainer" id="photo-upload" style="display: none;">
-			#{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
-			  <input type="file" name="image" />
-			  <input type="text" name="content" value="Add a caption" />
-			  <input type="submit" name="submit" value="Upload" /> 
-			#{/form}
-	  </div>
-	  <div class="ui_inputContainer" id="link-upload" style="display: none">
-	    #{form @Links.addLink(), enctype:'multipart/form-data'}
-	      <input type="text" name="url" value="video url" />
-	      <input type="text" name="content" value="new post..." />
-	      <input type="submit" name="submit" value="Upload" />
-	    #{/form}
-	  </div>
-    #{/if}
-    
-    <div id="postsList">
-      #{list items:user.news(), as:'item'} 
-      #{post currentUser:currentUser,user:user,item:item /}
-      #{/list}
+      #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
+        <input type="file" name="image" />
+        <input type="text" name="content" value="Add a caption" />
+        <input type="submit" name="submit" value="Upload" /> 
+      #{/form}
     </div>
+    <div class="ui_inputContainer" id="link-upload" style="display: none">
+      #{form @Links.addLink(), enctype:'multipart/form-data'}
+        <input type="text" name="url" value="video url" />
+        <input type="text" name="content" value="new post..." />
+        <input type="submit" name="submit" value="Upload" />
+      #{/form}
+    </div>
+  #{/if}
+    
+  <div id="postsList">
+    #{list items:user.news(), as:'item'} 
+      #{post currentUser:currentUser,user:user,item:item /}
+    #{/list}
   </div>
+</div>
 </div> <!-- grid_8 -->
 
 <script type="text/javascript">

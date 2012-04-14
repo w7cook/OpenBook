@@ -1,0 +1,6 @@
+{      
+  "title"   : "${post.title}",
+  "author"  : "${post.author.username}",
+  "type"    : "${post.postType}",
+  "content" : "${post.content}"
+}

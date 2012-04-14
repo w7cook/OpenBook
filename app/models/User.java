@@ -78,6 +78,8 @@ public class User extends Model {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
+    this.save();
+    new Relationship(this).save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -88,8 +90,11 @@ public class User extends Model {
     this.first_name = first_name;
     this.last_name = last_name;
 
+    this.save();
     profile = new Profile(this);
     profile.save();
+    new Relationship(this).save();
+    this.save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -103,6 +108,14 @@ public class User extends Model {
 
   public List<Message> inbox() {
     return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
+  }
+
+  public List<Post> posts() {
+    return Post.find("byAuthor", this).fetch();
+  }
+
+  public List<Comment> comments() {
+    return Comment.find("byAuthor", this).fetch();
   }
 
   public List<Post> news() {
