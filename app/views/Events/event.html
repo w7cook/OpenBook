@@ -37,7 +37,6 @@
     document.getElementById("searchTextField").value = "${location}";
     initialize();
     codeAddress();
-    
     } 
   </script>
 </head>
@@ -73,12 +72,14 @@
       <br />
     #{/list}
     <br />
-    #{if user.id == currentUser.id} #{form
-      @Events.newEventPost(e.id,user.id)}
-      <textarea name="post_content" id="postContent" style="resize: none;"
-                rows="2" cols="45"></textarea>
-      <input type="submit" value="Post" /> #{/form} #{/if} #{list
-      items:e.getPosts(), as:'item'}
+    #{if user.id == currentUser.id}
+      #{form @Events.newEventPost(e.id,user.id)}
+        <textarea name="post_content" id="postContent" style="resize: none;"
+                  rows="2" cols="45"></textarea>
+        <input type="submit" value="Post" />
+      #{/form}
+    #{/if}
+    #{list items:e.getPosts(), as:'item'}
       <div class="post">
         <div class="hideable">
           <div class="left">
@@ -95,7 +96,7 @@
             <div class="post-content tohideopp">
               ${item.contentTeaser().nl2br()}
               <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
-            </div>
+            </div>https://github.com/ProCynic/OpenBook/blob/api/app/views/Events/event.html
             <div class="tohide hide">
               <div class="post-content">${item.content.nl2br()}</div>
               #{list items:item.getComments(), as:'comment'}
