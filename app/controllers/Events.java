@@ -63,7 +63,7 @@ public class Events extends OBController {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
     if(userId == null)
-      events = Event.find("SELECT r FROM Event r whre r.endDate >= ?", new Date()).fetch();
+      events = Event.find("SELECT r FROM Event r where r.endDate >= ?", new Date()).fetch();
     else
       events = user.upcomingEvents();
     render(user, events);
@@ -73,7 +73,7 @@ public class Events extends OBController {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
     if(userId == null)
-      events = Event.find("SELECT r FROM Event r whre r.endDate < ?", new Date()).fetch();
+      events = Event.find("SELECT r FROM Event r where r.endDate < ?", new Date()).fetch();
     else
       events = user.pastEvents();
     render(user, events);

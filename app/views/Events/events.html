@@ -4,8 +4,9 @@
   <h2>Events</h2>
   <hr />
   <a class=button href="@{Events.addEvent()}">+ Create Event</a><br />
-  <br /> To Do: currently only lists events user authored, eventually
-  list all attending by start date<br />
+  <br /> 
+  To Do: currently only lists events user authored, eventually list all attending by start date
+  <br />
   <h3>My Events:</h3>
   #{list items:user.authoredEvents(), as:'authorEvent'} <a href="/events/${authorEvent.id}">${authorEvent.eventName}</a>
     <a class=button

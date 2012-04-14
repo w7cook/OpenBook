@@ -1,15 +1,5 @@
 var geocoder;
 var map;
-function initialize() {
-  geocoder = new google.maps.Geocoder();
-  var latlng = new google.maps.LatLng(-34.397, 150.644);
-  var myOptions = {
-    zoom: 12,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-}
 
 function codeAddress() {
   var address = document.getElementById("searchTextField").value;
@@ -26,8 +16,15 @@ function codeAddress() {
   });
 }
 
-
-function runscript(){
-  initialize();
-  codeAddress();
-} 
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(-34.397, 150.644);
+  var myOptions = {
+    zoom: 12,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  codeAddress()
+}
+google.maps.event.addDomListener(window, 'load', initialize);
