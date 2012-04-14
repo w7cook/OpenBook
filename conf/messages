@@ -5,7 +5,7 @@ validation.match=Invalid image format
 # "%2$d" returns the second parameter of the max() method in decimal form.
 validation.max=Image size cannot exceed %2$d bytes
 
-
+# Checkin
 checkin.at=You checked in at
 checkin.checkin=Checkin
 checkin.iamat=I am at
