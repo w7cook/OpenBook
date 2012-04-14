@@ -176,7 +176,7 @@ public class Application extends OBController {
     c.delete();
     news(userId);
   }
-
+  
   public static void postComment(Long commentableId, String author, String content) {
     Commentable parent = Commentable.findById(commentableId);
     User au = User.find("email = ?", author).first();

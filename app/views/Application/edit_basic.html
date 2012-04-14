@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 	<link rel="stylesheet" type="text/css" media="screen"
 		href="@{'/public/stylesheets/about.css'}" />
-	#{form @Application.updateBasic() }
+	#{form @Profiles.updateBasic(user.id) }
 
 <script>
 	$(document).ready(function(){
