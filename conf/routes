@@ -86,6 +86,15 @@ GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specifi
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
 GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
 
+#Events
+GET     /events/?                                       Events.events #all events
+GET     /events/upcoming/?                              Events.upcoming #upcoming events
+GET     /events/past/?                                  Events.past #past events
+GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
+GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #upcoming events
+GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #past events
+GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
+
 #Relationships
 GET     /relationships                                                  Relationships.relationships
 
