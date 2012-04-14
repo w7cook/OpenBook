@@ -43,6 +43,9 @@
 <body onload="runscript()">
   
   #{extends 'two_panel.html' /}
+  <link rel="stylesheet" type="text/css" media="screen"
+	href="@{'/public/stylesheets/event.css'}" />
+
   
   <div id="contentArea-BigPage">
     
@@ -60,9 +63,9 @@
         </td>
         
         <td id="map" width = "10%">
-          <input id="searchTextField" type="text"
-                 size="23%" style="align:center; text-align:center">
-          <div id="map_canvas" style="width: 300px; height: 200px"></div></td>
+          <input id="searchTextField" type="text" size="23%">
+          <div id="map_canvas"></div>
+        </td>
       </tr>
     </table>
     
@@ -74,8 +77,7 @@
     <br />
     #{if user.id == currentUser.id}
       #{form @Events.newEventPost(e.id,user.id)}
-        <textarea name="post_content" id="postContent" style="resize: none;"
-                  rows="2" cols="45"></textarea>
+        <textarea name="post_content" id="postContent" rows="2" cols="45"></textarea>
         <input type="submit" value="Post" />
       #{/form}
     #{/if}
@@ -83,8 +85,7 @@
       <div class="post">
         <div class="hideable">
           <div class="left">
-            <img style="width: 50px; height: 50px;"
-                 src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
+            <img src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
           </div>
           
           <div class="individual-post">
@@ -144,15 +145,13 @@
                   . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
               #{/if}
             
-              <div id="comment ${item.id}" style="clear: both;"
-                   class="comment-textarea">
+              <div id="comment ${item.id}" class="comment-textarea">
                 #{form @Comments.postComment(item.id, user.id, commentContent)}
-                  <div style="clear: both;">
-                    <textarea name="commentContent" id="commentContent"
-                              style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
+                  <div>
+                    <textarea name="commentContent" id="commentContent"></textarea>
                   </div>
-                  <input type="submit" value="Comment"
-                         style="clear: right; margin-top: 3px;" /> #{/form}
+                  <input type="submit" value="Comment"/>
+                #{/form}
               </div>
             </div>
           </div>

@@ -142,7 +142,7 @@ public class Events extends OBController {
       event.members= new ArrayList<User>();
       event.members.add(currentUser);
       event.save();
-      displayEvent(event.id);
+      event(event.id);
 
     }
   }
