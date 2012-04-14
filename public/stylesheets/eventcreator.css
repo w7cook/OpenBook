@@ -1,0 +1,24 @@
+.eventcreator-formlist {
+  list-style: none;
+}
+
+.eventcreator-formlist li {
+  margin-bottom: 1em;
+}
+
+.input-label {
+  display: block;
+}
+
+.datetime-input {
+  width:100%;
+}
+
+.select-label {
+  display: inline-block
+  color:blue;
+}
+
+.date-selector {
+  margin-right:1em;
+}
