@@ -90,9 +90,9 @@ GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comme
 GET     /events/?                                       Events.events #all events
 GET     /events/upcoming/?                              Events.upcoming #upcoming events
 GET     /events/past/?                                  Events.past #past events
-GET     /user/{<[0-9]+>userId}/events/?                 Events.events #1 user's events
-GET     /user/{<[0-9]+>userId}/events/upcoming/?        Events.upcoming #upcoming events
-GET     /user/{<[0-9]+>userId}/events/past/?            Events.past #past events
+GET     /users/{<[0-9]+>userId}/events/?                 Events.events #1 user's events
+GET     /users/{<[0-9]+>userId}/events/upcoming/?        Events.upcoming #upcoming events
+GET     /users/{<[0-9]+>userId}/events/past/?            Events.past #past events
 GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
 
 #Relationships

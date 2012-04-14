@@ -50,13 +50,14 @@ public class Events extends OBController {
   }
 
   public static void events(Long userId) {
-    User user = userId == null ? user() : (User) User.findById(userId);
+    User user = userId == null ? null : (User) User.findById(userId);
+    User currentUser = user();
     List<Event> events;
-    if(userId == null)
-      events = Event.findAll();
+    if(user == null)
+      events = Event.findAll();  //TODO: change to public and friends after visibility gets sorted
     else
       events = user.authoredEvents();
-    render(user, events);
+    render(user, currentUser, events);
   }
 
   public static void upcoming(Long userId) {
@@ -91,10 +92,15 @@ public class Events extends OBController {
     event.newEventInvite(guest);
   }
 
-  public static void deleteEvent(Long eventId, Long userId) {
+  public static void deleteEvent(Long eventId) {
     Event event = Event.findById(eventId);
+    if(event == null)
+      notFound("Event does not exist");
+    User user = user();
+    if(!event.author.equals(user))
+      forbidden();
     event.delete();
-    events(userId);
+    events(user.id);
   }
 
   public static void event_create(Event curEvent, String startMonth, String startDay, String startTime, String endMonth, String endDay, String endTime) {
