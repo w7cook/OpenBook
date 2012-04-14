@@ -243,4 +243,20 @@ public class User extends Model {
   public List<Event> authoredEvents() {
     return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
   }
+
+  /** Get all upcoming events
+   *
+   * @return a list of upcoming events that User has authored
+   */
+  public List<Event> upcomingEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate >= ?2", this, new Date()).fetch();
+  }
+
+  /** Get all past events
+   *
+   * @return a list of past events that User has authored
+   */
+  public List<Event> pastEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate < ?2 ", this, new Date()).fetch();
+  }
 }
