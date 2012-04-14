@@ -46,7 +46,7 @@ public class Posts extends OBController {
     m.put("item", p);
     m.put("user", user());
     m.put("currentUser", user());
-    Application.news(null);
+    renderTemplate(m);
   }
 
   public static void makeNewPagePost(String postContent, String pid) {
