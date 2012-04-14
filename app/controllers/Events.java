@@ -17,10 +17,69 @@ public class Events extends OBController {
   private static boolean given(String val) {
     return val != null && val.length() > 0;
   }
-  public static void events(Long id) {
-    User user = id == null ? user() : (User) User.findById(id);
-    render(user);
+
+  public static void event(Long eventId) {
+    Event e = Event.findById(eventId);
+    if(e == null)
+      notFound("That event does not exist.");
+    String name = e.eventName;
+    String location = e.eventLocation;
+    Date myDateStart = e.startDate;
+    String myDate = convertDateToString(myDateStart);
+    String description = e.eventScript;
+    User user = user();
+    String myAuthor = e.author.name;
+
+    String privacy = "";
+    if(e.open){ privacy = "Public Event"; }
+    else if(e.friends){ privacy = "Friends Event"; }
+    else { privacy = "Invite Only Event"; }
+
+    if (e.givenEndDate){
+      Date myDateEnd = e.endDate;
+      // Check to see if the month and day are the same.
+      DateFormat df = new SimpleDateFormat("MMdd");
+      if (df.format(myDateStart).equals(df.format(myDateEnd))){
+        myDate += " until " + convertDateTime(myDateEnd);
+      }
+      else {
+        myDate += " until " + convertDateToString(myDateEnd);
+      }
+    }
+    render(e, user, name, privacy, myAuthor, myDate, location, description);
   }
+
+  public static void events(Long userId) {
+    User user = userId == null ? user() : (User) User.findById(userId);
+    List<Event> events;
+    if(userId == null)
+      events = Event.findAll();
+    else
+      events = user.authoredEvents();
+    render(user, events);
+  }
+
+  public static void upcoming(Long userId) {
+    User user = userId == null ? user() : (User) User.findById(userId);
+    List<Event> events;
+    if(userId == null)
+      events = Event.find("SELECT r FROM Event r whre r.endDate >= ?", new Date()).fetch();
+    else
+      events = user.upcomingEvents();
+    render(user, events);
+  }
+
+  public static void past(Long userId) {
+    User user = userId == null ? user() : (User) User.findById(userId);
+    List<Event> events;
+    if(userId == null)
+      events = Event.find("SELECT r FROM Event r whre r.endDate < ?", new Date()).fetch();
+    else
+      events = user.pastEvents();
+    render(user, events);
+  }
+
+
 
   public static void addEvent() {
     render();
@@ -88,34 +147,7 @@ public class Events extends OBController {
     }
   }
 
-  public static void displayEvent(Long id) {
-    Event e = Event.findById(id);
-    String name = e.eventName;
-    String location = e.eventLocation;
-    Date myDateStart = e.startDate;
-    String myDate = convertDateToString(myDateStart);
-    String description = e.eventScript;
-    User user = user();
-    String myAuthor = e.author.name;
 
-    String privacy = "";
-    if(e.open){ privacy = "Public Event"; }
-    else if(e.friends){ privacy = "Friends Event"; }
-    else { privacy = "Invite Only Event"; }
-
-    if (e.givenEndDate){
-      Date myDateEnd = e.endDate;
-      // Check to see if the month and day are the same.
-      DateFormat df = new SimpleDateFormat("MMdd");
-      if (df.format(myDateStart).equals(df.format(myDateEnd))){
-        myDate += " until " + convertDateTime(myDateEnd);
-      }
-      else {
-        myDate += " until " + convertDateToString(myDateEnd);
-      }
-    }
-    render(e, user, name, privacy, myAuthor, myDate, location, description);
-  }
 
   public static String convertDateToString(Date myDate){
     DateFormat df = new SimpleDateFormat("MMMM d 'at' HH:mm a");
