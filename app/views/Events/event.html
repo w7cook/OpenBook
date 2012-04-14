@@ -1,54 +1,17 @@
 <head>
+  <link rel="stylesheet" type="text/css" media="screen"
+	href="@{'/public/stylesheets/event.css'}" />
   <script type="text/javascript"
-          src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-  <script type="text/javascript"> 
-    var geocoder;
-    var map;
-    function initialize() {
-    geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
-    var myOptions = {
-    zoom: 12,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    }
-    
-    function codeAddress() {
-    var address = document.getElementById("searchTextField").value;
-    geocoder.geocode( { 'address': address}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-    map.setCenter(results[0].geometry.location);
-    var marker = new google.maps.Marker({
-    map: map, 
-    position: results[0].geometry.location
-    });
-    } else {
-    alert("Geocode was not successful for the following reason: " + status);
-    }
-    });
-    }
+          src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=place">
   </script>
-  
-  
-  <script type'="text/javascript">
-    function runscript(){
-    document.getElementById("searchTextField").value = "${location}";
-    initialize();
-    codeAddress();
-    } 
+  <script type="text/javascript"
+          src="/public/javascripts/event.js"> 
   </script>
 </head>
 <body onload="runscript()">
   
   #{extends 'two_panel.html' /}
-  <link rel="stylesheet" type="text/css" media="screen"
-	href="@{'/public/stylesheets/event.css'}" />
-
-  
-  <div id="contentArea-BigPage">
-    
+  <div id="contentArea-BigPage">  
     <h2>Event - ${name}</h2>
     <hr />
     
@@ -63,7 +26,7 @@
         </td>
         
         <td id="map" width = "10%">
-          <input id="searchTextField" type="text" size="23%">
+          <input id="searchTextField" type="text" size="23%" value="${location}">
           <div id="map_canvas"></div>
         </td>
       </tr>
