@@ -26,7 +26,7 @@
   <ul class="message-list">
     #{list items:user.inbox(), as:'item'}
       <li class="message">
-        <span class="message-from"><a href="@{Application.news(item.author.id)}">From: ${item.author.name }</a></span>
+        <span class="message-from"><a href="/users/${item.author.id}">From: ${item.author.name }</a></span>
         <span class="message-subject"> Subject: ${item.title}</span>
         <span class="message-date">${item.date.format('dd MMM yy')}</span>
         <br />
