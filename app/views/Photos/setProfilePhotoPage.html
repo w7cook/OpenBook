@@ -14,8 +14,8 @@
   <br>
   
   <h3>Current Profile Photo:</h3>
-  <img src="@{Photos.getPhoto(user.profile.profilePhoto)}" width="120"
-       height="150" /> <br>
+  <img src="@{Photos.getPhoto(user.profile.profilePhoto)}" width="120" height="150" />
+  <br>
   <br>
   #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data' /}
     <b> New Photo: </b>
