@@ -33,7 +33,7 @@ public class Event extends Model {
   public boolean inviteOnly = false;
   // public Location eventVenue;
 
-  @OneToMany
+  @ManyToMany
   public List<User> members;
 
   public Event(User author, String name, String script,
