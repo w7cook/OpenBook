@@ -19,34 +19,27 @@ public class Events extends OBController {
   }
 
   public static void event(Long eventId) {
-    Event e = Event.findById(eventId);
-    if(e == null)
+    Event event = Event.findById(eventId);
+    if(event == null)
       notFound("That event does not exist.");
-    String name = e.eventName;
-    String location = e.eventLocation;
-    Date myDateStart = e.startDate;
-    String myDate = convertDateToString(myDateStart);
-    String description = e.eventScript;
+    String dateString = convertDateToString(event.startDate);
     User user = user();
-    String myAuthor = e.author.name;
 
     String privacy = "";
-    if(e.open){ privacy = "Public Event"; }
-    else if(e.friends){ privacy = "Friends Event"; }
+    if(event.open){ privacy = "Public Event"; }
+    else if(event.friends){ privacy = "Friends Event"; }
     else { privacy = "Invite Only Event"; }
 
-    if (e.givenEndDate){
-      Date myDateEnd = e.endDate;
+    if (event.givenEndDate){
       // Check to see if the month and day are the same.
       DateFormat df = new SimpleDateFormat("MMdd");
-      if (df.format(myDateStart).equals(df.format(myDateEnd))){
-        myDate += " until " + convertDateTime(myDateEnd);
-      }
-      else {
-        myDate += " until " + convertDateToString(myDateEnd);
-      }
+      dateString += " until ";
+      if (df.format(event.startDate).equals(df.format(event.endDate)))
+        dateString += convertDateTime(event.endDate);
+      else
+        dateString += convertDateToString(event.endDate);
     }
-    render(e, user, name, privacy, myAuthor, myDate, location, description);
+    render(event, user, privacy, dateString);
   }
 
   public static void events(Long userId) {
@@ -106,18 +99,12 @@ public class Events extends OBController {
   public static void event_create(Event curEvent, String startMonth, String startDay, String startTime, String endMonth, String endDay, String endTime) {
     User currentUser = user();
 
-    validation.required(curEvent.eventName).message(
-                                                    "Event name is required");
-    validation.required(curEvent.eventScript).message(
-                                                      "Event description is required");
-    validation.required(curEvent.eventLocation).message(
-                                                        "Event location is required");
-    validation.isTrue(!startMonth.equals("-1")).message(
-                                                        "Event start month is required");
-    validation.isTrue(!startDay.equals("-1")).message(
-                                                      "Event start day is required");
-    validation.isTrue(!startTime.equals("-1")).message(
-                                                       "Event start time is required");
+    validation.required(curEvent.name).message("Event name is required");
+    validation.required(curEvent.script).message("Event description is required");
+    validation.required(curEvent.location).message("Event location is required");
+    validation.isTrue(!startMonth.equals("-1")).message("Event start month is required");
+    validation.isTrue(!startDay.equals("-1")).message("Event start day is required");
+    validation.isTrue(!startTime.equals("-1")).message("Event start time is required");
 
     if (validation.hasErrors()) {
       Event thisEvent = curEvent;
@@ -126,9 +113,9 @@ public class Events extends OBController {
       Event event = curEvent;
       event.author = currentUser;
 
-      event.eventName = curEvent.eventName;
-      event.eventScript = curEvent.eventScript;
-      event.eventLocation = curEvent.eventLocation;
+      event.name = curEvent.name;
+      event.script = curEvent.script;
+      event.location = curEvent.location;
       event.startDate = setDate(startTime, startMonth, startDay);
 
       if (!endMonth.equals("-1")
@@ -149,7 +136,6 @@ public class Events extends OBController {
       event.members.add(currentUser);
       event.save();
       event(event.id);
-
     }
   }
 
