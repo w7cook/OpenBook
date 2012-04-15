@@ -1,0 +1,8 @@
+#{extends 'main.html' /}
+
+TODO: page about ${user}
+
+
+#{list items:user.posts(), as:'item'}
+  #{post currentUser:currentUser, user:user, item:item /}
+#{/list}

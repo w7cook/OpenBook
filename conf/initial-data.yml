@@ -1,5 +1,4 @@
 # Test data
-
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -8,6 +7,7 @@ User(bob):
     email:              bob@gmail.com
     password:           secret
     isAdmin:            true
+    subscription:       true
 
 User(alice):
     first_name:         Alice
@@ -18,6 +18,7 @@ User(alice):
     password:           secret
     #significant_other: jeff
     anniversary:        2010-12-2
+    subscription:       true
     
 User(jeff):
     first_name:         Jeff
@@ -37,6 +38,21 @@ User(gparker):
     email:              grp@gparker.co
     password:           password
     isAdmin:            true
+    subscription:       true
+
+
+Profile(bobProfile):
+    owner:          bob
+    
+Profile(jeffProfile):
+    owner:          jeff
+    
+Profile(aliceProfile):
+    owner:          alice
+
+Profile(gparkerProfile):
+    owner:          gparker
+    
 
 Relationship(s1):
     from:       bob
@@ -166,7 +182,16 @@ Post(g2 post1):
     date:           2009-06-07
     author:         alice
     content:        >
-                    First post!                                                         
+                    First post!  
+                    
+Profile(jeffP):
+    User:           jeff
+    gender:         male
+    phone:          555-888-1234
+    website:        www.jeffisawesome.com  
+    quotes:         qwertyyuiop
+    bio:            >
+                    Hi, my name is Jeff, I have a really cool bio. Stay tuned for more                    
                     
 Category(main):
     name:           Main
@@ -261,7 +286,7 @@ Post(cats post1):
     author:         bob
     content:        >
                     I HATE CATZ!!!
-                    
+
 Post(cats post2):
     postType:       "PAGE"
     title:          1
@@ -277,3 +302,19 @@ UserPage(cats alice):
 UserPage(nachoCheese jeff):
     fan:            jeff
     page:           nachoCheese
+
+Subscription(sub1):
+    subscribed:     alice
+    subscriber:     bob
+
+Subscription(sub2):
+    subscribed:     gparker
+    subscriber:     bob
+
+Subscription(sub3):
+    subscribed:     gparker
+    subscriber:     alice
+
+Subscription(sub4):
+    subscribed:     bob
+    subscriber:     alice

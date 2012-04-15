@@ -1,0 +1,31 @@
+.message-list {
+  list-style:none;
+}
+
+.message {
+  border-style:solid;
+  border-width:thin;
+  width:95%;
+  margin-bottom:1em;
+  padding:3px;
+}
+
+.message-from {
+  float:left;
+  width:33%
+}
+
+.message-subject {
+  float:left;
+  width:52%;
+}
+
+.message-date {
+  float:left;
+  width:15%;
+}
+
+.message-content {
+  display:block;
+  margin-top:.5em;
+}

@@ -1,78 +1,53 @@
-<div class="grid_9">
-  <div id="contentArea">
-    #{form @Pages.post(page.id)}
-    <textarea name="content" id="content" style="resize: none;" rows="2" cols="45"></textarea>
-    <input type="submit" value="Post" />
-    #{/form}
-    #{list items:page.getPosts(), as:'item'}
-    <div class="post">
-      <div class="hideable">
-       <div class="left">
-            <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
-       </div>
-        <div class="individual-post">
-          <span class="post-author"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></span>
-          <div class="post-content tohideopp">  
-           	${item.contentTeaser().nl2br()}
-            <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
-          </div>
-          <div class="tohide hide">
-            <div class="post-content">
-              ${item.content.nl2br()}
-            </div>
-            #{list items:item.getComments(), as:'comment'}
-            <div class="comment">
-              <div class="comment-metadata">
-                <div class="comment-author">
-                  by ${comment.author},
-                </div>
-                <div class="comment-date">
-                  ${comment.updatedAt.format('dd MMM yy')}
-                </div>
-                #{if comment.author == currentUser.first_name}
-                <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
-                #{/if}
-                #{ if comment.currentUserLiked()}
-                <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
-                #{/if}
-                #{else}
-                <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
-                #{/else}
-                <div> ${comment.likes.size()} likes</div>                   
-              </div>
-              <div class="comment-content">
-                ${comment.content.escape().nl2br()}
-              </div>
-            </div>
-            #{/list}
-            <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
-          </div>
+<div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" >new post...</textarea>
+  <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
+</div>
+	
+<div id="pagePosts">
+		#{list items:page.getPosts(), as:'_item'}
+			#{include 'tags/post.html' /}
+		#{/list} 
+</div>
+<script>
+  $('input#postSubmit').click(function(event) {
+  var postData = {
+  postContent : $("textarea#postContent").val(),
+  pid : ${page.id}
+  };
+  $.post("/posts/makeNewPagePost", postData, function(data) {
+  var new_item = $(data).hide();
+  $("div#pagePosts").prepend(new_item);
+  new_item.slideDown();
+  $("textarea#postContent").val('');
+  });
+  });
 
-          <div class="individual-post-metadata">
-            ${item.likes.size()}
-            #{ if item.currentUserLiked()}
-            <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-            #{/if}
-            #{else}
-            <a href="@{Application.addLike(item.id,user.id)}">Like</a>
-            #{/else}            .
-            <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a>           .
-            ${item.updatedAt.format('dd MMM yy')}
-            #{if item.author == currentUser}
-            . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
-            #{/if}
-            <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
-              #{form @Comments.postComment(item.id, user.id, commentContent)}
-              <div style="clear:both;">
-                <textarea name="commentContent" id="commentContent" style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
-              </div>
-              <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
-              #{/form}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    #{/list}
-  </div>
-</div> <!-- grid_9 -->
+  /*Show before resizing, with jQuery to avoid glitchy redisplay*/
+  $('textarea#postContent').css('display','inline-block');
+  $('input#postSubmit').css('display', 'inline-block');
+
+  /*autoResize*/
+  $('textarea#postContent').autoResize({
+  maxHeight: 150,
+  minHeight: 50,
+  extraSpace: 30
+  });
+  
+  /*autoResize*/
+  $('textarea#commentContent').autoResize({
+  maxHeight: 70,
+  minHeight: 20,
+  extraSpace: 20
+  }); 
+  
+  $('#postContent')
+  .focusin(function() {
+  if ( this.value == 'new post...' ) {
+  this.value = '';    
+  }
+  })
+  .focusout(function() {
+  if ( this.value == '' ) {
+  this.value = 'new post...';    
+  }
+  });
+</script>
