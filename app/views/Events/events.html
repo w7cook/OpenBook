@@ -1,23 +1,7 @@
 #{extends 'two_panel.html' /}
-<div id="contentArea-BigPage">
-  <h2>Events</h2>
-  <hr />
-  <a class=button href="@{Events.addEvent()}">+ Create Event</a><br />
-  <br /> 
-  <br />
-  #{if user != null}
-    <h3>My Events:</h3>
-  #{/if}
-  #{else}
-    <h3>All Events:</h3>
-  #{/else}
-  #{list items:events, as:'event'} 
-    <a href="/events/${event.id}">${event.eventName}</a>
-    #{if event.author.equals(currentUser)}
-      <a class="button" href="@{Events.deleteEvent(event.id)}">
-        Remove Event
-      </a>
-      <br />
-    #{/if}
-  #{/list}
-</div>
+#{if user != null}
+  #{events currentUser:currentUser, events:events, title_string:"My Events" /}
+#{/if}
+#{else}
+  #{events currentUser:currentUser, events:events, title_string:"All Events" /}
+#{/else}

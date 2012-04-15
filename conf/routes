@@ -95,6 +95,9 @@ GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #upcomin
 GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #past events
 GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
 
+GET     /events/eventcreator                            Events.addEvent
+POST    /events                                         Events.addEvent
+
 #Relationships
 GET     /relationships                                                  Relationships.relationships
 
