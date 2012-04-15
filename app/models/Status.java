@@ -14,21 +14,21 @@ public class Status extends Commentable {
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
   // private static final Pattern youtube_pattern = Pattern.compile();
   // private static final Pattern vimeo_pattern = Pattern.compile();
-  
- 
+
+
   @Required
   @ManyToOne
   public User author; // The User who authored the status update
-  
+
   @Lob
   public String content;
-  
+
   @ManyToMany(cascade=CascadeType.PERSIST)
   public List<Tag> tags;
-  
+
   @ManyToMany(cascade=CascadeType.PERSIST)
   public List<User> mentions;
-  
+
   public Status(User author, String content) {
     this.comments = new ArrayList<Comment>();
     this.likes = new ArrayList<Likes>();
@@ -37,10 +37,10 @@ public class Status extends Commentable {
     this.author = author;
     this.content = content;
   }
- 
-	public String parseContent(String unlinked_content){
-	  Matcher links_matcher = links_pattern.matcher(unlinked_content);
-    
+
+  public String parseContent(String unlinked_content){
+    Matcher links_matcher = links_pattern.matcher(unlinked_content);
+
     while(links_matcher.find() ){
       String match = links_matcher.group();
       if(match.startsWith("#")) { // tag
@@ -54,11 +54,11 @@ public class Status extends Commentable {
       else
        System.out.print("Error occured");
     }
-    
+
     return unlinked_content;
-	}
-	
-  
+        }
+
+
   public static List<Status> findTaggedWith(String... tags) {
     return Status.find(
             "select distiinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.message, p.update_time having count(t.id) = :size"

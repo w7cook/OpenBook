@@ -79,9 +79,9 @@ GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a 
 #Post    /links/?                                #Add/update link
 
 #Comments
-GET     /comments/?                              Comments.comments #Get all comments
-GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specific comment
-#DELETE  /comments/{<[0-9]+>commentId}            #Delete a comment
+GET     /comments/?                             Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}           Comments.comment #Get a specific comment
+#DELETE  /comments/{<[0-9]+>commentId}           #Delete a comment
 #GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
 GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
@@ -91,15 +91,15 @@ GET     /events/?                                       Events.events #all event
 GET     /events/upcoming/?                              Events.upcoming #upcoming events
 GET     /events/past/?                                  Events.past #past events
 GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
-GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #upcoming events
-GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #past events
+GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #1 users upcoming events
+GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #1 users past events
 GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
 
 GET     /events/eventcreator                            Events.addEvent
 POST    /events                                         Events.addEvent
 
 #Relationships
-GET     /relationships                                                  Relationships.relationships
+GET     /relationships                                  Relationships.relationships
 
 # Checkin
 GET     /checkin                                Checkin.checkin
