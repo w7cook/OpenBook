@@ -10,7 +10,9 @@ import play.modules.elasticsearch.search.SearchResults;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import play.cache.Cache;
 import play.libs.Crypto;
+import play.libs.Images;
 
 
 public class Application extends OBController {
@@ -34,6 +36,13 @@ public class Application extends OBController {
     User user = user();
     render(user);
   }
+  
+  public static void captcha(String id) {
+    Images.Captcha captcha = Images.captcha();
+    String code = captcha.getText("#E4EAFD");
+    Cache.set(id, code, "10mn");
+    renderBinary(captcha);
+}
 
   private static boolean given(String val) {
     return val != null && val.length() > 0;
