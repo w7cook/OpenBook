@@ -2,17 +2,36 @@ package controllers;
 
 import java.util.*;
 import models.User;
+import play.Play;
+import play.cache.Cache;
 import play.data.validation.Error;
+import play.data.validation.Required;
+import play.libs.Codec;
+import play.libs.Images;
 import play.mvc.*;
 //import controllers.Secure;
 
 public class Signup extends Controller {
 
   public static void signup() {
-    render();
+    String randomID = Codec.UUID();
+    render(randomID);
+  }
+  
+  public static void captcha(String id) {
+    Images.Captcha captcha = Images.captcha();
+    String code = captcha.getText("#000");
+    Cache.set(id, code, "10mn");
+    renderBinary(captcha);
+  }
+  
+  public static void get_new_captcha() {
+    String randomID = Codec.UUID();
+    renderText(randomID);
   }
 
-  public static void signup_user(String firstName, String lastName, String username, String email, String email2, String password, String password2) {
+  public static void signup_user(String firstName, String lastName, String username, String email, String email2, String password, String password2,
+      @Required(message="Please type the code") String code, String randomID) {
     validation.email(email).message("Please use a valid email address");
     validation.isTrue(email.trim().length() >= 1).message("Please use a valid email address");
     validation.equals(email, email2).message("Email addresses do match" + email + email2);
@@ -27,6 +46,9 @@ public class Signup extends Controller {
     validation.match(password, ".*[a-z]+.*").message("Password must contain a lowercase letter");
     validation.match(password, "(.*\\W+.*)|(.*[0-9]+.*)").message("Password must contain a non-letter character");
     validation.equals(password, password2).message("Passwords do match");
+    if(!Play.id.equals("test")) {
+      validation.equals(code, Cache.get(randomID)).message("Invalid code. Please type it again");
+    }
     if (validation.hasErrors()) {
       String errors ="";
       for(Error error : validation.errors()) {
