@@ -24,14 +24,14 @@ public abstract class Likeable extends Model {
 
   public Likeable addLike(User user){
     boolean alreadyLikes = Likes.find("author = ? AND parentObj = ?",
-                                        user, this).first() != null;
+                                      user, this).first() != null;
     if (!alreadyLikes) {
       Likes newLike = new Likes(this, user).save();
       this.likes.add(newLike);
       this.save();
     }
-          return this;
-        }
+    return this;
+  }
 
   public Likeable removeLike(User user){
     Likes relevantLikes = Likes.find("author = ? AND parentObj = ?",
