@@ -36,12 +36,15 @@
     <br />
   #{/list}
   <br />
+  
+  
   #{if user.id == currentUser.id}
     #{form @Events.newEventPost(event.id,user.id)}
       <textarea name="post_content" id="postContent" rows="2" cols="45"></textarea>
       <input type="submit" value="Post" />
     #{/form}
   #{/if}
+  
   #{list items:event.getPosts(), as:'item'}
     <div class="post">
       <div class="hideable">
@@ -58,7 +61,7 @@
           <div class="post-content tohideopp">
             ${item.contentTeaser().nl2br()}
             <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
-          </div>https://github.com/ProCynic/OpenBook/blob/api/app/views/Events/event.html
+          </div>
           <div class="tohide hide">
             <div class="post-content">${item.content.nl2br()}</div>
             #{list items:item.getComments(), as:'comment'}
@@ -84,6 +87,8 @@
                 </div>
               </div>
             #{/list}
+            
+            
             <a class='triggerhide' href='#' onclick='return false;'>
               -less
               <br />
@@ -103,7 +108,7 @@
             . <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a> .
             ${item.updatedAt.format('dd MMM yy')}
             #{if item.author == currentUser}
-                . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
+                . <a href="@{Posts.deletePost(item.id)}">delete my post</a>
             #{/if}
           
             <div id="comment ${item.id}" class="comment-textarea">
