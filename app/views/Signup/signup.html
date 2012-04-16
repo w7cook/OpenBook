@@ -82,10 +82,17 @@
 	  email2 : $("#confirmemail").val(),
 	  password : $("#password").val(),
 	  password2 : $("#confirmpassword").val(),
+	  code : $("#code").val(),
+	  randomID : $("#randomID").val(),
 	};
 	$.post("@{Signup.signup_user()}", postData, function(data) {
-		if (data != "")
+		if (data != "") {
 			$('#errors').html(data);
+			$.post("@{Signup.get_new_captcha()}", function(id) {
+				$("#randomID").val(id);
+				$("#captchaid").attr('src',"/captcha?id=" + id);
+			});
+		}
 		else {
 			window.location.href = "@{Secure.login}";
 		}
@@ -143,7 +150,14 @@
 				<td><label id="passwordverification2" ></td>
 			  <td>
 			</tr>
-			
+			<tr>
+			  <td align="left right"><label for="code">Please type the code below: </label>
+			  <br/>
+			  <img id="captchaid" src="@{Signup.captcha(randomID)}" /><br/>
+			  <input type="text" name="code" id="code" size="18" value="" />
+			  <input type="hidden" name="randomID" id="randomID" value="${randomID}" />
+			  </td>
+			</tr>
 		</table>
 		<table>
 
