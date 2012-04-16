@@ -15,7 +15,6 @@ GET     /about                                  Application.about
 GET     /edit_basic                             Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
-GET     /captcha                                Application.captcha
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
@@ -52,6 +51,7 @@ POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 
 #Signup
 GET     /signup                                 Signup.signup
+GET     /captcha                                Signup.captcha
 
 # Messages
 GET     /messages                               Messages.inbox
