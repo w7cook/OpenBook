@@ -78,6 +78,12 @@ public class Signup extends Controller {
     }
   }
   
+  /** Sends an email to confirm valid emails and complete registration for a user.
+   * 
+   * @param emailTo the users email
+   * @param confirmID the confirmation id
+   * @throws EmailException thrown from the SimpleEmail class
+   */
   private static void sendConfirmationEmail(String emailTo, String confirmID) throws EmailException {
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("id", confirmID);
@@ -92,6 +98,10 @@ public class Signup extends Controller {
     Mail.send(email); 
   }
   
+  /** Confirms the email for a given id and creates the user in the database.
+   * 
+   * @param id the UUID assigned at registration time.
+   */
   public static void confirm(String id) {
     TempUser user = TempUser.find("SELECT u FROM TempUser u WHERE u.UUID = ?", id).first();
     if (user.verified == false) {
