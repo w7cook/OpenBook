@@ -3,28 +3,28 @@
 	<div id="contentArea-BigPage">
 	  <font color="red"><b>${makeSkinOutput}</b></font>
     <br>
-		<a href="@{Skins.changeSkin}"> Change Skin to Template</a>
+		<a href="@{Skins.changeSkin}">&{'skin.changeSkinMsg'}</a>
 		<script type="text/javascript" src="/public/javascripts/jscolor/jscolor.js"></script>
     
 		#{form @Skins.editSkin()}
-		  <br><label><b>EDIT CURRENT SKIN:  ${currentUser.profile.skin.skinName}</b></label>
+		  <br><label><b>&{'skin.editCurrentSkinMsg'}:  ${currentUser.profile.skin.skinName}</b></label>
 		  
 		  <table>
-		  <td class=section width=15%>Body</td>
+		  <td class=section width=15%>&{'skin.body'}</td>
 		    <td>
 		      <table>
     		  <tr>
-    		    <td><a href="/changeBGImage">Choose Background Image</a></td>
+    		    <td><a href="/changeBGImage">&{'skin.changeBGImageMsg'}</a></td>
     		  </tr>
 		      </table>
 		  </table>
 		  
 		  <table>
-		  <td class=section width=15%>Header</td>
+		  <td class=section width=15%>&{'skin.header'}</td>
 		    <td>
 		      <table>
 		      <tr>
-		        <td><label>Background Color:</label></td>
+		        <td><label>&{'skin.bgColor'}:</label></td>
 		        <input type = "hidden" name = key value = "headerBGColor" />
 		        <td><input class="color" name=val 
 		        	value="${currentUser.profile.skin.get("headerBGColor")}" />
@@ -34,25 +34,25 @@
 		  </table>
 		  
 		  <table>
-		  <td class=section width=15%>Footer</td>
+		  <td class=section width=15%>&{'skin.footer'}</td>
 		    <td>
 		      <table>
 		      <tr>
-		        <td><label>Text Alignment:</label></td>
+		        <td><label>&{'skin.txtAlign'}:</label></td>
 		        <input type = "hidden" name = key value = "footerTextAlign" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("footerTextAlign")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Font Size:</label></td>
+		        <td><label>&{'skin.fontSize'}:</label></td>
 		        <input type = "hidden" name = key value = "footerFontSize" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("footerFontSize")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Color:</label></td>
+		        <td><label>&{'skin.color'}:</label></td>
 		        <input type = "hidden" name = key value = "footerColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("footerColor")}" />
@@ -62,11 +62,11 @@
 		  </table>
 		  
 		  <table>
-		  <td class=section width=15%>Section</td>
+		  <td class=section width=15%>&{'skin.section'}</td>
 		    <td>
 		      <table>
 		      <tr>
-		        <td><label>Alignment of Text:</label></td>
+		        <td><label>&{'skin.txtAlign'}:</label></td>
 		        <input type = "hidden" name = key value = "sectionAlign" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("sectionAlign")}" />
@@ -76,18 +76,18 @@
 		  </table>
 		  
 		  <table>
-		  <td class=section width=15%>Label</td>
+		  <td class=section width=15%>&{'skin.label'}</td>
 		    <td>
 		      <table>
 		      <tr>
-		        <td><label>Font Size:</label></td>
+		        <td><label>&{'skin.fontSize'}:</label></td>
 		        <input type = "hidden" name = key value = "labelFontSize" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("labelFontSize")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Color:</label></td>
+		        <td><label>&{'skin.color'}:</label></td>
 		        <input type = "hidden" name = key value = "labelColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("labelColor")}" />
@@ -97,25 +97,25 @@
 		  </table>
 		  
 		  <table>
-		  <td class=section width=15%>Comment</td>
+		  <td class=section width=15%>&{'skin.comment'}</td>
 		    <td>
 		      <table>
 		      <tr>
-		        <td><label>Border Size:</label></td>
+		        <td><label>&{'skin.borderSize'}:</label></td>
 		        <input type = "hidden" name = key value = "commentBorderSize" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("commentBorderSize")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Border Color:</label></td>
+		        <td><label>&{'skin.borderColor'}:</label></td>
 		        <input type = "hidden" name = key value = "commentBorderColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("commentBorderColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Background Color:</label></td>
+		        <td><label>&{'skin.bgColor'}:</label></td>
 		        <input type = "hidden" name = key value = "commentBGColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("commentBGColor")}" />
@@ -125,74 +125,74 @@
 		  </table>
 		      
 		  <table>
-		  <td class=section width=15%>Buttons</td>
+		  <td class=section width=15%>&{'skin.buttons'}</td>
 		    <td>
 		      <table>
 		      <tr>
-		        <td><label>Border Radius:</label></td>
+		        <td><label>&{'skin.borderRadius'}:</label></td>
 		        <input type = "hidden" name = key value = "buttonBorderRadius" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("buttonBorderRadius")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Border Size:</label></td>
+		        <td><label>&{'skin.borderSize'}:</label></td>
 		        <input type = "hidden" name = key value = "buttonBorderSize" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("buttonBorderSize")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Border Color:</label></td>
+		        <td><label>&{'skin.borderColor'}:</label></td>
 		        <input type = "hidden" name = key value = "buttonBorderColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonBorderColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Border Box Shadow Color:</label></td>
+		        <td><label>&{'skin.borderBoxShadowColor'}:</label></td>
 		        <input type = "hidden" name = key value = "buttonBoxShadowColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonBoxShadowColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Background Color:</label></td>
+		        <td><label>&{'skin.bgColor'}:</label></td>
 		        <input type = "hidden" name = key value = "buttonBGColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonBGColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Text Decoration (underline,etc): </label></td>
+		        <td><label>&{'skin.txtDec'}: </label></td>
 		        <input type = "hidden" name = key value = "buttonTextDec" />
 		        <td><input type=text name=val
 		             value="${currentUser.profile.skin.get("buttonTextDec")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Unvisited Link Color: </label></td>
+		        <td><label>&{'skin.unvisitedLinkColor'}: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkUnvisitedColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkUnvisitedColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Visited Link Color: </label></td>
+		        <td><label>&{'skin.visitedLinkColor'}: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkVisitedColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkVisitedColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Link Hover Color: </label></td>
+		        <td><label>&{'skin.hoverLinkColor'}: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkHoverColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkHoverColor")}" />
 		        </td>
 		      </tr>
 		      <tr>
-		        <td><label>Selected Link Color: </label></td>
+		        <td><label>&{'skin.selectedLinkColor'}: </label></td>
 		        <input type = "hidden" name = key value = "buttonLinkSelectedColor" />
 		        <td><input class="color" name=val
 		             value="${currentUser.profile.skin.get("buttonLinkSelectedColor")}" />
@@ -204,7 +204,7 @@
 		
 		  <table>
 		  <tr>
-		  <td colspan=3><input type=submit value=Save> 
+		  <td colspan=3><input type=submit value=&{'skin.save'}> 
 		    #{ifErrors}
 		    <ul style="color:red">
 		      #{errors}<li>${error}</li> #{/errors} 
@@ -216,13 +216,13 @@
 		#{/form}
 		
 		#{form @Skins.makeSkin()}
-    <br><label><b>MAKE NEW PUBLIC SKIN (Visible to Everyone)</b></label>
+    <br><label><b>&{'skin.makeNewSkinMsg'}</b></label>
     
       <table>
         <td>
           <table>
           <tr>
-            <td><label>SkinName:</label></td>
+            <td><label>&{'skin.skinName'}:</label></td>
             <td><input type= text name=skinName 
               value="${currentUser.profile.skin.skinName}" />
             </td>        
@@ -232,7 +232,7 @@
       
       <table>
       <tr>  
-      <td colspan=3><input type=submit value=Save> 
+      <td colspan=3><input type=submit value=&{'skin.save'}> 
       </td>
     </tr>
       </table>
