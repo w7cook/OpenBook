@@ -7,7 +7,7 @@
      src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
      type="text/javascript">
   </script>
-  <script src="/public/javascripts/checkin.js" type="text/javascript">
+  <script src="/public/javascripts/addEvent.js" type="text/javascript">
   </script>
   
   <h2>Create Event</h2>
@@ -27,7 +27,7 @@
 
       <li>
         <label class="input-label">Where:<font color="red"> *</font></label>
-        <input class="text-input" id="searchTextField" type="text" name=curEvent.location />
+        <input class="text-input" id="searchTextField" type="text" name=curEvent.location onkeypress="return event.keyCode!=13" />
       </li>
 
       <li><label>When:</label></li>
@@ -264,8 +264,8 @@
         </select>
       </li>
       <li>
-        <input type=submit value=Create>
-        <input type=submit value=Cancel />
+        <input type=submit value=Create name="submit">
+        <input type=submit value=Cancel name="cancel">
         #{ifErrors}
         <ul style="color: red">
           #{errors}
@@ -276,6 +276,6 @@
       </li>
    </ul>
    
-   <div id="map_canvas"></div>
+
  #{/form}
 </div>

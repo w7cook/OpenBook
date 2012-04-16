@@ -97,45 +97,52 @@ public class Events extends OBController {
   }
 
   public static void event_create(Event curEvent, String startMonth, String startDay, String startTime, String endMonth, String endDay, String endTime) {
-    User currentUser = user();
+    if (params.get("submit") != null) {
+		User currentUser = user();
+		validation.required(curEvent.name).message("Event name is required");
+		validation.required(curEvent.script).message(
+				"Event description is required");
+		validation.required(curEvent.location).message(
+				"Event location is required");
+		validation.isTrue(!startMonth.equals("-1")).message(
+				"Event start month is required");
+		validation.isTrue(!startDay.equals("-1")).message(
+				"Event start day is required");
+		validation.isTrue(!startTime.equals("-1")).message(
+				"Event start time is required");
+		if (validation.hasErrors()) {
+			Event thisEvent = curEvent;
+			renderTemplate("Events/addEvent.html", thisEvent);
+		} else {
+			Event event = curEvent;
+			event.author = currentUser;
 
-    validation.required(curEvent.name).message("Event name is required");
-    validation.required(curEvent.script).message("Event description is required");
-    validation.required(curEvent.location).message("Event location is required");
-    validation.isTrue(!startMonth.equals("-1")).message("Event start month is required");
-    validation.isTrue(!startDay.equals("-1")).message("Event start day is required");
-    validation.isTrue(!startTime.equals("-1")).message("Event start time is required");
+			event.name = curEvent.name;
+			event.script = curEvent.script;
+			event.location = curEvent.location;
+			event.startDate = setDate(startTime, startMonth, startDay);
 
-    if (validation.hasErrors()) {
-      Event thisEvent = curEvent;
-      renderTemplate("Events/addEvent.html", thisEvent);
-    } else {
-      Event event = curEvent;
-      event.author = currentUser;
+			if (!endMonth.equals("-1") && !endDay.equals("-1")
+					&& !endTime.equals("-1")) {
+				event.endDate = setDate(endTime, endMonth, endDay);
+				event.givenEndDate = true;
+			}
 
-      event.name = curEvent.name;
-      event.script = curEvent.script;
-      event.location = curEvent.location;
-      event.startDate = setDate(startTime, startMonth, startDay);
-
-      if (!endMonth.equals("-1")
-          && !endDay.equals("-1")
-          && !endTime.equals("-1")) {
-        event.endDate = setDate(endTime, endMonth, endDay);
-        event.givenEndDate = true;
-      }
-
-      if (curEvent.privilege.equals("open")) {
-        event.open = true;
-      } else if (curEvent.privilege.equals("friends")) {
-        event.friends = true;
-      } else if (curEvent.privilege.equals("inviteOnly")) {
-        event.inviteOnly = true;
-      }
-      event.members= new ArrayList<User>();
-      event.members.add(currentUser);
-      event.save();
-      event(event.id);
+			if (curEvent.privilege.equals("open")) {
+				event.open = true;
+			} else if (curEvent.privilege.equals("friends")) {
+				event.friends = true;
+			} else if (curEvent.privilege.equals("inviteOnly")) {
+				event.inviteOnly = true;
+			}
+			event.members = new ArrayList<User>();
+			event.members.add(currentUser);
+			event.save();
+			event(event.id);
+		}
+	}
+    else if(params.get("cancel") != null){
+    	events(user().id);
     }
   }
 
@@ -169,6 +176,6 @@ public class Events extends OBController {
 
   public static void newEventPost(Long eventId, Long userId, String post_content){
     new Post((User)User.findById(userId), eventId.toString(), post_content, Post.type.EVENT).save();
-    events(eventId);
+    event(eventId);
   }
 }
