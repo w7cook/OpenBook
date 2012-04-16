@@ -87,8 +87,7 @@
 		if (data != "")
 			$('#errors').html(data);
 		else {
-			$('#errors').html("Success");
-			window.location = "login"
+			window.location.href = "@{Secure.login}";
 		}
     });
   });

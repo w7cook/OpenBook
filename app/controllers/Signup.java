@@ -36,6 +36,8 @@ public class Signup extends Controller {
     }
     else {
       final User newUser = new User(email, password, username, firstName, lastName).save();
+      flash.put("success", "Registration complete!  Login below with your credentials.");
+      flash.keep();
       renderText("");
     }
   }
