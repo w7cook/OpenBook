@@ -87,7 +87,8 @@ public class Signup extends Controller {
   private static void sendConfirmationEmail(String emailTo, String confirmID) throws EmailException {
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("id", confirmID);
-    String url = Router.reverse("Signup.confirm", map).url;
+    Router.ActionDefinition urlAction = Router.reverse("Signup.confirm", map);
+    String url = urlAction.host + urlAction.url;
     url = Play.configuration.getProperty("application.baseUrl") + url;
     System.out.println("The Url is " + url);
     SimpleEmail email = new SimpleEmail();
