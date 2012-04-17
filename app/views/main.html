@@ -36,8 +36,13 @@
         $('#friendRequest').css('display','block');
         });
 
-      // Update all timeago dates to proper fuzzy dates.
+      // Update all timeago dates to proper fuzzy dates when page loads.
       $("abbr.timeago").timeago();
+
+      // Update all timeago dates to proper fuzzy dates after every AJAX call.
+      $(document).ajaxStop(function() {
+        $("abbr.timeago").timeago();
+      });
       });
     </script>
 
