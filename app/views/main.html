@@ -10,6 +10,7 @@
     <script type="text/javascript" src="@{'/public/javascripts/calendarDateInput.js'}"></script>
     <script type="text/javascript" src="public/javascripts/comments.js"></script>
     <script type="text/javascript" src="public/javascripts/jquery.autoresize.js"></script>
+    <script type="text/javascript" src="public/javascripts/jquery.timeago.js"></script>
 
     <script type="text/javascript">
       $(document).ready(function(){
@@ -34,6 +35,14 @@
         event.stopPropagation();    // this stops the event from registering on the doc.
         $('#friendRequest').css('display','block');
         });
+
+      // Update all timeago dates to proper fuzzy dates when page loads.
+      $("abbr.timeago").timeago();
+
+      // Update all timeago dates to proper fuzzy dates after every AJAX call.
+      $(document).ajaxStop(function() {
+        $("abbr.timeago").timeago();
+      });
       });
     </script>
 

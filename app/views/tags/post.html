@@ -12,29 +12,7 @@
      
         . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}
         . 
-        
-        #{if (new Date().getTime() - _item.updatedAt.getTime())/1000/60 < 1}
-        	less than a minute
-        #{/if}
-        #{elseif (new Date().getTime() - _item.updatedAt.getTime())/1000/60 < 60}
-        	${(int)(new Date().getTime() - _item.updatedAt.getTime())/1000/60} minutes ago
-        #{/elseif}
-        #{elseif (new Date().getTime() - _item.updatedAt.getTime())/1000/60/60 < 24}
-        	${(int)(new Date().getTime() - _item.updatedAt.getTime())/1000/60/60} hours ago
-        #{/elseif}
-        #{elseif (new Date().getTime() - _item.updatedAt.getTime())/1000/60/60/24 < 30}
-        	${(int)(new Date().getTime() - _item.updatedAt.getTime())/1000/60/60/24} days ago
-        #{/elseif}
-        #{elseif (new Date().getTime() - _item.updatedAt.getTime())/1000/60/60/24/30 < 12}
-        	${(int)(new Date().getTime() - _item.updatedAt.getTime())/1000/60/60/24/30} months ago
-        #{/elseif}
-        #{else}
-        	over a year ago
-        #{/else}
-        
-        
-        
-        
+        #{timeago date:_item.updatedAt /}
         #{if _item.author ==  _currentUser} 
           . <a id="deletePostSubmit${_item.id}" onclick="return false;" href="#">delete my post</a> 
         #{/if}
