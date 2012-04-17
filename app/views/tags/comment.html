@@ -8,24 +8,7 @@
       <a href="@{Application.news(_comment.author.id)}">${_comment.author.name}</a>
     </div>
 		<div class="comment-date">
-		#{if (new Date().getTime() - _comment.updatedAt.getTime())/1000/60 < 1}
-        	less than a minute
-        #{/if}
-        #{elseif (new Date().getTime() - _comment.updatedAt.getTime())/1000/60 < 60}
-        	${(int)(new Date().getTime() - _comment.updatedAt.getTime())/1000/60} minutes ago
-        #{/elseif}
-        #{elseif (new Date().getTime() - _comment.updatedAt.getTime())/1000/60/60 < 24}
-        	${(int)(new Date().getTime() - _comment.updatedAt.getTime())/1000/60/60} hours ago
-        #{/elseif}
-        #{elseif (new Date().getTime() - _comment.updatedAt.getTime())/1000/60/60/24 < 30}
-        	${(int)(new Date().getTime() - _comment.updatedAt.getTime())/1000/60/60/24} days ago
-        #{/elseif}
-        #{elseif (new Date().getTime() - _comment.updatedAt.getTime())/1000/60/60/24/30 < 12}
-        	${(int)(new Date().getTime() - _comment.updatedAt.getTime())/1000/60/60/24/30} months ago
-        #{/elseif}
-        #{else}
-        	over a year ago
-        #{/else}
+      #{timeago date:_commend.updatedAt /}
 		</div>
 		<div id="comment${_comment.id}likes">${_comment.likes.size()} like${_comment.likes.size().pluralize()}</div>
 		#{if _comment.author.id == _currentUser.id} 
