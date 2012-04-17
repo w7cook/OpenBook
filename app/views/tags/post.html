@@ -110,9 +110,9 @@
       
       function drawLikesButton_${_item.id}( elem ) {
       if( !likes_${_item.id} ) {
-      elem.text('Like');
+      elem.text("&{'comment.like'}");
       } else {
-      elem.text('Unlike');
+      elem.text("&{'comment.unlike'}");
       }
       }
       
@@ -127,13 +127,13 @@
       
       if( !likes_${_item.id} ) {
       $.post("/Application/addLikeAjax", postData, function(data) {
-      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " " +"&{'comment.like'}"+(data.numLikes == 1? "" : "s"));
       likes_${_item.id} = !likes_${_item.id};
       drawLikesButton_${_item.id}(bttn);
       });
       } else {
       $.post("/Application/removeLikeAjax", postData, function(data) {
-      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " " +"&{'comment.like'}"+(data.numLikes == 1? "" : "s"));
       likes_${_item.id} = !likes_${_item.id};
       drawLikesButton_${_item.id}(bttn);
       });
