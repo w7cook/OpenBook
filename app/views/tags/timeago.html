@@ -1,7 +1,4 @@
-%{
-  String iso8601 = "yyyy-MM-dd'T'HH:mmZ";
-  String humanReadable = "MMM d, yyyy";
-}%
+%{ String iso8601 = "yyyy-MM-dd'T'HH:mmZ"; }%
 <abbr class="timeago" title="${_date.format(iso8601)}">
-  ${_date.format(humanReadable)}
+  ${_date.format()}
 </abbr>
