@@ -7,7 +7,9 @@
 		<div class="comment-author">              
       <a href="@{Application.news(_comment.author.id)}">${_comment.author.name}</a>
     </div>
-		<div class="comment-date">${_comment.updatedAt.format('dd MMM yy')}</div>
+		<div class="comment-date">
+      #{timeago date:_comment.updatedAt /}
+		</div>
 		<div id="comment${_comment.id}likes">${_comment.likes.size()} like${_comment.likes.size().pluralize()}</div>
 		#{if _comment.author.id == _currentUser.id} 
 		<a class=button id="deleteCommentSubmit${_comment.id}" href="#" onclick="return false;">delete</a>

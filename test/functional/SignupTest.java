@@ -39,6 +39,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     Response response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(2, User.count());
@@ -55,6 +57,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     Response response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -67,6 +71,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -79,6 +85,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -96,6 +104,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL1);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     Response response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -109,6 +119,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL1);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -122,6 +134,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", "abcd");
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -135,6 +149,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", "abcd@f");
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -148,6 +164,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", "abcd@.com");
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -164,6 +182,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", "ABCd1");
     parameters.put("password2", "ABCd1");
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     Response response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -177,6 +197,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", "ABCdef");
     parameters.put("password2", "ABCdef");
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -190,6 +212,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", "ABCDEF1");
     parameters.put("password2", "ABCDEF1");
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -203,6 +227,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", "abcdef1");
     parameters.put("password2", "abcdef1");
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -219,6 +245,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", "");
     parameters.put("password", "");
     parameters.put("password2", "");
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     Response response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -231,6 +259,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -243,6 +273,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -255,6 +287,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -267,6 +301,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", PASSWORD);
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());
@@ -279,6 +315,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("email2", EMAIL2);
     parameters.put("password", "");
     parameters.put("password2", PASSWORD);
+    parameters.put("code", "d");
+    parameters.put("randomID", "d");
     response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
     assertEquals(1, User.count());

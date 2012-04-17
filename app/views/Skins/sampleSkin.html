@@ -17,7 +17,7 @@
 	  	position: relative;
 	 		"	
 		>
-		OpenBook
+		&{'skin.openBook'}
 	</div>
 	
   <div width = "300" height = "400"
@@ -35,10 +35,10 @@
 	 		"
 		>
 		<br>
-		This is the Skin:	<br>	<b>${skin.skinName}.</b> <br>
-		This is example text.
+		&{'skin.thisIsTheSkin'}:	<br>	<b>${skin.skinName}.</b> <br>
+		&{'skin.exampleTxt'}
 		<br> <br>
-    <a href="@{Skins.changeSkinToTemplate(skin.skinName)}">Set Skin as My Skin</a>
+    <a href="@{Skins.changeSkinToTemplate(skin.skinName)}">&{'skin.setSkinAsMySkin'}</a>
 	</div>
 	
 </div>

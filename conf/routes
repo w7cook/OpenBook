@@ -51,6 +51,7 @@ POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 
 #Signup
 GET     /signup                                 Signup.signup
+GET     /captcha                                Signup.captcha
 
 # Messages
 GET     /messages                               Messages.inbox
