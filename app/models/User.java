@@ -97,6 +97,23 @@ public class User extends Model {
     this.save();
     // this.education = new ArrayList<Enrollment>();
   }
+  
+  public User(TempUser user) {
+    if (user.verified == false) {
+      this.email = user.email;
+      this.password = user.password;
+      this.username = user.username;
+      this.first_name = user.first_name;
+      this.last_name = user.last_name;
+      user.verified = true;
+      
+      this.save();
+      profile = new Profile(this);
+      profile.save();
+      new Relationship(this).save();
+      this.save();
+    }
+  }
 
   public static User connect(String login, String password) {
     return find("SELECT u FROM User u WHERE (u.email = ?1 OR u.username = ?1) and u.password = ?2", login, Crypto.passwordHash(password)).first();
