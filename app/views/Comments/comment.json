@@ -1,0 +1,4 @@
+{
+  "author"  : "${comment.author.username}",
+  "content" : "${comment.content}"
+} 

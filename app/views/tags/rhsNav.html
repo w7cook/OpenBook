@@ -1,15 +1,20 @@
-
 <div class="lhs-navBoxHeader">RSS Feed</div>
 <div class="lhs-navBoxBody">
-	<a href="#">Latest News</a>
+  <a href="#">Latest News</a>
 </div>
 
 <div class="lhs-navBoxHeader">Upcoming Events</div>
 <div class="lhs-navBoxBody">
-	<a href="#">Upcoming Events</a>
+  <a href="/events/upcoming">Upcoming Events</a>
 </div>
 
 <div class="lhs-navBoxHeader">ETC</div>
 <div class="lhs-navBoxBody">
-	<a href="#">Extra Stuff</a>
+  <a href="#">Extra Stuff</a>
 </div>
+
+<div class="lhs-navBoxHeader">Upcoming Birthdays</div>
+<iframe src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "158" height = "100%"
+	     	 	scrolling = "auto" align = "middle" marginheight = "0" 
+	     	 	marginwidth = "0" hspace = "5" vspace = "5" frameborder = "1"> </iframe> 
+</div>	

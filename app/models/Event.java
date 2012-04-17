@@ -20,9 +20,9 @@ public class Event extends Model {
    * @OneToMany public EventInvite invitedUsers;
    */
 
-  public String eventName;
-  public String eventScript;
-  public String eventLocation;
+  public String name;
+  public String script;
+  public String location;
   public Date startDate;
   public Date endDate;
   public boolean givenEndDate = false;
@@ -33,15 +33,15 @@ public class Event extends Model {
   public boolean inviteOnly = false;
   // public Location eventVenue;
 
-  @OneToMany
+  @ManyToMany
   public List<User> members;
 
-  public Event(User author, String eventName, String eventScript,
-      String eventLocation) {
+  public Event(User author, String name, String script,
+      String location) {
     this.author = author;
-    this.eventName = eventName;
-    this.eventScript = eventScript;
-    this.eventLocation = eventLocation;
+    this.name = name;
+    this.script = script;
+    this.location = location;
     this.members = new ArrayList<User>();
     this.members.add(author);
   }

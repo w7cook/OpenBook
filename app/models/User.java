@@ -78,6 +78,8 @@ public class User extends Model {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
+    this.save();
+    new Relationship(this).save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -88,8 +90,11 @@ public class User extends Model {
     this.first_name = first_name;
     this.last_name = last_name;
 
+    this.save();
     profile = new Profile(this);
     profile.save();
+    new Relationship(this).save();
+    this.save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -103,6 +108,14 @@ public class User extends Model {
 
   public List<Message> inbox() {
     return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
+  }
+
+  public List<Post> posts() {
+    return Post.find("byAuthor", this).fetch();
+  }
+
+  public List<Comment> comments() {
+    return Comment.find("byAuthor", this).fetch();
   }
 
   public List<Post> news() {
@@ -229,5 +242,21 @@ public class User extends Model {
    */
   public List<Event> authoredEvents() {
     return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
+  }
+
+  /** Get all upcoming events
+   *
+   * @return a list of upcoming events that User has authored
+   */
+  public List<Event> upcomingEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate >= ?2", this, new Date()).fetch();
+  }
+
+  /** Get all past events
+   *
+   * @return a list of past events that User has authored
+   */
+  public List<Event> pastEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate < ?2 ", this, new Date()).fetch();
   }
 }

@@ -1,0 +1,55 @@
+#{extends 'two_panel.html' /}
+<link rel="stylesheet" type="text/css" media="screen"
+      href="@{'/public/stylesheets/event.css'}" />
+<script type="text/javascript"
+        src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=place">
+</script>
+<script type="text/javascript"
+        src="/public/javascripts/event.js"> 
+</script>
+
+<div id="contentArea-BigPage">  
+  <h2>Event - ${event.name}</h2>
+  <hr />
+    
+  <table>
+    <tr>
+      <td id="details" width = "100%">
+        <b>Event Name: </b> ${event.name}<br /> 
+        ${privacy} <br /> 
+        <b>Created By: </b>${event.author.name}<br />
+        <b>Date: </b>${dateString}<br /> 
+        <b>Location: </b>${event.location}<br /> 
+        <b>Details: </b>${event.script}<br />
+      </td>
+        
+      <td id="map" width = "10%">
+        <input id="searchTextField" type="text" size="23%" value="${event.location}">
+        <div id="map_canvas"></div>
+      </td>
+    </tr>
+  </table>
+
+  <h4>The Event members:</h4>
+  #{list items:event.members, as:'member'}
+    <a href="@{Application.about(member.id)}">${member.name}</a>
+    <br />
+  #{/list}
+  <br />
+  
+
+    #{form @Events.newEventPost(event.id,event.author.id)}
+      <textarea name="post_content" id="postContent" rows="2" cols="45"></textarea>
+      <input type="submit" value="Post" />
+    #{/form}
+
+  
+  <div id="postsList">
+    #{list items:event.getPosts(), as:'item'} 
+      #{post currentUser:currentUser,user:user,item:item /}
+    #{/list}
+  </div>
+  <a class="button" href="@{Events.events()}"> Events</a>
+  <br />
+  <br />
+</div>

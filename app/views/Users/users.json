@@ -1,0 +1,5 @@
+[
+  #{list items:users, as:'item'} 
+    "/users/${item.id}"#{if !item_isLast},#{/if}
+  #{/list}
+]
