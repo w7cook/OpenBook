@@ -1,6 +1,12 @@
 package controllers;
 
 import java.util.*;
+
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
+import controllers.Secure;
+import models.TempUser;
 import models.User;
 import play.Play;
 import play.cache.Cache;
@@ -8,6 +14,7 @@ import play.data.validation.Error;
 import play.data.validation.Required;
 import play.libs.Codec;
 import play.libs.Images;
+import play.libs.Mail;
 import play.mvc.*;
 //import controllers.Secure;
 
@@ -57,11 +64,53 @@ public class Signup extends Controller {
       renderText(errors);
     }
     else {
-      final User newUser = new User(email, password, username, firstName, lastName).save();
-      flash.put("success", "Registration complete!  Login below with your credentials.");
+      try {
+        String confirmID = Codec.UUID();
+        TempUser newUser = new TempUser(email, password, username, firstName, lastName, confirmID).save();
+        sendConfirmationEmail(email, confirmID);
+      } catch (EmailException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      flash.put("success", "Registration almost complete!  Just verify your e-mail address, and you will be able to log in");
       flash.keep();
       renderText("");
     }
+  }
+  
+  /** Sends an email to confirm valid emails and complete registration for a user.
+   * 
+   * @param emailTo the users email
+   * @param confirmID the confirmation id
+   * @throws EmailException thrown from the SimpleEmail class
+   */
+  private static void sendConfirmationEmail(String emailTo, String confirmID) throws EmailException {
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("id", confirmID);
+    String url = Router.reverse("Signup.confirm", map).url;
+    url = Play.configuration.getProperty("application.baseUrl") + url;
+    SimpleEmail email = new SimpleEmail();
+    email.setFrom("registration@openbook.com");
+    email.addTo(emailTo);
+    email.setSubject("Welcome to OpenBook! Please confirm your e-mail");
+    email.setMsg("Welcome to OpenBook!  We are glad to have you onboard - but we need to confirm your email first.  You can do so by going here: " + url);
+    Mail.send(email); 
+  }
+  
+  /** Confirms the email for a given id and creates the user in the database.
+   * 
+   * @param id the UUID assigned at registration time.
+   */
+  public static void confirm(String id) {
+    TempUser user = TempUser.find("SELECT u FROM TempUser u WHERE u.UUID = ?", id).first();
+    if (user.verified == false) {
+      new User(user).save();
+    }
+    flash.put("success", "E-mail verified and registration complete!  Sign in below.");
+    flash.keep();
+    try {
+      Secure.login();
+    } catch (Throwable e) {};
   }
 
   public static void isValidUserName(String name) {
