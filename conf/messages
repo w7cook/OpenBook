@@ -10,6 +10,11 @@ checkin.at=You checked in at
 checkin.checkin=Checkin
 checkin.iamat=I am at
 
+# Comment
+comment.like = Like
+comment.unlike = Unlike
+comment.delete = delete
+
 # Profile
 profile.about.you=About You
 profile.bio=Bio
@@ -65,3 +70,4 @@ skin.openBook=OpenBook
 skin.thisIsTheSkin=This is the Skin
 skin.exampleTxt=This is example text.
 skin.setSkinAsMySkin=Set Skin as My Skin
+

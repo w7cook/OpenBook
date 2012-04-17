@@ -36,8 +36,10 @@
   #{/elseif}
     
   #{if user.id == currentUser.id}
-    <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" >new post...</textarea>
-      <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
+    <div class="ui_InputContainer" id="PostContainer">
+    <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" >new post...</textarea>
+      <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
+      alt="Post" style="vertical-align: bottom;"/>    
     </div>
     <div class="ui_InputContainer" id="photo-upload" style="display: none;">
       #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
