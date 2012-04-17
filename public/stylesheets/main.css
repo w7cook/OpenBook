@@ -207,12 +207,13 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 
 /** Shared UI Elements **/
 .ui_TextArea {
-  width: 100%;
+  width: 88%;
   resize: none;
   color:grey;
   border: none;
   margin: none;
   display: none;
+  outline: black groove 1px;
 }
 
 .ui_TextAreaButton {
@@ -250,7 +251,7 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 }
 
 .ui_InputContainer {
-  outline: black groove 1px;
+  outline: black groove 0px;
 	width: 100%;
 	height: auto;
 	background-color: white;
