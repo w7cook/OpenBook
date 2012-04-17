@@ -35,6 +35,9 @@
         event.stopPropagation();    // this stops the event from registering on the doc.
         $('#friendRequest').css('display','block');
         });
+
+      // Update all timeago dates to proper fuzzy dates.
+      $("abbr.timeago").timeago();
       });
     </script>
 
