@@ -10,7 +10,7 @@
         . 
         #{timeago date:_item.updatedAt /}
         #{if _item.author ==  _currentUser} 
-          . <a id="deletePostSubmit${_item.id}" onclick="return false;" href="#">delete my post</a> 
+          . <a class="button" id="deletePostSubmit${_item.id}" onclick="return false;" href="#">remove the post</a> 
         #{/if}
       #{/if}   
     </div>
