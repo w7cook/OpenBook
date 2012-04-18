@@ -15,13 +15,13 @@ public class Photo extends Post {
   public User owner;
 
   public Photo(User owner, Blob image) {
-    super(owner, "", "");
+    super(owner, owner, "");
     this.owner = owner;
     this.image = image;
   }
   
   public Photo(User owner, Blob image, String caption){
-    super(owner, "", caption);
+    super(owner, owner, caption);
     this.image = image;
   }
 }

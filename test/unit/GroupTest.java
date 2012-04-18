@@ -97,7 +97,7 @@ public class GroupTest extends UnitTest {
 		Group g1= new Group(u1,"Test1","Group with posts").save();
 		
 		//Create a Post (but don't save it in the user table)
-		Post p1= new Post(u1,"Title","Content");
+		Post p1= new Post(g1, u1, "Content");
 //		assertEquals(g1.groupPosts.size(),0);
 //		g1. addPost(p1);
 //		List posts= g1.getPosts();

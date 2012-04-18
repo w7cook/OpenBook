@@ -20,7 +20,7 @@ Lives in: ${ user.profile.location}
 </div>
 </div>
 <div class="grid_12">
-#{list items:user.posts(), as:'item'}
+#{list items:user.posts, as:'item'}
   #{post currentUser:currentUser, user:user, item:item /}
 #{/list}
 </div>

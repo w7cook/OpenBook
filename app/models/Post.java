@@ -17,11 +17,9 @@ public class Post extends Commentable {
   
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
   
-  public enum type{NEWS,PAGE,GROUP,EVENT};
-  public type postType;
+  @ManyToOne
+  public Postable postedObj; // The postable object this post was posted on.
 
-  public String title;
-  
   @ManyToOne
   public User author; // The User who authored the status update
   
@@ -36,22 +34,12 @@ public class Post extends Commentable {
 
   private static final int TEASER_LENGTH = 150;
 
-  public Post(User author, String title, String content) {
+  public Post(Postable postedObj, User author, String content) {
+    this.postedObj = postedObj;
     this.tags = new TreeSet<Tag>();
     this.mentions = new ArrayList<User>();
     this.author = author;
-    this.title = title;
     this.content = parseContent(content);
-    this.postType = type.NEWS;
-  }
-  
-  public Post(User author, String title, String content, type t) {
-    this.tags = new TreeSet<Tag>();
-    this.mentions = new ArrayList<User>();
-    this.author = author;
-    this.title = title;
-    this.content = parseContent(content);
-    this.postType = t;
   }
   
   public String contentTeaser() {
