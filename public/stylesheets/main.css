@@ -344,7 +344,7 @@ a.logo:active {text-decoration:none;}
 }
 
 .post .individual-post {
-  float: right;
+  float: left;
   margin-left: 5px;
   width: 440px;
   font-size: 13px;

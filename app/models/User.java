@@ -129,7 +129,7 @@ public class User extends Model {
   }
 
   public List<Post> posts() {
-    return Post.find("byAuthor", this).fetch();
+    return Post.find("From Post where author=? ORDER BY updatedAt desc", this).fetch();
   }
 
   public List<Comment> comments() {
