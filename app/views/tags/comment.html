@@ -29,7 +29,7 @@
          };
        
          $.post("/comments/deletecomment", deleteData, function() {
-         $('span#comment${_comment.id}').slideUp();
+         $('#comment${_comment.id}').slideUp();
          });
    });
 </script>
