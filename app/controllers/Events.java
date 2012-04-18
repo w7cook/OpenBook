@@ -1,8 +1,8 @@
 package controllers;
 
-import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,8 +10,6 @@ import java.util.List;
 import models.Event;
 import models.Post;
 import models.User;
-import play.mvc.Before;
-import play.mvc.With;
 
 public class Events extends OBController {
 
@@ -178,7 +176,7 @@ public class Events extends OBController {
   }
 
   public static void newEventPost(Long eventId, Long userId, String post_content){
-    new Post((User)User.findById(userId), eventId.toString(), post_content, Post.type.EVENT).save();
+    new Post((Event)Event.findById(eventId), (User)User.findById(userId), post_content).save();
     event(eventId);
   }
   
