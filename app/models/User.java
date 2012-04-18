@@ -74,6 +74,10 @@ public class User extends Model {
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
   public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
+	
+  @ElasticSearchIgnore
+  @OneToMany(mappedBy = "owner", cascade=CascadeType.ALL)
+  public List<LinkedVideo> videos; //videos of the user
 
   public User(String email, String password, String username) {
     this.email = email;
