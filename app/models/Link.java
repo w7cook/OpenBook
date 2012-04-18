@@ -10,9 +10,9 @@ import play.db.jpa.*;
 
 @Entity
 public class Link extends Post {
-  enum source {VIDEO};
+  enum source {VIDEO, VIMEO, YOUTUBE, IMAGE };
   private static final Pattern youtube_pattern = Pattern.compile("");
-  private static final Pattern vimeo_pattern = Pattern.compile("");
+  private static final Pattern vimeo_pattern = Pattern.compile("vimeo.com/[0-9]+");
   
   public String external_url;
   public source link_type;
