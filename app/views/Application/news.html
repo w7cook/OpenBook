@@ -36,12 +36,13 @@
   #{/elseif}
 </ul>
     
-<<<<<<< HEAD
+
 #{if user.id == currentUser.id}
   <div class="ui_InputContainer" id="PostContainer" style="margin-bottom: 2em;">
-    <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" style="width: 100%;">new post...</textarea>
+    <textarea name="post_content" id="postContent" style="width: 100%;">new post...</textarea>
     <button id="postSubmit" class="btn btn-primary" onclick="submitPost()"><i class="icon-plus"></i> Post</button>
   </div>
+
   <!--
   <div class="ui_InputContainer" id="photo-upload" style="display: none;">
     #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
@@ -69,7 +70,7 @@
   #{/list}
 </ul>
 
-<script src="/public/javascripts/newPost.js"></script>
+<script src="/public/javascripts/post.js"></script>
 
 <!--
 

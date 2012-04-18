@@ -22,6 +22,73 @@
   </li>
 </ul>
 
-<div class="modal fade" id="eventCreator">
-  stuff
+<div class="modal hide fade" id="eventCreator">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal"><i class="icon-remove"></i></a>
+    <h3>Create A New Event</h3>
+  </div>
+  #{form @Events.event_create()}
+    <div class="modal-body">
+      <label>Event Name</label>
+      <input class="text-input" type="text" name="curEvent.name" />
+      <label>Details</label>
+      <input class="text-input" type="text" name="curEvent.script" />
+      <label>Where</label>
+      <input class="text-input" id="mapSearchInput" type="text" name="curEvent.location" onkeypress="return event.keyCode!=13" />
+      <div id="map_canvas"></div>
+    </div>
+    <div class="modal-footer">
+      <div class="pull-left">
+        <input type="submit" class="btn btn-success">
+        <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+    #{/form}
 </div>
+
+<script
+   src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+   type="text/javascript">
+</script>
+
+
+<script>
+  var map;
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(30.2733,-97.7421),
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    
+    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    alert('in function initialize');
+  /*
+    var input = document.getElementById('mapSearchInput');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+  
+    autocomplete.bindTo('bounds', map);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+      var place = autocomplete.getPlace();
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);  // Why 17? Because it looks good.
+      }
+
+      var image = new google.maps.MarkerImage(
+        place.icon,
+        new google.maps.Size(71, 71),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(17, 34),
+        new google.maps.Size(35, 35));
+      marker.setIcon(image);
+      marker.setPosition(place.geometry.location);
+    })
+*/
+  }
+  $('#eventCreator').on('shown', initialize);
+</script>
