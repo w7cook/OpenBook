@@ -1,6 +1,7 @@
 package models;
 
 import java.util.*;
+
 import javax.persistence.*;
 
 import org.elasticsearch.index.query.QueryBuilders;
@@ -275,5 +276,42 @@ public class User extends Model {
    */
   public List<Event> pastEvents() {
     return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate < ?2 ", this, new Date()).fetch();
+  }
+  
+  /** List all events for any user
+   * 
+   * @return a list of events the user is a member of
+   */
+  public List<Event> myEvents() {
+    List<Event> allEvents= Event.findAll();
+    List<Event> answer= new ArrayList<Event>();
+    for(Event e : allEvents){
+      for(User u : e.members){
+        if(u.equals(this)){
+          answer.add(e);
+          break;
+        }
+      }
+    }
+    return answer;
+  }
+  
+  /** List all friends uninvited to an event
+   * 
+   * @return a list of users that are friends with the current user, not yet invited to event
+   */
+  public List<User> uninvitedFriends(Long eventId, Long userId){
+    User guest = User.findById(userId);
+    Event event = Event.findById(eventId); 
+    List<Relationship> friends = guest.confirmedFriends();
+    List<User> inviteFriends = new ArrayList<User>();
+    
+    for(int i = 0; i < friends.size(); i++){
+      User u = friends.get(i).to;
+      if (!(event.members).contains(u)){
+        inviteFriends.add(u);
+      }
+    }
+    return inviteFriends;
   }
 }
