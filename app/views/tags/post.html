@@ -23,11 +23,6 @@
       ${_item.author.name}
     </a>
   </p>
-  <p>
-    ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}    
-    ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
-    <button><i class="icon-ok"></i> Like!</button>
-  </p>
   <div class="post-content">
     #{if _item.getClass().getName() == "models.Photo"}
     <div class="post-image thumbnail">
@@ -43,6 +38,11 @@
     #{else}
       ${_item.content.nl2br()}
     #{/else}
+    <p>
+      ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}    
+      ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
+      <button><i class="icon-ok"></i> Like!</button>
+    </p>
     <p>
       Posted at: ${_item.createdAt}
     </p>

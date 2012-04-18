@@ -10,7 +10,7 @@
 </div>
 -->
 <ul class="nav nav-list well">
-  <li class="list-header"><a href="/users/${_user.id}">${_user.name}</a></li>
+  <li class="nav-header"><a href="/users/${_user.id}">${_user.name}</a></li>
   <li>
     <a href="/users/${_user.id}" class="thumbnail">
       <img src="@{Photos.getPhoto(_user.profile.profilePhoto)}" alt="${_user.name}" />
@@ -19,7 +19,7 @@
 
   <li class="divider"></li>
 
-  <li class="list-header">Favorites</li>
+  <li class="nav-header">Favorites</li>
   <li><a href="@{Application.news()}">News Feed</a></li>
   <li><a href="/users/${_user.id}/events">Events</a></li>
   <li><a href="@{Checkin.checkin()}">Checkin</a></li>
@@ -29,25 +29,25 @@
 
   <li class="divider"></li>
 
-  <li class="list-header">Groups</li>
+  <li class="nav-header">Groups</li>
   #{list items:_user.getGroups(), as:'Group'}
     <li><a href="@{Groups.group(Group.id)}">${Group.groupName}</a></li>
   #{/list}
 
   <li class="divider"></li>
 
-  <li class="list-header">Photos</li>
+  <li class="nav-header">Photos</li>
   <li><a href="@{Photos.photos()}">My Photos</a></li>
 
   <li class="divider"></li>
 
-  <li class="list-header">Pages</li>
+  <li class="nav-header">Pages</li>
   <li><a href="@{Pages.pages()}">All Pages</a></li>
   <li><a href="@{Pages.myPages()}"> My pages </a></li>
 
   <li class="divider"></li>
 
-  <li class="list-header">Friends</li>
+  <li class="nav-header">Friends</li>
   #{list items:_user.confirmedFriends(), as:'friendship'}
     <li><a href="@{Application.news(friendship.to.id)}">${ friendship.to.name}</a></li>
   #{/list}
@@ -55,7 +55,7 @@
 
   <li class="divider"></li>
 
-  <li class="list-header">Interests</li>
+  <li class="nav-header">Interests</li>
   #{if (_user.subscribedTo.size() > 0)} 
     <li><a href="@{Subscriptions.subscriptions(_user.id)}">Subscriptions</a></li>
   #{/if}

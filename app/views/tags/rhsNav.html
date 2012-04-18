@@ -1,19 +1,21 @@
-<div class="lhs-navBoxHeader">RSS Feed</div>
-<div class="lhs-navBoxBody">
-  <a href="#">Latest News</a>
-</div>
+<ul class="nav nav-list well">
 
-<div class="lhs-navBoxHeader">Upcoming Events</div>
-<div class="lhs-navBoxBody">
-  <a href="/events/upcoming">Upcoming Events</a>
-</div>
+<li class="nav-header">RSS Feed</li>
+<li><a href="#">Latest News</a></li>
 
-<div class="lhs-navBoxHeader">ETC</div>
-<div class="lhs-navBoxBody">
-  <a href="#">Extra Stuff</a>
-</div>
+<li class="divider">
 
-<div class="lhs-navBoxHeader">Upcoming Birthdays</div>
+<li class="nav-header">Upcoming Events</li>
+<li>TODO: list of 5 or so events</li>
+<li><a href="/events/upcoming">Upcoming Events</a></li>
+
+<li class="divider">
+
+<li class="nav-header">ETC</li>
+<li><a href="#">Extra Stuff</a></li>
+
+<li class="nav-header">Upcoming Birthdays</li>
+<li>Why is this an iframe?  why not a simple list of names/dates?</li>
 <iframe src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "158" height = "100%"
 	scrolling = "auto" align = "middle" marginheight = "0" 
 	marginwidth = "0" hspace = "5" vspace = "5" frameborder = "1"> </iframe> 
