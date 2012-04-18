@@ -296,7 +296,6 @@ label {
 .comment {
   border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
   background-color: #${skin.get("commentBGColor")};
-  width: 420px;
 }
 
 .comment-textarea {
