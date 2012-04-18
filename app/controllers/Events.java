@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import models.Event;
 import models.Post;
@@ -49,7 +50,7 @@ public class Events extends OBController {
     if(user == null)
       events = Event.findAll();  //TODO: change to public and friends after visibility gets sorted
     else
-      events = user.authoredEvents();
+      events = user.myEvents();
     render(user, currentUser, events);
   }
 
@@ -81,8 +82,10 @@ public class Events extends OBController {
 
   public static void addEventInvite(Long eventId, Long guestId) {
     User guest = User.findById(guestId);
-    Event event = Event.findById(eventId);
-    event.newEventInvite(guest);
+    Event event = Event.findById(eventId);   
+    event.addMember(guest);
+    event.save();
+    event(event.id);
   }
 
   public static void deleteEvent(Long eventId) {
@@ -177,5 +180,13 @@ public class Events extends OBController {
   public static void newEventPost(Long eventId, Long userId, String post_content){
     new Post((User)User.findById(userId), eventId.toString(), post_content, Post.type.EVENT).save();
     event(eventId);
+  }
+  
+  public static void leaveEvent(Long eventId, Long userId){
+    User guest = User.findById(userId);
+    Event event = Event.findById(eventId);   
+    event.removeMember(guest);
+    event.save();
+    events(userId);
   }
 }

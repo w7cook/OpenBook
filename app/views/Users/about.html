@@ -1,7 +1,28 @@
 #{extends 'main.html' /}
+
+<div class="span2">
+  <ul class="nav nav-list well">
+    <li class="nav-header"><a href="/users/${_user.id}">${user.name}</a></li>
+    <li>
+      <a href="/users/${_user.id}" class="thumbnail" style="margin: 0px">
+        #{if (user.profile.profilePhoto == -1 || user.profile.profilePhoto == null)} 
+          <img src="@{Photos.getPhoto(2)}" alt="${user.name}"/> 
+        #{/if} 
+        #{else} 
+          <img src="@{Photos.getPhoto(user.profile.profilePhoto)}" alt="${user.name}"/> 
+        #{/else}
+      </a>
+    </li>
+
+    <li class="divider"></li>
+    
+    <li class="nav-header">Info</li>
+    <li>Born: ${ user.profile.birthday}</li>
+    <li>Lives in: ${ user.profile.location}</li>
+  </ul>
+</div>
+
 <div class="span10">
-  TODO: page about ${user}
-  
   <ul class="unstyled">
     #{list items:user.posts(), as:'item'}
       <li>#{post currentUser:currentUser, user:user, item:item /}</li>

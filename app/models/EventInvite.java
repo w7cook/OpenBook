@@ -16,6 +16,7 @@ public class EventInvite extends Model {
 	public User curGuest;
 	
 	boolean viewedInvite;
+	boolean hasResponded;
 	boolean isAttending;
 	boolean maybeAttending;
 	boolean declinedAttending;
@@ -23,6 +24,10 @@ public class EventInvite extends Model {
 	public EventInvite(Event curEvent, User curGuest){
 		this.curEvent = curEvent;
 		this.curGuest = curGuest;
+		hasResponded = false;
+		isAttending = false;
+		maybeAttending = false;
+		declinedAttending = false;
 	}
 	
 	public User getGuest(){

@@ -8,6 +8,7 @@
     <li><a href="@{Posts.poke(user.id)}">Poke!</a></li>
   #{/if}
         
+
   #{if user.id == currentUser.id}
     <li><a id="about-button" href="@{Application.edit_basic}">About me</a></li>
   #{/if}
@@ -35,6 +36,7 @@
   #{/elseif}
 </ul>
     
+<<<<<<< HEAD
 #{if user.id == currentUser.id}
   <div class="ui_InputContainer" id="PostContainer" style="margin-bottom: 2em;">
     <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" style="width: 100%;">new post...</textarea>
@@ -48,6 +50,7 @@
       <input type="submit" name="submit" value="Upload" /> 
     #{/form}
   </div>
+
   <div class="ui_inputContainer" id="link-upload" style="display: none">
     #{form @Links.addLink(), enctype:'multipart/form-data'}
       <input type="text" name="url" value="video url" />
@@ -57,6 +60,7 @@
   </div>
   -->
 #{/if}
+
 
 <h3>News</h3>
 <ul class="unstyled" id="post-list">
@@ -92,15 +96,17 @@
 </script>
 
 <script>
+  $('#postContent').val(defaultPost);
   $('#postContent')
   .focusin(function() {
-  if ( this.value == 'new post...' ) {
+  if ( hasTypedPost == false ) {
   this.value = '';    
   }
   })
   .focusout(function() {
   if ( this.value == '' ) {
-  this.value = 'new post...';    
+  hasTypedPost = false;
+  this.value = defaultPost;    
   }
   });
 </script>
