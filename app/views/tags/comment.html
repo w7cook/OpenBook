@@ -5,7 +5,7 @@
 			<br>
 		</div>
 		<div class="comment-author">              
-      <a href="@{Application.news(_comment.author.id)}">${_comment.author.name}</a>
+      <a href="@{Users.about(_comment.author.id)}">${_comment.author.name}</a>
     </div>
 		<div class="comment-date">
       #{timeago date:_comment.updatedAt /}
