@@ -24,18 +24,15 @@ public class Pages extends OBController {
 		render("Pages/myPage.html", page,user, currentUser);
 	}
 	
-	public static void pageUpdate(String pid, String info){
-		Page page = Page.findById(Long.parseLong(HTML.htmlEscape(pid))); 
-		page.info = HTML.htmlEscape(info);
-		page.save();
-		User user = user();
-		User currentUser = user();
-		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("_user", user);
-		m.put("_currentUser", currentUser);
-		m.put("page", page);
-		renderTemplate(m);
-	}
+
+  public static void pageUpdate(Long id, String info){
+  	Page page = Page.findById(id); 
+  	page.info = info;
+    page.save();
+    //User _currentUser = user();
+    User _user = user();
+    render("Pages/myPage.html", page, _user);
+  }
 	
 	public static void myPages(){
 		User _user = user(); 

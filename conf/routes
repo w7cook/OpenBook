@@ -112,6 +112,10 @@ GET     /checkin/at                             Checkin.at
 # Groups
 GET     /groups/{id}                            Groups.group
 
+# Pages
+GET			/pages/{id}															Pages.display
+GET     /pages/{<[0-9]+>ownerId}/photos/?       PagePhotos.photos
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
