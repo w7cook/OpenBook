@@ -1,69 +1,69 @@
 #{extends 'three_panel.html' /}
-<div id="contentArea">
-  <div class="pagelet">
-    <a href="#">Update Status</a>
-    <a href="#">Add Photo</a>
-    <a href="#">Share Link</a>
-    <a href="#">Ask Question</a>
-    
-    #{if user.id == currentUser.id}
-    #{/if}
-    #{else}
-      <a href="@{Posts.poke(user.id)}">Poke!</a>
-    #{/else}
+<ul class="nav nav-pills">
+  <li><a href="#">Update Status</a></li>
+  <li><a href="#">Add Photo</a></li>
+  <li><a href="#">Share Link</a></li>
+  <li><a href="#">Ask Question</a></li>
+  #{if user.id != currentUser.id}
+    <li><a href="@{Posts.poke(user.id)}">Poke!</a></li>
+  #{/if}
         
-    #{if user.id == currentUser.id}
-      <a id="about-button" href="@{Application.edit_basic}">About me</a>
-    #{/if}
-    #{else}
-      <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
-    #{/else}
-  </div>
-  <br />
+  #{if user.id == currentUser.id}
+    <li><a id="about-button" href="@{Application.edit_basic}">About me</a></li>
+  #{/if}
+  #{else}
+    <li><a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a></li>
+  #{/else}
+
   #{if user.checkFriendship(user.id) == 'Request Friendship'}
-    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-      ${user.checkFriendship(user.id)}
-    </a>
+    <li>
+      <a id="friend-button" href="@{Application.requestFriends(user.id)}">
+        ${user.checkFriendship(user.id)}
+      </a>
+    </li>
   #{/if}
   #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-    Friendship Requested
+    <li><p>Friendship Requested</p></li>
   #{/elseif}
   #{elseif user.checkFriendship(user.id) == 'Friends'}
-    Friends :) 
-    <a id="friend-button" href="@{Application.removeFriends(user.id)}">
-      Remove friend
-    </a>
+    <li>
+      Friends :) 
+      <a id="friend-button" href="@{Application.removeFriends(user.id)}">
+        Remove friend
+      </a>
+    </li>
   #{/elseif}
+</ul>
     
-  #{if user.id == currentUser.id}
-    <div class="ui_InputContainer" id="PostContainer">
-    <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" >new post...</textarea>
-      <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
-      alt="Post" style="vertical-align: bottom;"/>    
-    </div>
-    <div class="ui_InputContainer" id="photo-upload" style="display: none;">
-      #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
-        <input type="file" name="image" />
-        <input type="text" name="content" value="Add a caption" />
-        <input type="submit" name="submit" value="Upload" /> 
-      #{/form}
-    </div>
-    <div class="ui_inputContainer" id="link-upload" style="display: none">
-      #{form @Links.addLink(), enctype:'multipart/form-data'}
-        <input type="text" name="url" value="video url" />
-        <input type="text" name="content" value="new post..." />
-        <input type="submit" name="submit" value="Upload" />
-      #{/form}
-    </div>
-  #{/if}
-    
-  <div id="postsList">
-    #{list items:user.news(), as:'item'} 
-      #{post currentUser:currentUser,user:user,item:item /}
-    #{/list}
+#{if user.id == currentUser.id}
+  <div class="ui_InputContainer" id="PostContainer" style="margin-bottom: 2em;">
+    <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" style="width: 100%;">new post...</textarea>
+    <button id="postSubmit" class="button button-primary"><i class="icon-plus"></i> Post</button>
   </div>
-</div>
-</div> <!-- grid_8 -->
+  <!--
+  <div class="ui_InputContainer" id="photo-upload" style="display: none;">
+    #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
+      <input type="file" name="image" />
+      <input type="text" name="content" value="Add a caption" />
+      <input type="submit" name="submit" value="Upload" /> 
+    #{/form}
+  </div>
+  <div class="ui_inputContainer" id="link-upload" style="display: none">
+    #{form @Links.addLink(), enctype:'multipart/form-data'}
+      <input type="text" name="url" value="video url" />
+      <input type="text" name="content" value="new post..." />
+      <input type="submit" name="submit" value="Upload" />
+    #{/form}
+  </div>
+  -->
+#{/if}
+
+<h3>News</h3>
+<ul class="unstyled"
+  #{list items:user.news(), as:'item'} 
+    <li>#{post currentUser:currentUser,user:user,item:item /}</li>
+  #{/list}
+</ul>
 
 <script type="text/javascript">
   $('input#postSubmit').click(function(event) {
