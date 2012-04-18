@@ -43,11 +43,16 @@ public class LinkedVideo extends Commentable {
     return Comment.find("parentObj = ? order by createdAt asc", this).fetch();
   }
   
-  // public String getThumbnail(){
-  //   if(link_type == 'y'){
-  //     Pattern youtube = Pattern.compile("http.*\\?v=([a-zA-Z0-9_\\-]+)(?:&.)*");
-  //   }
-  // }
+  protected String getEmbedHtml(){
+    if(link_type == 'y')
+      return "<iframe class=\"youtube-player\" type=\"text/html\" width=\"560\" height=\"340\" src=\"http://www.youtube.com/embed/" + video_id +  "\" frameborder=\"0\"> </iframe>";
+    else if (link_type == 'd')
+      return "";
+    else if(link_type == 'v')
+      return "";
+    else
+      return "NOOOO";
+  }
   
   
 }
