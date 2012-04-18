@@ -70,6 +70,8 @@ public class Profile extends Model {
 
   public boolean hasAnniversary()
   {
+	if (relationshipStatus == null)
+		return false;
     return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
       || relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
   }
@@ -89,7 +91,8 @@ public class Profile extends Model {
     this.quotes = "";
     this.significantOther = null;
     this.religion = "";
-
+	
+	this.languages = new ArrayList<UserLanguage>();
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
     this.skin = Skins.getSkin("default","default_skin");//the default skin look is used
