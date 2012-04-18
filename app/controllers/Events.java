@@ -10,7 +10,6 @@ import java.util.List;
 import models.Event;
 import models.Post;
 import models.User;
-import models.Relationship;
 import play.mvc.Before;
 import play.mvc.With;
 
