@@ -43,6 +43,16 @@ User(gparker):
 
 Profile(bobProfile):
     owner:          bob
+    gender:         male
+    locale:         Austin
+    significantOther:   alice
+    anniversary:    01-01-2000
+    birthday:       01-01-1990
+    phone:          555-123-4567
+    address:        123 Somewhere St.
+    email:          bob@gmail.com
+    bio:            >
+                    Hi, I'm Bob
     
 Profile(jeffProfile):
     owner:          jeff
