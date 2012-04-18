@@ -11,11 +11,11 @@ import models.*;
 public class Profiles extends OBController {
 	
 	public static void updateBio(String bio){
-		User u  = user();
-		Profile p = Profile.find("owner = ?", u).first();
-		p.bio = bio;
-		p.save();
-		renderTemplate("Application/edit_basic.html", p);
+		User user  = user();
+		Profile profile = Profile.find("owner = ?", user).first();
+		profile.bio = bio;
+		profile.save();
+		renderTemplate("Application/edit_basic.html", profile);
 	}
 	
 	public static void updateInformation(Date birthday, String relationshipStatus, String gender, String interestedIn, 
@@ -39,7 +39,7 @@ public class Profiles extends OBController {
 
 	    profile.political = political;
 		profile.save();
-		renderTemplate("Application/edit_basic", profile);
+		renderTemplate("Application/edit_basic.html", profile);
 	}
 	
 	public static void updateContactInfo(String phone, String address){
@@ -48,14 +48,14 @@ public class Profiles extends OBController {
 		profile.phone = phone;
 		profile.address = address;
 		profile.save();
-		renderTemplate("Application/edit_basic", profile);	
+		renderTemplate("Application/edit_basic.html", profile);	
 	}
   
 	public static void updateWorkEdu(String education, String work){
 		User user = user();
 		Profile profile = user.profile;
 		//TODO: write this!
-		renderTemplate("Application/edit_basic", profile);	
+		renderTemplate("Application/edit_basic.html", profile);	
 	}
 
   public static void updateBasic(String religion, String bio, Date birthday, String gender,
