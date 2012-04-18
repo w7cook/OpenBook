@@ -1,10 +1,6 @@
 <div class="post" id="post${_item.id}">
   <div class="hideable">
-    <div class="left">
-      <img style="width: 50px; height: 50px;"
-           src="@{Photos.getPhoto(_item.author.profile.profilePhoto)}" />
-    </div>
-    <div class="individual-post-metadata">
+    <div class="individual-post-metadata" style="width: 100%">
       <span id = "numLikesPost${_item.id}"> ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
       </span> 
       #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
@@ -17,6 +13,10 @@
           . <a id="deletePostSubmit${_item.id}" onclick="return false;" href="#">delete my post</a> 
         #{/if}
       #{/if}   
+    </div>
+    <div class="left">
+      <img style="width: 50px; height: 50px;"
+           src="@{Photos.getPhoto(_item.author.profile.profilePhoto)}" />
     </div>
 
     <div class="individual-post">
