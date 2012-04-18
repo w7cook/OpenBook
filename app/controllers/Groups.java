@@ -22,7 +22,7 @@ public class Groups extends OBController {
 	}
 	
 	public static void newGroupPost(Long groupId, Long userId, String post_content){
-		new Post((User)User.findById(userId), groupId.toString(), post_content, Post.type.GROUP).save();
+		new Post((Group)Group.findById(groupId), (User)User.findById(userId), post_content).save();
 		group(groupId);
 	}
 

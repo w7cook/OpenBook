@@ -19,7 +19,7 @@ public class Link extends Post {
   
   
   public Link (User user, String content, String url){
-    super(user, "", content);
+    super(user, user, content);
     this.external_url = parseLink(url);
   }
   

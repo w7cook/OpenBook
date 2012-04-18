@@ -17,11 +17,9 @@ public class Post extends Commentable {
   
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
   
-  public enum type{NEWS,PAGE,GROUP,EVENT};
-  public type postType;
+  @ManyToOne
+  public Postable postedObj; // The postable object this post was posted on.
 
-  public String title;
-  
   @ManyToOne
   public User author; // The User who authored the status update
   
@@ -36,22 +34,12 @@ public class Post extends Commentable {
 
   private static final int TEASER_LENGTH = 150;
 
-  public Post(User author, String title, String content) {
+  public Post(Postable postedObj, User author, String content) {
+    this.postedObj = postedObj;
     this.tags = new TreeSet<Tag>();
     this.mentions = new ArrayList<User>();
     this.author = author;
-    this.title = title;
     this.content = parseContent(content);
-    this.postType = type.NEWS;
-  }
-  
-  public Post(User author, String title, String content, type t) {
-    this.tags = new TreeSet<Tag>();
-    this.mentions = new ArrayList<User>();
-    this.author = author;
-    this.title = title;
-    this.content = parseContent(content);
-    this.postType = t;
   }
   
   public String contentTeaser() {
@@ -75,10 +63,16 @@ public class Post extends Commentable {
   public boolean byCurrentUser() {
     return author.email.equals( Security.connected() );
   }
-  
-  public List<Object> getSomeComments(){
+  public List<Object> getOlderComments(int n){
+	  ArrayList<Object> list = (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch();
+	  if(n<list.size()){
+		  while(n>0){list.remove(0);n--;}
+	  }
+	  return list;
+  }
+  public List<Object> getSomeComments(int n){
 	  ArrayList<Object> ret = new ArrayList<Object>();
-	  ArrayList<Object> list = (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch(2);
+	  ArrayList<Object> list = (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch(n);
 
 	  for(int i=list.size()-1;i>=0;i--)
 		  ret.add(list.get(i));

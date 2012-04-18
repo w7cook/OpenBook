@@ -35,14 +35,20 @@
 			${_item.content.nl2br()}
 			
 			</div>
-        <div class="commentsList">
-                #{list items:_item.getComments(), as:'comment'} 
+			#{if _item.comments.size() > 2}
+			<a href="#" onclick="return false;" id="showAllCommentsSubmit${_item.id}">+${_item.comments.size() - 2} more comment#{if (_item.comments.size()-2) != 1}s#{/if} </a>
+			#{/if}
+		<div id="olderCommentsList${_item.id}" class="commentsList" style="display:none;">
+		  #{list items:_item.getOlderComments(2), as:'comment'}
+		    #{comment user:_user, currentUser:_currentUser, comment:comment /}
+		  #{/list}
+		</div>
+        <div id="commentsList${_item.id}" class="commentsList">
+                #{list items:_item.getSomeComments(2), as:'comment'} 
                     #{comment user:_user,currentUser:_currentUser,comment:comment /} 
                   #{/list}
         </div>
      </div>
-		
-            <div id="newComments${_item.id}"></div> 
 				<div id="new_comment_for_post${_item.id}" style="clear: both;" >
 					<img style="width: 30px; height: 30px;"	src=@{Photos.getPhoto(_user.profile.profilePhoto)} display="inline" /> 
 					
@@ -58,7 +64,10 @@
 		   hasTypedComment${_item.id} = false;
 	   }
    });
-   
+   $('a#showAllCommentsSubmit${_item.id}').click(function(event) {
+	   $('div#olderCommentsList${_item.id}').slideDown();
+	   $('a#showAllCommentsSubmit${_item.id}').hide();
+   });
    $('a#commentSubmit${_item.id}').click(function(event) {
 	   if(hasTypedComment${_item.id}==true){
        var commentData = {
@@ -69,7 +78,7 @@
        
          $.post("/comments/makeNewComment", commentData, function(data) {
          var new_item = $(data).hide();
-           $("div#newComments${_item.id}").append(new_item);
+           $("div#commentsList${_item.id}").append(new_item);
           new_item.slideDown();
          hasTypedComment${_item.id} = false;
          $('#commentContent${_item.id}').val(defaultComment);
@@ -93,7 +102,7 @@
       $('#commentContent${_item.id}').val(defaultComment);
       $('#commentContent${_item.id}')
       .focusin(function() {
-      if ( this.value == defaultComment ) {
+      if ( hasTypedComment${_item.id} == false ) {
       this.value = '';    
       }
       })
@@ -110,9 +119,9 @@
       
       function drawLikesButton_${_item.id}( elem ) {
       if( !likes_${_item.id} ) {
-      elem.text('Like');
+      elem.text("&{'comment.like'}");
       } else {
-      elem.text('Unlike');
+      elem.text("&{'comment.unlike'}");
       }
       }
       
@@ -127,13 +136,13 @@
       
       if( !likes_${_item.id} ) {
       $.post("/Application/addLikeAjax", postData, function(data) {
-      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " " +"&{'comment.like'}"+(data.numLikes == 1? "" : "s"));
       likes_${_item.id} = !likes_${_item.id};
       drawLikesButton_${_item.id}(bttn);
       });
       } else {
       $.post("/Application/removeLikeAjax", postData, function(data) {
-      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
+      $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " " +"&{'comment.like'}"+(data.numLikes == 1? "" : "s"));
       likes_${_item.id} = !likes_${_item.id};
       drawLikesButton_${_item.id}(bttn);
       });
