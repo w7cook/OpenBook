@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.util.*;
 
 import org.apache.commons.mail.EmailException;
@@ -13,6 +14,7 @@ import play.cache.Cache;
 import play.data.validation.Error;
 import play.data.validation.Required;
 import play.libs.Codec;
+import play.libs.IO;
 import play.libs.Images;
 import play.libs.Mail;
 import play.mvc.*;
@@ -89,6 +91,8 @@ public class Signup extends Controller {
     map.put("id", confirmID);
     String url = Router.reverse("Signup.confirm", map).url;
     url = Play.configuration.getProperty("application.baseUrl") + url;
+    String password = IO.readContentAsString(new File("conf/passwd.pwd")).trim();
+    Play.configuration.setProperty("mail.smtp.pass", password);
     SimpleEmail email = new SimpleEmail();
     email.setFrom("registration@openbook.com");
     email.addTo(emailTo);
