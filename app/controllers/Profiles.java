@@ -9,25 +9,84 @@ import models.*;
 
 @With(Secure.class)
 public class Profiles extends OBController {
+	
+	public static void updateBio(String bio){
+		User u  = user();
+		Profile p = Profile.find("owner = ?", u).first();
+		p.bio = bio;
+		p.save();
+		renderTemplate("Application/edit_basic.html", p);
+	}
+	
+	public static void updateInformation(Date birthday, String relationshipStatus, String gender, String interestedIn, 
+	Date anniversary, String language, String religion, String political){
+		User user = user();
+		Profile profile = user.profile;
+	    profile.religion = religion;
+	    profile.birthday = birthday;
+	    profile.gender = gender;
+		profile.interestedIn = interestedIn;
+	    profile.relationshipStatus = relationshipStatus;
+
+		Language lang = Language.find("name = ?", language).first();
+		if (lang == null){
+			lang = new Language(language);
+			lang.save();
+		}
+		UserLanguage userlang = new UserLanguage(user, lang);
+		userlang.save();
+	    profile.languages.add(userlang);
+
+	    profile.political = political;
+		profile.save();
+		renderTemplate("Application/edit_basic", profile);
+	}
+	
+	public static void updateContactInfo(String phone, String address){
+		User user = user();
+		Profile profile = user.profile;
+		profile.phone = phone;
+		profile.address = address;
+		profile.save();
+		renderTemplate("Application/edit_basic", profile);	
+	}
   
-  public static void updateBasic(User user, String religion, Date birthday, String gender,
-      String relationshipStatus, List<UserLanguage> languages, String political, String phone,
+	public static void updateWorkEdu(String education, String work){
+		User user = user();
+		Profile profile = user.profile;
+		//TODO: write this!
+		renderTemplate("Application/edit_basic", profile);	
+	}
+
+  public static void updateBasic(String religion, String bio, Date birthday, String gender,
+      String relationshipStatus, String language, String political, String phone,
       String address, List<Enrollment> education, List<Employment> work, Location hometown,
       String quotes) {
-    user.profile.religion = religion;
-    user.profile.birthday = birthday;
-    user.profile.gender = gender;
-    user.profile.relationshipStatus = "Single";
-    user.profile.languages = languages;
-    user.profile.political = political;
-    user.profile.phone = phone;
-    user.profile.address = address;
-    user.profile.education = education;
-    user.profile.work = work;
+	User user = user();
+	Profile profile = user.profile;
+    profile.religion = religion;
+    profile.birthday = birthday;
+    profile.gender = gender;
+    profile.relationshipStatus = relationshipStatus;
+
+	Language lang = Language.find("name = ?", language).first();
+	if (lang == null){
+		lang = new Language(language);
+		lang.save();
+	}
+	UserLanguage userlang = new UserLanguage(user, lang);
+	userlang.save();
+    profile.languages.add(userlang);
+
+    profile.political = political;
+    profile.phone = phone;
+    profile.address = address;
+    profile.education = education;
+    profile.work = work;
   //  u.profile.hometown = hometown;
-    user.profile.quotes = quotes;
-    user.profile.save();
+    profile.quotes = quotes;
+    profile.save();
     user.save();
-    renderTemplate("Application/edit_basic.html", user);
+    renderTemplate("Application/edit_basic.html", profile);
   }
 }

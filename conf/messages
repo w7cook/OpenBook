@@ -10,6 +10,11 @@ checkin.at=You checked in at
 checkin.checkin=Checkin
 checkin.iamat=I am at
 
+# Comment
+comment.like = Like
+comment.unlike = Unlike
+comment.delete = delete
+
 # Profile
 profile.about.you=About You
 profile.bio=Bio
@@ -32,3 +37,37 @@ profile.living=Living
 profile.hometown=Hometown
 profile.favorite.quotations=Favorite Quotations
 profile.quote=Quotes
+
+# Skin
+skin.editMsg=Edit My Skin
+skin.changeSkinMsg=Change Skin to Template
+skin.editCurrentSkinMsg=EDIT CURRENT SKIN
+skin.body=Body
+skin.changeBGImageMsg=Choose Background Image
+skin.header=Header
+skin.bgColor=Background Color
+skin.footer=Footer
+skin.txtAlign=Text Alignment
+skin.fontSize=Font Size
+skin.color=Color
+skin.section=Section
+skin.label=Label
+skin.comment=Comment
+skin.borderSize=Border Size
+skin.borderColor=Border Color
+skin.buttons=Buttons
+skin.borderRadius=Border Radius
+skin.borderBoxShadowColor=Border Box Shadow Color
+skin.txtDec=Text Decoration (underline,etc)
+skin.unvisitedLinkColor=Unvisited Link Color
+skin.visitedLinkColor=Visited Link Color
+skin.hoverLinkColor=Link Hover Color
+skin.selectedLinkColor=Selected Link Color
+skin.save=Save
+skin.makeNewSkinMsg=MAKE NEW PUBLIC SKIN (Visible to Everyone)
+skin.skinName=SkinName
+skin.openBook=OpenBook
+skin.thisIsTheSkin=This is the Skin
+skin.exampleTxt=This is example text.
+skin.setSkinAsMySkin=Set Skin as My Skin
+

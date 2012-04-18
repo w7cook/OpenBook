@@ -51,6 +51,7 @@ POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 
 #Signup
 GET     /signup                                 Signup.signup
+GET     /captcha                                Signup.captcha
 
 # Messages
 GET     /messages                               Messages.inbox
@@ -63,7 +64,7 @@ GET     /groups/search                          GroupSearch.search
 
 #Account
 GET     /users/?                                Users.users #Get a list of all users
-#POST    /users/?                                Signup.signup #Add / update a user
+#POST    /users/?                                Signup.signup #Add /  a user
 PUT     /users/{<[0-9]+>userId}                 Users.updateUser
 GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
 DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
