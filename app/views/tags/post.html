@@ -1,4 +1,4 @@
-<div class="individual-post-metadata">
+
   <!--
   <span id = "numLikesPost${_item.id}">
     ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
@@ -15,57 +15,82 @@
   #{/if}   
 -->
 
-<div class="individual-post" style="margin-top: 2em; margin-bottom:2em;">
-  <p>
+<ul class="unstyled individual-post well">
+  <li class="row-fluid vertical-element">
     <a href="/users/${_item.author.id}">
       <img style="width: 50px; height: 50px;"
            src="@{Photos.getPhoto(_item.author.profile.profilePhoto)}" alt="${_item.author.name}"/>
       ${_item.author.name}
     </a>
-  </p>
-  <div class="post-content">
-    #{if _item.getClass().getName() == "models.Photo"}
-    <div class="post-image thumbnail">
-      <img src="@{Photos.getPhoto(_item.id)}" />
-    </div>
-    #{/if}
+  </li>
+
+  <li class="row-fluid vertical-element">
+    <article>
+      #{if _item.getClass().getName() == "models.Photo"}
+        <div class="post-image thumbnail">
+          <img src="@{Photos.getPhoto(_item.id)}" />
+        </div>
+      #{/if}
     
-    #{elseif _item.getClass().getName() == "models.Link"}
-      <div class="post-link">
-        <iframe src="${((models.Link)_item).external_url}"></iframe>
-      </div>
-    #{/elseif}
-    #{else}
-      ${_item.content.nl2br()}
-    #{/else}
-    <p>
-      ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}    
-      ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
-      <button><i class="icon-ok"></i> Like!</button>
-    </p>
-    <p>
+      #{elseif _item.getClass().getName() == "models.Link"}
+        <div class="post-link">
+          <iframe src="${((models.Link)_item).external_url}"></iframe>
+        </div>
+      #{/elseif}
+      #{else}
+        ${_item.content.nl2br()}
+      #{/else}
+    </article>
+  </li>
+
+  <hr>
+
+  <li class="row-fluid vertical-element">
+    <div class="span2">
+      <strong>${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}</strong>
+    </div>
+    <div class="span2">
+      <strong>${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if}</strong>
+    </div>
+    <div class="span2">
+      <button class="btn btn-mini btn-success"><i class="icon-ok"></i> Like!</button>
+    </div>
+    <div class="span6"></div>
+  </li>
+
+  <li class="row-fluid vertical-element">
+    <div class="span4">
       Posted at: ${_item.createdAt}
-    </p>
-  </div>
+    </div>
+    <div class="span2">
+      #{if _item.author ==  _currentUser} 
+        <button class="btn btn-mini btn-danger" id="deletePostSubmit${_item.id}" onclick="return false;">delete my post</button> 
+      #{/if}
+    </div>
+    <div class="span6"></div>
+  </li>
   
-  <ul class="comment-list unstyled">
-    #{list items:_item.getComments(), as:'comment'} 
-      <li>#{comment user:_user, currentUser:_currentUser, comment:comment /}</li>
-    #{/list}
-  </ul>
-</div>
+  <hr>
+
+  <li class="row-fluid vertical-element">
+    <ul class="comment-list unstyled">
+      #{list items:_item.getComments(), as:'comment'} 
+        <li>#{comment user:_user, currentUser:_currentUser, comment:comment /}</li>
+      #{/list}
+    </ul>
+  </li>
 
 
-<div id="new_comment_for_post${_item.id}" class="row-fluid">
-  <div class="span4">
-    <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="width:100%;"></textarea>
-  </div>
-  <div class="span2">
-    <button id="commentSubmit${_item.id}"><i class="icon-plus"></i> Comment</button>
-  </div>
-  <div class="span6"></div>
-</div>
-
+  <li class="row-fluid vertical-element" id="new_comment_for_post${_item.id}">
+    <div class="span4">
+      <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="width:100%;"></textarea>
+    </div>
+    <div class="span2">
+      <button class="btn" id="commentSubmit${_item.id}"><i class="icon-plus"></i> Comment</button>
+    </div>
+    <div class="span6"></div>
+  </li>
+</ul>
 
 
 <script type="text/javascript">
