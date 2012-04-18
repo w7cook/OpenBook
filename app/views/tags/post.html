@@ -1,6 +1,6 @@
 <div class="post" id="post${_item.id}">
   <div class="hideable">
-    <div class="individual-post-metadata" style="width: 100%">
+    <div class="individual-post-metadata">
       <span id = "numLikesPost${_item.id}"> ${_item.likes.size()} Like#{if _item.likes.size() != 1}s#{/if} 
       </span> 
       #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
