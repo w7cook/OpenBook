@@ -62,7 +62,7 @@
     <header id="header" class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="/">Openbook</a>
+          <a class="brand" href="/">openbook</a>
           <ul class="nav">
             <li><a href="#"><i class="icon-user"></i> ${currentUser.requestedFriendCount()}</a></li>
             <li><a href="#"><i class="icon-envelope"></i></a></li>
@@ -84,7 +84,7 @@
           -->
           #{form action:@UserSearch.search().remove('page'), method:'GET', class:'navbar-form pull-left'}
             <input type="text" name="search" value="${params.search?.escape()?.raw()}" />
-            <input type="submit" value="&{'elasticsearch.search'}" />
+            <input type="submit" class="btn" value="&{'elasticsearch.search'}" />
           #{/form}
           <ul class="nav pull-right">
             <li>
