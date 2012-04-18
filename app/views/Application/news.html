@@ -68,7 +68,6 @@
 <script type="text/javascript">
   var hasTypedPost = new Boolean();
   var defaultPost = "new post...";
-  hasTypedPost = false;
   $('textarea#postContent').keydown(function(){
 	   hasTypedPost = true;
 	   if(this.val==''){
@@ -76,7 +75,7 @@
 	   }
   });
   $('input#postSubmit').click(function(event) {
-  if(hasTypedPost){
+  if(hasTypedPost==true){
   var postData = {
   postContent : $("textarea#postContent").val(),
   };

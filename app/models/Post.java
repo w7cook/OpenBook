@@ -77,9 +77,9 @@ public class Post extends Commentable {
   }
   public List<Object> getOlderComments(int n){
 	  ArrayList<Object> list = (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch();
-	  
-	  while(n>0){list.remove(0);n--;}
-	  
+	  if(n<list.size()){
+		  while(n>0){list.remove(0);n--;}
+	  }
 	  return list;
   }
   public List<Object> getSomeComments(int n){
