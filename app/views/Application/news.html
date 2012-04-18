@@ -38,7 +38,7 @@
 #{if user.id == currentUser.id}
   <div class="ui_InputContainer" id="PostContainer" style="margin-bottom: 2em;">
     <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" style="width: 100%;">new post...</textarea>
-    <button id="postSubmit" class="btn btn-primary"><i class="icon-plus"></i> Post</button>
+    <button id="postSubmit" class="btn btn-primary" onclick="submitPost()"><i class="icon-plus"></i> Post</button>
   </div>
   <!--
   <div class="ui_InputContainer" id="photo-upload" style="display: none;">
@@ -59,25 +59,15 @@
 #{/if}
 
 <h3>News</h3>
-<ul class="unstyled"
+<ul class="unstyled" id="post-list">
   #{list items:user.news(), as:'item'} 
     <li>#{post currentUser:currentUser,user:user,item:item /}</li>
   #{/list}
 </ul>
 
-<script type="text/javascript">
-  $('input#postSubmit').click(function(event) {
-  var postData = {
-  postContent : $("textarea#postContent").val(),
-  };
-  $.post("/posts/makeNewPost", postData, function(data) {
-  var new_item = $(data).hide();
-  $("div#postsList").prepend(new_item);
-  new_item.slideDown();
-  $("textarea#postContent").val('');
-  });
-  });
-</script>
+<script src="/public/javascripts/newPost.js"></script>
+
+<!--
 
 <script>
   /*Show before resizing, with jQuery to avoid glitchy redisplay*/
@@ -114,3 +104,4 @@
   }
   });
 </script>
+-->
