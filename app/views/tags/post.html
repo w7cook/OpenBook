@@ -93,7 +93,7 @@
       $('#commentContent${_item.id}').val(defaultComment);
       $('#commentContent${_item.id}')
       .focusin(function() {
-      if ( this.value == defaultComment ) {
+      if ( hasTypedComment${_item.id} == false ) {
       this.value = '';    
       }
       })
