@@ -1,8 +1,10 @@
 #{extends 'main.html' /}
-
-TODO: page about ${user}
-
-
-#{list items:user.posts(), as:'item'}
-  #{post currentUser:currentUser, user:user, item:item /}
-#{/list}
+<div class="span10">
+  TODO: page about ${user}
+  
+  <ul class="unstyled">
+    #{list items:user.posts(), as:'item'}
+      <li>#{post currentUser:currentUser, user:user, item:item /}</li>
+    #{/list}
+  </ul>
+</div>
