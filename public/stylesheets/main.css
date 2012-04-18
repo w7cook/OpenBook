@@ -358,9 +358,8 @@ a.logo:active {text-decoration:none;}
 }
 
 .post-content .post-image img{
-  width: 350px;
-  height: auto;
-  
+  max-width: 350px;
+  max-height: 350px;
 }
 
 .post .individual-post-metadata {
