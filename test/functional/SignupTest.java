@@ -43,7 +43,8 @@ public class SignupTest extends FunctionalTest {
     parameters.put("randomID", "d");
     Response response = POST("/signup/signup_user", parameters);
     assertNotNull(response);
-    assertEquals(2, User.count());
+    assertEquals(1, User.count());
+    assertEquals(1, TempUser.count());
   }
   
   @Test
