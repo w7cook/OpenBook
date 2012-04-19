@@ -1,0 +1,5 @@
+{
+  "author"  : "/users/${comment.author.id}",
+  "content" : "${comment.content}",
+  "comment-on" : "to be implemented"
+} 

@@ -1,149 +1,129 @@
-#{extends 'two_panel.html' /}
-<div class="grid_9">
-  <div id="contentArea">
-    <div class="pagelet">
-      <a href="#">Update Status</a>
-      <a href="#">Add Photo / Video</a>
-      <a href="#">Ask Question</a>
-      #{if user.id == currentUser.id}
-        <a id="about-button" href="@{Application.edit_basic}">About me</a>
-      #{/if}
-      #{else}
-        <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
-      #{/else}
-    </div>
-    <br />
-    #{if user.checkFriendship(user.id) == 'Request Friendship'}
-      <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-        ${user.checkFriendship(user.id)}
-      </a>
-    #{/if}
-    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-      Friendship Requested
-    #{/elseif}
-    #{elseif user.checkFriendship(user.id) == 'Friends'}
-      Friends :) 
-      <a id="friend-button" href="@{Application.removeFriends(user.id)}">
-        Remove friend
-      </a>
-    #{/elseif}
-
-    #{if user.id == currentUser.id}
-        <textarea name="post_content" id="postContent" style="resize: none;" rows="2" cols="45"></textarea>
-        <input type="submit" value="Post" id="postSubmit" />
-    #{/if}
+#{extends 'three_panel.html' /}
+<div id="contentArea">
+  <div class="pagelet">
+    <a href="#">Update Status</a>
+    <a href="#">Add Photo</a>
+    <a href="#">Share Link</a>
+    <a href="#">Ask Question</a>
     
-    <div id="postsList">
-    #{list items:user.news(), as:'item'} 
-      <div class="post">
-        <div class="hideable">
-          <div class="left">
-            <img style="width:50px; height:50px;" src=@{Photos.getPhoto(item.author.profile.profilePhoto)} />
-          </div>
-          
-          <div class="individual-post">
-            <div class="post-author" style="clear:both;"><a href="@{Application.news(item.author.id)}">${ item.author.name }</a></div>
-            <div class="post-content tohideopp" style="clear:both;">
-              ${item.contentTeaser().nl2br()}
-              <a class='triggershow showfirst' href='#' onclick='return false;'> +more </a>
-            </div>
-            <div class="tohide hide"  style="clear:both;">
-              <div class="post-content">
-                ${item.content.nl2br()}
-              </div>
-              #{list items:item.getComments(), as:'comment'}
-                <div class="comment">
-                  <div class="comment-metadata">
-                    <div class="comment-author">
-                      by ${comment.author},
-                    </div>
-                    <div class="comment-date">
-                      ${comment.updatedAt.format('dd MMM yy')}
-                    </div>
-                    #{if comment.author == currentUser.first_name}
-                      <a class=button href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
-                    #{/if}
-                    #{ if comment.currentUserLiked()}
-                      <a class=button href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
-                    #{/if}
-                    #{else}
-                      <a class=button href="@{Comments.addLike(comment.id,user.id)}">Like</a>
-                    #{/else}
-                    <div> ${comment.likes.size()} likes</div>                   
-                  </div>
-                  <div class="comment-content">
-                    ${comment.content.escape().nl2br()}
-                  </div>
-                </div>
-              #{/list}
-              <a class='triggerhide' href='#' onclick='return false;'> -less<br/></a>
-            </div>
-
-            <div class="individual-post-metadata">
-              ${item.likes.size()}
-              #{if user.isFriendsWith(currentUser) || user==currentUser}
-                #{ if item.currentUserLiked()}
-                  <a  href="@{Application.unLike(item.id,user.id)}">Unlike</a>
-                #{/if}
-                #{else}
-                  <a href="@{Application.addLike(item.id,user.id)}">Like</a>
-                #{/else}
-              #{/if}     
-              .
-              <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a>
-              .
-              ${item.updatedAt.format('dd MMM yy')}
-
-              #{if item.author == currentUser}
-                . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
-              #{/if}
-
-              <div id="comment ${item.id}" style="clear: both;"   class="comment-textarea">
-                #{form @Comments.postComment(item.id, user.id, commentContent)}
-                  <div style="clear:both;">
-                    <textarea name="commentContent" id="commentContent" style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
-                  </div>
-                  <input type="submit" value="Comment"  style="clear:right;margin-top: 3px;" />
-                #{/form}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    #{/list}
-    </div>
+    #{if user.id == currentUser.id}
+    #{/if}
+    #{else}
+      <a href="@{Posts.poke(user.id)}">Poke!</a>
+    #{/else}
+        
+    #{if user.id == currentUser.id}
+      <a id="about-button" href="@{Application.edit_basic(user.id)}">About me</a>
+    #{/if}
+    #{else}
+      <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
+    #{/else}
   </div>
-</div> <!-- grid_9 -->
-
-<div class="grid_3">
-  more newsfeed on the side<br />
-  birthdays<br />
-  create events<br />
-</div><!-- grid_4 -->
+  <br />
+  #{if user.checkFriendship(user.id) == 'Request Friendship'}
+    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
+      ${user.checkFriendship(user.id)}
+    </a>
+  #{/if}
+  #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
+    Friendship Requested
+  #{/elseif}
+  #{elseif user.checkFriendship(user.id) == 'Friends'}
+    Friends :) 
+    <a id="friend-button" href="@{Application.removeFriends(user.id)}">
+      Remove friend
+    </a>
+  #{/elseif}
+    
+  #{if user.id == currentUser.id}
+    <div class="ui_InputContainer" id="PostContainer">
+    <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" ></textarea>
+      <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
+      alt="Post" style="vertical-align: bottom;"/>    
+    </div>
+    <div class="ui_InputContainer" id="photo-upload" style="display: none;">
+      #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
+        <input type="file" name="image" />
+        <input type="text" name="content" value="Add a caption" />
+        <input type="submit" name="submit" value="Upload" /> 
+      #{/form}
+    </div>
+    <div class="ui_inputContainer" id="link-upload" style="display: none">
+      #{form @Links.addLink(), enctype:'multipart/form-data'}
+        <input type="text" name="url" value="video url" />
+        <input type="text" name="content" />
+        <input type="submit" name="submit" value="Upload" />
+      #{/form}
+    </div>
+  #{/if}
+    
+  <div id="postsList">
+    #{list items:user.news(), as:'item'} 
+      #{post currentUser:currentUser,user:user,item:item /}
+    #{/list}
+  </div>
+</div>
+</div> <!-- grid_8 -->
 
 <script type="text/javascript">
-   $('input#postSubmit').click(function(event) {
-     var postData = {
-         postContent : $("textarea#postContent").val(),
-     };
-     $.post("/posts/makeNewPost", postData, function(data) {
-       var new_item = $(data).hide();
-       $("div#postsList").prepend(new_item);
-       new_item.slideDown();
-       $("textarea#postContent").val('');
-     });
-   });
+  var hasTypedPost = new Boolean();
+  var defaultPost = "new post...";
+  $('textarea#postContent').keydown(function(){
+	   hasTypedPost = true;
+	   if(this.val==''){
+		   hasTypedPost = false;
+	   }
+  });
+  $('input#postSubmit').click(function(event) {
+  if(hasTypedPost==true){
+  var postData = {
+  postContent : $("textarea#postContent").val(),
+  };
+  $.post("/posts/makeNewPost", postData, function(data) {
+  var new_item = $(data).hide();
+  $("div#postsList").prepend(new_item);
+  new_item.slideDown();
+  hasTypedPost = false;
+  $("textarea#postContent").val(defaultPost);
+  });
+  }
+  });
 </script>
 
 <script>
+  /*Show before resizing, with jQuery to avoid glitchy redisplay*/
+  $('textarea#postContent').css('display','inline-block');
+  $('input#postSubmit').css('display', 'inline-block');
+
+  /*autoResize*/
   $('textarea#postContent').autoResize({
   maxHeight: 150,
   minHeight: 50,
   extraSpace: 30
   });
+  
+  /*autoResize*/
   $('textarea#commentContent').autoResize({
   maxHeight: 70,
   minHeight: 20,
   extraSpace: 20
+  }); 
+  
+  
+</script>
+
+<script>
+  $('#postContent').val(defaultPost);
+  $('#postContent')
+  .focusin(function() {
+  if ( hasTypedPost == false ) {
+  this.value = '';    
+  }
+  })
+  .focusout(function() {
+  if ( this.value == '' ) {
+  hasTypedPost = false;
+  this.value = defaultPost;    
+  }
   });
 </script>

@@ -1,17 +1,13 @@
-#{extends 'main.html' /}
-#{include 'two_panel.html' /}
-<div id = "newpage">
-	<br>
-	Admin: ${currentUser.name}     
-	#{form @Pages.pageSave()}
-		<div id="newPageInfo">
-			Title: 
-			<input type=text name=title /><br>
-			Info:
-			<input type=text name=info style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;"/><br>
-		</div>
-		<div><input type=submit value=Save>
-		#{/form}
-		<input type=button value=Cancel onclick="account()">
-		</div>
+#{extends 'main.html' /} #{extends 'three_panel.html' /}
+<div id="newpage">
+	<br> Admin: ${currentUser.name} #{form @Pages.pageSave()}
+	<div id="newPageInfo">
+		Title: <input type=text name=title /><br> Info: <input type=text
+			name=info
+			style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;" /><br>
+	</div>
+	<div>
+		<input type=submit value=Save> #{/form} <input type=button
+			value=Cancel onclick="account()">
+	</div>
 </div>

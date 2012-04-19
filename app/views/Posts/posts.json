@@ -1,0 +1,5 @@
+[
+  #{list items:posts, as:'item'} 
+    "/posts/${item.id}"#{if !item_isLast},#{/if}
+  #{/list}
+]

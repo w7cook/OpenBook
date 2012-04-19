@@ -1,5 +1,488 @@
-# Test data
+#Set of templates for the Skins
 
+#Green Skin (greenHeader)
+models.Skin(GREEN):
+ userName: default
+ skinName: green
+ name: defaultgreen
+ isPublic: "true"
+
+models.SkinPair(models_SkinPair_1):
+ attachedSkin: GREEN
+ name: bodyBGPhoto
+ value: none
+
+models.SkinPair(models_SkinPair_a_1):
+ attachedSkin: GREEN
+ name: bodyBGColor
+ value: none
+
+models.SkinPair(models_SkinPair_2):
+ attachedSkin: GREEN
+ name: headerBGPhoto
+ value: none
+
+models.SkinPair(models_SkinPair_5):
+ attachedSkin: GREEN
+ name: headerBGColor
+ value: 148203
+
+models.SkinPair(models_SkinPair_6):
+ attachedSkin: GREEN
+ name: footerTextAlign
+ value: center
+
+models.SkinPair(models_SkinPair_7):
+ attachedSkin: GREEN
+ name: footerFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_8):
+ attachedSkin: GREEN
+ name: footerColor
+ value: 858A7B
+
+models.SkinPair(models_SkinPair_9):
+ attachedSkin: GREEN
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_10):
+ attachedSkin: GREEN
+ name: labelFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_11):
+ attachedSkin: GREEN
+ name: labelColor
+ value: 148203
+
+models.SkinPair(models_SkinPair_12):
+ attachedSkin: GREEN
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_13):
+ attachedSkin: GREEN
+ name: commentBorderColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_14):
+ attachedSkin: GREEN
+ name: commentBGColor
+ value: EEEEEE
+
+models.SkinPair(models_SkinPair_15):
+ attachedSkin: GREEN
+ name: buttonBorderRadius
+ value: 4
+
+models.SkinPair(models_SkinPair_16):
+ attachedSkin: GREEN
+ name: buttonBorderSize
+ value: 1
+
+models.SkinPair(models_SkinPair_17):
+ attachedSkin: GREEN
+ name: buttonBorderColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_18):
+ attachedSkin: GREEN
+ name: buttonBoxShadowColor
+ value: 008000
+
+models.SkinPair(models_SkinPair_19):
+ attachedSkin: GREEN
+ name: buttonBGColor
+ value: FFFFFF
+
+models.SkinPair(models_SkinPair_20):
+ attachedSkin: GREEN
+ name: buttonTextDec
+ value: none
+
+models.SkinPair(models_SkinPair_21):
+ attachedSkin: GREEN
+ name: buttonLinkUnvisitedColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_22):
+ attachedSkin: GREEN
+ name: buttonLinkVisitedColor
+ value: 148203
+
+models.SkinPair(models_SkinPair_23):
+ attachedSkin: GREEN
+ name: buttonLinkHoverColor
+ value: 008000
+
+models.SkinPair(models_SkinPair_24):
+ attachedSkin: GREEN
+ name: buttonLinkSelectedColor
+ value: 000000
+
+
+#Peace Skin
+models.Skin(peace):
+ userName: default
+ skinName: peace
+ name: defaultpeace
+ isPublic: "true"
+
+models.SkinPair(models_SkinPair_26):
+ attachedSkin: peace
+ name: bodyBGPhoto
+ value: /photos/1
+
+models.SkinPair(models_SkinPair_a_2):
+ attachedSkin: peace
+ name: bodyBGColor
+ value: none
+
+models.SkinPair(models_SkinPair_27):
+ attachedSkin: peace
+ name: headerBGPhoto
+ value: none
+
+models.SkinPair(models_SkinPair_30):
+ attachedSkin: peace
+ name: headerBGColor
+ value: 148203
+
+models.SkinPair(models_SkinPair_31):
+ attachedSkin: peace
+ name: footerTextAlign
+ value: center
+
+models.SkinPair(models_SkinPair_32):
+ attachedSkin: peace
+ name: footerFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_33):
+ attachedSkin: peace
+ name: footerColor
+ value: 858A7B
+
+models.SkinPair(models_SkinPair_34):
+ attachedSkin: peace
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_35):
+ attachedSkin: peace
+ name: labelFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_36):
+ attachedSkin: peace
+ name: labelColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_37):
+ attachedSkin: peace
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_38):
+ attachedSkin: peace
+ name: commentBorderColor
+ value: black
+
+models.SkinPair(models_SkinPair_39):
+ attachedSkin: peace
+ name: commentBGColor
+ value: EEEEEE
+
+models.SkinPair(models_SkinPair_40):
+ attachedSkin: peace
+ name: buttonBorderRadius
+ value: 4
+
+models.SkinPair(models_SkinPair_41):
+ attachedSkin: peace
+ name: buttonBorderSize
+ value: 1
+
+models.SkinPair(models_SkinPair_42):
+ attachedSkin: peace
+ name: buttonBorderColor
+ value: black
+
+models.SkinPair(models_SkinPair_43):
+ attachedSkin: peace
+ name: buttonBoxShadowColor
+ value: 008000
+
+models.SkinPair(models_SkinPair_44):
+ attachedSkin: peace
+ name: buttonBGColor
+ value: FFFFFF
+
+models.SkinPair(models_SkinPair_45):
+ attachedSkin: peace
+ name: buttonTextDec
+ value: none
+
+models.SkinPair(models_SkinPair_46):
+ attachedSkin: peace
+ name: buttonLinkUnvisitedColor
+ value: black
+
+models.SkinPair(models_SkinPair_47):
+ attachedSkin: peace
+ name: buttonLinkVisitedColor
+ value: 48203
+
+models.SkinPair(models_SkinPair_48):
+ attachedSkin: peace
+ name: buttonLinkHoverColor
+ value: 008000
+
+models.SkinPair(models_SkinPair_49):
+ attachedSkin: peace
+ name: buttonLinkSelectedColor
+ value: black
+
+
+#Default Skin (orange header)
+models.Skin(default_skin):
+ userName: default
+ skinName: default_skin
+ name: defaultdefault_skin
+ name: default_skin
+ isPublic: "true"
+
+models.SkinPair(models_SkinPair_50):
+ attachedSkin: default_skin
+ name: bodyBGPhoto
+ value: none
+
+models.SkinPair(models_SkinPair_54):
+ attachedSkin: default_skin
+ name: headerBGPhoto
+ value: /photos/3
+
+ models.SkinPair(models_SkinPair_51):
+ attachedSkin: default_skin
+ name: headerBGColor
+ value: none
+
+models.SkinPair(models_SkinPair_55):
+ attachedSkin: default_skin
+ name: footerTextAlign
+ value: center
+
+models.SkinPair(models_SkinPair_56):
+ attachedSkin: default_skin
+ name: footerFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_57):
+ attachedSkin: default_skin
+ name: footerColor
+ value: 858A7B
+
+models.SkinPair(models_SkinPair_58):
+ attachedSkin: default_skin
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_59):
+ attachedSkin: default_skin
+ name: labelFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_60):
+ attachedSkin: default_skin
+ name: labelColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_61):
+ attachedSkin: default_skin
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_62):
+ attachedSkin: default_skin
+ name: commentBorderColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_63):
+ attachedSkin: default_skin
+ name: commentBGColor
+ value: EEEEEE
+
+models.SkinPair(models_SkinPair_64):
+ attachedSkin: default_skin
+ name: buttonBorderRadius
+ value: 4
+
+models.SkinPair(models_SkinPair_65):
+ attachedSkin: default_skin
+ name: buttonBorderSize
+ value: 1
+
+models.SkinPair(models_SkinPair_66):
+ attachedSkin: default_skin
+ name: buttonBorderColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_67):
+ attachedSkin: default_skin
+ name: buttonBoxShadowColor
+ value: 888888
+
+models.SkinPair(models_SkinPair_68):
+ attachedSkin: default_skin
+ name: buttonBGColor
+ value: FFFFFF
+
+models.SkinPair(models_SkinPair_69):
+ attachedSkin: default_skin
+ name: buttonTextDec
+ value: none
+
+models.SkinPair(models_SkinPair_70):
+ attachedSkin: default_skin
+ name: buttonLinkUnvisitedColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_71):
+ attachedSkin: default_skin
+ name: buttonLinkVisitedColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_72):
+ attachedSkin: default_skin
+ name: buttonLinkHoverColor
+ value: E0E0FF
+
+models.SkinPair(models_SkinPair_73):
+ attachedSkin: default_skin
+ name: buttonLinkSelectedColor
+ value: 000000
+
+
+#UT Skin
+models.Skin(ut_skin):
+ userName: default
+ skinName: ut_skin
+ name: defaultut_skin
+ isPublic: "true"
+
+models.SkinPair(models_SkinPair_74):
+ attachedSkin: ut_skin
+ name: bodyBGPhoto
+ value: /photos/4
+
+models.SkinPair(models_SkinPair_75):
+ attachedSkin: ut_skin
+ name: headerBGPhoto
+ value: /photos/3
+
+models.SkinPair(models_SkinPair_75_2):
+ attachedSkin: ut_skin
+ name: headerBGColor
+ value: none
+
+models.SkinPair(models_SkinPair_76):
+ attachedSkin: ut_skin
+ name: footerTextAlign
+ value: center
+
+models.SkinPair(models_SkinPair_77):
+ attachedSkin: ut_skin
+ name: footerFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_78):
+ attachedSkin: ut_skin
+ name: footerColor
+ value: 858A7B
+
+models.SkinPair(models_SkinPair_79):
+ attachedSkin: ut_skin
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_80):
+ attachedSkin: ut_skin
+ name: labelFontSize
+ value: 10
+
+models.SkinPair(models_SkinPair_81):
+ attachedSkin: ut_skin
+ name: labelColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_82):
+ attachedSkin: ut_skin
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_83):
+ attachedSkin: ut_skin
+ name: commentBorderColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_84):
+ attachedSkin: ut_skin
+ name: commentBGColor
+ value: EEEEEE
+
+models.SkinPair(models_SkinPair_85):
+ attachedSkin: ut_skin
+ name: buttonBorderRadius
+ value: 4
+
+models.SkinPair(models_SkinPair_86):
+ attachedSkin: ut_skin
+ name: buttonBorderSize
+ value: 1
+
+models.SkinPair(models_SkinPair_87):
+ attachedSkin: ut_skin
+ name: buttonBorderColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_88):
+ attachedSkin: ut_skin
+ name: buttonBoxShadowColor
+ value: 888888
+
+models.SkinPair(models_SkinPair_89):
+ attachedSkin: ut_skin
+ name: buttonBGColor
+ value: FFFFFF
+
+models.SkinPair(models_SkinPair_90):
+ attachedSkin: ut_skin
+ name: buttonTextDec
+ value: none
+
+models.SkinPair(models_SkinPair_91):
+ attachedSkin: ut_skin
+ name: buttonLinkUnvisitedColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_92):
+ attachedSkin: ut_skin
+ name: buttonLinkVisitedColor
+ value: 000000
+
+models.SkinPair(models_SkinPair_93):
+ attachedSkin: ut_skin
+ name: buttonLinkHoverColor
+ value: E0E0FF
+
+models.SkinPair(models_SkinPair_94):
+ attachedSkin: ut_skin
+ name: buttonLinkSelectedColor
+ value: 000000
+
+# Test data
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -8,6 +491,18 @@ User(bob):
     email:              bob@gmail.com
     password:           secret
     isAdmin:            true
+    subscription:       true
+
+User(alice):
+    first_name:         Alice
+    last_name:          Xu
+    name:               Alice Xu
+    username:           axu
+    email:              alice@gmail.com
+    password:           secret
+    #significant_other: jeff
+    anniversary:        2010-12-2
+    subscription:       true
 
 User(jeff):
     first_name:         Jeff
@@ -18,72 +513,291 @@ User(jeff):
     password:           secret
     significant_other:  alice
     anniversary:        2010-12-2
-    
-User(alice):
-    first_name:         Alice
-    last_name:          Xu
-    name:               Alice Xu
-    username:           axu
-    email:              alice@gmail.com
-    password:           secret
-    #significant_other: jeff
-    anniversary:        2010-12-2
-    
+
+User(gparker):
+    first_name:         Geoffrey
+    last_name:          Parker
+    username:           gparker
+    name:               Geoffrey Parker
+    email:              grp@gparker.co
+    password:           password
+    isAdmin:            true
+    subscription:       true
+
+
+Profile(bobProfile):
+    owner:          bob
+
+Profile(jeffProfile):
+    owner:          jeff
+
+Profile(aliceProfile):
+    owner:          alice
+
+Profile(gparkerProfile):
+    owner:          gparker
+
+
+Relationship(s1):
+    from:       bob
+    to:         bob
+
+Relationship(s2):
+    from:       alice
+    to:         alice
+
+Relationship(s3):
+    from:       jeff
+    to:         jeff
+
+Relationship(r1):
+    from:       bob
+    to:         jeff
+    accepted:   true
+
+Relationship(r3):
+    from:       alice
+    to:         jeff
+    accepted:   true
+
+Relationship(r4):
+    from:       jeff
+    to:         alice
+    accepted:   true
+
+Relationship(r5):
+    from:       jeff
+    to:         bob
+    accepted:   true
+
+Status(firstBobStatus):
+    author:         bob
+    content:        >
+                    Short sweet twitter like messages that will have inline @mentions and #tags.
+
+Status(firstJeffStatus):
+    author:         jeff
+    content:        >
+                    Hey @b3bob hope you like #MassEffect3
+
+Status(secondBobStatus):
+    author:         bob
+    content:        >
+                    @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
+
 Post(firstBobPost):
-    title:          About the model layer
+    postedObj:      bob
     date:           2009-06-14
     author:         bob
     content:        >
-                    The model has a central position in a Play! application. It is the domain-specific 
+                    The model has a central position in a Play! application. It is the domain-specific
                     representation of the information on which the application operates.
-                    
+
                     Martin fowler defines it as:
-                        
-                    Responsible for representing concepts of the business, information about the 
-                    business situation, and business rules. State that reflects the business situation 
-                    is controlled and used here, even though the technical details of storing it are 
+
+                    Responsible for representing concepts of the business, information about the
+                    business situation, and business rules. State that reflects the business situation
+                    is controlled and used here, even though the technical details of storing it are
                     delegated to the infrastructure. This layer is the heart of business software.
 
 Post(secondBobPost):
-    title:          Just a test of YABE
+    postedObj:      bob
     date:           2009-03-25
     author:         bob
     content:        >
                     Well, it's just a test.
-                    
+
 Post(jeffPost):
-    title:          The MVC application
+    postedObj:      jeff
     date:           2009-06-06
     author:         jeff
     content:        >
-                    A Play! application follows the MVC architectural pattern as applied to the 
+                    A Play! application follows the MVC architectural pattern as applied to the
                     architecture of the Web.
-                    
-                    This pattern splits the application into separate layers: the Presentation 
-                    layer and the Model layer. The Presentation layer is further split into a 
+
+                    This pattern splits the application into separate layers: the Presentation
+                    layer and the Model layer. The Presentation layer is further split into a
                     View and a Controller layer.
 
-
-Comment(c1):
+Post(jeffPost2):
+    postedObj:      jeff
+    date:           2009-06-07
     author:         jeff
     content:        >
-                    Nice post!
-    date:           2011-06-15
-    parentObj:      firstBobPost    
-    
-Comment(c2):
-    author:         alice
-    content:        >
-                    I knew that ...
-    date:           2009-06-15
-    parentObj:      firstBobPost    
-    
-Comment(c3):
+                    More stuff
+
+Group(g1):
+    owner:          bob
+    groupName:      Bob's cool group
+    members:        [bob,jeff]
+    description:    >
+                    A group for cool people to talk about cool things in a cool place.
+
+Group(g2):
+    owner:          alice
+    groupName:      Alice's first group
+    members:        [alice]
+    description:    >
+                    This is a description for Alice's group.
+
+Post(g1 post1):
+    postedObj:      g1
+    date:           2009-06-07
     author:         bob
     content:        >
-                    This post is useless ?
-    date:           2009-04-05
-    parentObj:      secondBobPost    
-                     
+                    This is the first post for Bob's group. It shouldn't appear on his news feed!
 
-                 
+Post(g1 post2):
+    postedObj:      g1
+    date:           2009-06-07
+    author:         jeff
+    content:        >
+                    And this is a second post.
+
+Post(g2 post1):
+    postedObj:      g2
+    date:           2009-06-07
+    author:         alice
+    content:        >
+                    First post!
+
+Profile(jeffP):
+    User:           jeff
+    gender:         male
+    phone:          555-888-1234
+    website:        www.jeffisawesome.com
+    quotes:         qwertyyuiop
+    bio:            >
+                    Hi, my name is Jeff, I have a really cool bio. Stay tuned for more
+
+Category(main):
+    name:           Main
+
+Category(music):
+    name:           Music
+
+Category(movies):
+    name:           Movies
+
+Category(sports):
+    name:           Sports
+
+FThread(thread1):
+    author:         bob
+    title:          This is a thread
+    postedAt:       2009-04-05
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread2):
+    author:         bob
+    title:          This is another thread
+    postedAt:       2009-04-06
+    category:       main
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+FThread(thread3):
+    author:         alice
+    title:          I hate dubstep
+    postedAt:       2011-03-06
+    category:       music
+    content:        >
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
+                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
+                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
+                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
+                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
+                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
+                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
+                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
+
+Comment(fc1):
+    author:         bob
+    content:        >
+                    I knew that ...
+    date:           2011-06-15
+    parentObj:      thread3
+
+Comment(fc2):
+    author:         alice
+    content:        >
+                    i love dubstep
+    date:           2011-09-05
+    parentObj:      thread3
+
+Page(cats):
+    admin:          alice
+    title:          CATS
+    info:           >
+                    I haz them!!
+
+Page(nachoCheese):
+    admin:          jeff
+    title:          Nacho Cheese
+    info:           >
+                    What do you call cheese that isn't yours?
+
+Post(cats post1):
+    postedObj:      cats
+    date:           2009-06-07
+    author:         bob
+    content:        >
+                    I HATE CATZ!!!
+
+UserPage(1):
+    page:           cats
+    fan:            alice
+
+UserPage(2):
+    page:           nachoCheese
+    fan:            jeff
+
+Post(cats post2):
+    postedObj:      cats
+    date:           2009-06-07
+    author:         jeff
+    content:        >
+                    CHEEZEBURGAHZ!!
+
+UserPage(cats alice):
+    fan:            alice
+    page:           cats
+
+UserPage(nachoCheese jeff):
+    fan:            jeff
+    page:           nachoCheese
+
+Subscription(sub1):
+    subscribed:     alice
+    subscriber:     bob
+
+Subscription(sub2):
+    subscribed:     gparker
+    subscriber:     bob
+
+Subscription(sub3):
+    subscribed:     gparker
+    subscriber:     alice
+
+Subscription(sub4):
+    subscribed:     bob
+    subscriber:     alice

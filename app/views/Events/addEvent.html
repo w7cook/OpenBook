@@ -1,309 +1,281 @@
-#{extends 'main.html' /}
-	<script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
-        type="text/javascript">
-	</script>
-	<script src="/public/javascripts/checkin.js"
-        type="text/javascript">
-	</script>
+#{extends 'two_panel.html' /}
 
-<h2>Create Event</h2>
-<hr />
-#{form @Events.event_create()}
-<table>
-	<tr>
-		
-		<td><label>Name: 
-		</td>
-		<td><input type=text name=curEvent.eventName size="50">
-		</td>
-		
-	</tr>
-	<tr>
-		<td><label>Details: 
-		</td>
-		<td><input type=text name=curEvent.eventScript size="50">
-		</td>
-	</tr>
-	<tr>
-		<td><label>Where: 
-		</td>
-		<td><input id ="searchTextField" type=text name=curEvent.eventLocation size="50">
-		</td>
-		
-	</tr>
-	<tr>
-		<td>When:</td>
-		
-		<tr>
-		<td></td>
-		<td>
-			<table>
-				<tr>Start: </tr>
-				
-					<td></td>
-					<td><label>Date:</label></td>
-					
-					<td><select name = startMonth>
-							<option value="-1" selected="selected"> </option>
-							<option value="0">Jan</option>
-							<option value="1">Feb</option>
-							<option value="2">Mar</option>
-							<option value="3">Apr</option>
-							<option value="4">May</option>
-							<option value="5">Jun</option>
-							<option value="6">Jul</option>
-							<option value="7">Aug</option>
-							<option value="8">Sep</option>
-							<option value="9">Oct</option>
-							<option value="10">Nov</option>
-							<option value="11">Dec</option>
-						</select>
-						
-						<select name = startDay>
-							<option value="-1" selected="selected"> </option>
-							<option value="1">01</option>
-							<option value="2">02</option>
-							<option value="3">03</option>
-							<option value="4">04</option>
-							<option value="5">05</option>
-							<option value="6">06</option>
-							<option value="7">07</option>
-							<option value="8">08</option>
-							<option value="9">09</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="13">13</option>
-							<option value="14">14</option>
-							<option value="15">15</option>
-							<option value="16">16</option>
-							<option value="16">17</option>
-							<option value="18">18</option>
-							<option value="19">19</option>
-							<option value="20">20</option>
-							<option value="21">21</option>
-							<option value="22">22</option>
-							<option value="23">23</option>
-							<option value="24">24</option>
-							<option value="25">25</option>
-							<option value="26">26</option>
-							<option value="27">27</option>
-							<option value="28">28</option>
-							<option value="29">29</option>
-							<option value="30">30</option>
-							<option value="31">31</option>
-						</select>
-					</td>
-				
-				
-					<td></td>
-					
-					<td>Time:</td>
-					<td>
-					<select name = startTime>
-						<option value="-1" selected="selected"> </option>
-						<option value="0">12:00 am</option>
-						<option value="0030">12:30 am</option>
-						<option value="1">1:00 am</option>
-						<option value="0130">1:30 am</option>
-						<option value="2">2:00 am</option>
-						<option value="0230">2:30 am</option>
-						<option value="3">3:00 am</option>
-						<option value="0330">3:30 am</option>
-						<option value="4">4:00 am</option>
-						<option value="0430">4:30 am</option>
-						<option value="5">5:00 am</option>
-						<option value="0530">5:30 am</option>
-						<option value="6">6:00 am</option>
-						<option value="0630">6:30 am</option>
-						<option value="7">7:00 am</option>
-						<option value="0730">7:30 am</option>
-						<option value="8">8:00 am</option>
-						<option value="0830">8:30 am</option>
-						<option value="9">9:00 am</option>
-						<option value="0930">9:30 am</option>
-						<option value="10">10:00 am</option>
-						<option value="1030">10:30 am</option>
-						<option value="11">11:00 am</option>
-						<option value="1130">11:30 am</option>
-						<option value="12">12:00 pm</option>
-						<option value="1230">12:30 pm</option>
-						<option value="13">1:00 pm</option>
-						<option value="1330">1:30 pm</option>
-						<option value="14">2:00 pm</option>
-						<option value="1430">2:30 pm</option>
-						<option value="15">3:00 pm</option>
-						<option value="1530">3:30 pm</option>
-						<option value="16">4:00 pm</option>
-						<option value="1630">4:30 pm</option>
-						<option value="17">5:00 pm</option>
-						<option value="1730">5:30 pm</option>
-						<option value="18">6:00 pm</option>
-						<option value="1830">6:30 pm</option>
-						<option value="19">7:00 pm</option>
-						<option value="1930">7:30 pm</option>
-						<option value="20">8:00 pm</option>
-						<option value="2030">8:30 pm</option>
-						<option value="21">9:00 pm</option>
-						<option value="2130">9:30 pm</option>
-						<option value="22">10:00 pm</option>
-						<option value="2230">10:30 pm</option>
-						<option value="23">11:00 pm</option>
-						<option value="2330">11:30 pm</option>
-					</select>
-					</td>
-					
-					</table>
-					
-					
-					<table>
-					<tr></tr>
-					<tr>End: (Optional) </tr>
-					
-					
-				<td></td>
-					<td><label>Date:</label></td>
-					
-					<td><select name = endMonth>
-							<option value="-1" selected="selected"> </option>
-							<option value="0">Jan</option>
-							<option value="1">Feb</option>
-							<option value="2">Mar</option>
-							<option value="3">Apr</option>
-							<option value="4">May</option>
-							<option value="5">Jun</option>
-							<option value="6">Jul</option>
-							<option value="7">Aug</option>
-							<option value="8">Sep</option>
-							<option value="9">Oct</option>
-							<option value="10">Nov</option>
-							<option value="11">Dec</option>
-						</select>
-						
-						<select name = endDay>
-							<option value="-1" selected="selected"> </option>
-							<option value="1">01</option>
-							<option value="2">02</option>
-							<option value="3">03</option>
-							<option value="4">04</option>
-							<option value="5">05</option>
-							<option value="6">06</option>
-							<option value="7">07</option>
-							<option value="8">08</option>
-							<option value="9">09</option>
-							<option value="10">10</option>
-							<option value="11">11</option>
-							<option value="12">12</option>
-							<option value="13">13</option>
-							<option value="14">14</option>
-							<option value="15">15</option>
-							<option value="16">16</option>
-							<option value="16">17</option>
-							<option value="18">18</option>
-							<option value="19">19</option>
-							<option value="20">20</option>
-							<option value="21">21</option>
-							<option value="22">22</option>
-							<option value="23">23</option>
-							<option value="24">24</option>
-							<option value="25">25</option>
-							<option value="26">26</option>
-							<option value="27">27</option>
-							<option value="28">28</option>
-							<option value="29">29</option>
-							<option value="30">30</option>
-							<option value="31">31</option>
-						</select>
-					</td>
-				
-				
-				
-				
-				<td></td>
-					<td>Time:</td>
-					<td>
-					<select name = endTime>
-						<option value="-1" selected="selected"> </option>
-						<option value="0">12:00 am</option>
-						<option value="0030">12:30 am</option>
-						<option value="1">1:00 am</option>
-						<option value="0130">1:30 am</option>
-						<option value="2">2:00 am</option>
-						<option value="0230">2:30 am</option>
-						<option value="3">3:00 am</option>
-						<option value="0330">3:30 am</option>
-						<option value="4">4:00 am</option>
-						<option value="0430">4:30 am</option>
-						<option value="5">5:00 am</option>
-						<option value="0530">5:30 am</option>
-						<option value="6">6:00 am</option>
-						<option value="0630">6:30 am</option>
-						<option value="7">7:00 am</option>
-						<option value="0730">7:30 am</option>
-						<option value="8">8:00 am</option>
-						<option value="0830">8:30 am</option>
-						<option value="9">9:00 am</option>
-						<option value="0930">9:30 am</option>
-						<option value="10">10:00 am</option>
-						<option value="1030">10:30 am</option>
-						<option value="11">11:00 am</option>
-						<option value="1130">11:30 am</option>
-						<option value="12">12:00 pm</option>
-						<option value="1230">12:30 pm</option>
-						<option value="13">1:00 pm</option>
-						<option value="1330">1:30 pm</option>
-						<option value="14">2:00 pm</option>
-						<option value="1430">2:30 pm</option>
-						<option value="15">3:00 pm</option>
-						<option value="1530">3:30 pm</option>
-						<option value="16">4:00 pm</option>
-						<option value="1630">4:30 pm</option>
-						<option value="17">5:00 pm</option>
-						<option value="1730">5:30 pm</option>
-						<option value="18">6:00 pm</option>
-						<option value="1830">6:30 pm</option>
-						<option value="19">7:00 pm</option>
-						<option value="1930">7:30 pm</option>
-						<option value="20">8:00 pm</option>
-						<option value="2030">8:30 pm</option>
-						<option value="21">9:00 pm</option>
-						<option value="2130">9:30 pm</option>
-						<option value="22">10:00 pm</option>
-						<option value="2230">10:30 pm</option>
-						<option value="23">11:00 pm</option>
-						<option value="2330">11:30 pm</option>
-					</select>
-					</td>
-					
-			</table></td>
-			
-			</tr>
-	</tr>
-	</table>
-	<table>
-	<tr>
-		<td><label>Privacy:</label></td>
-		<td>
-			<select name = curEvent.privilege>
-				<option value="open">Public</option>
-				<option value="friends">Friends</option>
-				<option value="inviteOnly">Invite Only</option>
-			</select>
-		</td>
-	</tr>
+<div id="contentArea-BigPage">
+  <link rel="stylesheet" type="text/css" media="screen"
+      href="@{'/public/stylesheets/eventcreator.css'}" />
+  <script
+     src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+     type="text/javascript">
+  </script>
+  <script src="/public/javascripts/addEvent.js" type="text/javascript">
+  </script>
+  
+  <h2>Create Event</h2>
+  <hr />
+  #{form @Events.event_create()}
+   <font color="red">* = required</font>
+   <ul class="eventcreator-formlist">
+      <li>
+        <label class="input-label">Name:<font color="red"> *</font></label>
+        <input class="text-input" type="text" name=curEvent.name />
+      </li>
 
-<tr>
+      <li>
+        <label class="input-label">Details:<font color="red"> *</font></label>
+        <input class="text-input" type="text" name=curEvent.script />
+      </li>
 
-<td colspan=3><input type=submit value=Create> <input
-			type=submit value=Cancel /> 
-			#{ifErrors}
-			<ul style="color:red">
-			#{errors}<li>${error}</li> #{/errors} 
-			</ul>
-			#{/ifErrors}
-		</td>
-		</tr>
-</table>
-<div id="map_canvas"></div>
-#{/form}
+      <li>
+        <label class="input-label">Where:<font color="red"> *</font></label>
+        <input class="text-input" id="searchTextField" type="text" name=curEvent.location onkeypress="return event.keyCode!=13" />
+      </li>
 
+      <li><label>When:</label></li>
+      <li>
+        <label>Start:<font color="red"> *</font></label>
+        <div class="datetime-input">
+          
+          <span class="date-selector">
+            <label class="select-label">Date:</label>
+            <select name=startMonth>
+              <option value="-1" selected="selected"></option>
+              <option value="0">Jan</option>
+              <option value="1">Feb</option>
+              <option value="2">Mar</option>
+              <option value="3">Apr</option>
+              <option value="4">May</option>
+              <option value="5">Jun</option>
+              <option value="6">Jul</option>
+              <option value="7">Aug</option>
+              <option value="8">Sep</option>
+              <option value="9">Oct</option>
+              <option value="10">Nov</option>
+              <option value="11">Dec</option>
+            </select>
+            
+            <select name=startDay>
+              <option value="-1" selected="selected"></option>
+              <option value="1">01</option>
+              <option value="2">02</option>
+              <option value="3">03</option>
+              <option value="4">04</option>
+              <option value="5">05</option>
+              <option value="6">06</option>
+              <option value="7">07</option>
+              <option value="8">08</option>
+              <option value="9">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="16">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+          </span>
+          <label class="select-label">Time:</label>
+          <select name=startTime>
+            <option value="-1" selected="selected"></option>
+            <option value="0">12:00 am</option>
+            <option value="0030">12:30 am</option>
+            <option value="1">1:00 am</option>
+            <option value="0130">1:30 am</option>
+            <option value="2">2:00 am</option>
+            <option value="0230">2:30 am</option>
+            <option value="3">3:00 am</option>
+            <option value="0330">3:30 am</option>
+            <option value="4">4:00 am</option>
+            <option value="0430">4:30 am</option>
+            <option value="5">5:00 am</option>
+            <option value="0530">5:30 am</option>
+            <option value="6">6:00 am</option>
+            <option value="0630">6:30 am</option>
+            <option value="7">7:00 am</option>
+            <option value="0730">7:30 am</option>
+            <option value="8">8:00 am</option>
+            <option value="0830">8:30 am</option>
+            <option value="9">9:00 am</option>
+            <option value="0930">9:30 am</option>
+            <option value="10">10:00 am</option>
+            <option value="1030">10:30 am</option>
+            <option value="11">11:00 am</option>
+            <option value="1130">11:30 am</option>
+            <option value="12">12:00 pm</option>
+            <option value="1230">12:30 pm</option>
+            <option value="13">1:00 pm</option>
+            <option value="1330">1:30 pm</option>
+            <option value="14">2:00 pm</option>
+            <option value="1430">2:30 pm</option>
+            <option value="15">3:00 pm</option>
+            <option value="1530">3:30 pm</option>
+            <option value="16">4:00 pm</option>
+            <option value="1630">4:30 pm</option>
+            <option value="17">5:00 pm</option>
+            <option value="1730">5:30 pm</option>
+            <option value="18">6:00 pm</option>
+            <option value="1830">6:30 pm</option>
+            <option value="19">7:00 pm</option>
+            <option value="1930">7:30 pm</option>
+            <option value="20">8:00 pm</option>
+            <option value="2030">8:30 pm</option>
+            <option value="21">9:00 pm</option>
+            <option value="2130">9:30 pm</option>
+            <option value="22">10:00 pm</option>
+            <option value="2230">10:30 pm</option>
+            <option value="23">11:00 pm</option>
+            <option value="2330">11:30 pm</option>
+          </select>
+        </div>
+      </li>
+      
+      <li>
+        <label>End: (Optional)</label>
+        <div class="datetime-input">
+          <span class="date-selector">
+            <label class="select-label">Date:</label>
+            
+            <select name=endMonth>
+              <option value="-1" selected="selected"></option>
+              <option value="0">Jan</option>
+              <option value="1">Feb</option>
+              <option value="2">Mar</option>
+              <option value="3">Apr</option>
+              <option value="4">May</option>
+              <option value="5">Jun</option>
+              <option value="6">Jul</option>
+              <option value="7">Aug</option>
+              <option value="8">Sep</option>
+              <option value="9">Oct</option>
+              <option value="10">Nov</option>
+              <option value="11">Dec</option>
+            </select>
+            
+            <select name=endDay>
+              <option value="-1" selected="selected"></option>
+              <option value="1">01</option>
+              <option value="2">02</option>
+              <option value="3">03</option>
+              <option value="4">04</option>
+              <option value="5">05</option>
+              <option value="6">06</option>
+              <option value="7">07</option>
+              <option value="8">08</option>
+              <option value="9">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="16">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+          </span>
+          
+          <label class="select-label">Time:</label>
+          <select name=endTime>
+            <option value="-1" selected="selected"></option>
+            <option value="0">12:00 am</option>
+            <option value="0030">12:30 am</option>
+            <option value="1">1:00 am</option>
+            <option value="0130">1:30 am</option>
+            <option value="2">2:00 am</option>
+            <option value="0230">2:30 am</option>
+            <option value="3">3:00 am</option>
+            <option value="0330">3:30 am</option>
+            <option value="4">4:00 am</option>
+            <option value="0430">4:30 am</option>
+            <option value="5">5:00 am</option>
+            <option value="0530">5:30 am</option>
+            <option value="6">6:00 am</option>
+            <option value="0630">6:30 am</option>
+            <option value="7">7:00 am</option>
+            <option value="0730">7:30 am</option>
+            <option value="8">8:00 am</option>
+            <option value="0830">8:30 am</option>
+            <option value="9">9:00 am</option>
+            <option value="0930">9:30 am</option>
+            <option value="10">10:00 am</option>
+            <option value="1030">10:30 am</option>
+            <option value="11">11:00 am</option>
+            <option value="1130">11:30 am</option>
+            <option value="12">12:00 pm</option>
+            <option value="1230">12:30 pm</option>
+            <option value="13">1:00 pm</option>
+            <option value="1330">1:30 pm</option>
+            <option value="14">2:00 pm</option>
+            <option value="1430">2:30 pm</option>
+            <option value="15">3:00 pm</option>
+            <option value="1530">3:30 pm</option>
+            <option value="16">4:00 pm</option>
+            <option value="1630">4:30 pm</option>
+            <option value="17">5:00 pm</option>
+            <option value="1730">5:30 pm</option>
+            <option value="18">6:00 pm</option>
+            <option value="1830">6:30 pm</option>
+            <option value="19">7:00 pm</option>
+            <option value="1930">7:30 pm</option>
+            <option value="20">8:00 pm</option>
+            <option value="2030">8:30 pm</option>
+            <option value="21">9:00 pm</option>
+            <option value="2130">9:30 pm</option>
+            <option value="22">10:00 pm</option>
+            <option value="2230">10:30 pm</option>
+            <option value="23">11:00 pm</option>
+            <option value="2330">11:30 pm</option>
+          </select>
+        </div>
+      </li>
+      <li>
+        <label class="input-label">Privacy:</label>
+        <select name=curEvent.privilege>
+          <option value="open">Public</option>
+          <option value="friends">Friends</option>
+          <option value="inviteOnly">Invite Only</option>
+        </select>
+      </li>
+      <li>
+        <input type=submit value=Create name="submit">
+        <input type=submit value=Cancel name="cancel">
+        #{ifErrors}
+        <ul style="color: red">
+          #{errors}
+            <li>${error}</li>
+            #{/errors}
+          </ul>
+        #{/ifErrors}
+      </li>
+   </ul>
+   
+
+ #{/form}
+</div>

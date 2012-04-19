@@ -1,0 +1,22 @@
+div.photo-upload {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+ul.photo-list {
+  list-style-type: none;
+}
+
+ul.photo-list li {
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+img.thumbnail {
+  border: 1px gray solid;
+  max-width: 140px;
+  max-height: 140px;
+}

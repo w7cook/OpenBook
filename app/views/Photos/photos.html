@@ -1,34 +1,35 @@
-#{extends 'main.html' /}
-#{ifErrors}
-<ul class="errors">
-  #{errors}
-    <li>${error}</li>
-  #{/errors}
-</ul>
-#{/ifErrors}
-<ul class="photo-list">
-  #{list items:photos, as:'photo' }
-    <li>
-      <img src=@{Photos.getPhoto(photo.id)} width = "500" height = "500" />
-      #{if currentUser.equals(photo.owner)}
-        #{form @Photos.removePhoto(photo.id)}
-          <input type="submit" name="submit" value="Delete" />
-        #{/form}
-				#{form @Photos.setProfilePhoto(photo.id)}
-          <input type="submit" name="Set Profile Picture" value="Set as profile picture" />
-				#{/form}
-        #{form @Skins.setBackgroundPhoto(photo.id)}
-          <input type="submit" name="Set Background Photo" value="Set Background Photo" />
-        #{/form}
-        #{form @Skins.setBackgroundPhoto(photo.id)}
-          <input type="submit" name="Set Background Photo" value="Set Background Photo" />
-        #{/form}
-      #{/if}
-    </li>
-  #{/list}
-</ul>
+#{extends 'three_panel.html' /}
+<link rel="stylesheet" type="text/css" media="screen"
+  href="/public/stylesheets/photos.css" />
 
-#{form @Photos.addPhoto(), enctype:'multipart/form-data'}
-  <input type="file" name="image" />
-  <input type="submit" name="submit" value="Upload" />
-#{/form}
+        <div id="contentArea-AutoPage">
+
+  <h2>Upload a new photo</h2>
+  <hr />
+
+  #{ifErrors}
+    <ul class="errors">
+      #{errors}
+        <li>${error}</li>
+      #{/errors}
+    </ul>
+  #{/ifErrors}
+
+  <div class="photo-upload">
+    #{form @Photos.addPhoto(), enctype:'multipart/form-data'}
+      <input type="file" name="image" />
+      <input type="submit" name="submit" value="Upload"
+             class="ui_TextAreaButton" style="display: inline-block; " />
+    #{/form}
+  </div>
+
+  <h2>Your photos</h2>
+  <hr />
+
+  <ul class="photo-list">
+    #{list items:photos, as:'photo'}
+      #{photo currentUser:currentUser, photo:photo /}
+    #{/list}
+  </ul>
+
+</div>

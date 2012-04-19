@@ -2,32 +2,30 @@
 
 #Green Skin (greenHeader)
 models.Skin(GREEN):
- name: green
+ userName: default
+ skinName: green
+ name: defaultgreen
+ isPublic: "true"
 
 models.SkinPair(models_SkinPair_1):
  attachedSkin: GREEN
  name: bodyBGPhoto
  value: none
  
+models.SkinPair(models_SkinPair_a_1):
+ attachedSkin: GREEN
+ name: bodyBGColor
+ value: none 
+
 models.SkinPair(models_SkinPair_2):
  attachedSkin: GREEN
- name: logoFontSize
- value: 30
- 
-models.SkinPair(models_SkinPair_3):
- attachedSkin: GREEN
- name: logoColor
- value: white
- 
-models.SkinPair(models_SkinPair_4):
- attachedSkin: GREEN
- name: logoFontType
- value: helvetica
+ name: headerBGPhoto
+ value: none 
 
 models.SkinPair(models_SkinPair_5):
  attachedSkin: GREEN
  name: headerBGColor
- value: 008000 
+ value: 148203 
  
 models.SkinPair(models_SkinPair_6):
  attachedSkin: GREEN
@@ -42,7 +40,7 @@ models.SkinPair(models_SkinPair_7):
 models.SkinPair(models_SkinPair_8):
  attachedSkin: GREEN
  name: footerColor
- value: gray
+ value: 858A7B
 
 models.SkinPair(models_SkinPair_9):
  attachedSkin: GREEN
@@ -57,7 +55,7 @@ models.SkinPair(models_SkinPair_10):
 models.SkinPair(models_SkinPair_11):
  attachedSkin: GREEN
  name: labelColor
- value: green
+ value: 148203
  
 models.SkinPair(models_SkinPair_12):
  attachedSkin: GREEN
@@ -67,7 +65,7 @@ models.SkinPair(models_SkinPair_12):
 models.SkinPair(models_SkinPair_13):
  attachedSkin: GREEN
  name: commentBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_14):
  attachedSkin: GREEN
@@ -87,7 +85,7 @@ models.SkinPair(models_SkinPair_16):
 models.SkinPair(models_SkinPair_17):
  attachedSkin: GREEN
  name: buttonBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_18):
  attachedSkin: GREEN
@@ -97,7 +95,7 @@ models.SkinPair(models_SkinPair_18):
 models.SkinPair(models_SkinPair_19):
  attachedSkin: GREEN
  name: buttonBGColor
- value: white
+ value: FFFFFF
  
 models.SkinPair(models_SkinPair_20):
  attachedSkin: GREEN
@@ -107,12 +105,12 @@ models.SkinPair(models_SkinPair_20):
 models.SkinPair(models_SkinPair_21):
  attachedSkin: GREEN
  name: buttonLinkUnvisitedColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_22):
  attachedSkin: GREEN
  name: buttonLinkVisitedColor
- value: lightgreen
+ value: 148203
  
 models.SkinPair(models_SkinPair_23):
  attachedSkin: GREEN
@@ -122,42 +120,35 @@ models.SkinPair(models_SkinPair_23):
 models.SkinPair(models_SkinPair_24):
  attachedSkin: GREEN
  name: buttonLinkSelectedColor
- value: black
+ value: 000000
  
  
 #Peace Skin
 models.Skin(peace):
- name: peace
-
-models.SkinPair(models_SkinPair_25):
- attachedSkin: peace
- name: bodyBGColor
- value: none
+ userName: default
+ skinName: peace
+ name: defaultpeace
+ isPublic: "true"
  
 models.SkinPair(models_SkinPair_26):
  attachedSkin: peace
  name: bodyBGPhoto
  value: /photos/1
  
+models.SkinPair(models_SkinPair_a_2):
+ attachedSkin: peace
+ name: bodyBGColor
+ value: none  
+
 models.SkinPair(models_SkinPair_27):
  attachedSkin: peace
- name: logoFontSize
- value: 30
- 
-models.SkinPair(models_SkinPair_28):
- attachedSkin: peace
- name: logoColor
- value: white
- 
-models.SkinPair(models_SkinPair_29):
- attachedSkin: peace
- name: logoFontType
- value: helvetica
+ name: headerBGPhoto
+ value: none 
 
 models.SkinPair(models_SkinPair_30):
  attachedSkin: peace
  name: headerBGColor
- value: 008000 
+ value: 148203 
  
 models.SkinPair(models_SkinPair_31):
  attachedSkin: peace
@@ -172,7 +163,7 @@ models.SkinPair(models_SkinPair_32):
 models.SkinPair(models_SkinPair_33):
  attachedSkin: peace
  name: footerColor
- value: gray
+ value: 858A7B
 
 models.SkinPair(models_SkinPair_34):
  attachedSkin: peace
@@ -187,7 +178,7 @@ models.SkinPair(models_SkinPair_35):
 models.SkinPair(models_SkinPair_36):
  attachedSkin: peace
  name: labelColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_37):
  attachedSkin: peace
@@ -227,7 +218,7 @@ models.SkinPair(models_SkinPair_43):
 models.SkinPair(models_SkinPair_44):
  attachedSkin: peace
  name: buttonBGColor
- value: white
+ value: FFFFFF
  
 models.SkinPair(models_SkinPair_45):
  attachedSkin: peace
@@ -242,7 +233,7 @@ models.SkinPair(models_SkinPair_46):
 models.SkinPair(models_SkinPair_47):
  attachedSkin: peace
  name: buttonLinkVisitedColor
- value: lightgreen
+ value: 48203
  
 models.SkinPair(models_SkinPair_48):
  attachedSkin: peace
@@ -257,33 +248,23 @@ models.SkinPair(models_SkinPair_49):
  
 #Default Skin (orange header)
 models.Skin(default_skin):
+ userName: default
+ skinName: default_skin
+ name: defaultdefault_skin
  name: default_skin
+ isPublic: "true"
 
 models.SkinPair(models_SkinPair_50):
  attachedSkin: default_skin
  name: bodyBGPhoto
  value: none
- 
-models.SkinPair(models_SkinPair_51):
- attachedSkin: default_skin
- name: logoFontSize
- value: 30
- 
-models.SkinPair(models_SkinPair_52):
- attachedSkin: default_skin
- name: logoColor
- value: white
- 
-models.SkinPair(models_SkinPair_53):
- attachedSkin: default_skin
- name: logoFontType
- value: helvetica
 
 models.SkinPair(models_SkinPair_54):
  attachedSkin: default_skin
- name: headerBGColor
- value: CC5500 
+ name: headerBGPhoto
+ value: /photos/3
  
+
 models.SkinPair(models_SkinPair_55):
  attachedSkin: default_skin
  name: footerTextAlign
@@ -297,7 +278,7 @@ models.SkinPair(models_SkinPair_56):
 models.SkinPair(models_SkinPair_57):
  attachedSkin: default_skin
  name: footerColor
- value: gray
+ value: 858A7B
 
 models.SkinPair(models_SkinPair_58):
  attachedSkin: default_skin
@@ -312,7 +293,7 @@ models.SkinPair(models_SkinPair_59):
 models.SkinPair(models_SkinPair_60):
  attachedSkin: default_skin
  name: labelColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_61):
  attachedSkin: default_skin
@@ -322,7 +303,7 @@ models.SkinPair(models_SkinPair_61):
 models.SkinPair(models_SkinPair_62):
  attachedSkin: default_skin
  name: commentBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_63):
  attachedSkin: default_skin
@@ -342,7 +323,7 @@ models.SkinPair(models_SkinPair_65):
 models.SkinPair(models_SkinPair_66):
  attachedSkin: default_skin
  name: buttonBorderColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_67):
  attachedSkin: default_skin
@@ -352,7 +333,7 @@ models.SkinPair(models_SkinPair_67):
 models.SkinPair(models_SkinPair_68):
  attachedSkin: default_skin
  name: buttonBGColor
- value: white
+ value: FFFFFF
  
 models.SkinPair(models_SkinPair_69):
  attachedSkin: default_skin
@@ -362,12 +343,12 @@ models.SkinPair(models_SkinPair_69):
 models.SkinPair(models_SkinPair_70):
  attachedSkin: default_skin
  name: buttonLinkUnvisitedColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_71):
  attachedSkin: default_skin
  name: buttonLinkVisitedColor
- value: black
+ value: 000000
  
 models.SkinPair(models_SkinPair_72):
  attachedSkin: default_skin
@@ -377,4 +358,122 @@ models.SkinPair(models_SkinPair_72):
 models.SkinPair(models_SkinPair_73):
  attachedSkin: default_skin
  name: buttonLinkSelectedColor
- value: black
+ value: 000000
+ 
+ 
+#UT Skin
+models.Skin(ut_skin):
+ userName: default
+ skinName: ut_skin
+ name: defaultut_skin
+ isPublic: "true"
+
+models.SkinPair(models_SkinPair_74):
+ attachedSkin: ut_skin
+ name: bodyBGPhoto
+ value: /photos/4
+
+models.SkinPair(models_SkinPair_75):
+ attachedSkin: ut_skin
+ name: headerBGPhoto
+ value: /photos/3 
+ 
+models.SkinPair(models_SkinPair_75_2):
+ attachedSkin: ut_skin
+ name: headerBGColor
+ value: none
+ 
+models.SkinPair(models_SkinPair_76):
+ attachedSkin: ut_skin
+ name: footerTextAlign
+ value: center
+ 
+models.SkinPair(models_SkinPair_77):
+ attachedSkin: ut_skin
+ name: footerFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_78):
+ attachedSkin: ut_skin
+ name: footerColor
+ value: 858A7B
+
+models.SkinPair(models_SkinPair_79):
+ attachedSkin: ut_skin
+ name: sectionAlign
+ value: top
+
+models.SkinPair(models_SkinPair_80):
+ attachedSkin: ut_skin
+ name: labelFontSize
+ value: 10
+ 
+models.SkinPair(models_SkinPair_81):
+ attachedSkin: ut_skin
+ name: labelColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_82):
+ attachedSkin: ut_skin
+ name: commentBorderSize
+ value: 2
+
+models.SkinPair(models_SkinPair_83):
+ attachedSkin: ut_skin
+ name: commentBorderColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_84):
+ attachedSkin: ut_skin
+ name: commentBGColor
+ value: EEEEEE
+ 
+models.SkinPair(models_SkinPair_85):
+ attachedSkin: ut_skin
+ name: buttonBorderRadius
+ value: 4
+ 
+models.SkinPair(models_SkinPair_86):
+ attachedSkin: ut_skin
+ name: buttonBorderSize
+ value: 1
+ 
+models.SkinPair(models_SkinPair_87):
+ attachedSkin: ut_skin
+ name: buttonBorderColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_88):
+ attachedSkin: ut_skin
+ name: buttonBoxShadowColor
+ value: 888888
+ 
+models.SkinPair(models_SkinPair_89):
+ attachedSkin: ut_skin
+ name: buttonBGColor
+ value: FFFFFF
+ 
+models.SkinPair(models_SkinPair_90):
+ attachedSkin: ut_skin
+ name: buttonTextDec
+ value: none
+ 
+models.SkinPair(models_SkinPair_91):
+ attachedSkin: ut_skin
+ name: buttonLinkUnvisitedColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_92):
+ attachedSkin: ut_skin
+ name: buttonLinkVisitedColor
+ value: 000000
+ 
+models.SkinPair(models_SkinPair_93):
+ attachedSkin: ut_skin
+ name: buttonLinkHoverColor
+ value: E0E0FF
+ 
+models.SkinPair(models_SkinPair_94):
+ attachedSkin: ut_skin
+ name: buttonLinkSelectedColor
+ value: 000000

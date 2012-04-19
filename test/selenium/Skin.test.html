@@ -1,0 +1,16 @@
+*{ You can use plain selenium command using the selenium tag }*
+
+#{selenium}
+    // Open the each Skin page, and check that no error occured
+    open('/changeSkin')
+    assertNotTitle('Application error')
+    
+    open('/editMySkin')
+    assertNotTitle('Application error')
+    
+    open('/sampleSkin')
+    assertNotTitle('Application error')
+    
+    open('/changeBGImage')
+    assertNotTitle('Application error')
+#{/selenium}

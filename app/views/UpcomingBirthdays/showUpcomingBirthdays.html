@@ -1,0 +1,20 @@
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/showUpcomingBirthdays.css'}" />
+
+<base target="_parent" />
+<div class="lhs-navBoxBody">
+	#{if birthdayPeople.size()==0}There are no upcoming birthdays.#{/if} 
+	#{else} 
+	<style>
+	body {
+ 	 line-height: 0.1;
+	}
+	</style>
+	#{/else}
+	
+	#{list items: birthdayPeople, as:'birthdayPerson'}
+	<hr />
+		<h4><a
+		href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></h4>
+		${birthdayPerson.getProfile().birthday.format('MMM dd')}
+		 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	#{/list}

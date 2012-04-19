@@ -14,7 +14,7 @@ import play.modules.elasticsearch.annotations.ElasticSearchable;
 @ElasticSearchable
 @Table(name="Openbook_Group")
 @Entity
-public class Group extends Model{
+public class Group extends Postable {
 	
 	@Required
 	@ManyToOne
@@ -55,6 +55,6 @@ public class Group extends Model{
 	}
 	
 	public List<Post> getPosts(){
-      return Post.find("SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",Post.type.GROUP,this.id.toString()).fetch();
+      return posts;
   }
 }
