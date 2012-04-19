@@ -7,9 +7,9 @@
 
 <br />
 #{list items:user.confirmedFriends(), as:'friendship'}
-<a href="@{Application.news(friendship.to.id)}">${
+<a href="@{Application.about(friendship.to.id)}">${
 	friendship.to.name }</a>
-<a id="friend-button" href="@{Relationships.removeFriends(user.id)}">remove
+<a id="friend-button" href="@{Relationships.unFriend(friendship.id)}">remove
 	friend</a>
 <br />
 #{/list}

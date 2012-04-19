@@ -6,12 +6,19 @@
   <br />
   <h3>${_title_string}</h3>
   #{list items:_events, as:'event'} 
-    <a href="/events/${event.id}">${event.name}</a>
     #{if event.author.equals(_currentUser)}
+      <a href="/events/${event.id}">${event.name}</a>
       <a class="button" href="@{Events.deleteEvent(event.id)}">
         Remove Event
       </a>
       <br />
-    #{/if}
+    #{/if}        
+    #{else}
+      #{if event.members.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <i> You're going.</i>
+        <br />
+      #{/if} 
+    #{/else}   
   #{/list}
 </div>

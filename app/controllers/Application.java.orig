@@ -160,6 +160,15 @@ public class Application extends OBController {
 	render(profile);
   }
 
+<<<<<<< HEAD
+  public static void updateBasic() {
+    long userID = 1;
+    User user = User.findById(userID);
+    user.profile.save();
+    
+  }
+=======
+>>>>>>> 713fe1134ba4c5609a35793d22b95f5b44dc605f
 
   public static void search(String query) {
     // not implemented yet

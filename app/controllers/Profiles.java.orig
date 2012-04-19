@@ -87,6 +87,11 @@ public class Profiles extends OBController {
     profile.quotes = quotes;
     profile.save();
     user.save();
+<<<<<<< HEAD
+    System.out.println("\n\n\n\n*****" + user.profile.religion + "\n\n ******");
+    renderTemplate("Application/edit_basic.html", user);
+=======
     renderTemplate("Application/edit_basic.html", profile);
+>>>>>>> 713fe1134ba4c5609a35793d22b95f5b44dc605f
   }
 }
