@@ -17,13 +17,16 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   
+
   map = new google.maps.Map(document.getElementById('checkin-map_canvas'),
                             mapOptions);
-  
+
+
   var input = document.getElementById('checkin-input');
   var autocomplete = new google.maps.places.Autocomplete(input);
   
-  autocomplete.bindTo('bounds', map);
+  //autocomplete.bindTo('bounds', map);
+  autocomplete.setBounds(mapOptions.center);
   
   var infowindow = new google.maps.InfoWindow();
   var marker = new google.maps.Marker({
