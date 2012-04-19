@@ -72,7 +72,7 @@
   <hr>
 
   <li class="row-fluid vertical-element">
-    <ul class="comment-list unstyled">
+    <ul class="comment-list unstyled" id="commentlist-${_item.id}">
       #{list items:_item.getComments(), as:'comment'} 
         <li>#{comment user:_user, currentUser:_currentUser, comment:comment /}</li>
       #{/list}
@@ -85,7 +85,7 @@
       <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" style="width:100%;"></textarea>
     </div>
     <div class="span2">
-      <button class="btn" id="commentSubmit${_item.id}"><i class="icon-plus"></i> Comment</button>
+      <button class="btn" onclick="submitComment(${_item.id})"><i class="icon-plus"></i> Comment</button>
     </div>
     <div class="span6"></div>
   </li>

@@ -22,3 +22,27 @@ function deletePost(id) {
     'complete': function(result) {$('#post-' + id).slideUp();}
   });
 }
+
+function submitComment(postId) {
+  var input = $("textarea#commentContent" + postId);
+  var commentData = {
+    commentContent : input.val(),
+    statusId: postId
+  };
+  var nonws = /\S/;
+  if (!nonws.test(commentData.commentContent)) {
+    input.val('');
+    input.focus();
+  }
+  else {
+    $.post('/comments', commentData, function (data, textStatus, jqXHR) {
+      alert('created comment');
+      comment = $(data).hide();
+      $('ul#commentlist-' + postId).prepend(comment);
+      comment.slideDown();
+      input.val('');      
+    });
+    input.val('TODO: submit comment');
+  }
+  input.focus();
+}
