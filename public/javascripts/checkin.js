@@ -16,10 +16,11 @@ function initialize() {
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
+  
   map = new google.maps.Map(document.getElementById('checkin_map_canvas'),
                             mapOptions);
   
-  var input = document.getElementById('checkin_input');
+  var input = document.getElementById('checkin-input');
   var autocomplete = new google.maps.places.Autocomplete(input);
   
   autocomplete.bindTo('bounds', map);
@@ -68,4 +69,3 @@ function initialize() {
   });
   navigator.geolocation.getCurrentPosition(setCurrentLocation);
 }
-google.maps.event.addDomListener(window, 'load', initialize);

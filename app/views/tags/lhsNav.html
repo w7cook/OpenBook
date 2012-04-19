@@ -67,8 +67,8 @@
     <h3>&{'checkin.checkin'}</h3>
   </div>
   <div class="modal-body">
-    <input id="chekin_input" type="text" size="50">
-    <div id="chekin_map_canvas" style="height:300px;"></div>
+    <input id="checkin-input" type="text" size="50">
+    <div id="checkin_map_canvas" style="height: 200px;"></div>
   </div>
 </div>
 
@@ -77,3 +77,7 @@
    type="text/javascript">
 </script>
 <script src="/public/javascripts/checkin.js"></script>
+
+<script>
+  $('#checkin').on('shown', initialize);
+</script>
