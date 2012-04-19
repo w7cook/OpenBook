@@ -1,6 +1,9 @@
 function submitPost() {
   postData = {postContent : $("textarea#postContent").val()};
-  if (postData.postContent !== '') {
+  if (postData.postContent === '') {
+    $("textarea#postContent").focus();
+  }
+  else {
     $.post('/posts', postData, function(data, textStatus, jqXHR) {
       newPost = $(data).hide();
       $('ul#post-list').prepend(newPost);
