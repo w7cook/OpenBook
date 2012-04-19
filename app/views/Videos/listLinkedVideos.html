@@ -44,9 +44,9 @@
 		<ul class="photo-list">
 			#{list items:videos, as:'video'}
   			<li>
-  			  <a href="@{Videos.showLinkedVideo(video.id)}"><img class="thumbnail" src=@{Videos.getThumb(video.id)} />
+  			  <a href="@{Videos.showLinkedVideo(video.id)}"><img class="thumbnail" src="${video.thumbnail_url}" />
   				#{if currentUser.equals(video.owner)} 
-  				  #{form @Videos.removeVideo(video.id)} <input type="submit" name="submit" value="Delete" /> #{/form} 
+  				  #{form @Videos.removeLinkedVideo(video.id)} <input type="submit" name="submit" value="Delete" /> #{/form} 
   				#{/if}
   			</li> 
 			#{/list}

@@ -15,6 +15,8 @@ public class LinkedVideo extends Commentable {
   public int link_type;
   public String video_id;
   
+  public String thumbnail_url;
+  
   @Required
   public String title;
 

@@ -17,13 +17,21 @@ import java.util.regex.*;
 public class Videos extends OBController {
   
   
-  public static void listLinkedVideos(long user_id){
-    User user = User.findById(user_id);
+  public static void listLinkedVideos(long ownerId){
+    User user = User.findById(ownerId);
+    System.out.println(user.name);
     List<LinkedVideo> videos = LinkedVideo.find("owner = ? order by createdAt asc", user).fetch();
     render(videos);
   }
   
-  public static void uploadLinkedVideo(){
+  public static void listMyLinkedVideos(){
+    User user = user();
+    
+    if(user == null)
+      forbidden();
+    
+    List<LinkedVideo> videos = LinkedVideo.find("owner = ? order by createdAt asc", user).fetch();
+    renderTemplate("Videos/listLinkedVideos.html", videos);
   }
   
   public static void showLinkedVideo(Long linkedVideoID){
@@ -53,7 +61,9 @@ public class Videos extends OBController {
       
       new_vid.likes = new ArrayList<Likes>();
       new_vid.comments = new ArrayList<Comment>();
+      new_vid.thumbnail_url = getThumb(new_vid.video_id, link_type);
       new_vid.save();
+  
       showLinkedVideo(new_vid.id);
     }
     
@@ -107,11 +117,10 @@ public class Videos extends OBController {
     return videoId;
   }
   
-  public static String getThumb(long videoId){
-    LinkedVideo vid = LinkedVideo.findById(videoId);
+  public static String getThumb(String video_id, char link_type){
     
-    if(vid.link_type == 'y'){
-      return "http://img.youtube.com/vi/" + vid.video_id + "/1.jpg";
+    if(link_type == 'y'){
+      return "http://img.youtube.com/vi/" + video_id + "/1.jpg";
     }
     
     return "blah";

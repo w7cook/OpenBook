@@ -78,7 +78,7 @@ GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a 
 
 # Video
 GET     /users/{<[0-9]+>ownerId}/videos/linked/? Videos.listLinkedVideos
-GET     /videos/linked/?                        Videos.listLinkedVideos
+GET     /videos/linked                          Videos.listMyLinkedVideos
 POST    /videos                                 Videos.createLinkedVideo     
 DELETE  /videos/linked/{<[0-9]+>photoId}        Videos.removeLinkedVideo
 
