@@ -16,10 +16,13 @@
 <!--  As much as I want to put a DIV around the menu boxes, we cannot afford to do so (a certain amount of padding will be added automatically and make it look bad. -VA -->
 <div class="lhs-navBoxHeader">FAVORITES</div>
 <div class="lhs-navBoxBody">
-	<a href="@{Application.news()}">News Feed</a> <a
-		href="/users/${_user.id}/events">Events</a> <a href="@{Checkin.checkin()}">Checkin</a>
-	<a href="@{Messages.inbox()}">Inbox [${_user.inbox().size()}]</a> <a href="/requests">Friend
-		Requests</a> <a href="/changeSkin">Change Skin</a>
+	<a href="@{Application.news()}">News Feed</a> 
+	<a href="/users/${_user.id}/events">Events</a> 
+	<a href="@{Checkin.checkin()}">Checkin</a>
+	<a href="@{Messages.inbox()}">Inbox [${_user.inbox().size()}]</a> 
+	<a href="/requests">Friend Requests</a> 
+	<a href="/changeSkin">Change Skin</a>
+	<a href="@{Notes.viewNotes()}">Notes</a>
 </div>
 
 
