@@ -95,6 +95,20 @@ public class Relationships extends OBController {
 		Application.news(id);
 	}
 	
+	
+	public static void unFriend(Long relationshipId) {
+	  Relationship r = Relationship.findById(relationshipId);
+	  Relationship cr = complement(r);
+	  r.delete();
+	  cr.delete();
+	  relationships(null);
+	}
+	
+	private static Relationship complement(Relationship r) {
+	  return Relationship.find("From Relationship r where r.to=? AND r.from=?", 
+	      r.from, r.to).first();
+	}
+	
 	/**
 	 * hello	
 	 */

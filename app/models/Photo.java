@@ -19,7 +19,7 @@ public class Photo extends Post {
   public type photoType;
 
   public Photo(User owner, Blob image) {
-    super(owner, "", "");
+    super(owner, owner, "");
     this.owner = owner;
     this.image = image;
     this.photoType = type.USER;
@@ -43,7 +43,7 @@ public class Photo extends Post {
   }
   
   public Photo(User owner, Blob image, String caption){
-    super(owner, "", caption);
+    super(owner, owner, caption);
     this.image = image;
   }
 }

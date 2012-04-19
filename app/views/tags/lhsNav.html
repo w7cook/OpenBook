@@ -46,7 +46,7 @@
 <div class="lhs-navBoxBody">
 
 	#{list items:_user.confirmedFriends(), as:'friendship'} <a
-		href="@{Application.news(friendship.to.id)}">${ friendship.to.name
+		href="@{Users.about(friendship.to.id)}">${ friendship.to.name
 		}</a><br /> #{/list} <br /> <a
 		href="@{Relationships.relationships(_user.id)}">see all friends..</a><br />
 	<br />
