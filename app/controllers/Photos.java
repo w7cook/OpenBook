@@ -75,10 +75,7 @@ public class Photos extends OBController {
     return photo;
   }
 	//for PGE  
-  public static Photo initFileToPGEPhoto(String path, 	
-  																		String caption, 
-  																		Photo.type t,
-  																		Long id) throws FileNotFoundException {
+  public static Photo initFileToPGEPhoto(String path, String caption, Photo.type t, Long id) throws FileNotFoundException {
     File image = new File(path);
     Blob blob = new Blob();
     blob.set(new FileInputStream(image),
