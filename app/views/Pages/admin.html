@@ -9,7 +9,7 @@
 		<ul>
       <li><a href="#tabs-1" style="color: #FFDAC6;">Update</a></li>
       <li><a href="#tabs-2" style="color: #FFDAC6;">Upload Photo</a></li>
-      <li><a href="#tabs-3" style="color: #FFDAC6;">Something</a></li>
+      <li><a href="#tabs-3" style="color: #FFDAC6;">All Photos</a></li>
     </ul>
     <div id="tabs-1">
     	#{form @Pages.pageUpdate(page.id, info)}
@@ -38,12 +38,13 @@
     	</div>
     </div>
     <div id="tabs-3">
-      <br>mehhhh
+			<div id="page-box" style="width:100%">
+				#{list items:photos, as:'photo'}
+					#{photo photo:photo/}
+				#{/list}
+			</div>
     </div>
   </div>
-	<div class="bar">
-		<a href="@{PGEphotos.pagePhotos(page.id)}"> all photos</a>
-	</div>
 
 <script>
 	$(function() {

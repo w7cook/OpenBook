@@ -51,7 +51,6 @@ public class PGEphotos extends Photos {
 
     if (!validation.hasErrors()) {
       photo.save();
-      //renderText("no errors and saved");
     }
     Page page = Page.findById(pid);
     User currentUser = user();
@@ -72,12 +71,23 @@ public class PGEphotos extends Photos {
     blob.set(new FileInputStream(image),
              MimeTypes.getContentType(image.getName()));
     
-    if(t == Photo.type.PAGE){return new Photo(user(), blob, id, Post.type.PAGE, t);}
-    if(t == Photo.type.GROUP){return new Photo(user(), blob, id, Post.type.GROUP, t);}
-    if(t == Photo.type.EVENT){return new Photo(user(), blob, id, Post.type.EVENT, t);}
-    
+    if(t == Photo.type.PAGE){
+    	Page p = Page.findById(id);
+    	return new Photo(user(), blob, id, t, p);
+    }
+    //untested 
+    if(t == Photo.type.GROUP){
+    	Group g = Group.findById(id);
+    	return new Photo(user(), blob, id, t, g);
+    }
+    if(t == Photo.type.EVENT){
+    	Event e = Event.findById(id);
+    	return new Photo(user(), blob, id, t, e);
+    }
+    //copy for group event
     //should never get here 
     else{return null;}
+    
   }
   
 }

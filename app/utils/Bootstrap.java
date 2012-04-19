@@ -36,6 +36,8 @@ public class Bootstrap extends Job {
 			    "UT Austin via Wikimedia Commons");
 			Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
 			Fixtures.loadModels("initial-data.yml");//rest of the data
+			
+			
 			hashPasswords();
 		}
 	}

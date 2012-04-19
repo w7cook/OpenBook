@@ -34,8 +34,8 @@ public class Photo extends Post {
    *									p = the post type for post super class
    *									t = the photo type for the photo
    */
-  public Photo(User owner, Blob image, Long id, Post.type p, Photo.type t) {
-  	super(owner, "", "", p);
+  public Photo(User owner, Blob image, Long id, Photo.type t, Postable p) {
+  	super(p, owner, "");
     this.owner = owner;
     this.image = image;
     this.entityId = id;
