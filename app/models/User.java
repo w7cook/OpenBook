@@ -92,6 +92,10 @@ public class User extends Postable {
   @OneToMany(mappedBy="owner")
   public Set<Question> questions;
 
+  @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
+  public List<RSSFeed> feeds;
+
+
   public User(String email, String password, String username) {
     this.email = email;
     this.password = Crypto.passwordHash(password);

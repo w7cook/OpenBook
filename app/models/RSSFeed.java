@@ -8,6 +8,8 @@ import controllers.Secure;
 import controllers.Comments;
 import controllers.Secure;
 import play.db.jpa.*;
+import play.data.validation.*;
+
 
 import play.libs.WS;
 
@@ -19,13 +21,17 @@ import org.w3c.dom.NamedNodeMap;
 
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(
+         columnNames={"SUBSCRIBER", "URL"}))
 public class RSSFeed extends Model {
 
+    @Required
     @ManyToOne
+    @JoinColumn(name="SUBSCRIBER")
     public User subscriber;
-
+    @Required
     public String url;
-
+    @Required
     public boolean is_valid;
 
     public RSSFeed(User subscriber, String url) {
@@ -34,18 +40,44 @@ public class RSSFeed extends Model {
       this.is_valid = this.validateURL();
     }
 
-    public List<RSSFeedNode> getItems() {
-      List<RSSFeedNode> item_list = new ArrayList<RSSFeedNode>();
+
+    public List<RSSFeedNode> getNodesByName(String name) {
+      List<RSSFeedNode> list = new ArrayList<RSSFeedNode>();
 
       Document xml = getXML();
-      NodeList item_nodes = xml.getElementsByTagName("item");
-      for(int i=0; i<=item_nodes.getLength(); i++) {
-        if (item_nodes.item(i) == null)
+      NodeList nodes = xml.getElementsByTagName(name);
+      for(int i=0; i<=nodes.getLength(); i++) {
+        if (nodes.item(i) == null)
           continue;
-        item_list.add(new RSSFeedNode(item_nodes.item(i)));
+        list.add(new RSSFeedNode(nodes.item(i)));
       }
 
-      return item_list;
+      return list; 
+    }
+
+    public RSSFeedNode getFirstNodeByName(String name) {
+      return getNodesByName(name).get(0);
+    }
+
+    public List<RSSFeedNode> getItems() {
+      return getNodesByName("item");
+    }
+
+    public List<RSSFeedNode> getItems(int num) {
+      List<RSSFeedNode> list = getItems();
+      return (list.size() < num ? list : list.subList(0, num));
+    }
+
+    public String getTitle() {
+      return getFirstNodeByName("channel").ccontent("title");
+    }
+
+    public String getChannelLink() {
+      return getFirstNodeByName("channel").ccontent("link");
+    }
+
+    public RSSFeedNode getImageNode() {
+      return getFirstNodeByName("image");
     }
 
     public Document getXML() {

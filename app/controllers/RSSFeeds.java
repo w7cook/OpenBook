@@ -14,16 +14,10 @@ public class RSSFeeds extends OBController {
   public static void addFeed(String url) {
     User u = user();
     RSSFeed feed = new RSSFeed(u, url);
+    // Add Unique Constraint Check
     feed.save();
 
-    if (feed.is_valid) {
-      System.out.println("Feed is Valid "+feed.url);
-      for(RSSFeed.RSSFeedNode n : feed.getItems()) {
-        System.out.println(n.ccontent("title"));
-      }
-      System.out.println("\n\n");
-    }
-
+    redirect("/");
   }
 }
 
