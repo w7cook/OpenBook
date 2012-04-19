@@ -1,11 +1,6 @@
 package controllers;
 
 import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.GraphicsEnvironment;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsConfiguration;
 import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.*;
