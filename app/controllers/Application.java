@@ -164,7 +164,7 @@ public class Application extends OBController {
     long userID = 1;
     User user = User.findById(userID);
     user.profile.save();
-    renderTemplate("Application/edit_basic.html", user);
+    
   }
 
   public static void search(String query) {
