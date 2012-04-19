@@ -17,7 +17,7 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   
-  map = new google.maps.Map(document.getElementById('checkin_map_canvas'),
+  map = new google.maps.Map(document.getElementById('checkin-map_canvas'),
                             mapOptions);
   
   var input = document.getElementById('checkin-input');
