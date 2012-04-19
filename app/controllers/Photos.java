@@ -147,6 +147,7 @@ public class Photos extends OBController {
       photos = null;
     }
     else {
+    	//fix
       photos = Photo.find("byOwner", user).fetch();
     }
     render(user,photos);

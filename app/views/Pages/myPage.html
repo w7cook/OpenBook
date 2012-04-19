@@ -2,7 +2,7 @@
 #{extends 'three_panel.html' /} 
 <link type="text/css" rel="Stylesheet" href="/public/stylesheets/page.css" /> 
 <div class="page-header">
-	<div class = "page-profPic"></div>
+	<div class = "page-profPic"><img src="@{Photos.getPhoto(page.profilePhoto)}"/></div>
 	<div class = "page-data">
 		<div class ="page-title">${page.title}</div>
 			#{include 'Pages/photoBar.html' /}

@@ -90,4 +90,19 @@ public class PGEphotos extends Photos {
     
   }
   
+  public static void setProfilePhoto(Long objId, Long photoId) {
+    
+	  Photo photo = Photo.findById(photoId);
+	  Photo.type t = photo.photoType;
+	  //repeat for g/e?
+	  if(t == Photo.type.PAGE){
+	  	Page p = Page.findById(objId);
+	  	if (p.admin.equals(user())) {
+  		  p.profilePhoto = photoId;
+  		  p.save();
+  	  }
+  	  Pages.display(objId);
+  	}
+	}
+  
 }

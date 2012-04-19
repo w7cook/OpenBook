@@ -1,0 +1,6 @@
+<div id="page-box" style="width:100%">
+	Click picture to set as profile picture
+	#{list items:allPhotos, as:'photo'}
+		<a href="@{PGEphotos.setProfilePhoto(page.id, photo.id)}">#{photo photo:photo/}</a>
+	#{/list}
+</div>

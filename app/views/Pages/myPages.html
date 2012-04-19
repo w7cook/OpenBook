@@ -1,7 +1,34 @@
 #{extends 'main.html' /} #{extends 'three_panel.html' /}
+<link type="text/css" rel="Stylesheet" href="/public/stylesheets/page.css" /> 
 <div id="contentArea">
 <h1>Your Pages</h1>
-	#{list items:myPages, as:'up'} 
-		<a href="@{Pages.display(up.page.id)}" >${up.page.title}</a><br>
-	#{/list} 
+	#{if myPages.size > 0}
+	<div id = "page-fan">
+		Pages you are a fan off:<br>
+		#{list items:myPages, as:'up'} 
+			<a class="popup" href="@{Pages.display(up.page.id)}" >
+				<img src="@{Photos.getPhoto(up.page.profilePhoto)}" 
+					style="height:100px; width:100px"/>
+				<span>${up.page.title}</span>
+			</a>
+		#{/list}
+	</div>
+	#{/if}
+	#{if pages.size > 0}
+	<div id="page-admin">
+		Pages you admin:<br>
+		#{list items:pages, as:'page'} 
+			<a class="popup" href="@{Pages.display(page.id)}" >
+				<img src="@{Photos.getPhoto(page.profilePhoto)}"
+					style="height:100px; width:100px"/>
+				<span>${page.title}</span>
+			</a>
+		#{/list}
+	</div>
+	#{/if}
+	#{else}
+		You have no pages 
+		<a href="@{Pages.newPage()}"> make one</a> or
+		<a href="@{Pages.pages()}">find one!</a>
+	#{/else}
 </div>

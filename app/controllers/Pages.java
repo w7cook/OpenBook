@@ -41,10 +41,11 @@ public class Pages extends OBController {
   }
 	                                                                     
 	public static void myPages(){
-		User _user = user(); 
-		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
+		User _user = user();  
+		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ? and u.page.admin != ?", _user, _user).fetch();
+		List<Page> pages = Page.find("select p from Page p where p.admin = ?",_user).fetch();
 		if(myPages == null){renderText("null");}
-		render(myPages, _user);
+		render(myPages, _user, pages);
 	}
 	
 	public static void display(Long id){
@@ -54,11 +55,13 @@ public class Pages extends OBController {
 		boolean fan = isFan(id);
 		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
 		List<Photo> photos = PGEphotos.pagePhotos(id, 4);
-		render("Pages/myPage.html", page, fan, _user, _currentUser, photos);
+		List<Photo> allPhotos = PGEphotos.pagePhotos(id, 20);
+		Photo profilePhoto = Photo.findById(page.profilePhoto);
+		render("Pages/myPage.html", page, fan, _user, _currentUser, photos, profilePhoto, allPhotos);
 	}
 
 	public static void pages(){
-		User user = user();
+		User user = user();                            
 		List<Page> allPages = Page.findAll();
 		render(allPages,user);
 	}
