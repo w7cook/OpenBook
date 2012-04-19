@@ -26,7 +26,7 @@ public class Photo extends Post {
     this.entityId = owner.id;//default owner id
   }
   /**
-   * PGE photo contructor
+   * photo contructor for P/G/E
    *
    * @param   				owner = uploader
    *									image = the image to be uploaded

@@ -37,6 +37,29 @@ public class Bootstrap extends Job {
 			Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
 			Fixtures.loadModels("initial-data.yml");//rest of the data
 			
+			//page photos
+			Page p = Page.find("select p from Page p where p.title = ?", "Nacho Cheese").first();
+			photo = Photos.initFileToPGEPhoto(path+"nacho.jpg", 
+			    "haters gonna hate", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path+"nacho1.jpg", 
+			    "haters gonna hate", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path+"nacho2.jpg", 
+			    "haters gonna hate", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path+"nacho3.jpg", 
+			    "haters gonna hate", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path+"nacho4.jpg", 
+			    "haters gonna hate", Photo.type.PAGE, p.id);
+			p = Page.find("select p from Page p where p.title = ?", "CATS").first();
+			photo = Photos.initFileToPGEPhoto(path+"cat.jpg", 
+			    "", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path + "cat1.jpg", 
+			    "",Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path + "cat2.jpg", 
+			    "",Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path + "cat3.jpg", 
+			    "",Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path + "cat4.jpg", 
+			    "",Photo.type.PAGE, p.id);
 			
 			hashPasswords();
 		}

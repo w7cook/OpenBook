@@ -74,6 +74,29 @@ public class Photos extends OBController {
     photo.save();
     return photo;
   }
+	//for PGE  
+  public static Photo initFileToPGEPhoto(String path, 	
+  																		String caption, 
+  																		Photo.type t,
+  																		Long id) throws FileNotFoundException {
+    File image = new File(path);
+    Blob blob = new Blob();
+    blob.set(new FileInputStream(image),
+             MimeTypes.getContentType(image.getName()));
+    Photo photo = null;
+    User user = User.find("username = ?", "default").first();//set owner as default owner
+    if(t == Photo.type.USER){
+    	photo = new Photo(user, blob);
+    }
+    //mirror for g/e?
+    if(t == Photo.type.PAGE){
+    	Page p = Page.findById(id);
+    	photo = new Photo(p.admin, blob, id, t, p);
+    }
+    photo.content = caption;//give credit
+    photo.save();
+    return photo;
+  }
 
   /**
    * Shrink the image to MAX_PIXEL_SIZE if necessary.

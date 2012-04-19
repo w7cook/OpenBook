@@ -13,7 +13,8 @@
 		#{include 'Pages/post.html' /}
 #{/if} 
 #{elseif page != null}
-	<div id="pageInfo${page.id}" style="float: left">${page.info}</div>
+
+	<div id="pageInfo${page.id}" style="float: left; display:block">${page.info}</div>
 		<div style="float: right">
 			<a class=button id = "fan${page.id}" href='#' onclick="return false;">*{text}*</a>
 		</div>
