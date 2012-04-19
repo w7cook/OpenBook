@@ -8,6 +8,10 @@ import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
+import play.data.validation.Error;
+import javax.imageio.ImageIO;
+import java.io.*;
+
 @With(Secure.class)
 public class Pages extends OBController {
 	
@@ -21,27 +25,27 @@ public class Pages extends OBController {
 		User currentUser = user();
 		Page page = new Page(user, title, info).save();
 		new UserPage(user, page).save();
-		render("Pages/myPage.html", page,user, currentUser);
+		//render("Pages/myPage.html", page,user, currentUser);
+		display(page.id);
 	}
 	
-	public static void pageUpdate(String pid, String info){
-		Page page = Page.findById(Long.parseLong(HTML.htmlEscape(pid))); 
-		page.info = HTML.htmlEscape(info);
-		page.save();
-		User user = user();
-		User currentUser = user();
-		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("_user", user);
-		m.put("_currentUser", currentUser);
-		m.put("page", page);
-		renderTemplate(m);
-	}
-	
+
+  public static void pageUpdate(Long id, String info){
+  	Page page = Page.findById(id); 
+  	page.info = info;
+    page.save();
+    //User _currentUser = user();
+    User _user = user();
+    display(id);
+    //render("Pages/myPage.html", page, _user);
+  }
+	                                                                     
 	public static void myPages(){
-		User _user = user(); 
-		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
+		User _user = user();  
+		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ? and u.page.admin != ?", _user, _user).fetch();
+		List<Page> pages = Page.find("select p from Page p where p.admin = ?",_user).fetch();
 		if(myPages == null){renderText("null");}
-		render(myPages, _user);
+		render(myPages, _user, pages);
 	}
 	
 	public static void display(Long id){
@@ -50,11 +54,14 @@ public class Pages extends OBController {
 		Page page = Page.findById(id);
 		boolean fan = isFan(id);
 		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
-		render("Pages/myPage.html", page, fan, _user, _currentUser);
+		List<Photo> photos = PGEphotos.pagePhotos(id, 4);
+		List<Photo> allPhotos = PGEphotos.pagePhotos(id, 20);
+		Photo profilePhoto = Photo.findById(page.profilePhoto);
+		render("Pages/myPage.html", page, fan, _user, _currentUser, photos, profilePhoto, allPhotos);
 	}
 
 	public static void pages(){
-		User user = user();
+		User user = user();                            
 		List<Page> allPages = Page.findAll();
 		render(allPages,user);
 	}
@@ -93,4 +100,5 @@ public class Pages extends OBController {
 		if(u == null){return false;}
 		else{return true;}
 	}
+	
 }
