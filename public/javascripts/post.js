@@ -7,3 +7,11 @@ function submitPost() {
     $('textarea#postContent').val('');
   });
 }
+
+function deletePost(id) {
+  $.ajax({
+    url:  '/posts/' + id,
+    type: 'DELETE',
+    'complete': function(result) {$('#post-' + id).slideUp();}
+  });
+}
