@@ -20,12 +20,12 @@
                   href="@{Application.removeFriends(user.id)}"> Remove friend </a>
   #{/elseif}
   <br>
-  <a class="btn btn-primary" href="@{Messages.createMessage()}"><i class="icon-plus"></i> Create Message</a>
+  <a class="btn btn-primary" href="#create-message" data-toggle="modal"><i class="icon-plus"></i> Create Message</a>
   
   <h2>Messages</h2>
-  <ul class="message-list">
+  <ul class="unstyled" id="message-list">
     #{list items:user.inbox(), as:'item'}
-      <li class="message">
+      <li>
         <span class="message-from"><a href="@{Application.news(item.author.id)}">From: ${item.author.name }</a></span>
         <span class="message-subject"> Subject: ${item.title}</span>
         <span class="message-date">${item.date.format('dd MMM yy')}</span>
@@ -35,3 +35,29 @@
     #{/list}
   </ul>
 </div>
+
+<div class="modal hide fade" id="create-message" style="display: none;">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal"><i class="icon-remove"></i></a>
+    <h3>Create A Message</h3>
+  </div>
+  <form id="new-message">
+    <div class="modal-body">
+      <label>To </label>
+      <input type="text" id="message-recipient" placeholder="TODO: typeahead" />
+      <label>Title </label>
+      <input type="text" id="message-title" />
+      <label>Your Message </label>
+      <textarea id="message-content"></textarea>
+    </div>
+    <div class="modal-footer">
+      <div class="pull-left">
+        <button class="btn btn-success" data-dismiss="modal" onclick="submitMessage()">Send Message</button>
+        <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="/public/javascripts/messages.js"></script>
+
