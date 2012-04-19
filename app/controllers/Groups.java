@@ -17,8 +17,9 @@ public class Groups extends OBController {
 
 	public static void group(Long id){
 		  Group group= id==null ? null : (Group) Group.findById(id);
-		  User user = user();
-		  render(group,user);
+		  User _user = user();
+		  User _currentUser = user();
+		  render(group,_user,_currentUser);
 	}
 	
 	public static void newGroupPost(Long groupId, Long userId, String post_content){
