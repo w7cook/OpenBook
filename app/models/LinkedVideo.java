@@ -38,11 +38,6 @@ public class LinkedVideo extends Commentable {
     this.caption = caption;
   }
   
-  
-  public List<Comment> comments() {
-    return Comment.find("parentObj = ? order by createdAt asc", this).fetch();
-  }
-  
   protected String getEmbedHtml(){
     if(link_type == 'y')
       return "<iframe class=\"youtube-player\" type=\"text/html\" width=\"560\" height=\"340\" src=\"http://www.youtube.com/embed/" + video_id +  "\" frameborder=\"0\"> </iframe>";
@@ -53,6 +48,12 @@ public class LinkedVideo extends Commentable {
     else
       return "NOOOO";
   }
+  
+  public List<Comment> comments() {
+    return Comment.find("parentObj = ? order by createdAt asc", this).fetch();
+  }
+  
+ 
   
   
 }

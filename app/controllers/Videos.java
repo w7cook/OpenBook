@@ -60,14 +60,6 @@ public class Videos extends OBController {
   }
 
   
-  public static void removeLinkedVideo(Long videoId){
-    LinkedVideo video = LinkedVideo.findById(videoId);
-     if (video.owner.equals(user())) {
-       video.delete();
-     }
-     redirect("/users/" + video.owner.id + "/videos");
-  }
-  
   public static void uploadVideo(){
     
   }
@@ -135,6 +127,35 @@ public class Videos extends OBController {
     else
       return false;
   }
+  
+  public static void addComment(long vid_id, String comment){
+    LinkedVideo vid = LinkedVideo.findById(vid_id);
+    vid.addComment(user(), comment);
+    
+    showLinkedVideo(vid_id);
+  }
+  
+  public static void removeComment(long comment_id){
+    Comment com = Comment.findById(comment_id);
+    LinkedVideo vid = (LinkedVideo) com.parentObj;
+    if (!com.author.equals(user()))
+      forbidden();
+    com.delete();
+    
+    showLinkedVideo(vid.id);
+    
+  }
+  
+  public static void removeLinkedVideo(long video_id){
+    LinkedVideo vid = LinkedVideo.findById(video_id);
+    User owner = vid.owner;
+    if (!owner.equals(user()))
+      forbidden();  
+    vid.delete();
+    
+    listLinkedVideos(owner.id);
+  }
+  
     
   
 }

@@ -77,7 +77,7 @@ DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
 GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
 
 # Video
-# GET     /users/{<[0-9]+>ownerId}/videos/linked/? Videos.listLinkedVideos
+GET     /users/{<[0-9]+>ownerId}/videos/linked/? Videos.listLinkedVideos
 GET     /videos/linked/?                        Videos.listLinkedVideos
 POST    /videos                                 Videos.createLinkedVideo     
 DELETE  /videos/linked/{<[0-9]+>photoId}        Videos.removeLinkedVideo
