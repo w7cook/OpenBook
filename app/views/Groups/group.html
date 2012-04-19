@@ -63,7 +63,7 @@
 					#{else} <a href="@{Application.addLike(item.id,user.id)}">Like</a>
 					#{/else} #{/if} . <a href="#"
 						onclick="showDiv('comment ${item.id}')">Comment</a> .
-					${item.updatedAt.format('dd MMM yy')} #{if item.author == currentUser} . <a href="@{Posts.deletePost(item.id,user.id)}">delete
+					${item.updatedAt.format('dd MMM yy')} #{if item.author == currentUser} . <a href="@{Posts.deletePost(item.id)}">delete
 						my post</a> #{/if}
 
 					<div id="comment ${item.id}" style="clear: both;"
