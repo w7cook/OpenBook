@@ -1,6 +1,8 @@
 function submitPost() {
-  postData = {postContent : $("textarea#postContent").val()};
-  if (postData.postContent === '') {
+  var postData = {postContent : $("textarea#postContent").val()};
+  var nonws = /\S/;
+  if (!nonws.test(postData.postContent)) {
+    $("textarea#postContent").val('');
     $("textarea#postContent").focus();
   }
   else {
