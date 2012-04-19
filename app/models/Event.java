@@ -1,17 +1,17 @@
 package models;
 
-import java.util.*;
-import javax.persistence.*;
-import play.data.validation.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import controllers.Events;
-import controllers.Application;
-import models.Post;
-
-import play.db.jpa.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Event extends Model {
+public class Event extends Postable {
 
   @ManyToOne
   public User author;
@@ -34,6 +34,7 @@ public class Event extends Model {
   // public Location eventVenue;
 
   @ManyToMany
+  @JoinTable(name="EventMembers")
   public List<User> members;
 
   public Event(User author, String name, String script,
@@ -53,10 +54,7 @@ public class Event extends Model {
   }
 
   public List<Post> getPosts() {
-    return Post
-        .find(
-            "SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",
-            Post.type.EVENT, this.id.toString()).fetch();
+    return posts;
   }
 
   public void addMember(User u) {

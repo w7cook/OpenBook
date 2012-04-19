@@ -39,6 +39,8 @@ public class UpcomingBirthdays extends OBController {
 
     	if(friendBirthday == null) //The user's friend did not set a birthday date field
     	{
+    		//x.to.getProfile().birthday = almostWeekLater;
+    		//friendBirthday =  almostWeekLater;
     		continue;
     	}
 
