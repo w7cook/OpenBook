@@ -16,25 +16,12 @@ public class Messages extends OBController {
     User user = user();
     render(user);
   }
-  
-  public static void createMessage() {
-    User user = user();
-    render(user);
-  }
-  
-  public static void sendMessage(@Required(message="Recipient is required") String recipientUsername, String title, String content) {
-    User author = user();
-    validation.isTrue(author.getUser(recipientUsername)!=null).message("Invalid Recipient");
-    if(validation.hasErrors()){
-      renderTemplate("Messages/createMessage.html", author);
-    }
-    else{
-      User recipient = User.getUser(recipientUsername);   
-      Message m = new Message(author, recipient, title, content);
-      m.save();
-      inbox();
-    }
-  }
-  
 
+  public static void createMessage(String username, String subject, String content) {
+    User user = user();
+    User recipient = User.getUser(username);
+    Message message = new Message(user, recipient, subject, content);
+    message.save();
+    render(user, message);
+  }
 }

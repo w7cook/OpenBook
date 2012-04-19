@@ -55,8 +55,7 @@ GET     /captcha                                Signup.captcha
 
 # Messages
 GET     /messages                               Messages.inbox
-GET     /messages/createMessage                 Messages.createMessage
-POST    /messages                               Messages.sendMessage
+POST    /messages                               Messages.createMessage
 
 # Search
 GET     /users/search                           UserSearch.search
