@@ -23,9 +23,11 @@
 </div>
 
 <div class="span10">
-  <ul class="unstyled">
+  <ul class="unstyled" id="post-list">
     #{list items:user.posts(), as:'item'}
       <li>#{post currentUser:currentUser, user:user, item:item /}</li>
     #{/list}
   </ul>
 </div>
+
+<script src="/public/javascripts/post.js"></script>

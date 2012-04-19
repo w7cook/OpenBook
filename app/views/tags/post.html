@@ -73,8 +73,9 @@
 
   <li class="row-fluid vertical-element">
     <ul class="comment-list unstyled" id="commentlist-${_item.id}">
-      #{list items:_item.getComments(), as:'comment'} 
-        <li>#{comment user:_user, currentUser:_currentUser, comment:comment /}</li>
+      #{list items:_item.comments, as:'comment'} 
+        <li>${comment.content.escape().nl2br()}</li>
+        <!--<li>#{comment user:_user, currentUser:_currentUser, comment:comment /}</li>-->
       #{/list}
     </ul>
   </li>

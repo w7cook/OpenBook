@@ -35,7 +35,7 @@ function submitComment(postId) {
     input.focus();
   }
   else {
-    $.post('/comments', commentData, function (data, textStatus, jqXHR) {
+    $.post('/status/' + postId + '/comments', commentData, function (data, textStatus, jqXHR) {
       alert('created comment');
       comment = $(data).hide();
       $('ul#commentlist-' + postId).prepend(comment);

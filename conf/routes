@@ -80,11 +80,11 @@ GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a 
 #Post    /links/?                                #Add/update link
 
 #Comments
-GET     /comments/?                              Comments.comments #Get all comments
-GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specific comment
-#DELETE  /comments/{<[0-9]+>commentId}            #Delete a comment
+GET     /comments/?                             Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}           Comments.comment #Get a specific comment
+#DELETE  /comments/{<[0-9]+>commentId}           Comments.deleteComment #Delete a comment
 #GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
-#POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
+POST    /status/{<[0-9]+>statusId}/comments/?   Comments.makeNewComment #Add a comment to a status
 GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
 
 #Events

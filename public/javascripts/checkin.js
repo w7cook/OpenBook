@@ -16,10 +16,10 @@ function initialize() {
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  map = new google.maps.Map(document.getElementById('map_canvas'),
+  map = new google.maps.Map(document.getElementById('checkin_map_canvas'),
                             mapOptions);
   
-  var input = document.getElementById('searchTextField');
+  var input = document.getElementById('checkin_input');
   var autocomplete = new google.maps.places.Autocomplete(input);
   
   autocomplete.bindTo('bounds', map);
