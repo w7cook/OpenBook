@@ -45,7 +45,7 @@ a:active {
   background-repeat: repeat-x; 
   background-color: #${skin.get("headerBGColor")};
   height: 40px;
-  line-height:30px;  
+  line-height:40px;  
 }
 
 #header a {
@@ -207,12 +207,13 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 
 /** Shared UI Elements **/
 .ui_TextArea {
-  width: 100%;
+  width: 88%;
   resize: none;
   color:grey;
   border: none;
   margin: none;
   display: none;
+  outline: black groove 1px;
 }
 
 .ui_TextAreaButton {
@@ -250,7 +251,7 @@ height: 80%; /*Resize the profile-picture here, picture will take up all the spa
 }
 
 .ui_InputContainer {
-  outline: black groove 1px;
+  outline: black groove 0px;
 	width: 100%;
 	height: auto;
 	background-color: white;
@@ -295,7 +296,6 @@ label {
 .comment {
   border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
   background-color: #${skin.get("commentBGColor")};
-  width: 420px;
 }
 
 .comment-textarea {
@@ -343,7 +343,7 @@ a.logo:active {text-decoration:none;}
 }
 
 .post .individual-post {
-  float: right;
+  float: left;
   margin-left: 5px;
   width: 440px;
   font-size: 13px;
@@ -358,13 +358,14 @@ a.logo:active {text-decoration:none;}
 }
 
 .post-content .post-image img{
-  width: 350px;
-  height: auto;
-  
+  max-width: 350px;
+  max-height: 350px;
 }
 
 .post .individual-post-metadata {
   color: gray;
+  width: 100%;
+  background-color: #e8e8e8;
 }
 
 .comment-content {

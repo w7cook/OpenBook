@@ -12,7 +12,7 @@ GET     /es-admin/                              elasticsearch.ElasticSearchAdmin
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
-GET			/edit_basic															Application.edit_basic
+GET     /edit_basic                             Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
 
@@ -51,9 +51,10 @@ POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 
 #Signup
 GET     /signup                                 Signup.signup
+GET     /captcha                                Signup.captcha
 
 # Messages
-GET     /messages/inbox                         Messages.inbox
+GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
@@ -62,28 +63,41 @@ GET     /users/search                           UserSearch.search
 GET     /groups/search                          GroupSearch.search
 
 #Account
-#GET     /users/?                                #Get a list of all users
-#POST    /users/?                                #Add / update a user
-#GET     /users/{<[0-9]+>userId}                 #Get account info for a specific user
-#DELETE  /users/{<[0-9]+>userId}                 #Delete a user
+GET     /users/?                                Users.users #Get a list of all users
+#POST    /users/?                                Signup.signup #Add /  a user
+PUT     /users/{<[0-9]+>userId}                 Users.updateUser
+GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
+DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
-#GET     /posts/?                                #Get all posts
-#POST    /posts/?                                #Add/update post
-#GET     /posts/{<[0-9]+>postId}                 #Get a specific post
-#DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
-#GET     /users/{<[0-9]+>userId}/posts/?         #get all posts by a user
+GET     /posts/?                                Posts.posts #Get all posts
+POST    /posts/?                                Posts.makeNewPost #Add/update post
+GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
+DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
+GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
 
 #Links
 #Post    /links/?                                #Add/update link
 
 #Comments
-#GET     /comment/?                              #Get all comments
-#GET     /comment/{<[0-9]+>commentId}            #Get a specific comment
-#DELETE  /comment/{<[0-9]+>commentId}            #Delete a comment
+GET     /comments/?                              Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specific comment
+#DELETE  /comments/{<[0-9]+>commentId}            #Delete a comment
 #GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
-#GET     /users/{<[0-9]+>userId}/comments/?      #get all comments by a user
+GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
+
+#Events
+GET     /events/?                                       Events.events #all events
+GET     /events/upcoming/?                              Events.upcoming #upcoming events
+GET     /events/past/?                                  Events.past #past events
+GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
+GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #upcoming events
+GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #past events
+GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
+
+GET     /events/eventcreator                            Events.addEvent
+POST    /events                                         Events.addEvent
 
 #Relationships
 GET     /relationships                                                  Relationships.relationships
@@ -94,12 +108,6 @@ GET     /checkin/at                             Checkin.at
 
 *       /photos/{anything}                      Application.notFound
 *       /users/{anything}/photos/?              Application.notFound
-
-# Comments
-GET             /                                       Comments.comments
-
-# Posts
-GET     /                                       Posts.posts
 
 # Groups
 GET     /groups/{id}                            Groups.group

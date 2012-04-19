@@ -1,6 +1,7 @@
 package models;
 
 import java.util.*;
+
 import javax.persistence.*;
 
 import org.elasticsearch.index.query.QueryBuilders;
@@ -17,7 +18,7 @@ import play.libs.Crypto;
 
 @ElasticSearchable
 @Entity
-public class User extends Model {
+public class User extends Postable {
 
   public String name; // The user's full name
   public String first_name; // The user's first name
@@ -78,6 +79,8 @@ public class User extends Model {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
+    this.save();
+    new Relationship(this).save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -88,9 +91,29 @@ public class User extends Model {
     this.first_name = first_name;
     this.last_name = last_name;
 
+    this.save();
     profile = new Profile(this);
     profile.save();
+    new Relationship(this).save();
+    this.save();
     // this.education = new ArrayList<Enrollment>();
+  }
+  
+  public User(TempUser user) {
+    if (user.verified == false) {
+      this.email = user.email;
+      this.password = user.password;
+      this.username = user.username;
+      this.first_name = user.first_name;
+      this.last_name = user.last_name;
+      user.verified = true;
+      
+      this.save();
+      profile = new Profile(this);
+      profile.save();
+      new Relationship(this).save();
+      this.save();
+    }
   }
 
   public static User connect(String login, String password) {
@@ -105,16 +128,20 @@ public class User extends Model {
     return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
   }
 
+  public List<Comment> comments() {
+    return Comment.find("byAuthor", this).fetch();
+  }
+
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",
-                     this.id, Post.type.NEWS).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE (u.from.id = ?1 and p.postedObj.id = u.to.id) and (U.accepted = true or (u.to.id = ?1 and p.postedObj.id = u.from.id)) order by p.updatedAt desc",
+                     this.id).fetch();
   }
 
   public List<Post> subscriptionNews() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postType = ?2 order by p.updatedAt desc",
-                     this.id, Post.type.NEWS).fetch();
+                     "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
+                     this.id).fetch();
   }
 
   public Profile getProfile(){
@@ -229,5 +256,58 @@ public class User extends Model {
    */
   public List<Event> authoredEvents() {
     return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
+  }
+
+  /** Get all upcoming events
+   *
+   * @return a list of upcoming events that User has authored
+   */
+  public List<Event> upcomingEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate >= ?2", this, new Date()).fetch();
+  }
+
+  /** Get all past events
+   *
+   * @return a list of past events that User has authored
+   */
+  public List<Event> pastEvents() {
+    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate < ?2 ", this, new Date()).fetch();
+  }
+  
+  /** List all events for any user
+   * 
+   * @return a list of events the user is a member of
+   */
+  public List<Event> myEvents() {
+    List<Event> allEvents= Event.findAll();
+    List<Event> answer= new ArrayList<Event>();
+    for(Event e : allEvents){
+      for(User u : e.members){
+        if(u.equals(this)){
+          answer.add(e);
+          break;
+        }
+      }
+    }
+    return answer;
+  }
+  
+  /** List all friends uninvited to an event
+   * 
+   * @return a list of users that are friends with the current user, not yet invited to event
+   */
+  public List<User> uninvitedFriends(Long eventId, Long userId){
+    User guest = User.findById(userId);
+    Event event = Event.findById(eventId); 
+    List<Relationship> friends = guest.confirmedFriends();
+    List<User> inviteFriends = new ArrayList<User>();
+    
+    for(int i = 0; i < friends.size(); i++){
+      User u = friends.get(i).to;
+      if (!(event.members).contains(u)){
+        inviteFriends.add(u);
+      }
+    }
+    return inviteFriends;
   }
 }

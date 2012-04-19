@@ -29,4 +29,12 @@ public class Relationship extends Model {
     this.requested = requested;
     this.accepted = false;
   }
+  
+ // Establish self-relationship
+  public Relationship(User user) {
+    this.from = user;
+    this.to = user;
+    this.requested = false;
+    this.accepted = true;
+  }
 }
