@@ -53,13 +53,12 @@
     <script src="/public/bootstrap/docs/assets/js/jquery.js"></script>
     <script src="public/bootstrap/docs/assets/js/bootstrap-button.js"></script>
     <script src="/public/bootstrap/docs/assets/js/bootstrap-modal.js"></script>
+    <script src="/public/bootstrap/docs/assets/js/bootstrap-dropdown.js"></script>
 
     <link rel="stylesheet" type="text/css" media="screen"
           href="/public/bootstrap/docs/assets/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" media="screen"
           href="/public/stylesheets/main.css" />
-
-    <!-- using this because above line isn't working atm.. -->
     
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" />
   </head>
@@ -70,9 +69,36 @@
         <div class="container-fluid">
           <a class="brand" href="/">openbook</a>
           <ul class="nav">
-            <li><a href="/requests"><i class="icon-user"></i> ${currentUser.requestedFriendCount()}</a></li>
-            <li><a href="/messages"><i class="icon-envelope"></i></a></li>
-            <li><a href="#"><i class="icon-leaf"></i></a></li>
+            <li class="dropdown" id="friends-menu">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#friends-menu">
+                <i class="icon-user"></i> ${currentUser.requestedFriendCount()}
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/requests">Friend Requests</a></li>
+                <li class="divider"></li>
+                <li><a href="#">TODO: list of friend requests</a></li>
+              </ul>
+            </li>
+            <li class="dropdown" id="messages-menu">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#messages-menu">
+                <i class="icon-envelope"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/messages">Messages</a></li>
+                <li class="divider"></li>
+                <li><a href="#">TODO: list of messages</a></li>
+              </ul>
+            </li>
+            <li class="dropdown" id="notifications-menu">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#notifications-menu">
+                <i class="icon-leaf"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Notifications</a></li>
+                <li class="divider"></li>
+                <li><a href="#">TODO: list of notifications</a></li>
+              </ul>
+            </li>
           </ul>
           <!--
           <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >

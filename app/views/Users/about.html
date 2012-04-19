@@ -2,9 +2,9 @@
 
 <div class="span2">
   <ul class="nav nav-list well">
-    <li class="nav-header"><a href="/users/${_user.id}">${user.name}</a></li>
+    <li class="nav-header"><a href="/users/${user.id}">${user.name}</a></li>
     <li>
-      <a href="/users/${_user.id}" class="thumbnail" style="margin: 0px">
+      <a href="/users/${user.id}" class="thumbnail" style="margin: 0px">
         #{if (user.profile.profilePhoto == -1 || user.profile.profilePhoto == null)} 
           <img src="@{Photos.getPhoto(2)}" alt="${user.name}"/> 
         #{/if} 
