@@ -1,0 +1,116 @@
+.ui-tabs { 
+	padding: 0px;
+	width: 100%;
+	background-color: white;
+	padding-left: 0px;	
+  background-image: url(${skin.get("headerBGPhoto")}); /*Little spiffier header bar */
+  background-repeat: repeat-x;
+  background-color: #${skin.get("headerBGColor")};
+  
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-top-style: solid;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-width: 1px;
+	
+	margin-top: 10px;
+} /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+
+.ui-tabs .ui-tabs-nav { 
+	margin: 0; 
+	padding: .2em .2em 0; 
+	background:white
+}
+
+.ui-tabs .ui-tabs-nav li { 
+	list-style: none; 
+	float: left; 
+	position: relative; 
+	top: 1px; 
+	margin: 0 .2em 1px 0; 	
+	border-bottom: 0 
+	!important; 
+	padding: 0; 
+	white-space: nowrap; 
+	background-image: url(/photos/3);
+}
+
+.ui-tabs .ui-tabs-nav li a { 
+	float: left; 
+	padding: .5em 1em; 
+	text-decoration: none; 
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { 
+	margin-bottom: 0; 
+	padding-bottom: 1px; 
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, 
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a, 
+.ui-tabs .ui-tabs-nav li.ui-state-processing a { 
+	cursor: text; 
+}
+
+.ui-tabs .ui-tabs-nav li a, 
+.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { 
+	cursor: pointer; 
+} /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+
+.ui-tabs .ui-tabs-panel { 
+	display: block; 
+	border-width: 0; 
+	padding: 1em 1.4em; 
+	background: none; 
+}
+
+.ui-tabs .ui-tabs-hide { 
+	display: none 
+	!important; 
+}
+
+.page-header{
+	float:middle;
+	width: 100%;
+	height: 150px;
+	size: fixed;
+}
+
+.page-profPic{
+	width:110px;
+	height:90%;
+}
+.page-data{
+	width: 100% - 120px;
+	height: 100%;
+	position:block;
+	size:fixed;
+}
+
+.page-title{
+	font-weight: bold;
+  font-family: helvetica;
+  font-size: 40px;
+  position: fixed;
+  float:left;
+}
+
+.page-data .photo-bar {
+	position: relative;
+  top: 50px;
+  float: left;
+  width: 100%;
+  size:fixed;
+	background-color: #${skin.get("headerBGColor")};
+}
+
+.photo-bar li .thumbnail {
+    width: 90px;
+    height: auto;
+    display:inline;
+}
+
+.photo-bar li{
+	display: inline;
+}

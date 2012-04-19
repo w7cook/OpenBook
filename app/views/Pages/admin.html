@@ -1,9 +1,9 @@
 <head>
 <script src=@{'/public/javascripts/js/jquery-1.7.2.min.js'}></script>
 <script src=@{'/public/javascripts/js/jquery-ui-1.8.19.custom.min.js'}></script>
-<link type="text/css" rel="Stylesheet" href="/public/stylesheets/page.css" /> 
 
 </head>
+	<br>
 	${page.info}<br>
 	<div id="tabs">
 		<ul>
@@ -31,7 +31,7 @@
       </ul>
     	#{/ifErrors}
   		<div class="photo-upload">
-    		#{form @PagePhotos.addPagePhoto(), enctype:'multipart/form-data'}
+    		#{form @PGEphotos.addPagePhoto(page.id), enctype:'multipart/form-data'}
       		<input type="file" name="image" style="float:left"/>
       		<input type="submit" name="submit" value="Upload" class="ui_TextBoxButton" />
         #{/form}
@@ -41,11 +41,8 @@
       <br>mehhhh
     </div>
   </div>
-	<div class="photo_bar">
-	jjjj
-		#{list items:photos, as:'photo'}
-      ${photo}
-    #{/list} 			
+	<div class="bar">
+		<a href="@{PGEphotos.pagePhotos(page.id)}"> all photos</a>
 	</div>
 
 <script>

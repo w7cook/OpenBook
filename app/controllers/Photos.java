@@ -89,26 +89,27 @@ public class Photos extends OBController {
     }
   }
 
-  public static void addPhoto(File image) throws FileNotFoundException,
+  public static void addPhoto(File image, Photo.type t, Long id) throws FileNotFoundException,
                                                  IOException {
 
     validation.keep(); /* Remember any errors after redirect. */
+    if(t == null || t == Photo.type.USER){
+    	if (image == null) {
+      	validation.addError("image", "You must specify an image to upload.");
+      	redirect("/users/" + user().id + "/photos");
+    	}
 
-    if (image == null) {
-      validation.addError("image", "You must specify an image to upload.");
-      redirect("/users/" + user().id + "/photos");
+    	shrinkImage(image);
+    	Photo photo = fileToPhoto(image);
+    	validation.match(photo.image.type(), IMAGE_TYPE);
+    	validation.max(photo.image.length(), MAX_FILE_SIZE);
+
+    	if (!validation.hasErrors()) {
+      	photo.save();
+    	}
+    	redirect("/users/" + photo.owner.id + "/photos");
+    	}
     }
-
-    shrinkImage(image);
-    Photo photo = fileToPhoto(image);
-    validation.match(photo.image.type(), IMAGE_TYPE);
-    validation.max(photo.image.length(), MAX_FILE_SIZE);
-
-    if (!validation.hasErrors()) {
-      photo.save();
-    }
-    redirect("/users/" + photo.owner.id + "/photos");
-  }
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);

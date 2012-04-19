@@ -8,6 +8,10 @@ import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
+import play.data.validation.Error;
+import javax.imageio.ImageIO;
+import java.io.*;
+
 @With(Secure.class)
 public class Pages extends OBController {
 	
@@ -21,7 +25,8 @@ public class Pages extends OBController {
 		User currentUser = user();
 		Page page = new Page(user, title, info).save();
 		new UserPage(user, page).save();
-		render("Pages/myPage.html", page,user, currentUser);
+		//render("Pages/myPage.html", page,user, currentUser);
+		display(page.id);
 	}
 	
 
@@ -31,9 +36,10 @@ public class Pages extends OBController {
     page.save();
     //User _currentUser = user();
     User _user = user();
-    render("Pages/myPage.html", page, _user);
+    display(id);
+    //render("Pages/myPage.html", page, _user);
   }
-	
+	                                                                     
 	public static void myPages(){
 		User _user = user(); 
 		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
@@ -47,7 +53,8 @@ public class Pages extends OBController {
 		Page page = Page.findById(id);
 		boolean fan = isFan(id);
 		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
-		render("Pages/myPage.html", page, fan, _user, _currentUser);
+		List<Photo> photos = PGEphotos.pagePhotos(id, 4);
+		render("Pages/myPage.html", page, fan, _user, _currentUser, photos);
 	}
 
 	public static void pages(){
@@ -90,4 +97,5 @@ public class Pages extends OBController {
 		if(u == null){return false;}
 		else{return true;}
 	}
+	
 }

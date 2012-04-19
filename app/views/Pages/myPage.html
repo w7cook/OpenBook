@@ -1,21 +1,23 @@
 #{extends 'main.html' /} 
 #{extends 'three_panel.html' /} 
+<link type="text/css" rel="Stylesheet" href="/public/stylesheets/page.css" /> 
+<div class="page-header">
+	<div class = "page-profPic"></div>
+	<div class = "page-data">
+		<div class ="page-title">${page.title}</div>
+			#{include 'Pages/photoBar.html' /}
+	</div>
+</div>
 #{if page.admin == _user}
-<h1>${page.title}</h1>
 		#{include 'Pages/admin.html' /}
 		#{include 'Pages/post.html' /}
-
 #{/if} 
 #{elseif page != null}
-	<h1>${page.title}</h1>
 	<div id="pageInfo${page.id}" style="float: left">${page.info}</div>
 		<div style="float: right">
 			<a class=button id = "fan${page.id}" href='#' onclick="return false;">*{text}*</a>
 		</div>
 		<hr style="float: left; width: 100%; color: #98AFC7;" />
-		<div class="page_bar">
-			
-		</div>
 		#{include 'Pages/post.html' /}
 	</div>
 #{/elseif}		       
