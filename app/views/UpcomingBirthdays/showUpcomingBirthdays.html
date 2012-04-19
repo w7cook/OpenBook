@@ -1,9 +1,10 @@
+<base target="_parent" />
 <div class="lhs-navBoxBody">
 	#{if birthdayPeople.size()==0}There are no upcoming birthdays.#{/if} 
 	#{list items: birthdayPeople, as:'birthdayPerson'}
 	<hr />
 		<h4><a
-		href="@{Application.news(birthdayPerson.id)}">${birthdayPerson}</a></h4>
+		href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></h4>
 		${birthdayPerson.getProfile().birthday.format('MMM dd')}
 	#{/list}
 </div>
