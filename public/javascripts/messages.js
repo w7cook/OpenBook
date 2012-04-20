@@ -9,7 +9,7 @@ function submitMessage() {
     $('#message-recipient').val(''),
     $('#message-title').val(''),
     $('#message-content').val('')
-
-    alert('Message sent');
+    
+    $('#msg-sent-alert').slideDown(300).delay(8000).slideUp(300);
   });
 }

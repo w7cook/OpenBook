@@ -3,10 +3,19 @@
       href="@{'/public/stylesheets/messages.css'}" />
 
 <div id="contentArea-BigPage">
-  
-  <h1>Inbox</h1>
+  <div class="row">
+    <h1 class="span2">Inbox</h1>
+    <a class="btn btn-primary span2" href="#create-message" data-toggle="modal"><i class="icon-plus"></i> Create Message</a>
+  </div>
+  <div class="row">
+    <div id="msg-sent-alert" class="alert alert-success vertical-element span4 hide" style="text-align:center;">
+      <strong>Message Sent</strong>
+    </div>
+    <div class="span8"></div>
+  </div>
   <hr />
-  <br />
+
+<!--
   #{if user.checkFriendship(user.id) == 'Request Friendship'}
     <a id="friend-button" href="@{Application.requestFriends(user.id)}">
       ${user.checkFriendship(user.id)}
@@ -20,7 +29,7 @@
                   href="@{Application.removeFriends(user.id)}"> Remove friend </a>
   #{/elseif}
   <br>
-  <a class="btn btn-primary" href="#create-message" data-toggle="modal"><i class="icon-plus"></i> Create Message</a>
+-->
   
   <h2>Messages</h2>
   <ul class="unstyled" id="message-list">
