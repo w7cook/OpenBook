@@ -13,10 +13,6 @@ import models.User;
 
 public class Events extends OBController {
 
-  private static boolean given(String val) {
-    return val != null && val.length() > 0;
-  }
-
   public static void event(Long eventId) {
     Event event = Event.findById(eventId);
     if(event == null)
