@@ -116,7 +116,11 @@ public class Profiles extends OBController {
 		User user = user();
 		Profile profile = user.profile;
 		
-		profile.quotes = quotation;
+		if(!quotation.equals("Add a Favorite Quotation"))
+			profile.quotes = quotation;
+		else
+			profile.quotes = "";
+			
 		profile.save();
 		renderTemplate("Application/edit_basic.html", profile);	
 	}

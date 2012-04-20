@@ -336,12 +336,13 @@
         <table>
           <tr>
             <td><label>&{'profile.quote'}: </label></td>
-            <td><input type=text name="quotation"
+            <td><input type="text" name="quotation"
                 value="${profile.quotes ? profile.quotes : 'Add a Favorite Quotation'}">
             </td>
           </tr>
         </table>
 		<input type="submit" value="Save" id="updateQuote" />
+		<input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="QuoteData" style="display:block;">
