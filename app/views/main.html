@@ -58,6 +58,12 @@
     <!-- using this because above line isn't working atm.. -->
 
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" />
+    
+    <!-- Twitter Bootstrap -->
+    <link rel="Stylesheet" href="/public/bootstrap/docs/assets/css/bootstrap.css">
+    <script type="text/javascript" src="/public/bootstrap/docs/assets/js/bootstrap.js"></script>    
+    
+    
   </head>
   <body id="page">
     <div class="container_16">
@@ -90,10 +96,15 @@
 	      <a href="@{Secure.logout()}">Logout</a>
 </div>
       </header>
+      </div>
+      </div>
+      
+      <div class="container_16">
       <div class="main-content" >
 	    #{doLayout /}
       </div>
     </div> <!-- end .container_16 -->    
+    
 <div class="container_16">
         <footer id="footer"> 
 	      <span class="logo">openbook</span> is a 

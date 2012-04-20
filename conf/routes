@@ -107,6 +107,9 @@ POST    /events                                         Events.addEvent
 #Relationships
 GET     /relationships                                                  Relationships.relationships
 
+#Timeline
+GET     /timeline/{<[0-9]+>userId}                 Timeline.Timeline #Get timeline for specific user
+
 # Checkin
 GET     /checkin                                Checkin.checkin
 GET     /checkin/at                             Checkin.at

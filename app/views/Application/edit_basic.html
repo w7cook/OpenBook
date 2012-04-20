@@ -32,11 +32,14 @@
             <td><label>&{'profile.bio'}:</label>
             </td>
 
-            <td><input size=50 type=text name="bio" value="${profile.bio ? profile.bio : 'Write About Yourself'}">
+            <td><input size=50 type="text" name="bio" onfocus="if(this.value == 'Write About Yourself'){this.value = '';}"
+				onblur="if(this.value == ''){this.value='Write About Yourself';}" 
+				value="${profile.bio ? profile.bio : 'Write About Yourself'}">
             </td>
           </tr>
         </table>
         <input type="submit" value="Save" id="updateBio" />
+		<input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="AboutMeData" style="display:block;">
@@ -114,9 +117,8 @@
         <tr>
           <td><label>&{'profile.languages'}: </label>
           </td>
-          <td>#{list items:profile.languages, as:'lang'}
-                ${lang.toString()} #{/list} <input type=text name=work
-                value="Add language">
+          <td><input type=text name="language"
+                value="Add a language"/>
           </td>
         </tr>
         <tr>
@@ -208,18 +210,21 @@
         <table>
             <tr>
               <td><label>&{'profile.phone'}: </label></td>
-              <td><input type=text name=phone
-                value="${profile.phone ? profile.phone : 'Add phone number'}">
+              <td><input type="text" name="phone" onfocus="if(this.value == 'Add A Phone Number'){this.value = '';}"
+				onblur="if(this.value == ''){this.value='Add A Phone Number';}"
+                value="${profile.phone ? profile.phone : 'Add A Phone Number'}">
               </td>
             </tr>
             <tr>
               <td><label>&{'profile.address'}: </label></td>
-              <td><input type=text name=address
-                value="${profile.address ? profile.address : 'Add current address'}">
+              <td><input type="text" name="address" onfocus="if(this.value == 'Add Current Address'){this.value = '';}"
+				onblur="if(this.value == ''){this.value='Add Current Address';}"
+                value="${profile.address ? profile.address : 'Add Current Address'}">
               </td>
             </tr>
         </table>
         <input type="submit" value="Save" id="updateContactInfo" />
+		<input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="ContactInfoData" style="display:block;">
@@ -250,19 +255,22 @@
         #{form @Profiles.updateWorkEdu()}
         <table>
           <tr>
-              <td><label>Phone: </label></td>
-          <td>
-          <input type=text name=phone
-            value="${profile.phone ? profile.phone : 'Add phone number'}">
-          </td>
-        </tr>
+            <td><label>&{'profile.education'}:</label></td>
+            <td>
+				<input size=50 type="text" name="edu" onfocus="if(this.value == 'Add A School'){this.value = '';}"
+					onblur="if(this.value == ''){this.value='Add A School';}"
+				value="#{list items:profile.education, as:'enrollment'}
+		                ${enrollment.toString()}, #{/list}Add A School"}>
+            </td>
+          </tr>
           <tr>
-              <td><label>Address: </label></td>
-          <td>
-          <input type=text name=address
-            value="${profile.address ? profile.address : 'Add current address'}">
-          </td>
-        </tr>
+            <td><label>&{'profile.work.history'}:</label></td>
+            <td>#{list items:profile.work, as:'work'}
+                ${work.toString()} #{/list} 
+				<input size=50 type=text name="work"
+              	value="Add an employer">
+            </td>
+          </tr>
         </table>
         <input type="submit" value="Save" id="updateWorkEdu" />
         #{/form}
@@ -277,7 +285,7 @@
             </td>
           </tr>
           #{/if}
-          #{if}
+          #{if profile.work.size() > 0}
           <tr>
             <td><label>&{'profile.work.history'}:</label></td>
             <td>#{list items:profile.work, as:'work'}
@@ -293,14 +301,17 @@
       <button class="EditButton" id="LivingEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
       <div class="editData" id="EditDataLiving" style="display:none;">
+		#{form @Profiles.updateLiving()}
         <table>
           <tr>
               <td><label>&{'profile.hometown'}: </label></td>
-              <td><input type=text name=hometown
+              <td><input type=text name="hometown"
                 value="${profile.hometown ? profile.hometown : 'Add hometown'}">
               </td>
           </tr>
         </table>
+		<input type="submit" value="Save" id="updateLiving" />
+        #{/form}
       </div>
       <div class="Data" id="LivingData" style="display:block;">
         <table>
@@ -318,14 +329,18 @@
       <button class="EditButton" id="QuoteEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
       <div class="editData" id="EditDataQuote" style="display:none;">
+		#{form @Profiles.updateQuote() }
         <table>
           <tr>
             <td><label>&{'profile.quote'}: </label></td>
-            <td><input type=text name=hometown
+            <td><input type="text" name="quotation"
                 value="${profile.quotes ? profile.quotes : 'Add a Favorite Quotation'}">
             </td>
           </tr>
         </table>
+		<input type="submit" value="Save" id="updateQuote" />
+		<input type="reset" value="Cancel">
+        #{/form}
       </div>
       <div class="Data" id="QuoteData" style="display:block;">
         <table>
