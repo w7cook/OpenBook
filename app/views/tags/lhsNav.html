@@ -17,6 +17,7 @@
 <div class="lhs-navBoxHeader">FAVORITES</div>
 <div class="lhs-navBoxBody">
 	<a href="@{Application.news()}">News Feed</a> 
+	<a href="/timeline/${_user.id}">Timeline</a> 
 	<a href="/users/${_user.id}/events">Events</a> 
 	<a href="@{Checkin.checkin()}">Checkin</a>
 	<a href="@{Messages.inbox()}">Inbox [${_user.inbox().size()}]</a> 

@@ -1,0 +1,47 @@
+#{extends 'three_panel.html' /}
+
+<div id="contentArea-AutoPage">
+  <h1>${user.first_name} ${user.last_name}</h1>
+    <div class="tabbable" style="width:100%;">
+    <ul class="nav nav-tabs">
+    <li class="active"><a href="#1" data-toggle="tab">Info</a></li>
+    <li><a href="#2" data-toggle="tab">Interests</a></li>
+    </ul>
+    <div class="tab-content">
+    <div class="tab-pane active" id="1">
+		<p>
+    <b>Name</b>: ${user.first_name} ${user.last_name}
+    <br/>
+    <b>Email</b>: ${user.email}
+    <br/>
+    <b>Username</b>: ${user.username}
+    <br/> 
+    </p>   
+    </div>
+    <div class="tab-pane" id="2">
+    <p>
+		Interests:
+		<br/>
+		Stuff?    
+    </p>
+    </div>
+    </div>
+    </div>
+</div>
+		#{if user.timeline == null}
+		<div class="post" style="width:100%;">
+		<h3>Don't have Timeline?</h3>
+		<br />
+		<a class="btn btn-primary btn-large" href="@{Application.createTimeline(user.id)}" style="color:white;"> Get Timeline</a> 
+			</div>
+		#{/if}
+		
+		#{else}		
+    <div id="timelinePosts">
+		
+		#{list items:user.timeline.getEvents(), as:'_item'}
+			#{include 'tags/post.html' /}
+		#{/list} 
+	</div>
+		#{/else}				
+

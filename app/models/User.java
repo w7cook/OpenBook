@@ -55,6 +55,7 @@ public class User extends Postable {
   //  User's basic profile information
   @OneToOne
   public Profile profile;
+  public TimelineModel timeline;
 
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
@@ -96,6 +97,9 @@ public class User extends Postable {
     profile.save();
     new Relationship(this).save();
     this.save();
+    this.timeline = new TimelineModel(this);
+    timeline.save();
+    this.save();
     // this.education = new ArrayList<Enrollment>();
   }
   
@@ -113,6 +117,9 @@ public class User extends Postable {
       profile.save();
       new Relationship(this).save();
       this.save();
+    this.timeline = new TimelineModel(this);
+    timeline.save();
+    this.save();
     }
   }
 
@@ -158,6 +165,14 @@ public class User extends Postable {
     }
     return profile;
   }
+
+public void createTimeline(){  
+  	 if (this.timeline == null){		 
+	this.timeline = new TimelineModel(this);
+	this.save();	
+	} 
+}
+
 
   /** Checks the status of a friendship
    *

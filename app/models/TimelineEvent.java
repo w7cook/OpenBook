@@ -6,67 +6,72 @@ import play.data.validation.*;
 import java.util.Date;
 import java.util.Vector;
 
-class TimelineEvent extends Commentable {
+class TimelineEvent {
 
 @Required
 @ManyToOne
-public Timeline parentTimeline; //Reference to the Owner's timeline
+public TimelineModel parentTimeline; //Reference to the Owner's timeline
 
 
 @OneToOne(mappedBy="timelineevent", cascade=CascadeType.ALL)
 public Post post; //The post that represents this timeline event
 private Vector<User> participants;
+private String foreword;
 private Object relatedObject; //The Object involved in the event (could be anything)
 private Date timeOfEvent; //The time the event happened (note, can be different from relatedEvent's time)
-private Timeline.Action action; // An enum that will represent what was done with the related object
+private TimelineModel.Action action; // An enum that will represent what was done with the related object
 
-
-public TimelineEvent(Timeline t, Object o, Timeline.Action action, Vector<User> participants){
+/**
+ * Create a new TimelineEvent
+ * @param t The TimelineModel object that this TimelineEvent will be linked to
+ * @param o The Object that is associated with the TimelineEvent (could be a group, event, etc)
+ * @param action The action that occurred (an enum type, ex. CREATE | MODIFY | DESTROY)
+ * @param participants The participants in the timeline event
+ * @param foreword A string that will be used to preface the object when the underlying post (inside TimelineEvent) is made
+ * */
+public TimelineEvent(TimelineModel t, Object o, TimelineModel.Action action, Vector<User> participants, String foreword){
 this.parentTimeline = t;
 this.relatedObject = o;
 this.participants = participants;
 this.timeOfEvent = new Date();
 this.action = action;
+this.foreword = foreword;
 
-parseAction(action, o);	//generate post from action & object info
+parseAction();	//generate post from action & object info
 }
 
 /**
- * This method will parse the given action and the Object associated with it to create a meaningful post for this TimelineEvent. By using the JAVA reflection API along with the enumerated actions,
- * along with the constants language shortcuts defined, A meaningful message is generated, and put in a post, which is put in the post list for the timeline.
- * 
- *
- *  **/ 
-private void parseAction(Timeline.Action action, Object o){
+ * Parse the contents of this TimelineEvent to generate the content of it's post.
+ * */ 
+private void parseAction(){
 	String subject = "";
-	if (o instanceof Event){
+	if (this.relatedObject instanceof Event){
 		subject = "event";
-	} else if (o instanceof Group) {
+	} else if (this.relatedObject instanceof Group) {
 		subject = "group";
-	} else if (o instanceof Photo) {
+	} else if (this.relatedObject instanceof Photo) {
 		subject = "photo";
-	} else if (o instanceof Status) {
+	} else if (this.relatedObject instanceof Status) {
 		subject = "status";
-	} else if (o instanceof Subscription) {
+	} else if (this.relatedObject instanceof Subscription) {
 		subject = "subscription";
-	} else if (o instanceof Album) {
+	} else if (this.relatedObject instanceof Album) {
 		subject = "album";
-	} else if (o instanceof Comment) {
+	} else if (this.relatedObject instanceof Comment) {
 		subject = "comment";
-	} else if (o instanceof Link) {
+	} else if (this.relatedObject instanceof Link) {
 		subject = "link";
 	}
 	
-	//Note/TODO : every model should probably have a welformed toString or atleast getReadableName so that good names can be generated... 
-	
+	//<TODO> every model should probably have a welformed toString or atleast getReadableName so that good names can be generated... 	
 	
 	String msg = "";
-	if (action == Timeline.Action.CREATE){
-		msg = this.parentTimeline.author.name + " made a new " + subject + "\n";
-	} else if (action == Timeline.Action.MODIFY){
-		msg = this.parentTimeline.author.name + " made changes to an " + subject + "\n";
-	} else if (action == Timeline.Action.DELETE){
-		msg = this.parentTimeline.author.name + " deleted  " + subject + "\n"; 
+	if (action == TimelineModel.Action.CREATE){
+		msg = foreword + subject + "\n";
+	} else if (action == TimelineModel.Action.MODIFY){
+		msg = foreword + subject + "\n";
+	} else if (action == TimelineModel.Action.DELETE){
+		msg = foreword + subject + "\n"; 
 	}
 		
 	this.post = new Post(null, this.parentTimeline.author, msg); //need to find out what that first thing is supposed to be.
