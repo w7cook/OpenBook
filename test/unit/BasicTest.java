@@ -46,7 +46,7 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 
 		// Create a new post
-		new Post(bob, "My first post", "Hello world").save();
+		new Post(bob, bob, "Hello world").save();
 
 		// Test that the post has been created
 		assertEquals(1, Post.count());
@@ -59,7 +59,6 @@ public class BasicTest extends UnitTest {
 		Post firstPost = bobPosts.get(0);
 		assertNotNull(firstPost);
 		assertEquals(bob, firstPost.author);
-		assertEquals("My first post", firstPost.title);
 		assertEquals("Hello world", firstPost.content);
 		assertNotNull(firstPost.createdAt);
 	}
@@ -86,7 +85,7 @@ public class BasicTest extends UnitTest {
     User tom = new User("tom@gmail.com", "secret", "Tom").save();
 
 		// Create a new post
-		Post bobPost = new Post(bob, "My first post", "Hello world").save();
+		Post bobPost = new Post(bob, bob, "Hello world").save();
 
 		// Post a first comment
 		new Comment(bobPost, jeff, "Nice post").save();
@@ -151,7 +150,7 @@ public class BasicTest extends UnitTest {
     User tom = new User("tom@gmail.com", "secret", "Tom").save();
 
 		// Create a new post
-		Post bobPost = new Post(bob, "My first post", "Hello world").save();
+		Post bobPost = new Post(bob, bob, "Hello world").save();
 
 		// Post a first comment
 		bobPost.addComment(jeff, "Nice post");
@@ -223,8 +222,8 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 
 		// Create a new post
-		new Post(bob, "My first post", "Hello world").save();
-		new Post(bob, "Hop", "Hello world").save();
+		new Post(bob, bob, "Hello world").save();
+		new Post(bob, bob, "Hello world").save();
 		
 		List<Post> bobPosts = Post.find("byAuthor", bob).fetch();
 		assertEquals(2, bobPosts.size());
