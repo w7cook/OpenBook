@@ -21,7 +21,7 @@ public class Profiles extends OBController {
 	public static void updateInformation(Date birthday, String relationshipStatus, String gender, String interestedIn, 
 	Date anniversary, String language, String religion, String political){
 		User user = user();
-		Profile profile = user.profile;
+		Profile profile = Profile.find("owner = ?", user).first();
 	    profile.religion = religion;
 	    profile.birthday = birthday;
 	    profile.gender = gender;
@@ -35,16 +35,16 @@ public class Profiles extends OBController {
 		}
 		UserLanguage userlang = new UserLanguage(user, lang);
 		userlang.save();
-	    profile.languages.add(userlang);
+	  profile.languages.add(userlang);
 
-	    profile.political = political;
+	  profile.political = political;
 		profile.save();
 		renderTemplate("Application/edit_basic.html", profile);
 	}
 	
 	public static void updateContactInfo(String phone, String address){
 		User user = user();
-		Profile profile = user.profile;
+		Profile profile = Profile.find("owner = ?", user).first();
 		profile.phone = phone;
 		profile.address = address;
 		profile.save();
@@ -53,7 +53,7 @@ public class Profiles extends OBController {
   
 	public static void updateWorkEdu(String education, String work){
 		User user = user();
-		Profile profile = user.profile;
+		Profile profile = Profile.find("owner = ?", user).first();
 		//TODO: write this!
 		renderTemplate("Application/edit_basic.html", profile);	
 	}
