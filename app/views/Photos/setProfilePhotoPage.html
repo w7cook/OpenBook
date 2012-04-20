@@ -9,16 +9,14 @@
     #{errors}
     <li>${error}</li> #{/errors}
   </ul>
-  #{/ifErrors} <br>
-
-  <h3>&{'photo.currentProfilePhoto'}:</h3>
-  <img src="@{Photos.getPhoto(user.profile.profilePhoto)}" width="120"
-    height="150" /> <br>
-  <br> 
+  #{/ifErrors} 
   
-  <a class="button" href="@{Photos.setGravatar()}"><b>Use Gravatar</b></a> 
+  <a class="button" href="@{Photos.setGravatar()}"><b>&{'photo.useGravatar'}</b></a> 
   <br>
-  <a href="https://en.gravatar.com/site/signup/">Sign up to Gravatar</a>
+  <a href="https://en.gravatar.com/site/signup/">&{'photo.signUpGravatar'}</a>
+  <br>&{'photo.gravatarNote'}</br>
+  <br>
+  
   
   #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data'} 
   <b> &{'photo.newPhoto'}: </b> <input type="file"

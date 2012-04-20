@@ -196,12 +196,12 @@ public class Photos extends OBController {
     String hash = md5Hex((u.email.trim()).toLowerCase());
     String urlPath = "http://www.gravatar.com/avatar/"+hash+".jpg"+
     "?" +//parameters
-    "size=100&d=retro";
+    "size=100&d=mm";
     URL url = new URL(urlPath);
     BufferedImage image = ImageIO.read(url);
     if(u.profile.gravatarPhoto == -1l){//don't yet have a gravatarPhoto
       try{
-        File gravatar = new File("C:\\out.jpg");
+        File gravatar = new File(hash+".jpg");
         ImageIO.write(image, "jpg",gravatar);
 
         if(gravatar != null){
@@ -217,11 +217,14 @@ public class Photos extends OBController {
             photo.save();
             User user = user();
             user.profile.profilePhoto = photo.id;
+
+            //set gravatarPhoto id
+            u.profile.gravatarPhoto = photo.id;
             user.profile.save();
           }
+          
+          gravatar.delete();
 
-          //set gravatarPhoto id
-          u.profile.gravatarPhoto = photo.id;
         }
 
       }
@@ -233,7 +236,7 @@ public class Photos extends OBController {
     else//have already added the gravatar picture, so we need to displace pic.
     {
       Photo oldPhoto = Photo.findById(u.profile.gravatarPhoto);
-      File gravatar = new File("C:\\out.jpg");
+      File gravatar = new File(hash+".jpg");
       ImageIO.write(image, "jpg",gravatar);
 
       if(gravatar != null){
@@ -255,12 +258,15 @@ public class Photos extends OBController {
           oldPhoto.save();
           User user = user();
           user.profile.profilePhoto = oldPhoto.id;
+
+          //set gravatarPhoto id
+          u.profile.gravatarPhoto = oldPhoto.id;
           user.profile.save();
         }
 
-        //set gravatarPhoto id
-        u.profile.gravatarPhoto = oldPhoto.id;
       }
+      
+      gravatar.delete();//delete file. We don't need it
     }
     setProfilePhotoPage();//render page
   }
