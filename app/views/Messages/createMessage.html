@@ -6,7 +6,7 @@
     <ul class="message-form-list">
       <li>
         <label for="recipientUsername"> To: </label>
-        <input type="text" name="recipientUsername" id="recipientUsername" />
+        <input type="text" class="autocomplete" name="recipientUsername" data-url="@{Users.autocompleteNames()}" id="recipientUsername" />
       </li>
       <li>
         <label for="content">Your message: </label>
@@ -25,3 +25,5 @@
     </ul>
   #{/form}
 </div>
+
+<script src="@{'/public/javascripts/autocomplete.js'}" type="text/javascript" charset="utf-8"></script>

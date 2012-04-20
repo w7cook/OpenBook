@@ -20,7 +20,7 @@
 	<a href="/timeline/${_user.id}">Timeline</a> 
 	<a href="/users/${_user.id}/events">Events</a> 
 	<a href="@{Checkin.checkin()}">Checkin</a>
-	<a href="@{Messages.inbox()}">Inbox [${_user.inbox().size()}]</a> 
+	<a href="@{Messages.inbox()}">Inbox [${_user.unreadCount()}]</a> 
 	<a href="/requests">Friend Requests</a> 
 	<a href="/changeSkin">Change Skin</a>
 	<a href="@{Notes.viewNotes()}">Notes</a>
