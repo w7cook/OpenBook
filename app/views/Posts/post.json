@@ -1,6 +1,6 @@
 {      
-  "title"   : "${post.title}",
   "author"  : "${post.author.username}",
-  "type"    : "${post.postType}",
-  "content" : "${post.content}"
+  "parent"  : "/postable/${post.postedObj.id}",
+  "content" : "${post.content}",
+  "creationdate" : "${post.createdAt}"
 }
