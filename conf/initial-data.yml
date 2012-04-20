@@ -39,6 +39,16 @@ User(gparker):
     password:           password
     isAdmin:            true
     subscription:       true
+    
+User(laurenyew):
+    first_name:         Lauren
+    last_name:          Yew
+    username:           laurenyew
+    name:               Lauren Yew
+    email:              laurenyew@gmail.com
+    password:           secret
+    isAdmin:            true
+    subscription:       true    
 
 
 Profile(bobProfile):

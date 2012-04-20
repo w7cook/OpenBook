@@ -71,3 +71,10 @@ skin.thisIsTheSkin=This is the Skin
 skin.exampleTxt=This is example text.
 skin.setSkinAsMySkin=Set Skin as My Skin
 
+#Photos
+photo.useExistingPhoto=Use Existing Photo 
+photo.currentProfilePhoto=Current Profile Photo
+photo.newPhoto=New Photo
+photo.upload=Upload
+photo.setProfilePhoto=Set Your Profile Photo
+photo.setAsProfilePhoto=Set as profile photo
