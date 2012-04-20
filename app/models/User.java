@@ -55,6 +55,8 @@ public class User extends Postable {
   //  User's basic profile information
   @OneToOne
   public Profile profile;
+  
+  @OneToOne
   public TimelineModel timeline;
 
   @ElasticSearchIgnore
@@ -171,12 +173,13 @@ public class User extends Postable {
     return profile;
   }
 
-public void createTimeline(){  
-  	 if (this.timeline == null){		 
-	this.timeline = new TimelineModel(this);
-	this.save();	
-	} 
-}
+  public void createTimeline() {
+    if (this.timeline == null) {
+      this.timeline = new TimelineModel(this);
+      this.timeline.save();
+      this.save();
+    }
+  }
 
 
   /** Checks the status of a friendship
