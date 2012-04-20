@@ -38,4 +38,26 @@ public class Users extends OBController {
     renderText(userId.toString() + json);
     //TODO: parse json and call Application.account_save
   }
+  
+  public static List<String> fullNames() {
+    List<User> users = User.findAll();
+    List<String> names = new ArrayList<String>();
+    for(User u : users){
+      names.add(u.name);
+    }
+    return names;
+  }
+  
+  public static void autocompleteNames(final String term) {
+   final List<String> response = new ArrayList<String>();
+   for (String name : fullNames()) {
+      if (name.toLowerCase().startsWith(term.toLowerCase())) {
+         response.add(name);
+      }
+      if (response.size() == 10) {
+         break;
+      }
+   }
+   renderJSON(response);
+  }
 }
