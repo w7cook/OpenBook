@@ -21,17 +21,7 @@
 			${_item.content.nl2br()}
 			
 			</div>
-			#{if _item.comments.size() > 2}
-			<a href="#" onclick="return false;" id="showAllCommentsSubmit${_item.id}">+${_item.comments.size() - 2} more comment#{if (_item.comments.size()-2) != 1}s#{/if} </a>
 			
-		<div id="olderCommentsList${_item.id}" class="commentsList" style="display:none;width: 100%;">
-		
-		  #{list items:_item.getOlderComments(2), as:'comment'}
-		    #{comment user:_user, currentUser:_currentUser, comment:comment /}
-		  #{/list}
-		
-		</div>
-		#{/if}
 
 </div>
 <!-- Post Metadata -->  
@@ -49,12 +39,24 @@
         #{/if}
       #{/if}   
     </div>
-<!-- End Post Metadata -->  
-
+<!-- End Post Metadata --> 
+<div id ="commentsArea"> 
+#{if _item.comments.size() > 2}
+			<a href="#" onclick="return false;" id="showAllCommentsSubmit${_item.id}">+${_item.comments.size() - 2} more comment#{if (_item.comments.size()-2) != 1}s#{/if} </a>
+			
+		<div id="olderCommentsList${_item.id}" class="commentsList" style="display:none;width: 100%;">
+		
+		  #{list items:_item.getOlderComments(2), as:'comment'}
+		    #{comment user:_user, currentUser:_currentUser, comment:comment /}
+		  #{/list}
+		
+		</div>
+		#{/if}
     <div id="commentsList${_item.id}" class="commentsList" style="width: 100%;">
       #{list items:_item.getSomeComments(2), as:'comment'} 
         #{comment user:_user,currentUser:_currentUser,comment:comment /} 
       #{/list}
+    </div>
     </div>
   
   
