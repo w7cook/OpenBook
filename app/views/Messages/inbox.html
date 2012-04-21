@@ -5,11 +5,15 @@
 <div id="contentArea-BigPage">
   <div class="row">
     <h1 class="span2">Inbox</h1>
-    <a class="btn btn-primary span2" href="#create-message" data-toggle="modal"><i class="icon-plus"></i> Create Message</a>
+    <a class="btn btn-primary span2" href="#create-message" data-toggle="modal" ><i class="icon-plus"></i> Create Message</a>
   </div>
   <div class="row">
-    <div id="msg-sent-alert" class="alert alert-success vertical-element span4 hide" style="text-align:center;">
+    <div id="msg-sent-alert" class="alert alert-success span4 hide vertical-element msg-alert" style="text-align:center;">
       <strong>Message Sent</strong>
+    </div>
+    <div class="span8"></div>
+    <div id="msg-failed-alert" class="alert alert-error span4 hide vertical-element msg-alert" style="text-align:center;">
+      <strong>Message Not Sent</strong>
     </div>
     <div class="span8"></div>
   </div>
@@ -65,4 +69,8 @@
 </div>
 
 <script src="/public/javascripts/messages.js"></script>
-
+<!--
+<script>
+  $('#create-message').on('show', $('.msg-alert').hide());
+</script>
+-->

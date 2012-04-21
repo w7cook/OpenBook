@@ -20,6 +20,8 @@ public class Messages extends OBController {
   public static void createMessage(String username, String subject, String content) {
     User user = user();
     User recipient = User.getUser(username);
+    if(recipient == null)
+      notFound();
     Message message = new Message(user, recipient, subject, content);
     message.save();
     render(user, message);
