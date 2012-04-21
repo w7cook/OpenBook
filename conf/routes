@@ -120,6 +120,12 @@ GET     /checkin/at                             Checkin.at
 # Groups
 GET     /groups/{id}                            Groups.group
 
+#Likes
+GET     /status/{<[0-9]+>likeableId}/likes      Likeables.likes
+POST    /status/{<[0-9]+>likeableId}/likes      Likeables.like
+DELETE  /status/{<[0-9]+>likeableId}/likes      Likeables.unLike
+
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

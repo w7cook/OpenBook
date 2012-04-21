@@ -1,0 +1,5 @@
+[
+  #{list items:thing.thoseWhoLike, as:user}
+    "/users/${user.id}"#{if !item_isLast},#{/if}
+  #{/list}
+]

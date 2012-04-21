@@ -9,6 +9,14 @@ import models.*;
 
 
 public class Likeables extends OBController {
+  public static void likes (Long likeableId) {
+    User user = user();
+    Likeable thing = Likeable.findById(likeableId);
+    if(thing == null)
+      notFound();
+    render(user, thing);
+  }
+
   public static void like (Long likeableId) {
     Likeable thing = Likeable.findById(likeableId);
     if(thing == null)
