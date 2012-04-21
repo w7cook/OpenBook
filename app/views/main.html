@@ -79,7 +79,7 @@
         <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >
           #{list items:currentUser.requestedFriends(), as:'request'}
           <div style="border-bottom: thin solid #000033; color: black; z-index: 3; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 3px">
-        	<img style="width:50px; height:50px;" src=@{Photos.getPhoto(request.from.profile.profilePhoto)} />
+        	<img style="width:50px; height:50px;" src=@{Photos.getPhoto(request.from.profile.profilePhoto.id)} />
 			<a style="color: #000099;" href=@{Application.news(request.from.id)}> ${request.from}</a>
 			<br>
 			<a style="color: #000099;" href=@{Application.requestFriends(request.from.id)}>Accept</a> 
@@ -93,7 +93,7 @@
 	    #{/form}
 	    <div class="account">
 	      <a href="@{Application.account()}">
-	      <img src="@{Photos.getPhoto(currentUser.profile.profilePhoto)}" height="30" width="30" style="vertical-align:middle;"/> ${currentUser.first_name} ${currentUser.last_name}
+	      <img src="@{Photos.getPhoto(currentUser.profile.profilePhoto.id)}" height="30" width="30" style="vertical-align:middle;"/> ${currentUser.first_name} ${currentUser.last_name}
           </a>
           <a href="@{Application.news()}">Home</a>
 	      <a href="@{Secure.logout()}">Logout</a>

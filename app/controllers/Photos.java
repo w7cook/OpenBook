@@ -89,12 +89,12 @@ public class Photos extends OBController {
   }
 
   public static void addPhoto(File image) throws FileNotFoundException, IOException {
-
+    User user = user();
     validation.keep(); /* Remember any errors after redirect. */
 
     if (image == null) {
       validation.addError("image", "You must specify an image to upload.");
-      redirect("/users/" + user().id + "/photos");
+      redirect("/users/" + user.id + "/photos");
     }
 
     shrinkImage(image);
@@ -105,6 +105,7 @@ public class Photos extends OBController {
     if (!validation.hasErrors()) {
       photo.save();
     }
+
     redirect("/users/" + photo.owner.id + "/photos");
   }
 

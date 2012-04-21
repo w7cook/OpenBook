@@ -28,9 +28,9 @@ public abstract class Likeable extends Model {
   }
 
   public Likeable(User owner, Visibility v) {
-    thoseWhoLike = new HashSet<User>();
-    visibility = v;
-    owner = owner;
+    this.thoseWhoLike = new HashSet<User>();
+    this.visibility = v;
+    this.owner = owner;
   }
 
   public Likeable addLike(User user) {
