@@ -1,3 +1,13 @@
+function deletePost(id) {
+  $.ajax({
+    url: '/posts/' + id,
+    type: 'DELETE',
+    success: function() {
+      $('div#post'+id).slideUp();
+    }
+  });
+}
+
 function like(id, userId, likeTxt, unlikeTxt) {
   var likes;
 
@@ -55,5 +65,22 @@ function like(id, userId, likeTxt, unlikeTxt) {
       }
       
     });
+  }
+}
+
+function submitComment(id) {
+  nonws = /\S/;
+  textbox = $('#commentContent' + id)
+  content = textbox.val();
+  if(!nonws.test(content)) {
+    textbox.val('');
+    textbox.focus();
+  }
+  else {
+/*
+    $.ajax({
+      url: 'status/'
+    });
+*/
   }
 }

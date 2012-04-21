@@ -6,8 +6,7 @@ import javax.persistence.*;
 import play.db.jpa.*;
 
 @Entity
-public abstract class Commentable extends Likeable
-{
+public abstract class Commentable extends Likeable {
   @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
   public List<Comment> comments;
 
@@ -28,5 +27,13 @@ public abstract class Commentable extends Likeable
 
   public List<Comment> getComments(){
     return Comment.find("byParentObj", this).fetch();
+  }
+
+  public List<Comment> getOlderComments(int n){
+    return Comment.find("FROM Comment c WHERE c.parentObj = ? order by c.updatedAt desc", this).fetch(n);
+  }
+
+  public List<Comment> getSomeComments(int n){
+    return Comment.find("FROM Comment c WHERE c.parentObj = ? order by c.updatedAt desc", this).fetch(n);
   }
 }

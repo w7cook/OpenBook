@@ -3,14 +3,12 @@ package controllers;
 import java.util.*;
 
 import play.*;
-import play.db.jpa.GenericModel.JPAQuery;
+import play.db.jpa.*;
 import play.mvc.*;
-import play.utils.HTML;
-import controllers.Secure;
+
 import models.*;
 
 public class Comments extends OBController {
-
   //comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
   public static void comments(Long userId) {
     User user = userId == null ? Application.user() : (User) User.findById(userId);
@@ -31,12 +29,12 @@ public class Comments extends OBController {
       notFound("That comment does not exist.");
   }
 
-  public static void deleteComment(Long id, Long userId) {
-    Comment c = Comment.findById(id);
+  public static void deleteComment(Long commentId) {
+    Comment c = Comment.findById(commentId);
     if (c == null)
       notFound("That comment does not exist.");
     c.delete();
-    comments(userId);
+    comments(user().id);
   }
 
   public static void makeNewComment(String commentContent, Long statusId) {

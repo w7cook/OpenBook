@@ -53,14 +53,6 @@ public class Post extends Commentable {
       .first();
   }
 
-  public List<Comment> getOlderComments(int n){
-    return Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch(n);
-  }
-
-  public List<Comment> getSomeComments(int n){
-    return Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch(n);
-  }
-
   public String parseContent(String unlinked_content){
     Matcher links_matcher = links_pattern.matcher(unlinked_content);
 
