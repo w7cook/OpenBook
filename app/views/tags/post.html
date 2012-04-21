@@ -28,7 +28,7 @@
       <span id = "numLikesPost${_item.id}"> ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
       </span> 
       #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
-        <a class="button" id = "likeButton${_item.id}" href = '#' onclick="like(${_item.id}, ${_currentUser.id}, &{'comment.like'}, &{'comment.unlike'})">
+        <a class="button" id = "likeButton${_item.id}" href = '#' onclick="like(${_item.id}, ${_currentUser.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
           #{if _item.likedBy(_currentUser)}
             &{'comment.unlike'}
           #{/if}
