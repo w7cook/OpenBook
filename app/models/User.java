@@ -55,7 +55,7 @@ public class User extends Postable {
   //  User's basic profile information
   @OneToOne
   public Profile profile;
-  
+
   @OneToOne
   public TimelineModel timeline;
 
@@ -78,6 +78,10 @@ public class User extends Postable {
   @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
   public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
 
+  @ElasticSearchIgnore
+  @ManyToMany(mappedBy="thoseWhoLike", cascade = CascadeType.PERSIST)
+  public Set<Likeable> likes;
+
   public User(String email, String password, String username) {
     this.email = email;
     this.password = Crypto.passwordHash(password);
@@ -94,7 +98,7 @@ public class User extends Postable {
     this.first_name = first_name;
     this.last_name = last_name;
     this.name = first_name + " " + last_name;
-    
+
     this.save();
     profile = new Profile(this);
     profile.save();
@@ -105,7 +109,7 @@ public class User extends Postable {
     this.save();
     // this.education = new ArrayList<Enrollment>();
   }
-  
+
   public User(TempUser user) {
     if (user.verified == false) {
       this.email = user.email;
@@ -114,7 +118,7 @@ public class User extends Postable {
       this.first_name = user.first_name;
       this.last_name = user.last_name;
       user.verified = true;
-      
+
       this.save();
       profile = new Profile(this);
       profile.save();
@@ -137,16 +141,14 @@ public class User extends Postable {
   public List<Message> inbox() {
     return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
   }
-  
+
   public int unreadCount() {
    return Message.find("SELECT m FROM Message m WHERE (m.author = ?1 OR m.recipient = ?1) AND m.read = false", this).fetch().size();
   }
-  
-  public List<Note> viewNotes() {
-	    return Message.find("SELECT n FROM Note n WHERE n.author = ?1", this).fetch();
-	  }
-  
 
+  public List<Note> viewNotes() {
+    return Note.find("byOwner", this).fetch();
+  }
 
   public List<Comment> comments() {
     return Comment.find("byAuthor", this).fetch();
@@ -303,9 +305,9 @@ public class User extends Postable {
   public List<Event> pastEvents() {
     return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate < ?2 ", this, new Date()).fetch();
   }
-  
+
   /** List all events for any user
-   * 
+   *
    * @return a list of events the user is a member of
    */
   public List<Event> myEvents() {
@@ -321,17 +323,17 @@ public class User extends Postable {
     }
     return answer;
   }
-  
+
   /** List all friends uninvited to an event
-   * 
+   *
    * @return a list of users that are friends with the current user, not yet invited to event
    */
   public List<User> uninvitedFriends(Long eventId, Long userId){
     User guest = User.findById(userId);
-    Event event = Event.findById(eventId); 
+    Event event = Event.findById(eventId);
     List<Relationship> friends = guest.confirmedFriends();
     List<User> inviteFriends = new ArrayList<User>();
-    
+
     for(int i = 0; i < friends.size(); i++){
       User u = friends.get(i).to;
       if (!(event.members).contains(u)){

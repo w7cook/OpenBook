@@ -28,7 +28,7 @@ public class Posts extends OBController {
   public static void deletePost(Long postId) {
     User user = user();
     Post p = Post.findById(postId);
-    if (!p.author.equals(user))
+    if (!p.owner.equals(user))
       forbidden();
     p.delete();
     posts(user.id);
@@ -54,17 +54,17 @@ public class Posts extends OBController {
     m.put("currentUser", user());
     renderTemplate(m);
   }
-  
+
   public static void makeNewGroupPost(String postContent, String gid) {
-	    Group group = Group.findById(Long.parseLong(gid));
-	    final Post p = new Post(group, user(),
-	        HTML.htmlEscape(postContent)).save();
-	    Map<String, Object> m = new HashMap<String, Object>();
-	    m.put("item", p);
-	    m.put("user", user());
-	    m.put("currentUser", user());
-	    renderTemplate(m);
-	  }
+            Group group = Group.findById(Long.parseLong(gid));
+            final Post p = new Post(group, user(),
+                HTML.htmlEscape(postContent)).save();
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("item", p);
+            m.put("user", user());
+            m.put("currentUser", user());
+            renderTemplate(m);
+          }
 
   public static void poke(Long userId) {
     String poked = new String(user() + " has poked " + (User)User.findById(userId) + "!");

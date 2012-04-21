@@ -117,9 +117,9 @@ public class Application extends OBController {
  * @param id user ID
  * */
  public static void createTimeline(Long id){
-	User user = User.findById(id);
-	user.createTimeline();
-	renderTemplate("Timeline/Timeline.html",user);
+        User user = User.findById(id);
+        user.createTimeline();
+        renderTemplate("Timeline/Timeline.html",user);
  }
 
   public static void account_save(User update, String old_password) {
@@ -166,8 +166,8 @@ public class Application extends OBController {
 
   public static void edit_basic(Long userID) {
     User user = User.findById(userID);
-	Profile profile = Profile.find("owner = ?", user).first();
-	render(profile);
+        Profile profile = Profile.find("owner = ?", user).first();
+        render(profile);
   }
 
 
@@ -180,51 +180,10 @@ public class Application extends OBController {
     c.delete();
     news(userId);
   }
-  
+
   public static void postComment(Long commentableId, String author, String content) {
     Commentable parent = Commentable.findById(commentableId);
     User au = User.find("email = ?", author).first();
     parent.addComment(au, content);
   }
-
-  public static void notFound() {
-    response.status = Http.StatusCode.NOT_FOUND;
-    renderText("");
-  }
-
-  public static void addLike (Long likeableId, Long userId){
-    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),(User)User.findById(userId)).save();
-    Likeable l = Likeable.findById(likeableId);
-    l.addLike(newOne);
-    news(userId);
-  }
-
-  public static void unLike (Long likeableId, Long userId){
-    Likeable c = Likeable.findById(likeableId);
-    User u = User.findById(userId);
-    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
-    c.removeLike(toRemove);
-    news(userId);
-  }
-
-  public static void addLikeAjax (Long likeableId){
-    User u = user();
-    Likeable l = Likeable.findById(likeableId);
-    l.addLike(u);
-    Map<String,String> m = new HashMap<String,String>();
-    m.put("numLikes", Integer.toString(l.likes.size()));
-    m.put("likeableID",likeableId.toString());
-    renderJSON(m);
-  }
-
-  public static void removeLikeAjax (Long likeableId){
-    User u = user();
-    Likeable l = Likeable.findById(likeableId);
-    l.removeLike(u);
-    Map<String,String> m = new HashMap<String,String>();
-    m.put("numLikes", Integer.toString(l.likes.size()));
-    m.put("likeableID",likeableId.toString());
-    renderJSON(m);
-  }
-
 }

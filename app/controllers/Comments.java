@@ -37,26 +37,6 @@ public class Comments extends OBController {
     comments(userId);
   }
 
-  public static void addLike (Long commentId, Long userId){
-    Likes newOne = new Likes ((Likeable)Comment.findById(commentId),(User)User.findById(userId)).save();
-    Comment c = Comment.findById(commentId);
-    c.addLike(newOne);
-    comments(userId);
-  }
-
-  public static void unLike (Long commentId, Long userId){
-    Comment c = Comment.findById(commentId);
-    User u = User.findById(userId);
-    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
-          c.removeLike(toRemove);
-    comments(userId);
-  }
-
-  public static void postComment(Long statusId, Long userId, String commentContent) {
-    ((Status) Status.findById(statusId)).addComment(Application.user(), commentContent);
-    comments(userId);
-  }
-
   public static void makeNewComment(String commentContent, String statusId, String userId) {
     final Commentable cc = Commentable.findById(Long.parseLong(statusId));
     final User u = User.findById(Long.parseLong(userId));
