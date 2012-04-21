@@ -9,32 +9,27 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-public class Status extends Commentable {
+  public class Status extends Commentable {
 
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
   // private static final Pattern youtube_pattern = Pattern.compile();
   // private static final Pattern vimeo_pattern = Pattern.compile();
 
 
-  @Required
-  @ManyToOne
-  public User author; // The User who authored the status update
-
   @Lob
-  public String content;
+    public String content;
 
   @ManyToMany(cascade=CascadeType.PERSIST)
-  public List<Tag> tags;
+    public List<Tag> tags;
 
   @ManyToMany(cascade=CascadeType.PERSIST)
-  public List<User> mentions;
+    public List<User> mentions;
 
   public Status(User author, String content) {
     this.comments = new ArrayList<Comment>();
-    this.likes = new ArrayList<Likes>();
     this.tags = new ArrayList<Tag>();
     this.mentions = new ArrayList<User>();
-    this.author = author;
+    this.owner = author;
     this.content = content;
   }
 
@@ -52,17 +47,17 @@ public class Status extends Commentable {
         mentions.add(newMention);
       }
       else
-       System.out.print("Error occured");
+        System.out.print("Error occured");
     }
 
     return unlinked_content;
-        }
+  }
 
 
   public static List<Status> findTaggedWith(String... tags) {
     return Status.find(
-            "select distiinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.author, p.message, p.update_time having count(t.id) = :size"
-    ).bind("tags", tags).bind("size", tags.length).fetch();
+                       "select distinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.owner, p.message, p.update_time having count(t.id) = :size"
+                       ).bind("tags", tags).bind("size", tags.length).fetch();
   }
 
 }
