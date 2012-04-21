@@ -51,11 +51,17 @@ POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 
 #Signup
 GET     /signup                                 Signup.signup
+GET     /captcha                                Signup.captcha
 
 # Messages
 GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
+
+# Notes
+GET     /notes/all                              Notes.viewNotes
+GET     /notes/newNote                          Notes.newNote
+POST    /notes                                  Notes.saveNote
 
 # Search
 GET     /users/search                           UserSearch.search
@@ -63,7 +69,7 @@ GET     /groups/search                          GroupSearch.search
 
 #Account
 GET     /users/?                                Users.users #Get a list of all users
-#POST    /users/?                                Signup.signup #Add / update a user
+#POST    /users/?                                Signup.signup #Add /  a user
 PUT     /users/{<[0-9]+>userId}                 Users.updateUser
 GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
 DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
@@ -100,6 +106,9 @@ POST    /events                                         Events.addEvent
 
 #Relationships
 GET     /relationships                                  Relationships.relationships
+
+#Timeline
+GET     /timeline/{<[0-9]+>userId}                 Timeline.Timeline #Get timeline for specific user
 
 # Checkin
 GET     /checkin                                Checkin.checkin

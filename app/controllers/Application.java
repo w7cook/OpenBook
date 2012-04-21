@@ -112,6 +112,16 @@ public class Application extends OBController {
     news(id);
   }
 
+/**
+ * Create a timeline for the current user
+ * @param id user ID
+ * */
+ public static void createTimeline(Long id){
+	User user = User.findById(id);
+	user.createTimeline();
+	renderTemplate("Timeline/Timeline.html",user);
+ }
+
   public static void account_save(User update, String old_password) {
     User currentUser = user();
 
@@ -154,18 +164,12 @@ public class Application extends OBController {
     }
   }
 
-  public static void edit_basic() {
-    long userID = 1;
+  public static void edit_basic(Long userID) {
     User user = User.findById(userID);
-    render(user);
+	Profile profile = Profile.find("owner = ?", user).first();
+	render(profile);
   }
 
-  public static void updateBasic() {
-    long userID = 1;
-    User user = User.findById(userID);
-    user.profile.save();
-    renderTemplate("Application/edit_basic.html", user);
-  }
 
   public static void search(String query) {
     // not implemented yet

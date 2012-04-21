@@ -13,7 +13,7 @@
     #{/else}
         
     #{if user.id == currentUser.id}
-      <a id="about-button" href="@{Application.edit_basic}">About me</a>
+      <a id="about-button" href="@{Application.edit_basic(user.id)}">About me</a>
     #{/if}
     #{else}
       <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
@@ -36,8 +36,10 @@
   #{/elseif}
     
   #{if user.id == currentUser.id}
-    <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" >new post...</textarea>
-      <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
+    <div class="ui_InputContainer" id="PostContainer">
+    <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" ></textarea>
+      <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
+      alt="Post" style="vertical-align: bottom;"/>    
     </div>
     <div class="ui_InputContainer" id="photo-upload" style="display: none;">
       #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
@@ -49,7 +51,7 @@
     <div class="ui_inputContainer" id="link-upload" style="display: none">
       #{form @Links.addLink(), enctype:'multipart/form-data'}
         <input type="text" name="url" value="video url" />
-        <input type="text" name="content" value="new post..." />
+        <input type="text" name="content" />
         <input type="submit" name="submit" value="Upload" />
       #{/form}
     </div>
@@ -64,7 +66,16 @@
 </div> <!-- grid_8 -->
 
 <script type="text/javascript">
+  var hasTypedPost = new Boolean();
+  var defaultPost = "new post...";
+  $('textarea#postContent').keydown(function(){
+	   hasTypedPost = true;
+	   if(this.val==''){
+		   hasTypedPost = false;
+	   }
+  });
   $('input#postSubmit').click(function(event) {
+  if(hasTypedPost==true){
   var postData = {
   postContent : $("textarea#postContent").val(),
   };
@@ -72,8 +83,10 @@
   var new_item = $(data).hide();
   $("div#postsList").prepend(new_item);
   new_item.slideDown();
-  $("textarea#postContent").val('');
+  hasTypedPost = false;
+  $("textarea#postContent").val(defaultPost);
   });
+  }
   });
 </script>
 
@@ -100,15 +113,17 @@
 </script>
 
 <script>
+  $('#postContent').val(defaultPost);
   $('#postContent')
   .focusin(function() {
-  if ( this.value == 'new post...' ) {
+  if ( hasTypedPost == false ) {
   this.value = '';    
   }
   })
   .focusout(function() {
   if ( this.value == '' ) {
-  this.value = 'new post...';    
+  hasTypedPost = false;
+  this.value = defaultPost;    
   }
   });
 </script>
