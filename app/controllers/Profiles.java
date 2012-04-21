@@ -6,6 +6,7 @@ import play.*;
 import play.mvc.*;
 import controllers.Secure;
 import models.*;
+import models.Profile.Relationship;
 
 public class Profiles extends OBController {
 
@@ -30,7 +31,7 @@ public class Profiles extends OBController {
     profile.birthday = birthday;
     profile.gender = gender;
     profile.interestedIn = interestedIn;
-    profile.relationshipStatus = relationshipStatus;
+    profile.relationshipStatus = Relationship.fromString(relationshipStatus);
 
     Language lang = Language.find("name = ?", language).first();
     if (lang == null){

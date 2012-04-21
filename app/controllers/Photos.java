@@ -11,7 +11,6 @@ import play.mvc.*;
 import play.db.jpa.*;
 import models.*;
 
-@With(Secure.class)
 public class Photos extends OBController {
 
   /* All possible image mime types in a single regex. */
@@ -34,7 +33,7 @@ public class Photos extends OBController {
   public static void getPhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
     if (photo == null) {
-      Application.notFound();
+      notFound("That photo does not exist.");
     }
     else {
       response.setContentTypeIfNotSet(photo.image.type());
@@ -55,7 +54,7 @@ public class Photos extends OBController {
              MimeTypes.getContentType(image.getName()));
     return new Photo(user(), blob);
   }
-  
+
   /**
    * Convert a given File to a Photo model.Used in Bootstrap.java
    *
@@ -89,8 +88,7 @@ public class Photos extends OBController {
     }
   }
 
-  public static void addPhoto(File image) throws FileNotFoundException,
-                                                 IOException {
+  public static void addPhoto(File image) throws FileNotFoundException, IOException {
 
     validation.keep(); /* Remember any errors after redirect. */
 
@@ -112,76 +110,67 @@ public class Photos extends OBController {
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    if (photo.owner.equals(user())) {
-      photo.delete();
-    }
+    if (photo == null)
+      notFound("That photo does not exist.");
+    if (!photo.owner.equals(user()))
+      forbidden();
+    photo.delete();
     redirect("/users/" + photo.owner.id + "/photos");
   }
-  
-  public static void setProfilePhotoPage()
-  {
+
+  public static void setProfilePhotoPage()  {
     User user = user();
-    //make sure get all of the photos
-    List<Photo> photos;
-    if (user.id == null) {
-      photos = null;
-    }
-    else {
-      photos = Photo.find("byOwner", user).fetch();
-    }
+    List<Photo> photos = Photo.find("byOwner", user).fetch();
     render(user,photos);
   }
-  
-  public static void changeBGImage()
-  {
+
+  public static void changeBGImage() {
     User user = user();
     photos(user.id);
   }
-  
+
   public static void setProfilePhoto(Long photoId) {
-    
-	  if(photoId != null){
-	    User user = user();
-	    Photo photo = Photo.findById(photoId);
-  	  if (photo.owner.equals(user())) {
-  		  user.profile.profilePhoto = photoId;
-  		  user.profile.save();
-  	  }
-	  }
-	  setProfilePhotoPage();//render page
+    User user = user();
+    Photo photo = Photo.findById(photoId);
+    if (photo == null)
+      notFound("That photo does not exist.");
+
+    if (!photo.owner.equals(user()))
+      forbidden();
+
+    user.profile.profilePhoto = photo;
+    user.profile.save();
+    setProfilePhotoPage();//render page
   }
-  
+
   /**
    * addProfilePhoto
-   * 
+   *
    * just does the adding of the photo and then uses setProfilePhoto to set the profilePhoto
    * @param image
    * @throws FileNotFoundException
    * @throws IOException
    */
-  public static void addProfilePhoto(File image) throws FileNotFoundException, IOException 
-  {
+  public static void addProfilePhoto(File image) throws FileNotFoundException, IOException {
     if(image != null){
       try{
         shrinkImage(image);
         Photo photo = fileToPhoto(image);
         validation.match(photo.image.type(), IMAGE_TYPE);
         validation.max(photo.image.length(), MAX_FILE_SIZE);
-        
-          if (validation.hasErrors()) {
-            validation.keep(); /* Remember errors after redirect. */} 
-          else {
-            photo.save();
-            User user = user();
-            user.profile.profilePhoto = photo.id;
-            user.profile.save();
-          }
-      }catch(FileNotFoundException f)
-      {
+
+        if (validation.hasErrors()) {
+          validation.keep(); /* Remember errors after redirect. */}
+        else {
+          photo.save();
+          User user = user();
+          user.profile.profilePhoto = photo;
+          user.profile.save();
+        }
+      }catch(FileNotFoundException f) {
         setProfilePhotoPage();//for if try to put in null file
       }
-     }
-      setProfilePhotoPage();//for if try to put in null file
-   }
-  
+    }
+    setProfilePhotoPage();//for if try to put in null file
+  }
 }

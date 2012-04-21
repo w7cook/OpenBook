@@ -26,8 +26,8 @@ public class FThread extends Commentable {
   public String content;
 
   public FThread(String title, User author, Date postedAt, String content) {
+    super(author);
     this.title = title;
-    this.owner = author;
     this.postedAt = new Date();
     this.content = content;
   }

@@ -15,7 +15,7 @@ public class TimelineModel extends Commentable {
   Vector<TimelineEvent> events;
 
   public TimelineModel(User auth) {
-    this.owner = auth;
+    super(auth);
     events = new Vector<TimelineEvent>();
   }
 

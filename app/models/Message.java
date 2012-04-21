@@ -17,7 +17,7 @@ public class Message extends Commentable {
   public boolean read;
 
   public Message(User author, User recipient, String content) {
-    this.owner = author;
+    super(author);
     this.recipient = recipient;
     this.content = content;
     this.comments = new ArrayList<Comment>();

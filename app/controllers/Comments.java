@@ -33,18 +33,18 @@ public class Comments extends OBController {
 
   public static void deleteComment(Long id, Long userId) {
     Comment c = Comment.findById(id);
+    if (c == null)
+      notFound("That comment does not exist.");
     c.delete();
     comments(userId);
   }
 
-  public static void makeNewComment(String commentContent, String statusId, String userId) {
-    final Commentable cc = Commentable.findById(Long.parseLong(statusId));
-    final User u = User.findById(Long.parseLong(userId));
-    final Comment c = new Comment(cc, u, HTML.htmlEscape(commentContent)).save();
-    Map<String, Object> m = new HashMap<String, Object>();
-    m.put("comment", c);
-    m.put("user", user());
-    m.put("currentUser", user());
-    renderTemplate(m);
+  public static void makeNewComment(String commentContent, Long statusId) {
+    final Commentable cc = Commentable.findById(statusId);
+    if(cc == null)
+      notFound();
+    final User user = user();
+    final Comment comment = new Comment(cc, user, commentContent).save();
+    render(user, comment);
   }
 }

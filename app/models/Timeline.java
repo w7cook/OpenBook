@@ -13,7 +13,7 @@ public class Timeline extends Commentable {
   Vector<TimelineEvent> events;
 
   public Timeline(User auth){
-    this.owner = auth;
+    super(auth);
     events = new Vector<TimelineEvent>();
   }
 

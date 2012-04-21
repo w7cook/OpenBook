@@ -139,11 +139,11 @@ public class User extends Postable {
   }
 
   public List<Message> inbox() {
-    return Message.find("SELECT m FROM Message m WHERE m.owner = ?1 OR m.recipient = ?1", this).fetch();
+    return Message.find("byRecipient", this).fetch();
   }
 
   public int unreadCount() {
-   return Message.find("SELECT m FROM Message m WHERE (m.owner = ?1 OR m.recipient = ?1) AND m.read = false", this).fetch().size();
+   return Message.find("SELECT m FROM Message m WHERE m.recipient = ?1 AND m.read = false", this).fetch().size();
   }
 
   public List<Note> viewNotes() {

@@ -26,10 +26,10 @@ import play.data.validation.*;
   public List<User> mentions;
 
   public Status(User author, String content) {
+    super(author);
     this.comments = new ArrayList<Comment>();
     this.tags = new ArrayList<Tag>();
     this.mentions = new ArrayList<User>();
-    this.owner = author;
     this.content = content;
   }
 
