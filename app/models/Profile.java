@@ -32,6 +32,10 @@ public class Profile extends Model {
   @ManyToOne
   public Photo profilePhoto; // The user's profile picture.
 
+  @ManyToOne
+  public Photo gravatarPhoto;
+
+
   public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
 
   @ManyToOne
@@ -130,6 +134,7 @@ public class Profile extends Model {
     this.website = "";
     this.email = "";
     this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    this.gravatarPhoto = null;
   }
 
   public Profile(User owner, String bio, String gender, String quotes, String phone, String website){

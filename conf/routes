@@ -48,6 +48,7 @@ GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
+GET     /photos/setGravatar                     Photos.setGravatar
 
 #Signup
 GET     /signup                                 Signup.signup

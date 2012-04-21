@@ -1,7 +1,7 @@
 #{extends 'three_panel.html' /}
 
 <div id="contentArea-BigPage">
-  <h2>Set Your Profile Photo</h2>
+  <h2>&{'photo.setProfilePhoto'}</h2>
   <hr />
   
   #{ifErrors}
@@ -10,26 +10,31 @@
         <li>${error}</li>
       #{/errors}
     </ul>
-  #{/ifErrors}
+  #{/ifErrors} 
+  
+  <a class="button" href="@{Photos.setGravatar()}"><b>&{'photo.useGravatar'}</b></a> 
+  <br>
+  <a href="https://en.gravatar.com/site/signup/">&{'photo.signUpGravatar'}</a>
+  <br>&{'photo.gravatarNote'}</br>
   <br>
   
-  <h3>Current Profile Photo:</h3>
-  <img src="@{Photos.getPhoto(user.profile.profilePhoto.id)}" width="120"
-       height="150" /> <br>
-  <br> 
-  #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data'} 
-  <b> New Photo: </b> <input type="file"
-                             name="image" /> <input type="submit" name="submit" value="Upload" />
-  #{/form} <br> <b> Use Existing Photo </b> <br>
   
+  #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data'} 
+    <b> &{'photo.newPhoto'}: </b>
+    <input type="file" name="image" />
+    <input type="submit" name="submit" value=&{'photo.upload'} />
+  #{/form}
+  <br>
+  <b>&{'photo.useExistingPhoto'}</b>
+  <br>
+
   <ul class="photo-list">
     #{list items:photos, as:'photo' }
       <li>
         <img src="@{Photos.getPhoto(photo.id)}" width="120" height="150" />
         #{if currentUser.equals(photo.owner)}
-          #{form
-            @Photos.setProfilePhoto(photo.id)}
-            <input type="submit" name="submit" value="Set as profile picture" />
+          #{form @Photos.setProfilePhoto(photo.id)}
+            <input type="submit" name="submit" value=&{'photo.setAsProfilePhoto'} />
           #{/form}
         #{/if}
       </li>
