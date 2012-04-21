@@ -35,11 +35,10 @@ User(gparker):
     last_name:          Parker
     username:           gparker
     name:               Geoffrey Parker
-    email:              grp@gparker.co
+    email:              grp@gparker.com
     password:           password
     isAdmin:            true
     subscription:       true
-
 
 Profile(bobProfile):
     owner:          bob
