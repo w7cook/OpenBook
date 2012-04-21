@@ -64,11 +64,15 @@ public class Post extends Commentable {
     return author.email.equals( Security.connected() );
   }
   public List<Object> getOlderComments(int n){
+	  ArrayList<Object> ret = new ArrayList<Object>();
+
 	  ArrayList<Object> list = (ArrayList<Object>) Comment.find("FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch();
 	  if(n<list.size()){
 		  while(n>0){list.remove(0);n--;}
 	  }
-	  return list;
+	  for(int i=list.size()-1;i>=0;i--)
+		  ret.add(list.get(i));
+	  return ret;
   }
   public List<Object> getSomeComments(int n){
 	  ArrayList<Object> ret = new ArrayList<Object>();

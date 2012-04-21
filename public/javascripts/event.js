@@ -18,13 +18,13 @@ function codeAddress() {
 
 function initialize() {
   geocoder = new google.maps.Geocoder();
-  var latlng = new google.maps.LatLng(-34.397, 150.644);
-  var myOptions = {
-    zoom: 12,
-    center: latlng,
+  var mapOptions = {
+    center: new google.maps.LatLng(30.2733,-97.7421),
+    zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  };
+  map = new google.maps.Map(document.getElementById('map_canvas'),
+                            mapOptions);
   codeAddress()
 }
 google.maps.event.addDomListener(window, 'load', initialize);
