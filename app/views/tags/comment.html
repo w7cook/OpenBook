@@ -2,10 +2,10 @@
     style="background-color: #e8e8e8; margin-top: 2px; width: 100%;">
 	<div class="comment-content">
     <div class="comment-thumb">
-      <img style="width: 30px; height: 30px;" src="@{Photos.getPhoto(_comment.author.profile.profilePhoto)}" />
+      <img style="width: 30px; height: 30px;" src="@{Photos.getPhoto(_comment.owner.profile.profilePhoto)}" />
     </div>
     <div class="comment-author">              
-      <a href="@{Users.about(_comment.author.id)}">${_comment.author.name}</a>
+      <a href="@{Users.about(_comment.owner.id)}">${_comment.owner.name}</a>
     </div>
     ${_comment.content.nl2br()}
   </div>
@@ -16,7 +16,7 @@
     <span class="comment-date">
       #{timeago date:_comment.updatedAt /}
     </span>
-    #{if _comment.author.id == _currentUser.id} 
+    #{if _comment.owner.id == _currentUser.id} 
     <a class=button id="deleteCommentSubmit${_comment.id}" href="#" onclick="return false;">&{'comment.delete'}</a>
     #{/if} 
   </div>

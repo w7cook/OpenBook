@@ -22,11 +22,11 @@ public abstract class Commentable extends Likeable
   public void removeLikes (Comment com, User au){
     Likes toRemove = Likes.find("author = ? AND comment = ?", au, com).first();
     toRemove.delete();
-    this.save();   
+    this.save();
   }
-  
+
 
   public ArrayList<Object> getComments(){
-	  return (ArrayList<Object>) Comment.find("SELECT c FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch();
+    return (ArrayList<Object>) Comment.find("SELECT c FROM Comment c WHERE c.parentObj.id = ? order by c.updatedAt desc", this.id).fetch();
   }
 }

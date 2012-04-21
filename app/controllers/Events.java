@@ -76,7 +76,7 @@ public class Events extends OBController {
 
   public static void addEventInvite(Long eventId, Long guestId) {
     User guest = User.findById(guestId);
-    Event event = Event.findById(eventId);   
+    Event event = Event.findById(eventId);
     event.addMember(guest);
     event.save();
     event(event.id);
@@ -87,7 +87,7 @@ public class Events extends OBController {
     if(event == null)
       notFound("Event does not exist");
     User user = user();
-    if(!event.author.equals(user))
+    if(!event.owner.equals(user))
       forbidden();
     event.delete();
     events(user.id);
@@ -95,51 +95,51 @@ public class Events extends OBController {
 
   public static void event_create(Event curEvent, String startMonth, String startDay, String startTime, String endMonth, String endDay, String endTime) {
     if (params.get("submit") != null) {
-		User currentUser = user();
-		validation.required(curEvent.name).message("Event name is required");
-		validation.required(curEvent.script).message(
-				"Event description is required");
-		validation.required(curEvent.location).message(
-				"Event location is required");
-		validation.isTrue(!startMonth.equals("-1")).message(
-				"Event start month is required");
-		validation.isTrue(!startDay.equals("-1")).message(
-				"Event start day is required");
-		validation.isTrue(!startTime.equals("-1")).message(
-				"Event start time is required");
-		if (validation.hasErrors()) {
-			Event thisEvent = curEvent;
-			renderTemplate("Events/addEvent.html", thisEvent);
-		} else {
-			Event event = curEvent;
-			event.author = currentUser;
+                User currentUser = user();
+                validation.required(curEvent.name).message("Event name is required");
+                validation.required(curEvent.script).message(
+                                "Event description is required");
+                validation.required(curEvent.location).message(
+                                "Event location is required");
+                validation.isTrue(!startMonth.equals("-1")).message(
+                                "Event start month is required");
+                validation.isTrue(!startDay.equals("-1")).message(
+                                "Event start day is required");
+                validation.isTrue(!startTime.equals("-1")).message(
+                                "Event start time is required");
+                if (validation.hasErrors()) {
+                        Event thisEvent = curEvent;
+                        renderTemplate("Events/addEvent.html", thisEvent);
+                } else {
+                        Event event = curEvent;
+                        event.owner = currentUser;
 
-			event.name = curEvent.name;
-			event.script = curEvent.script;
-			event.location = curEvent.location;
-			event.startDate = setDate(startTime, startMonth, startDay);
+                        event.name = curEvent.name;
+                        event.script = curEvent.script;
+                        event.location = curEvent.location;
+                        event.startDate = setDate(startTime, startMonth, startDay);
 
-			if (!endMonth.equals("-1") && !endDay.equals("-1")
-					&& !endTime.equals("-1")) {
-				event.endDate = setDate(endTime, endMonth, endDay);
-				event.givenEndDate = true;
-			}
+                        if (!endMonth.equals("-1") && !endDay.equals("-1")
+                                        && !endTime.equals("-1")) {
+                                event.endDate = setDate(endTime, endMonth, endDay);
+                                event.givenEndDate = true;
+                        }
 
-			if (curEvent.privilege.equals("open")) {
-				event.open = true;
-			} else if (curEvent.privilege.equals("friends")) {
-				event.friends = true;
-			} else if (curEvent.privilege.equals("inviteOnly")) {
-				event.inviteOnly = true;
-			}
-			event.members = new ArrayList<User>();
-			event.members.add(currentUser);
-			event.save();
-			event(event.id);
-		}
-	}
+                        if (curEvent.privilege.equals("open")) {
+                                event.open = true;
+                        } else if (curEvent.privilege.equals("friends")) {
+                                event.friends = true;
+                        } else if (curEvent.privilege.equals("inviteOnly")) {
+                                event.inviteOnly = true;
+                        }
+                        event.members = new ArrayList<User>();
+                        event.members.add(currentUser);
+                        event.save();
+                        event(event.id);
+                }
+        }
     else if(params.get("cancel") != null){
-    	events(user().id);
+        events(user().id);
     }
   }
 
@@ -175,10 +175,10 @@ public class Events extends OBController {
     new Post((Event)Event.findById(eventId), (User)User.findById(userId), post_content).save();
     event(eventId);
   }
-  
+
   public static void leaveEvent(Long eventId, Long userId){
     User guest = User.findById(userId);
-    Event event = Event.findById(eventId);   
+    Event event = Event.findById(eventId);
     event.removeMember(guest);
     event.save();
     events(userId);

@@ -12,15 +12,12 @@ public class Message extends Commentable {
   public String content;
 
   @ManyToOne
-  public User author;
-  
-  @ManyToOne
-  public User recipient; 
-  
+  public User recipient;
+
   public boolean read;
-  
+
   public Message(User author, User recipient, String content) {
-    this.author = author;
+    this.owner = author;
     this.recipient = recipient;
     this.content = content;
     this.comments = new ArrayList<Comment>();
@@ -33,9 +30,9 @@ public class Message extends Commentable {
   }
 
   @Override
-  public Commentable addComment(User author, String content) {
+  public Commentable addComment(User owner, String content) {
     read = false;
-    return super.addComment(author, content);
+    return super.addComment(owner, content);
   }
-  
+
 }

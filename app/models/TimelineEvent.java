@@ -37,44 +37,44 @@ this.timeOfEvent = new Date();
 this.action = action;
 this.foreword = foreword;
 
-parseAction();	//generate post from action & object info
+parseAction();  //generate post from action & object info
 }
 
 /**
  * Parse the contents of this TimelineEvent to generate the content of it's post.
- * */ 
+ * */
 private void parseAction(){
-	String subject = "";
-	if (this.relatedObject instanceof Event){
-		subject = "event";
-	} else if (this.relatedObject instanceof Group) {
-		subject = "group";
-	} else if (this.relatedObject instanceof Photo) {
-		subject = "photo";
-	} else if (this.relatedObject instanceof Status) {
-		subject = "status";
-	} else if (this.relatedObject instanceof Subscription) {
-		subject = "subscription";
-	} else if (this.relatedObject instanceof Album) {
-		subject = "album";
-	} else if (this.relatedObject instanceof Comment) {
-		subject = "comment";
-	} else if (this.relatedObject instanceof Link) {
-		subject = "link";
-	}
-	
-	//<TODO> every model should probably have a welformed toString or atleast getReadableName so that good names can be generated... 	
-	
-	String msg = "";
-	if (action == TimelineModel.Action.CREATE){
-		msg = foreword + subject + "\n";
-	} else if (action == TimelineModel.Action.MODIFY){
-		msg = foreword + subject + "\n";
-	} else if (action == TimelineModel.Action.DELETE){
-		msg = foreword + subject + "\n"; 
-	}
-		
-	this.post = new Post(null, this.parentTimeline.author, msg); //need to find out what that first thing is supposed to be.
+        String subject = "";
+        if (this.relatedObject instanceof Event){
+                subject = "event";
+        } else if (this.relatedObject instanceof Group) {
+                subject = "group";
+        } else if (this.relatedObject instanceof Photo) {
+                subject = "photo";
+        } else if (this.relatedObject instanceof Status) {
+                subject = "status";
+        } else if (this.relatedObject instanceof Subscription) {
+                subject = "subscription";
+        } else if (this.relatedObject instanceof Album) {
+                subject = "album";
+        } else if (this.relatedObject instanceof Comment) {
+                subject = "comment";
+        } else if (this.relatedObject instanceof Link) {
+                subject = "link";
+        }
+
+        //<TODO> every model should probably have a welformed toString or atleast getReadableName so that good names can be generated...
+
+        String msg = "";
+        if (action == TimelineModel.Action.CREATE){
+                msg = foreword + subject + "\n";
+        } else if (action == TimelineModel.Action.MODIFY){
+                msg = foreword + subject + "\n";
+        } else if (action == TimelineModel.Action.DELETE){
+                msg = foreword + subject + "\n";
+        }
+
+        this.post = new Post(null, this.parentTimeline.owner, msg); //need to find out what that first thing is supposed to be.
 }
 
 

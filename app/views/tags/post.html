@@ -2,12 +2,12 @@
   <div class="hideable">
     <div class="left">
       <img style="width: 50px; height: 50px;"
-           src="@{Photos.getPhoto(_item.author.profile.profilePhoto)}" />
+           src="@{Photos.getPhoto(_item.owner.profile.profilePhoto)}" />
     </div>
     
     <div class="individual-post">
       <div class="post-author" style="clear: both;">
-        <a href="/users/${_item.author.id}">${_item.author.name}</a>
+        <a href="/users/${_item.owner.id}">${_item.owner.name}</a>
       </div>
       <div class="post-content">
         #{if _item.getClass().getName() == "models.Photo"}
@@ -34,7 +34,7 @@
       #{/if}
       . 
       #{timeago date:_item.updatedAt /}
-      #{if _item.author ==  _currentUser} 
+      #{if _item.owner ==  _currentUser} 
         . <a class="button" id="deletePostSubmit${_item.id}" onclick="return false;" href="#">remove post</a> 
       #{/if}
     #{/if}   

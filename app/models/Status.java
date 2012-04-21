@@ -17,13 +17,13 @@ import play.data.validation.*;
 
 
   @Lob
-    public String content;
+  public String content;
 
   @ManyToMany(cascade=CascadeType.PERSIST)
-    public List<Tag> tags;
+  public List<Tag> tags;
 
   @ManyToMany(cascade=CascadeType.PERSIST)
-    public List<User> mentions;
+  public List<User> mentions;
 
   public Status(User author, String content) {
     this.comments = new ArrayList<Comment>();
