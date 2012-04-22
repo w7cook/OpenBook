@@ -138,7 +138,6 @@ public class Photos extends OBController {
   }
 
   public static void setProfilePhoto(Long photoId) {
-
     User user = user();
     Photo photo = Photo.findById(photoId);
     if (photo == null)

@@ -22,7 +22,7 @@
   #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data'} 
     <b> &{'photo.newPhoto'}: </b>
     <input type="file" name="image" />
-    <input type="submit" name="submit" value=&{'photo.upload'} />
+    <input type="submit" name="submit" class="btn" value=&{'photo.upload'} />
   #{/form}
   <br>
   <b>&{'photo.useExistingPhoto'}</b>
@@ -34,7 +34,7 @@
         <img src="@{Photos.getPhoto(photo.id)}" width="120" height="150" />
         #{if currentUser.equals(photo.owner)}
           #{form @Photos.setProfilePhoto(photo.id)}
-            <input type="submit" name="submit" value=&{'photo.setAsProfilePhoto'} />
+            <input type="submit" name="submit" class="btn" value=&{'photo.setAsProfilePhoto'} />
           #{/form}
         #{/if}
       </li>
