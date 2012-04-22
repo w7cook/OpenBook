@@ -81,7 +81,7 @@
         <tr>
           <td><label>&{'profile.interested.in'}:</label></td>
           <td>#{select 'gender', value:profile.interestedIn} 
-              #{option ''}#{/option}
+              #{option 'Blank'}#{/option}
               #{option 'Men'}Men#{/option} 
               #{option 'Women'}Women#{/option} 
               #{option 'Both'}Both#{/option} 
@@ -107,7 +107,7 @@
                 #{/select}</td>
         </tr>
 
-        #{if profile.relationshipStatus == "In a relationship" || profile.relationshipStatus == "Married"}
+        #{if profile.hasAnniversary()}
         <tr>
           <td><label>&{'profile.anniversary'}: </br></label></td>
           <td><script>DateInput('orderdate', true)</script></td>
@@ -187,14 +187,17 @@
           <tr>
             <td><label>Religious views: </label></td>
             <td>
-				${profile.religion}
+            <input size=50 type=text name=religion
+              value="${profile.religion ? profile.religion : ''}">
+            </td>
             </tr>
           #{/if}
           #{if profile.political}
             <tr>
                 <td><label>Political Views: </label></td>
             <td>
-				${profile.political}
+            <input size=50 type=text name=political
+              value="${profile.political ? profile.political : ''}">
             </td>
             </tr>
           #{/if}
@@ -354,5 +357,4 @@
       </div>
     </div>
   </div>
-
 </div>
