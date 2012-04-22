@@ -9,8 +9,22 @@ import play.mvc.*;
 import models.*;
 
 public class Comments extends OBController {
+  public static void comments(Long statusId) {
+    User user = user();
+    List<Comment> comments;
+    if (statusId == null)
+      comments = Comment.findAll();
+    else {
+      Commentable c = Commentable.findById(statusId);
+      if (c == null)
+        notFound();
+      comments = Comment.find("byParentObj", c).fetch();
+    }
+    render(user, comments);
+  }
+
   //comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
-  public static void comments(Long userId) {
+  public static void userComments(Long userId) {
     User user = userId == null ? Application.user() : (User) User.findById(userId);
     List<Comment> comments;
     if (userId == null)
@@ -23,10 +37,9 @@ public class Comments extends OBController {
   public static void comment(Long commentId) {
     User user = user();
     Comment comment = Comment.findById(commentId);
-    if(comment != null)
-      render(comment, user);
-    else
+    if(comment == null)
       notFound("That comment does not exist.");
+    render(user, comment);
   }
 
   public static void deleteComment(Long commentId) {
@@ -34,10 +47,12 @@ public class Comments extends OBController {
     if (c == null)
       notFound("That comment does not exist.");
     c.delete();
-    comments(user().id);
+    ok();
   }
 
-  public static void makeNewComment(String commentContent, Long statusId) {
+  public static void addComment(Long statusId, String commentContent) {
+    if (commentContent == null)
+      error("commentContent can't be null");
     final Commentable cc = Commentable.findById(statusId);
     if(cc == null)
       notFound();

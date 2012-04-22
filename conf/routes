@@ -76,22 +76,22 @@ GET     /users/{<[0-9]+>userId}                 Users.about #Get account info fo
 DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
-GET     /posts/?                                Posts.posts #Get all posts
-POST    /posts/?                                Posts.makeNewPost #Add/update post
-GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
-DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
-GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
+GET     /posts/?                                        Posts.posts #Get all posts
+POST    /posts/?                                        Posts.makeNewPost #Add/update post
+GET     /posts/{<[0-9]+>postId}                         Posts.post #Get a specific post
+DELETE  /posts/{<[0-9]+>postId}                         Posts.deletePost #Delete a post
+GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all posts by a user
 
 #Links
-#Post    /links/?                                #Add/update link
+#Post    /links/?                                       #Add/update link
 
 #Comments
-GET     /comments/?                             Comments.comments #Get all comments
-GET     /comments/{<[0-9]+>commentId}           Comments.comment #Get a specific comment
-DELETE  /comments/{<[0-9]+>commentId}           Commentable.#Delete a comment
-GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
-POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
-GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
+GET     /comments/?                                     Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}                   Comments.comment #Get a specific comment
+DELETE  /comments/{<[0-9]+>commentId}                   Comments.deleteComment #Delete a comment
+GET     /status/{<[0-9]+>statusId}/comments/?           Comments.comments #Get all comments for a status
+POST    /status/{<[0-9]+>statusId}/comments/?           Comments.addComment #Add a comment to a status
+GET     /users/{<[0-9]+>userId}/comments/?              Comments.userComments #get all comments by a user
 
 #Events
 GET     /events/?                                       Events.events #all events
@@ -109,14 +109,14 @@ POST    /events                                         Events.addEvent
 GET     /relationships                                  Relationships.relationships
 
 #Timeline
-GET     /timeline/{<[0-9]+>userId}                 Timeline.Timeline #Get timeline for specific user
+GET     /timeline/{<[0-9]+>userId}                      Timeline.Timeline #Get timeline for specific user
 
 # Checkin
-GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at
+GET     /checkin                                        Checkin.checkin
+GET     /checkin/at                                     Checkin.at
 
-*       /photos/{anything}                      Application.notFound
-*       /users/{anything}/photos/?              Application.notFound
+*       /photos/{anything}                              404
+*       /users/{anything}/photos/?                      404
 
 # Groups
 GET     /groups/{id}                            Groups.group

@@ -26,7 +26,7 @@ public abstract class Commentable extends Likeable {
   }
 
   public List<Comment> getComments(){
-    return Comment.find("byParentObj", this).fetch();
+    return Comment.find("FROM Comment c WHERE c.parentObj = ? ORDER BY c.updatedAt DESC", this).fetch();
   }
 
   public List<Comment> getOlderComments(int n){

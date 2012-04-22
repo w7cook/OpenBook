@@ -1,9 +1,11 @@
-function deletePost(id) {
+
+//TODO: merge with deletePost
+function deleteThing(id, type) {
   $.ajax({
-    url: '/posts/' + id,
+    url: '/' + type + 's/' + id,
     type: 'DELETE',
     success: function() {
-      $('div#post'+id).slideUp();
+      $('div#' + type + id).slideUp();
     }
   });
 }
@@ -77,10 +79,21 @@ function submitComment(id) {
     textbox.focus();
   }
   else {
-/*
     $.ajax({
-      url: 'status/'
+      url: 'status/' + id + '/comments',
+      type: 'POST',
+      data: {'commentContent': content},
+      success: function (data, textStatus, jqXHR) {
+        newComment = $(data).hide();
+        $('#commentsList' + id).prepend(newComment);
+        newComment.slideDown();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      },
+      'complete' : function (jqXHR, textStatus) {
+        textbox.val('');
+      }
     });
-*/
   }
 }

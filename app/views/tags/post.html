@@ -42,26 +42,15 @@
       . 
       #{timeago date:_item.updatedAt /}
       #{if _item.owner ==  _currentUser} 
-        . <button class="button" onclick="deletePost(${_item.id})">remove post</button> 
+        . <button class="button" onclick="deleteThing(${_item.id}, 'post')">remove post</button> 
       #{/if}
     #{/if}   
     </div>
     <!-- End Post Metadata --> 
     <div id ="commentsArea"> 
-      #{if _item.comments.size() > 2}
-      <a href="#" onclick="return false;" id="showAllCommentsSubmit${_item.id}">+${_item.comments.size() - 2} more comment#{if (_item.comments.size()-2) != 1}s#{/if} </a>
-      
-      <div id="olderCommentsList${_item.id}" class="commentsList" style="display:none;width: 100%;">
-        
-        #{list items:_item.getOlderComments(2), as:'comment'}
-        #{comment user:_user, currentUser:_currentUser, comment:comment /}
-        #{/list}
-        
-      </div>
-      #{/if}
       <div id="commentsList${_item.id}" class="commentsList" style="width: 100%;">
-        #{list items:_item.getSomeComments(2), as:'comment'} 
-          #{comment user:_user,currentUser:_currentUser, comment:comment /} 
+        #{list items:_item.getComments(), as:'comment'} 
+          #{comment user:_user, comment:comment /} 
         #{/list}
       </div>
     </div>
@@ -75,38 +64,5 @@
       <button class="button" id="commentSubmit${_item.id}" onclick="submitComment(${_item.id})">Comment</button>
     </div>
 
-<!--
-    <script type="text/javascript">
-      var hasTypedComment${_item.id} = new Boolean();
-      var defaultComment = "new comment...";
-      $('#commentContent${_item.id}').keydown(function(){
-      hasTypedComment${_item.id} = true;
-      if(this.val==''){
-      hasTypedComment${_item.id} = false;
-      }
-      });
-      $('a#showAllCommentsSubmit${_item.id}').click(function(event) {
-      $('div#olderCommentsList${_item.id}').slideDown();
-      $('a#showAllCommentsSubmit${_item.id}').hide();
-      });
-      $('a#commentSubmit${_item.id}').click(function(event) {
-      if(hasTypedComment${_item.id}==true){
-      var commentData = {
-      commentContent : $("textarea#commentContent${_item.id}").val(),
-      statusId : ${_item.id},
-      userId : ${_user.id},
-      };
-      
-      $.post("/comments/makeNewComment", commentData, function(data) {
-      var new_item = $(data).hide();
-      $("div#commentsList${_item.id}").append(new_item);
-      new_item.slideDown();
-      hasTypedComment${_item.id} = false;
-      $('#commentContent${_item.id}').val(defaultComment);
-      });
-      }
-      });
-    </script>
--->
   </div>
 </div>
