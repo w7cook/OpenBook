@@ -25,17 +25,14 @@
     
     <!-- Post Metadata -->  
     <div class="individual-post-metadata">
-      <span id = "numLikesPost${_item.id}"> ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
+      <span id ="post${_item.id}likes">
+        ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
       </span> 
       #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
-        <a class="button" id = "likeButton${_item.id}" href = '#' onclick="like(${_item.id}, ${_currentUser.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
-          #{if _item.likedBy(_currentUser)}
-            &{'comment.unlike'}
-          #{/if}
-          #{else}
-            &{'comment.like'}
-          #{/else}
-        </a>
+        <button class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
+          #{if _item.likedBy(_currentUser)}&{'comment.unlike'}#{/if}
+          #{else}&{'comment.like'}#{/else}
+        </button>
         
         . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s
       #{/if}
@@ -47,6 +44,7 @@
     #{/if}   
     </div>
     <!-- End Post Metadata --> 
+
     <div id ="commentsArea"> 
       <div id="commentsList${_item.id}" class="commentsList" style="width: 100%;">
         #{list items:_item.getComments(), as:'comment'} 

@@ -10,14 +10,15 @@ function deleteThing(id, type) {
   });
 }
 
-function like(id, userId, likeTxt, unlikeTxt) {
-  var likes;
-
+function like(id, type, userId, likeTxt, unlikeTxt) {
+  var likes;  //array of users who like the thing
+  
+  var url = '/status/' + id + '/likes';
   $.ajax({
     dataType: 'json',
     async: false,
     type: 'GET',
-    url: '/status/' + id + '/likes',
+    url: url,
     success: function(data, textStatus, jqXHR) {
       likes = data;
     },
@@ -27,20 +28,19 @@ function like(id, userId, likeTxt, unlikeTxt) {
   });
 
   var numlikes = likes.length;
-  var bttn = $('#likeButton' + id);
+  var numLikesSpan = $('#' + type + id + 'likes');
   
   if(likes.indexOf('/users/' + userId) === -1) {
     $.ajax({
-      url: "/status/" + id + "/likes",
+      url: url,
       type: 'POST',
       success: function(data, textStatus, jqXHR) {
-        alert('liking');
         numlikes++;
         var likeText = 'Like';
         if (numlikes > 1)
           likeText += 's';
         
-        $('#numLikesPost'+id).val(numlikes + ' ' + likeText);
+        numLikesSpan.val(numlikes + ' ' + likeText);
         $('#likeButton' + id).val(unlikeTxt);
       },
       error: function(jqXHR, textStatus, errorThrown) {
@@ -50,7 +50,7 @@ function like(id, userId, likeTxt, unlikeTxt) {
   }
   else {
     $.ajax({
-      url: "/status/" + id + "/likes",
+      url: url,
       type: 'DELETE',
       success: function(data, textStatus, jqXHR) {
         alert('unliking');
@@ -59,13 +59,12 @@ function like(id, userId, likeTxt, unlikeTxt) {
         if (numlikes > 1)
           likeText += 's';
         
-        $('#numLikesPost'+id).val(numlikes + ' ' + likeText);
+        numLikesSpan.val(numlikes + ' ' + likeText);
         $('#likeButton' + id).val(likeTxt);
       },
       error: function(jqXHR, textStatus, errorThrown) {
         alert(errorThrown);
       }
-      
     });
   }
 }
