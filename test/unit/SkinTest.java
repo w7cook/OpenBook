@@ -19,7 +19,7 @@ public class SkinTest extends UnitTest {
   {   
     // Create a new user and save it
     User tester = new User("tester@gmail.com", "secret", "tester").save();
-    Profile testerProfile = new Profile(tester).save();
+    new Profile(tester).save();
 
     //User tester should have a default skin
     assertNotNull(tester.profile);

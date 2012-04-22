@@ -9,12 +9,12 @@ import play.db.jpa.*;
 @Entity
 public class UserLanguage extends Model {
 	@ManyToOne
-  public User user;
+  public Profile user;
 
 	@ManyToOne
   public Language language;
 
-	public UserLanguage(User user, Language lang){
+	public UserLanguage(Profile user, Language lang){
 		this.user  = user;
 		this.language = lang;
 	}
