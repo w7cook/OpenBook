@@ -107,7 +107,7 @@ public class Profile extends Model {
   public String email; //the user's email
 
   public boolean hasAnniversary() {
-    return single.contains(relationshipStatus);
+    return !single.contains(relationshipStatus);
   }
 
   public Profile(User owner) {

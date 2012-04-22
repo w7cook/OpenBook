@@ -34,7 +34,6 @@ public abstract class Likeable extends Model {
   }
 
   public Likeable addLike(User user) {
-    System.out.println("User: " + user + " is liking this");
     thoseWhoLike.add(user);
     this.save();
     return this;
@@ -52,5 +51,13 @@ public abstract class Likeable extends Model {
 
   public int numLikes() {
     return thoseWhoLike.size();
+  }
+
+  public boolean visible(User user) {
+    if(visibility == Visibility.PRIVATE)
+      return user.equals(owner);
+    if(visibility == Visibility.FRIENDS)
+      return user.equals(owner) || user.isFriendsWith(owner);
+    return true;
   }
 }
