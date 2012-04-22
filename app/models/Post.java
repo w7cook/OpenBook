@@ -3,6 +3,7 @@ package models;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import play.utils.HTML;
 
 import javax.persistence.*;
 
@@ -36,7 +37,7 @@ public class Post extends Commentable {
     this.postedObj = postedObj;
     this.tags = new TreeSet<Tag>();
     this.mentions = new ArrayList<User>();
-    this.content = parseContent(content);
+    this.content = parseContent(HTML.htmlEscape(content));
   }
 
   public String contentTeaser() {

@@ -28,17 +28,15 @@
       <span id ="post${_item.id}likes">
         ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
       </span> 
-      #{if _user.isFriendsWith(_currentUser) || _user==_currentUser} 
-        <button class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
-          #{if _item.likedBy(_currentUser)}&{'comment.unlike'}#{/if}
-          #{else}&{'comment.like'}#{/else}
-        </button>
-        
-        . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s
-      #{/if}
+      <button class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
+        #{if _item.likedBy(_user)}&{'comment.unlike'}#{/if}
+        #{else}&{'comment.like'}#{/else}
+      </button>
+      
+      . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s
       . 
       #{timeago date:_item.updatedAt /}
-      #{if _item.owner ==  _currentUser} 
+      #{if _item.owner ==  _user} 
         . <button class="button" onclick="deleteThing(${_item.id}, 'post')">remove post</button> 
       #{/if}
     #{/if}   

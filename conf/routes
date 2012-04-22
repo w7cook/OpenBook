@@ -77,7 +77,7 @@ DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
 GET     /posts/?                                        Posts.posts #Get all posts
-POST    /posts/?                                        Posts.makeNewPost #Add/update post
+POST    /posts/?                                        Posts.makeNewPost
 GET     /posts/{<[0-9]+>postId}                         Posts.post #Get a specific post
 DELETE  /posts/{<[0-9]+>postId}                         Posts.deletePost #Delete a post
 GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all posts by a user

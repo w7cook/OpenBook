@@ -1,5 +1,3 @@
-
-//TODO: merge with deletePost
 function deleteThing(id, type) {
   $.ajax({
     url: '/' + type + 's/' + id,
@@ -86,6 +84,35 @@ function submitComment(id) {
         newComment = $(data).hide();
         $('#commentsList' + id).prepend(newComment);
         newComment.slideDown();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      },
+      'complete' : function (jqXHR, textStatus) {
+        textbox.val('');
+      }
+    });
+  }
+}
+
+//TODO: merge with submitComment
+function submitPost() {
+  nonws = /\S/;
+  textbox = $('#postContent');
+  content = textbox.val();
+  if(!nonws.test(content)) {
+    textbox.val('');
+    textbox.focus();
+  }
+  else {
+    $.ajax({
+      url: '/posts',
+      type: 'POST',
+      data: {'postContent': content},
+      success: function (data, textStatus, jqXHR) {
+        newPost = $(data).hide();
+        $('#postsList').prepend(newPost);
+        newPost.slideDown();
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert(errorThrown);
