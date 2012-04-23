@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Vector;
 
 @Entity
-public class TimelineModel extends Commentable {
+public class TimelineModel extends Model {
   public enum Action {
     CREATE, MODIFY, DELETE
   };
@@ -15,6 +15,8 @@ public class TimelineModel extends Commentable {
   @Required
   @OneToOne
   User author;
+  
+  @Lob
   Vector<TimelineEvent> events;
 
   public TimelineModel(User auth) {
@@ -26,9 +28,9 @@ public class TimelineModel extends Commentable {
     return this.events;
   }
 
-  public void addEvent(Object o, TimelineModel.Action action,
+  public void addEvent(long objectId, TimelineModel.Action action,
       Vector<User> participants, String foreword) {
-    this.events.add(new TimelineEvent(this, o, action, participants, foreword));
+    this.events.add(new TimelineEvent(this, objectId, action, participants, foreword));
   }
 
 }

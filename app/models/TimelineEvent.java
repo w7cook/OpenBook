@@ -6,18 +6,20 @@ import play.data.validation.*;
 import java.util.Date;
 import java.util.Vector;
 
-class TimelineEvent {
+public class TimelineEvent extends Postable {
 
 @Required
 @ManyToOne
+@Lob
 public TimelineModel parentTimeline; //Reference to the Owner's timeline
 
-
-@OneToOne(mappedBy="timelineevent", cascade=CascadeType.ALL)
+@OneToOne
+@Lob
 public Post post; //The post that represents this timeline event
+@Lob
 private Vector<User> participants;
+private long relatedObjectId;
 private String foreword;
-private Object relatedObject; //The Object involved in the event (could be anything)
 private Date timeOfEvent; //The time the event happened (note, can be different from relatedEvent's time)
 private TimelineModel.Action action; // An enum that will represent what was done with the related object
 
@@ -29,9 +31,9 @@ private TimelineModel.Action action; // An enum that will represent what was don
  * @param participants The participants in the timeline event
  * @param foreword A string that will be used to preface the object when the underlying post (inside TimelineEvent) is made
  * */
-public TimelineEvent(TimelineModel t, Object o, TimelineModel.Action action, Vector<User> participants, String foreword){
+public TimelineEvent(TimelineModel t, long objectId, TimelineModel.Action action, Vector<User> participants, String foreword){
 this.parentTimeline = t;
-this.relatedObject = o;
+this.relatedObjectId = objectId;
 this.participants = participants;
 this.timeOfEvent = new Date();
 this.action = action;
@@ -45,7 +47,7 @@ parseAction();	//generate post from action & object info
  * */ 
 private void parseAction(){
 	String subject = "";
-	if (this.relatedObject instanceof Event){
+/*	if (this.relatedObject instanceof Event){
 		subject = "event";
 	} else if (this.relatedObject instanceof Group) {
 		subject = "group";
@@ -61,7 +63,7 @@ private void parseAction(){
 		subject = "comment";
 	} else if (this.relatedObject instanceof Link) {
 		subject = "link";
-	}
+	}*/
 	
 	//<TODO> every model should probably have a welformed toString or atleast getReadableName so that good names can be generated... 	
 	

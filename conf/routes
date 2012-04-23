@@ -23,7 +23,7 @@ GET     /editMySkin                             Skins.editMySkin
 GET     /sampleSkin                             Skins.sampleSkin
 GET     /changeBGImage                          Photos.changeBGImage
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
-POST    /skins/editSkin                         Skins.editSkin
+POST    /skins/editSkin                         Skins.editSkintim
 POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 
 # Threads
@@ -109,7 +109,7 @@ POST    /events                                         Events.addEvent
 GET     /relationships                                                  Relationships.relationships
 
 #Timeline
-GET     /timeline/{<[0-9]+>userId}                 Timeline.Timeline #Get timeline for specific user
+GET     /users/{<[0-9]+>userId}/timeline                 Timeline.Timeline #Get timeline for specific user
 
 # Checkin
 GET     /checkin                                Checkin.checkin
