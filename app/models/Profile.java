@@ -30,8 +30,11 @@ public class Profile extends Model {
 
   public String bio; // The user's biography
   public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
-  public Long profilePhoto; // The user's profile picture.
-  public Long gravatarPhoto;
+  
+  @OneToOne
+  public Photo profilePhoto; // The user's profile picture.
+  @OneToOne
+  public Photo gravatarPhoto;
 
   public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
 
@@ -101,8 +104,8 @@ public class Profile extends Model {
     this.address = "";
     this.website = "";
     this.email = "";
-    this.profilePhoto = Bootstrap.defaultProfilePhotoID;
-    this.gravatarPhoto = -1l;
+    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    this.gravatarPhoto = null;
     this.gravatarEmail = owner.email;
     }
 
