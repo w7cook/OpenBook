@@ -192,20 +192,6 @@ public class Application extends OBController {
     renderText("");
   }
 
-  public static void addLike (Long likeableId, Long userId){
-    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),(User)User.findById(userId)).save();
-    Likeable l = Likeable.findById(likeableId);
-    l.addLike(newOne);
-    news(userId);
-  }
-
-  public static void unLike (Long likeableId, Long userId){
-    Likeable c = Likeable.findById(likeableId);
-    User u = User.findById(userId);
-    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
-    c.removeLike(toRemove);
-    news(userId);
-  }
 
   public static void addLikeAjax (Long likeableId){
     User u = user();

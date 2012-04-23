@@ -68,7 +68,7 @@ public class Signup extends Controller {
     else {
       try {
         String confirmID = Codec.UUID();
-        TempUser newUser = new TempUser(email, password, username, firstName, lastName, confirmID).save();
+        new TempUser(email, password, username, firstName, lastName, confirmID).save();
         sendConfirmationEmail(email, confirmID);
       } catch (EmailException e) {
         // TODO Auto-generated catch block
