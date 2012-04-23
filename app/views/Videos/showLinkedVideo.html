@@ -2,7 +2,7 @@
 
 <div style="margin-top: 20px; margin-bottom: 20px;" id="linked_video">
   <h2 style="margin-top: 20px;">${vid.title}</h2> Posted by: ${vid.owner}
-  #{verbatim} ${vid.getEmbedHtml()} #{/verbatim}
+  #{verbatim} ${vid.getEmbedHtml(2)} #{/verbatim}
   #{if vid.owner.equals(currentUser)}
     <br />
     <a class="button" href="@{Videos.removeLinkedVideo(vid.id)}">

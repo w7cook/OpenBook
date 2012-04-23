@@ -13,6 +13,11 @@
 			#{if _item.getClass().getName() == "models.Photo"}
 			  <div class="post-image"><img src="@{Photos.getPhoto(_item.id)}" /></div>
 			#{/if}
+			#{if _item.getClass().getName() == "models.LinkedVideo"}
+			  <a href="@{Videos.showLinkedVideo(_item.id)}"><h3>${_item.title}</h3></a>
+			  #{verbatim} ${_item.getEmbedHtml(1)} #{/verbatim}
+        <div>${_item.caption}</div>
+			#{/if}
 			#{if _item.getClass().getName() == "models.Link"}
 			  <div class="post-link">
 			    <iframe src="${((models.Link)_item).external_url}"></iframe>
