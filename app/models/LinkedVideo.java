@@ -44,7 +44,7 @@ public class LinkedVideo extends Commentable {
     if(link_type == 'y')
       return "<iframe class=\"youtube-player\" type=\"text/html\" width=\"560\" height=\"340\" src=\"http://www.youtube.com/embed/" + video_id +  "\" frameborder=\"0\"> </iframe>";
     else if (link_type == 'd')
-      return "";
+      return "<iframe src=\"http://www.dailymotion.com/embed/video/" + video_id + "/\" width=\"560\" height=\"340\" frameborder=\"0\"></iframe>";
     else if(link_type == 'v')
       return "";
     else

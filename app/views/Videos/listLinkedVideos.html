@@ -46,7 +46,9 @@
   			<li>
   			  <a href="@{Videos.showLinkedVideo(video.id)}"><img class="thumbnail" src="${video.thumbnail_url}" />
   				#{if currentUser.equals(video.owner)} 
-  				  #{form @Videos.removeLinkedVideo(video.id)} <input type="submit" name="submit" value="Delete" /> #{/form} 
+          <a class="button" href="@{Videos.removeLinkedVideo(video.id)}">
+            Remove Video
+          </a>
   				#{/if}
   			</li> 
 			#{/list}

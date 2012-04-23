@@ -19,7 +19,6 @@ public class Videos extends OBController {
   
   public static void listLinkedVideos(long ownerId){
     User user = User.findById(ownerId);
-    System.out.println(user.name);
     List<LinkedVideo> videos = LinkedVideo.find("owner = ? order by createdAt asc", user).fetch();
     render(videos);
   }
@@ -113,6 +112,12 @@ public class Videos extends OBController {
         videoId = m.group(1);
       } 
     }
+    else if(link_type == 'd'){
+      m = DAILYMOTION.matcher(link);
+      if(m.find()){
+        videoId = m.group(1);
+      }
+    }
     
     return videoId;
   }
@@ -121,6 +126,9 @@ public class Videos extends OBController {
     
     if(link_type == 'y'){
       return "http://img.youtube.com/vi/" + video_id + "/1.jpg";
+    }
+    else if(link_type =='d'){
+      return "http://www.dailymotion.com/thumbnail/160x120/video/" + video_id + "/";
     }
     
     return "blah";
