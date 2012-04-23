@@ -27,22 +27,26 @@ public class Profiles extends OBController {
 	Date anniversary, String language, String religion, String political){
 		User user = user();
 		Profile profile = Profile.find("owner = ?", user).first();
-	    profile.religion = religion;
-	    profile.birthday = birthday;
-	    profile.gender = gender;
+	  profile.religion = religion;
+	  profile.birthday = birthday;
+	  profile.gender = gender;
 		profile.interestedIn = interestedIn;
-	    profile.relationshipStatus = relationshipStatus;		
+	  profile.relationshipStatus = relationshipStatus;		
 
 		Language lang = Language.find("name = ?", language).first();
-		if (lang == null){
-			lang = new Language(language);
-			lang.save();
+//		if (lang == null){
+//			lang = new Language(language);
+//			lang.save();
+//		}
+    UserLanguage userlang = new UserLanguage(profile, lang);
+		if (lang != null){
+    	userlang.save();
+    	profile.languages.add(userlang);
 		}
-		UserLanguage userlang = new UserLanguage(profile, lang);
-		userlang.save();
-	    profile.languages.add(userlang);
+		userlang = null;
+		userlang.deleteAll();
 
-	    profile.political = political;
+	  profile.political = political;
 		profile.save();
 		renderTemplate("Application/edit_basic.html", profile);
 	}

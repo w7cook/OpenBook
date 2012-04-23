@@ -23,7 +23,8 @@
   $(function() {
 	$( "#datepicker" ).datepicker({
 		changeMonth: true,
-		changeYear: true
+		changeYear: true,
+		yearRange: "-100:+0"
 	});
   });
 </script>
@@ -73,9 +74,8 @@
           <td><label>&{'profile.birthday'}: </br> </label>
           </td>
           <td>
-            <script>DateInput('orderdate', true)</script>
-              <input type=text name=birthday
-                value="${profile.birthday ? profile.birthday.format('MMM dd ') : 'extra bday field?'}">
+              <input type=text id="datepicker" name="birthday"
+                value="${profile.birthday ? profile.birthday.format('MMM dd ') : 'MM/DD/YYYY'}">
           </td>
         </tr>
         <tr>
@@ -194,19 +194,13 @@
           #{if profile.religion}
           <tr>
             <td><label>Religious views: </label></td>
-            <td>
-            <input size=50 type=text name=religion
-              value="${profile.religion ? profile.religion : ''}">
-            </td>
+            <td>${profile.religion}</td>
             </tr>
           #{/if}
           #{if profile.political}
             <tr>
                 <td><label>Political Views: </label></td>
-            <td>
-            <input size=50 type=text name=political
-              value="${profile.political ? profile.political : ''}">
-            </td>
+            	<td>${profile.political}</td>
             </tr>
           #{/if}
         </table>
