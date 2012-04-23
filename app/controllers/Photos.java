@@ -34,6 +34,7 @@ public class Photos extends OBController {
   }
 
   public static void getPhoto(Long photoId) {
+    
     Photo photo = Photo.findById(photoId);
     if (photo == null) {
       Application.notFound();
@@ -142,11 +143,12 @@ public class Photos extends OBController {
 
   public static void setProfilePhoto(Long photoId) {
 
-    if(photoId != null){
+    System.out.println("PHOTOID: " + photoId);
+    Photo photo = Photo.findById(photoId);
+    if(photo != null){
       User user = user();
-      Photo photo = Photo.findById(photoId);
-      if (photo.owner.equals(user())) {
-        user.profile.profilePhoto = photoId;
+      if (photo.owner.equals(user)) {
+        user.profile.profilePhoto = photo;
         user.profile.save();
       }
     }
@@ -175,7 +177,7 @@ public class Photos extends OBController {
         else {
           photo.save();
           User user = user();
-          user.profile.profilePhoto = photo.id;
+          user.profile.profilePhoto = photo;
           user.profile.save();
         }
       }catch(FileNotFoundException f)
@@ -199,7 +201,7 @@ public class Photos extends OBController {
     "size=100&d=mm";
     URL url = new URL(urlPath);
     BufferedImage image = ImageIO.read(url);
-    if(u.profile.gravatarPhoto == -1l){//don't yet have a gravatarPhoto
+    if(u.profile.gravatarPhoto == null){//don't yet have a gravatarPhoto
       try{
         File gravatar = new File(hash+".jpg");
         ImageIO.write(image, "jpg",gravatar);
@@ -216,10 +218,10 @@ public class Photos extends OBController {
           else {
             photo.save();
             User user = user();
-            user.profile.profilePhoto = photo.id;
+            user.profile.profilePhoto = photo;
 
             //set gravatarPhoto id
-            u.profile.gravatarPhoto = photo.id;
+            u.profile.gravatarPhoto = photo;
             user.profile.save();
           }
 
@@ -258,10 +260,10 @@ public class Photos extends OBController {
           else {
             oldPhoto.save();
             User user = user();
-            user.profile.profilePhoto = oldPhoto.id;
+            user.profile.profilePhoto = oldPhoto;
 
             //set gravatarPhoto id
-            u.profile.gravatarPhoto = oldPhoto.id;
+            u.profile.gravatarPhoto = oldPhoto;
             user.profile.save();
           }
 

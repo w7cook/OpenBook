@@ -11,7 +11,7 @@
 #{list items:user.confirmedFriends(), as:'friendship'}
 <div>
   <img class="thumbnail" style = "width: 30px; height: 30px; vertical-align: middle"
-    src=@{Photos.getPhoto(friendship.to.profile.profilePhoto)} ALIGN=LEFT />
+    src=@{Photos.getPhoto(friendship.to.profile.profilePhoto.id)} ALIGN=LEFT />
     <a href="@{Application.about(friendship.to.id)}">${
     	friendship.to.name }</a>
     <br>	

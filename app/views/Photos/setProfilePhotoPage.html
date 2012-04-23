@@ -27,12 +27,13 @@
     name="image" /> <input type="submit" name="submit" value=&{'photo.upload'} />
   #{/form} <br> <b>&{'photo.useExistingPhoto'}</b> <br>
 
+
   <ul class="photo-list">
     #{list items:photos, as:'photo' }
-    <li><img src="@{Photos.getPhoto(photo.id)}" width="120"
-      height="150" /> #{if currentUser.equals(photo.owner)} #{form
-      @Photos.setProfilePhoto(photo.id)} <input type="submit"
-      name="submit" value=&{'photo.setAsProfilePhoto'} /> #{/form} #{/if}</li>
+    <img src="@{Photos.getPhoto(photo.id)}" width="120" height="150" /> 
+    <a class = "button" href="@{Photos.setProfilePhoto(photo.id)}">
+      &{'photo.setAsProfilePhoto'}</a> <br>
     #{/list}
+    
   </ul>
 </div>
