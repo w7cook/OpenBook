@@ -25,6 +25,7 @@
   <h2>Messages</h2>
   <div id="message-list">
     #{list items:user.inbox(), as:'item'}
+<<<<<<< HEAD
       #{if item.getRecent() == null}
       <div class="message" id="msg${item.id}">
       <div class="hideable">
@@ -66,6 +67,15 @@
 
       </div>
     </div>
+=======
+      <li class="message">
+        <span class="message-from"><a href="@{Application.news(item.author.id)}">From: ${item.author.name }</a></span>
+        <span class="message-subject"> Subject: ${item.title}</span>
+        <span class="message-date">${item.date.format('dd MMM yy')}</span>
+        <br />
+        <span class="message-content">Message: ${item.content.nl2br().markdown().raw()}</span>
+      </li>
+>>>>>>> 5da0261d7ed3de4093904d5f27af1fc3341ec5ff
     #{/list}
   </div>
 </div>
