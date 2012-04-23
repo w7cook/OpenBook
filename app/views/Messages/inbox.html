@@ -30,7 +30,7 @@
         <span class="message-subject"> Subject: ${item.title}</span>
         <span class="message-date">${item.date.format('dd MMM yy')}</span>
         <br />
-        <span class="message-content">Message: ${item.content.nl2br()}</span>
+        <span class="message-content">Message: ${item.content.nl2br().markdown().raw()}</span>
       </li>
     #{/list}
   </ul>
