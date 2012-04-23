@@ -12,7 +12,7 @@ GET     /es-admin/                              elasticsearch.ElasticSearchAdmin
 GET     /                                       Application.news
 
 GET     /about                                  Application.about
-GET			/edit_basic															Application.edit_basic
+GET     /edit_basic                             Application.edit_basic
 GET     /account                                Application.account
 GET     /requests                               Application.friendRequests
 
@@ -23,14 +23,13 @@ GET     /editMySkin                             Skins.editMySkin
 GET     /sampleSkin                             Skins.sampleSkin
 GET     /changeBGImage                          Photos.changeBGImage
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
-POST    /skins/editSkin                         Skins.editSkin
+POST    /skins/editSkin                         Skins.editSkintim
 POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 
 # Threads
 GET     /threads                                Categories.listAll
 GET     /threads/{<[0-9]+>catId}                Categories.listSingle
 GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
-POST    /threads/[0-9]+/{<[0-9]+>threadId}      Comments.postThreadComment
 
 
 # Profile
@@ -49,30 +48,38 @@ GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
+GET     /photos/setGravatar                     Photos.setGravatar
 
 #Signup
 GET     /signup                                 Signup.signup
+GET     /captcha                                Signup.captcha
 
 # Messages
 GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
+# Notes
+GET     /notes/all                              Notes.viewNotes
+GET     /notes/newNote                          Notes.newNote
+POST    /notes                                  Notes.saveNote
+
 # Search
 GET     /users/search                           UserSearch.search
 GET     /groups/search                          GroupSearch.search
 
 #Account
-#GET     /users/?                                #Get a list of all users
-#POST    /users/?                                #Add / update a user
-#GET     /users/{<[0-9]+>userId}                 #Get account info for a specific user
-#DELETE  /users/{<[0-9]+>userId}                 #Delete a user
+GET     /users/?                                Users.users #Get a list of all users
+#POST    /users/?                                Signup.signup #Add /  a user
+PUT     /users/{<[0-9]+>userId}                 Users.updateUser
+GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
+DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
 GET     /posts/?                                Posts.posts #Get all posts
-#POST    /posts/?                                #Add/update post
+POST    /posts/?                                Posts.makeNewPost #Add/update post
 GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
-#DELETE  /posts/{<[0-9]+>postId}                 #Delete a post
+DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
 GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
 
 #Links
@@ -86,8 +93,23 @@ GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specifi
 #POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
 GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
 
+#Events
+GET     /events/?                                       Events.events #all events
+GET     /events/upcoming/?                              Events.upcoming #upcoming events
+GET     /events/past/?                                  Events.past #past events
+GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
+GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #upcoming events
+GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #past events
+GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
+
+GET     /events/eventcreator                            Events.addEvent
+POST    /events                                         Events.addEvent
+
 #Relationships
 GET     /relationships                                                  Relationships.relationships
+
+#Timeline
+GET     /users/{<[0-9]+>userId}/timeline                 Timeline.Timeline #Get timeline for specific user
 
 # Checkin
 GET     /checkin                                Checkin.checkin
