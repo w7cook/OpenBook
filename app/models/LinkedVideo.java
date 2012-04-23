@@ -48,7 +48,7 @@ public class LinkedVideo extends Commentable {
     else if(link_type == 'v')
       return "";
     else
-      return "NOOOO";
+      return "";
   }
   
   public List<Comment> comments() {
