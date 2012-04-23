@@ -45,7 +45,7 @@
             <a href="/users/${item.author.id}">${item.author.name}</a>
           </div>
           <div class="msg-content">      
-            ${item.content.nl2br()}
+            ${item.content.markdown().nl2br()}
           </div>
         </div>
         #{/if}
