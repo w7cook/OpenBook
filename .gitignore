@@ -13,4 +13,5 @@
 *~
 *.log
 /bin
-server.pid
+/conf/passwd.pwd
+

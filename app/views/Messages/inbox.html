@@ -1,29 +1,71 @@
 #{extends 'two_panel.html' /}
+<link rel="stylesheet" type="text/css" media="screen"
+      href="@{'/public/stylesheets/messages.css'}" />
 
-	<div id="contentArea-BigPage">
+<div id="contentArea-BigPage">
+  
+  <h1>Inbox</h1>
+  <hr />
+  <br />
+  #{if user.checkFriendship(user.id) == 'Request Friendship'}
+    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
+      ${user.checkFriendship(user.id)}
+    </a>
+  #{/if}
+  #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
+    Friendship Requested
+  #{/elseif}
+  #{elseif user.checkFriendship(user.id) == 'Friends'}
+    Friends :) <a id="friend-button"
+                  href="@{Application.removeFriends(user.id)}"> Remove friend </a>
+  #{/elseif}
+  <br>
+  <a href="@{Messages.createMessage()}">Create Thread</a>
+  
+  <h2>Messages</h2>
+  <div id="message-list">
+    #{list items:user.inbox(), as:'item'}
+      #{if item.getRecent() == null}
+      <div class="message" id="msg${item.id}">
+      <div class="hideable">
+        <div class="left">
+          <img style="width: 50px; height: 50px;"
+              src="@{Photos.getPhoto(item.author.profile.profilePhoto)}" />
+        </div>
+        <div class="individual-msg-metadata">
+          #{timeago date:item.updatedAt /}
+          #{if item.author ==  _currentUser} 
+            <!--  <a id="deleteMsgThread${item.id}" onclick="return false;" href="#">delete thread</a> -->
+            delete
+          #{/if} 
+        </div>
 
-		<h1>Inbox</h1>
-		<hr />
-		<br /> #{if user.checkFriendship(user.id) == 'Request Friendship'} <a
-			id="friend-button" href="@{Application.requestFriends(user.id)}">
-			${user.checkFriendship(user.id)} </a> #{/if} #{elseif
-		user.checkFriendship(user.id) == 'Friendship Requested'} Friendship
-		Requested #{/elseif} #{elseif user.checkFriendship(user.id) ==
-		'Friends'} Friends :) <a id="friend-button"
-			href="@{Application.removeFriends(user.id)}"> Remove friend </a>
-		#{/elseif} <br> <a href="@{Messages.createMessage()}">Create
-			Message</a>
+        <div class="individual-msg">
+          <div class="msg-author" style="clear: both;">
+            <a href="/users/${item.author.id}">${item.author.name}</a>
+          </div>
+          <div class="msg-content">      
+            ${item.content.nl2br()}
+          </div>
+        </div>
+        #{/if}
+        <!--
+        <script type="text/javascript">
+          $('a#deletePostSubmit${item.id}').click(function(event) {
+          var deleteData = {
+          postId : ${item.id}
+          };
 
-		<h2>Messages</h2>
-		#{list items:user.inbox(), as:'item'}
-		<div class="message">
-			<span class="message-author"><a
-				href="@{Application.news(item.author.id)}">Author: ${
-					item.author.name }</a></span><br /> <span class="message-recipient"><a
-				href="@{Application.news(item.recipient.id)}">Recipient:
-					${item.recipient.name}</a></span><br /> ${item.date.format('dd MMM yy')}<br />
-			Title: ${item.title}<br /> Message: ${item.content.nl2br()}<br />
-		</div>
-		#{/list}
+          $.post("/posts/deletepost", deleteData, function() {
+          $('div#post${item.id}').slideUp();
+          });
+          });
+        </script>
 
-	</div>
+-->
+
+      </div>
+    </div>
+    #{/list}
+  </div>
+</div>

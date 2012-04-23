@@ -30,7 +30,7 @@ public class Profile extends Model {
   public String bio; // The user's biography
   public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
   public Long profilePhoto; // The user's profile picture.
-
+  public Long gravatarPhoto;
 
   public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
 
@@ -70,6 +70,8 @@ public class Profile extends Model {
 
   public boolean hasAnniversary()
   {
+	if (relationshipStatus == null)
+		return false;
     return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
       || relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
   }
@@ -89,7 +91,8 @@ public class Profile extends Model {
     this.quotes = "";
     this.significantOther = null;
     this.religion = "";
-
+	
+	this.languages = new ArrayList<UserLanguage>();
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
     this.skin = Skins.getSkin("default","default_skin");//the default skin look is used
@@ -98,6 +101,7 @@ public class Profile extends Model {
     this.website = "";
     this.email = "";
     this.profilePhoto = Bootstrap.defaultProfilePhotoID;
+    this.gravatarPhoto = -1l;
     }
 
 	public Profile(User owner, String bio, String gender, String quotes, String phone, String website){

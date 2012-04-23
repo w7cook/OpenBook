@@ -1,0 +1,59 @@
+/** Birthdays layout **/
+
+html, body {
+  font-family: Helvetica, Arial, Sans !important;
+}
+
+body {
+  height: auto;
+  margin: 0;
+  font-size: 15px;
+  background-image:url(${skin.get("bodyBGPhoto")});
+  background-color: #${skin.get("bodyBGColor")};
+  
+}
+
+a:link {
+  color: #3B5998;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #3B5998;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: black;
+}
+
+
+
+.left-side-nav a:hover {
+  background-color: #eeeeee;
+  text-decoration: none;
+}
+
+
+.lhs-navBoxBody {
+	display:block;
+	background-color: white;
+	width: 90%;
+	height: auto;
+	padding: 1px;
+        padding-top: 0px;
+
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-left-style: white;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-top-style: none;
+	border-width: 0px;
+	
+	margin-bottom: 10px;			
+	}
+	
+}

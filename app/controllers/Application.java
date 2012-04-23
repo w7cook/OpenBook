@@ -15,16 +15,16 @@ import play.libs.Crypto;
 
 public class Application extends OBController {
 
-  public static void about(Long id) {
-    User user = id == null ? user() : (User) User.findById(id);
+  public static void about(Long userId) {
+    User user = userId == null ? user() : (User) User.findById(userId);
     render(user);
   }
 
-  public static void news(Long id) {
-    User user = id == null ? user() : (User) User.findById(id);
+  public static void news(Long userId) {
+    User user = userId == null ? user() : (User) User.findById(userId);
     render(user);
   }
-  
+
   public static void friendRequests() {
     User user = user();
     render(user);
@@ -34,7 +34,7 @@ public class Application extends OBController {
     User user = user();
     render(user);
   }
-  
+
   private static boolean given(String val) {
     return val != null && val.length() > 0;
   }
@@ -43,7 +43,7 @@ public class Application extends OBController {
    *
    * @param id the user to request friendship with
    */
-  
+
   public static void requestFriends(Long id) {
     User user = user();
     User other = User.findById(id);
@@ -112,6 +112,16 @@ public class Application extends OBController {
     news(id);
   }
 
+/**
+ * Create a timeline for the current user
+ * @param id user ID
+ * */
+ public static void createTimeline(Long id){
+	User user = User.findById(id);
+	user.createTimeline();
+	renderTemplate("Timeline/Timeline.html",user);
+ }
+
   public static void account_save(User update, String old_password) {
     User currentUser = user();
 
@@ -154,18 +164,12 @@ public class Application extends OBController {
     }
   }
 
-  public static void edit_basic() {
-    long userID = 1;
+  public static void edit_basic(Long userID) {
     User user = User.findById(userID);
-    render(user);
+	  Profile profile = Profile.find("owner = ?", user).first();
+	  render(profile);
   }
 
-  public static void updateBasic() {
-    long userID = 1;
-    User user = User.findById(userID);
-    user.profile.save();
-    renderTemplate("Application/edit_basic.html", user);
-  }
 
   public static void search(String query) {
     // not implemented yet
@@ -176,7 +180,7 @@ public class Application extends OBController {
     c.delete();
     news(userId);
   }
-
+  
   public static void postComment(Long commentableId, String author, String content) {
     Commentable parent = Commentable.findById(commentableId);
     User au = User.find("email = ?", author).first();
@@ -188,21 +192,7 @@ public class Application extends OBController {
     renderText("");
   }
 
-  public static void addLike (Long likeableId, Long userId){
-    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),(User)User.findById(userId)).save();
-    Likeable l = Likeable.findById(likeableId);
-    l.addLike(newOne);
-    news(userId);
-  }
-  
-  public static void unLike (Long likeableId, Long userId){
-    Likeable c = Likeable.findById(likeableId);
-    User u = User.findById(userId);
-    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
-    c.removeLike(toRemove);
-    news(userId);
-  }
-  
+
   public static void addLikeAjax (Long likeableId){
     User u = user();
     Likeable l = Likeable.findById(likeableId);
@@ -212,7 +202,7 @@ public class Application extends OBController {
     m.put("likeableID",likeableId.toString());
     renderJSON(m);
   }
-  
+
   public static void removeLikeAjax (Long likeableId){
     User u = user();
     Likeable l = Likeable.findById(likeableId);

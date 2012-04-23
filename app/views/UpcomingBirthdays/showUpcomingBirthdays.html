@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/showUpcomingBirthdays.css'}" />
+
+<base target="_parent" />
+<div class="lhs-navBoxBody">
+	#{if thisWeekBday.size()==0 && todayBday.size() == 0}There are no upcoming birthdays.#{/if} 
+	#{else} 
+	  #{if todayBday.size() != 0}
+       #{list items: todayBday, as:'birthdayPerson'}
+         <div><img src = "/public/images/cake.png"> </img> Today: </div> 
+         <p>
+         <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
+         <span>${birthdayPerson.getProfile().birthday.format('MMM dd')}</span>
+         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        #{/list}
+    #{/if}
+    <style>
+    body {
+     line-height: 0.1;
+    }
+    </style>
+    #{if thisWeekBday.size() != 0}
+	     #{list items: thisWeekBday, as:'birthdayPerson'}
+		     <div><img src = "/public/images/cake.png"> </img> This week: </div> 
+         <p>
+         <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
+		     <span>${birthdayPerson.getProfile().birthday.format('MMM dd')}</span>
+		     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	     #{/list}
+     #{/if}
+    #{/else}
