@@ -26,7 +26,7 @@ public class Profiles extends OBController {
 	public static void updateInformation(Date birthday, String relationshipStatus, String gender, String interestedIn, 
 	Date anniversary, String language, String religion, String political){
 		User user = user();
-		Profile profile = user.profile;
+		Profile profile = Profile.find("owner = ?", user).first();
 	    profile.religion = religion;
 	    profile.birthday = birthday;
 	    profile.gender = gender;
