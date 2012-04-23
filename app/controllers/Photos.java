@@ -143,7 +143,6 @@ public class Photos extends OBController {
 
   public static void setProfilePhoto(Long photoId) {
 
-    System.out.println("PHOTOID: " + photoId);
     Photo photo = Photo.findById(photoId);
     if(photo != null){
       User user = user();
