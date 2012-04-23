@@ -1,4 +1,5 @@
 {
-  "author"  : "${comment.author.username}",
-  "content" : "${comment.content}"
+  "author"  : "/users/${comment.author.id}",
+  "content" : "${comment.content}",
+  "comment-on" : "to be implemented"
 } 

@@ -42,6 +42,8 @@ public class UserSearch extends OBController {
     if (page < 1) {
       page = 1;
     }
+    searchFields = "email, first_name, last_name, name";
+
     SearchResults<Model> results = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
     List<Model> objects = results.objects;
     Long count = results.totalCount;

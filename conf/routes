@@ -23,7 +23,7 @@ GET     /editMySkin                             Skins.editMySkin
 GET     /sampleSkin                             Skins.sampleSkin
 GET     /changeBGImage                          Photos.changeBGImage
 POST    /skins/changeSkinToTemplate             Skins.changeSkinToTemplate
-POST    /skins/editSkin                         Skins.editSkin
+POST    /skins/editSkin                         Skins.editSkintim
 POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 
 # Threads
@@ -48,6 +48,7 @@ GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
+GET     /photos/setGravatar                     Photos.setGravatar
 
 #Signup
 GET     /signup                                 Signup.signup
@@ -57,6 +58,11 @@ GET     /captcha                                Signup.captcha
 GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
+
+# Notes
+GET     /notes/all                              Notes.viewNotes
+GET     /notes/newNote                          Notes.newNote
+POST    /notes                                  Notes.saveNote
 
 # Search
 GET     /users/search                           UserSearch.search
@@ -107,6 +113,9 @@ POST    /events                                         Events.addEvent
 
 #Relationships
 GET     /relationships                                                  Relationships.relationships
+
+#Timeline
+GET     /users/{<[0-9]+>userId}/timeline                 Timeline.Timeline #Get timeline for specific user
 
 # Checkin
 GET     /checkin                                Checkin.checkin

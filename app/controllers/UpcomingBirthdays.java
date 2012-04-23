@@ -24,30 +24,32 @@ public class UpcomingBirthdays extends OBController {
 
     Date today = new Date();
     int day = today.getDate();
-    Date weekLater = new Date();
-    weekLater.setDate(day + 7);
-
-    Date almostWeekLater = new Date();
-    almostWeekLater.setDate(day + 6);
-
+    Date thisWeek = new Date();
+    thisWeek.setDate(day + 7);
+    
+    
     List<Relationship> friends = current.confirmedFriends();
-    List<User> birthdayPeople = new ArrayList<User>();
+    List<User> todayBday = new ArrayList<User>();
+    List<User> thisWeekBday = new ArrayList<User>();
 
     for(Relationship x : friends)
     {
     	Date friendBirthday = x.to.getProfile().birthday;
-
+   	
     	if(friendBirthday == null) //The user's friend did not set a birthday date field
-    	{
-    		continue;
+    	{//for testing purposes
+    		x.to.getProfile().birthday = today;
+    		friendBirthday =  today;
+//    		continue;
     	}
+  	   friendBirthday.setYear(today.getYear());
 
-    	friendBirthday.setYear(today.getYear());
-    	if(friendBirthday.before(weekLater))
-			birthdayPeople.add(x.to);
+    	if (friendBirthday.equals(today))
+    	  todayBday.add(x.to);
+    	else if(friendBirthday.before(thisWeek))
+    	  thisWeekBday.add(x.to);
     }
 
-    render(birthdayPeople, today, weekLater, almostWeekLater, day);
-
+    render(thisWeekBday, todayBday);
   }
 }

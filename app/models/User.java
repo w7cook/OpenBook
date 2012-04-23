@@ -18,7 +18,7 @@ import play.libs.Crypto;
 
 @ElasticSearchable
 @Entity
-public class User extends Model {
+public class User extends Postable {
 
   public String name; // The user's full name
   public String first_name; // The user's first name
@@ -55,6 +55,9 @@ public class User extends Model {
   //  User's basic profile information
   @OneToOne
   public Profile profile;
+  
+  @OneToOne
+  public TimelineModel timeline;
 
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
@@ -94,11 +97,15 @@ public class User extends Model {
     this.username = username;
     this.first_name = first_name;
     this.last_name = last_name;
-
+    this.name = first_name + " " + last_name;
+    
     this.save();
     profile = new Profile(this);
     profile.save();
     new Relationship(this).save();
+    this.save();
+    this.timeline = new TimelineModel(this);
+    timeline.save();
     this.save();
     // this.education = new ArrayList<Enrollment>();
   }
@@ -117,6 +124,9 @@ public class User extends Model {
       profile.save();
       new Relationship(this).save();
       this.save();
+    this.timeline = new TimelineModel(this);
+    timeline.save();
+    this.save();
     }
   }
 
@@ -131,25 +141,32 @@ public class User extends Model {
   public List<Message> inbox() {
     return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
   }
-
-  public List<Post> posts() {
-    return Post.find("byAuthor", this).fetch();
+  
+  public int unreadCount() {
+   return Message.find("SELECT m FROM Message m WHERE (m.author = ?1 OR m.recipient = ?1) AND m.read = false", this).fetch().size();
   }
+  
+  public List<Note> viewNotes() {
+	    return Message.find("SELECT n FROM Note n WHERE n.author = ?1", this).fetch();
+	  }
+  
+
 
   public List<Comment> comments() {
     return Comment.find("byAuthor", this).fetch();
   }
 
+
   public List<Post> news() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE u.from.id = ?1 and (U.accepted = true or u.to.id = ?1) and p.postType = ?2 order by p.updatedAt desc",
-                     this.id, Post.type.NEWS).fetch();
+                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE (u.from.id = ?1 and p.postedObj.id = u.to.id) and (U.accepted = true or (u.to.id = ?1 and p.postedObj.id = u.from.id)) order by p.updatedAt desc",
+                     this.id).fetch();
   }
 
   public List<Post> subscriptionNews() {
     return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postType = ?2 order by p.updatedAt desc",
-                     this.id, Post.type.NEWS).fetch();
+                     "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
+                     this.id).fetch();
   }
 
   public Profile getProfile(){
@@ -159,6 +176,15 @@ public class User extends Model {
     }
     return profile;
   }
+
+  public void createTimeline() {
+    if (this.timeline == null) {
+      this.timeline = new TimelineModel(this);
+      this.timeline.save();
+      this.save();
+    }
+  }
+
 
   /** Checks the status of a friendship
    *
