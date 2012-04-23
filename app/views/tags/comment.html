@@ -7,7 +7,7 @@
     <div class="comment-author">              
       <a href="@{Users.about(_comment.author.id)}">${_comment.author.name}</a>
     </div>
-    ${_comment.content.nl2br()}
+    ${_comment.content.nl2br().markdown().raw()}
   </div>
   <div class="comment-metadata">
     <span id="comment${_comment.id}likes">${_comment.likes.size()} like${_comment.likes.size().pluralize()}
