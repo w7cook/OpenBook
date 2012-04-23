@@ -22,6 +22,7 @@ public class Profile extends Model {
   public User owner;
   public String gender; // The user's gender:female or male
   public String locale; // The user's locale (ISO Language Code and ISO Country
+  public String gravatarEmail;
 
   @OneToOne
   public User significantOther; // The user's significant other
@@ -102,6 +103,7 @@ public class Profile extends Model {
     this.email = "";
     this.profilePhoto = Bootstrap.defaultProfilePhotoID;
     this.gravatarPhoto = -1l;
+    this.gravatarEmail = owner.email;
     }
 
 	public Profile(User owner, String bio, String gender, String quotes, String phone, String website){

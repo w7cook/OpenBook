@@ -11,8 +11,12 @@
   </ul>
   #{/ifErrors} 
   
-  <a class="button" href="@{Photos.setGravatar()}"><b>&{'photo.useGravatar'}</b></a> 
-  <br>
+  #{form @Photos.setGravatar(), enctype:'multipart/form-data'} 
+  <b>Gravatar Email: </b><input type=text name=gravatarEmail 
+     value="${currentUser.profile.gravatarEmail}" /> 
+  <input type=submit class="button" value=&{'photo.useGravatar'} />
+  #{/form}  
+  
   <a href="https://en.gravatar.com/site/signup/">&{'photo.signUpGravatar'}</a>
   <br>&{'photo.gravatarNote'}</br>
   <br>

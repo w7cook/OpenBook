@@ -78,6 +78,6 @@ photo.newPhoto=New Photo
 photo.upload=Upload
 photo.setProfilePhoto=Set Your Profile Photo
 photo.setAsProfilePhoto=Set as profile photo
-photo.useGravatar=Use Gravatar
+photo.useGravatar="Use Gravatar"
 photo.signUpGravatar=Sign up to use Gravatar
 photo.gravatarNote=Note: After signing up, it may take some time for the photo to propagate.
