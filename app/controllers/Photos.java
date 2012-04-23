@@ -237,7 +237,7 @@ public class Photos extends OBController {
     }
     else//have already added the gravatar picture, so we need to displace pic.
     {
-      Photo oldPhoto = Photo.findById(u.profile.gravatarPhoto);
+      Photo oldPhoto = Photo.findById(u.profile.gravatarPhoto.id);
       try{
         File gravatar = new File(hash+".jpg");
         ImageIO.write(image, "jpg",gravatar);

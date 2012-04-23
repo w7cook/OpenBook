@@ -7,16 +7,40 @@
 
 <br />
 
-
+%{boolean toggle = true;}%
+<table>
 #{list items:user.confirmedFriends(), as:'friendship'}
-<div>
+<tr>
+#{if (toggle == true)}
+<td>
+<div style="background-color:white; width = 100%; align=left">
   <img class="thumbnail" style = "width: 30px; height: 30px; vertical-align: middle"
     src=@{Photos.getPhoto(friendship.to.profile.profilePhoto.id)} ALIGN=LEFT />
     <a href="@{Application.about(friendship.to.id)}">${
     	friendship.to.name }</a>
-    <br>	
+    <br />	
     <a id="friend-button" href="@{Relationships.unFriend(friendship.id)}">remove</a>
+    <br />
+    %{toggle = false;}%
 </div>
-#{/list}
+</td>
+#{/if}
 
+#{else}
+<td>
+<div style="background-color:; width=100%; align = left">
+  <img class="thumbnail" style = "width: 30px; height: 30px; vertical-align: middle"
+    src=@{Photos.getPhoto(friendship.to.profile.profilePhoto.id)} ALIGN=LEFT />
+    <a href="@{Application.about(friendship.to.id)}">${
+      friendship.to.name }</a>
+    <br />  
+    <a id="friend-button" href="@{Relationships.unFriend(friendship.id)}">remove</a>
+    <br /> 
+      %{toggle = true;}%
+</div>
+</td>
+#{/else}
+</tr>
+#{/list}
+</table>
 </div>
