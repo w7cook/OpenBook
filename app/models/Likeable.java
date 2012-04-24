@@ -20,6 +20,7 @@ public abstract class Likeable extends Model {
   public Visibility visibility;
 
   @Required
+  @JoinTable(name="likes_table")
   @ManyToMany(cascade = CascadeType.PERSIST)
   public Set<User> thoseWhoLike;
 
