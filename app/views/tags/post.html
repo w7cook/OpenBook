@@ -28,7 +28,7 @@
       <span id ="post${_item.id}likes">
         ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
       </span> 
-      <button class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
+      <button id="likepost${_item.id}"class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
         #{if _item.likedBy(_user)}&{'comment.unlike'}#{/if}
         #{else}&{'comment.like'}#{/else}
       </button>
@@ -58,6 +58,5 @@
                 style="color:grey;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
       <button class="button" id="commentSubmit${_item.id}" onclick="submitComment(${_item.id})">Comment</button>
     </div>
-
   </div>
 </div>

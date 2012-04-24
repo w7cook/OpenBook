@@ -24,46 +24,41 @@ function like(id, type, userId, likeTxt, unlikeTxt) {
       alert(errorThrown);
     }
   });
-
-  var numlikes = likes.length;
-  var numLikesSpan = $('#' + type + id + 'likes');
   
-  if(likes.indexOf('/users/' + userId) === -1) {
-    $.ajax({
-      url: url,
-      type: 'POST',
-      success: function(data, textStatus, jqXHR) {
-        numlikes++;
-        var likeText = 'Like';
-        if (numlikes > 1)
-          likeText += 's';
-        
-        numLikesSpan.val(numlikes + ' ' + likeText);
-        $('#likeButton' + id).val(unlikeTxt);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }  
-    });
-  }
-  else {
-    $.ajax({
-      url: url,
-      type: 'DELETE',
-      success: function(data, textStatus, jqXHR) {
-        alert('unliking');
-        numlikes--;
-        var likeText = 'Like';
-        if (numlikes > 1)
-          likeText += 's';
-        
-        numLikesSpan.val(numlikes + ' ' + likeText);
-        $('#likeButton' + id).val(likeTxt);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      }
-    });
+  if (likes !== undefined) {
+    var numlikes = likes.length;
+    var numLikesSpan = $('#' + type + id + 'likes');
+    
+    if(likes.indexOf('/users/' + userId) === -1) {
+      $.ajax({
+        url: url,
+        type: 'POST',
+        success: function(data, textStatus, jqXHR) {
+          numlikes++;
+          var likeSpanText = (numlikes === 1) ? 'Like' : 'Likes';
+          numLikesSpan.text(numlikes + ' ' + likeSpanText);
+          $('#like' + type + id).text(unlikeTxt);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }  
+      });
+    }
+    else {
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        success: function(data, textStatus, jqXHR) {
+          numlikes--;
+          var likeSpanText = (numlikes === 1) ? 'Like' : 'Likes';
+          numLikesSpan.text(numlikes + ' ' + likeSpanText);
+          $('#like' + type + id).text(likeTxt);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    }
   }
 }
 

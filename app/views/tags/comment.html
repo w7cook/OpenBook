@@ -13,7 +13,7 @@
     <span id="comment${_comment.id}likes">
       ${_comment.numLikes()} Like#{if _comment.numLikes() != 1}s#{/if}
     </span>
-    <button class="button" onclick="like(${_comment.id}, 'comment', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
+    <button id="likecomment${_comment.id}" class="button" onclick="like(${_comment.id}, 'comment', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
       #{if _comment.likedBy(_user)}&{'comment.unlike'}#{/if}
       #{else}&{'comment.like'}#{/else}
     </button>
