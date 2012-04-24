@@ -5,7 +5,7 @@
   <img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
   #{/if} 
   #{else} 
-  <img src="@{Photos.getPhoto(user.profile.profilePhoto)}" height="120" width="120" /> 
+  <img src="@{Photos.getPhoto(user.profile.profilePhoto.id)}" height="120" width="120" /> 
   #{/else}
 </div>
 <div style="clear: both;text-align:center;width: 100%;">
