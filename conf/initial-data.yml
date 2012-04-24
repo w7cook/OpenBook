@@ -35,19 +35,18 @@ User(gparker):
     last_name:          Parker
     username:           gparker
     name:               Geoffrey Parker
-    email:              grp@gparker.co
+    email:              grp@gparker.com
     password:           password
     isAdmin:            true
     subscription:       true
-
 
 Profile(bobProfile):
     owner:          bob
     gender:         male
     locale:         Austin
     significantOther:   alice
-    anniversary:    01-01-2000
-    birthday:       01-01-1990
+    anniversary:    2000-01-01
+    birthday:       1990-04-24
     phone:          555-123-4567
     address:        123 Somewhere St.
     email:          bob@gmail.com

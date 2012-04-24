@@ -2,12 +2,12 @@
     style="background-color: #e8e8e8; margin-top: 2px; width: 100%;">
 	<div class="comment-content">
     <div class="comment-thumb">
-      <img style="width: 30px; height: 30px;" src="@{Photos.getPhoto(_comment.author.profile.profilePhoto)}" />
+      <img style="width: 30px; height: 30px;" src="@{Photos.getPhoto(_comment.author.profile.profilePhoto.id)}" />
     </div>
     <div class="comment-author">              
       <a href="@{Users.about(_comment.author.id)}">${_comment.author.name}</a>
     </div>
-		${_comment.content.escape().nl2br()}
+    ${_comment.content.markdown().nl2br()}
   </div>
   <div class="comment-metadata">
     <span id="comment${_comment.id}likes">${_comment.likes.size()} like${_comment.likes.size().pluralize()}

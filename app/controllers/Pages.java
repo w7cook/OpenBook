@@ -76,7 +76,6 @@ public class Pages extends OBController {
 	}
 	
 	public static void unfan(String pid){
-		User user = user();
 		Page page = Page.findById(Long.parseLong(HTML.htmlEscape(pid)));
 		UserPage u = UserPage.find("select u from UserPage u where u.page = ?", page).first();
     u.delete();
@@ -88,7 +87,7 @@ public class Pages extends OBController {
 	public static void fan(String pid){
 		User user = user();
 		Page page = Page.findById(Long.parseLong(HTML.htmlEscape(pid)));
-		final UserPage u = new UserPage(user, page).save();
+		new UserPage(user, page).save();
     Map<String, Object> m = new HashMap<String, Object>();
     m.put("fan",true);
     renderJSON(m);

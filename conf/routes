@@ -43,11 +43,13 @@ GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 GET     /photos/setProfilePhoto                 Photos.setProfilePhoto
+POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 GET     /photos/{<[0-9]+>photoId}/delete        Photos.removePhoto
 GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
+GET     /photos/setGravatar                     Photos.setGravatar
 
 #Signup
 GET     /signup                                 Signup.signup
@@ -106,6 +108,9 @@ POST    /events                                         Events.addEvent
 
 #Relationships
 GET     /relationships                                                  Relationships.relationships
+
+#Timeline
+GET     /timeline/{<[0-9]+>userId}                 Timeline.Timeline #Get timeline for specific user
 
 # Checkin
 GET     /checkin                                Checkin.checkin

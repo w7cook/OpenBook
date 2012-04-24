@@ -71,3 +71,13 @@ skin.thisIsTheSkin=This is the Skin
 skin.exampleTxt=This is example text.
 skin.setSkinAsMySkin=Set Skin as My Skin
 
+#Photos
+photo.useExistingPhoto=Use Existing Photo 
+photo.currentProfilePhoto=Current Profile Photo
+photo.newPhoto=New Photo
+photo.upload=Upload
+photo.setProfilePhoto=Set Your Profile Photo
+photo.setAsProfilePhoto=Set as Profile Photo
+photo.useGravatar="Use Gravatar"
+photo.signUpGravatar=Sign up to use Gravatar
+photo.gravatarNote=Note: After signing up, it may take some time for the photo to propagate.

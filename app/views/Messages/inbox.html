@@ -20,18 +20,52 @@
                   href="@{Application.removeFriends(user.id)}"> Remove friend </a>
   #{/elseif}
   <br>
-  <a href="@{Messages.createMessage()}">Create Message</a>
+  <a href="@{Messages.createMessage()}">Create Thread</a>
   
   <h2>Messages</h2>
-  <ul class="message-list">
+  <div id="message-list">
     #{list items:user.inbox(), as:'item'}
-      <li class="message">
-        <span class="message-from"><a href="@{Application.news(item.author.id)}">From: ${item.author.name }</a></span>
-        <span class="message-subject"> Subject: ${item.title}</span>
-        <span class="message-date">${item.date.format('dd MMM yy')}</span>
-        <br />
-        <span class="message-content">Message: ${item.content.nl2br()}</span>
-      </li>
+      #{if item.getRecent() == null}
+      <div class="message" id="msg${item.id}">
+      <div class="hideable">
+        <div class="left">
+          <img style="width: 50px; height: 50px;"
+              src="@{Photos.getPhoto(item.author.profile.profilePhoto.id)}" />
+        </div>
+        <div class="individual-msg-metadata">
+          #{timeago date:item.updatedAt /}
+          #{if item.author ==  _currentUser} 
+            <!--  <a id="deleteMsgThread${item.id}" onclick="return false;" href="#">delete thread</a> -->
+            delete
+          #{/if} 
+        </div>
+
+        <div class="individual-msg">
+          <div class="msg-author" style="clear: both;">
+            <a href="/users/${item.author.id}">${item.author.name}</a>
+          </div>
+          <div class="msg-content">      
+            ${item.content.markdown().nl2br()}
+          </div>
+        </div>
+        #{/if}
+        <!--
+        <script type="text/javascript">
+          $('a#deletePostSubmit${item.id}').click(function(event) {
+          var deleteData = {
+          postId : ${item.id}
+          };
+
+          $.post("/posts/deletepost", deleteData, function() {
+          $('div#post${item.id}').slideUp();
+          });
+          });
+        </script>
+
+-->
+
+      </div>
+    </div>
     #{/list}
-  </ul>
+  </div>
 </div>
