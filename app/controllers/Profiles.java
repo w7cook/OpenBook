@@ -105,12 +105,16 @@ public class Profiles extends OBController {
 		User user = user();
 		Profile profile = user.profile;
 		
-		Location loc = Location.find("byLocation", hometown).first();
-		if(loc == null){
-			loc = new Location(hometown);
-			loc.save();
+		if(!hometown.equals("Add Hometown")){
+			Location loc = Location.find("location = ?", hometown).first();
+			if(loc == null){
+				loc = new Location(hometown);
+				loc.save();
+			}
+			profile.hometown = loc;
 		}
-		profile.hometown = loc;
+		else
+			profile.hometown = null;
 		
 		profile.save();
 		renderTemplate("Application/edit_basic.html", profile);
