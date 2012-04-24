@@ -77,6 +77,26 @@ public class Photos extends OBController {
     photo.save();
     return photo;
   }
+	//for PGE  
+  public static Photo initFileToPGEPhoto(String path, String caption, Photo.type t, Long id) throws FileNotFoundException {
+    File image = new File(path);
+    Blob blob = new Blob();
+    blob.set(new FileInputStream(image),
+             MimeTypes.getContentType(image.getName()));
+    Photo photo = null;
+    User user = User.find("username = ?", "default").first();//set owner as default owner
+    if(t == Photo.type.USER){
+    	photo = new Photo(user, blob);
+    }
+    //mirror for g/e?
+    if(t == Photo.type.PAGE){
+    	Page p = Page.findById(id);
+    	photo = new Photo(p.admin, blob, id, t, p);
+    }
+    photo.content = caption;//give credit
+    photo.save();
+    return photo;
+  }
 
   /**
    * Shrink the image to MAX_PIXEL_SIZE if necessary.
@@ -96,21 +116,18 @@ public class Photos extends OBController {
   IOException {
 
     validation.keep(); /* Remember any errors after redirect. */
-
-    if (image == null) {
-      validation.addError("image", "You must specify an image to upload.");
-      redirect("/users/" + user().id + "/photos");
-    }
-
-    shrinkImage(image);
-    Photo photo = fileToPhoto(image);
-    validation.match(photo.image.type(), IMAGE_TYPE);
-    validation.max(photo.image.length(), MAX_FILE_SIZE);
-
-    if (!validation.hasErrors()) {
-      photo.save();
-    }
-    redirect("/users/" + photo.owner.id + "/photos");
+   	if (image == null) {
+     	validation.addError("image", "You must specify an image to upload.");
+     	redirect("/users/" + user().id + "/photos");
+   	}
+   	shrinkImage(image);
+   	Photo photo = fileToPhoto(image);
+   	validation.match(photo.image.type(), IMAGE_TYPE);
+   	validation.max(photo.image.length(), MAX_FILE_SIZE);
+   	if (!validation.hasErrors()) {
+     	photo.save();
+   	}
+   	redirect("/users/" + photo.owner.id + "/photos");
   }
 
   public static void removePhoto(Long photoId) {
@@ -130,6 +147,7 @@ public class Photos extends OBController {
       photos = null;
     }
     else {
+    	//fix
       photos = Photo.find("byOwner", user).fetch();
     }
     render(user,photos);

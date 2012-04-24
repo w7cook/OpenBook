@@ -36,6 +36,35 @@ public class Bootstrap extends Job {
 			    "UT Austin via Wikimedia Commons");
 			Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
 			Fixtures.loadModels("initial-data.yml");//rest of the data
+			
+			//page photos
+			Page p = Page.find("select p from Page p where p.title = ?", "Nacho Cheese").first();
+			photo = Photos.initFileToPGEPhoto(path+"nacho.jpg", 
+			    "", Photo.type.PAGE, p.id);
+			p.profilePhoto = photo.id;
+			p.save();
+			photo = Photos.initFileToPGEPhoto(path+"nacho1.jpg", 
+			    "bacon cup of nacho cheese? HELL YEAH", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path+"nacho2.jpg", 
+			    "", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path+"nacho3.jpg", 
+			    "", Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path+"nacho4.jpg", 
+			    "thug life", Photo.type.PAGE, p.id);
+			p = Page.find("select p from Page p where p.title = ?", "CATS").first();
+			photo = Photos.initFileToPGEPhoto(path+"cat.jpg", 
+			    "", Photo.type.PAGE, p.id);
+			p.profilePhoto = photo.id;
+			p.save();
+			photo = Photos.initFileToPGEPhoto(path + "cat1.jpg", 
+			    "",Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path + "cat2.jpg", 
+			    "",Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path + "cat3.jpg", 
+			    "",Photo.type.PAGE, p.id);
+			photo = Photos.initFileToPGEPhoto(path + "cat4.jpg", 
+			    "",Photo.type.PAGE, p.id);
+			
 			hashPasswords();
 		}
 	}

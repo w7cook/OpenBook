@@ -294,7 +294,15 @@ Post(cats post2):
     author:         jeff
     content:        >
                     CHEEZEBURGAHZ!!
-
+                    
+Post(nachoCheese post1):
+    postType:       "PAGE"
+    title:          1
+    date:           2009-06-07
+    author:         jeff
+    content:        >
+                    Nobody likes my page :(
+                    
 UserPage(cats alice):
     fan:            alice
     page:           cats
