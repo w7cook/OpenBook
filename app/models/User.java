@@ -79,7 +79,7 @@ public class User extends Postable {
   public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
 
   @ElasticSearchIgnore
-  @ManyToMany(mappedBy="thoseWhoLike", cascade = CascadeType.PERSIST)
+  @ManyToMany(mappedBy="thoseWhoLike")
   public Set<Likeable> likes;
 
   public User(String email, String password, String username) {

@@ -35,12 +35,14 @@ public abstract class Likeable extends Model {
 
   public Likeable addLike(User user) {
     thoseWhoLike.add(user);
+    user.likes.add(this);
     this.save();
     return this;
   }
 
   public Likeable removeLike(User user) {
     thoseWhoLike.remove(user);
+    user.likes.remove(this);
     this.save();
     return this;
   }
