@@ -95,8 +95,7 @@ public class Photos extends OBController {
   }
 
   public static void addPhoto(File image) throws FileNotFoundException,
-  IOException {
-
+                                                 IOException {
     validation.keep(); /* Remember any errors after redirect. */
 
     if (image == null) {
