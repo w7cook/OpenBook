@@ -35,6 +35,7 @@ public class Photos extends OBController {
   }
 
   public static void getPhoto(Long photoId) {
+
     Photo photo = Photo.findById(photoId);
     if (photo == null) {
       notFound("That photo does not exist.");
@@ -185,17 +186,27 @@ public class Photos extends OBController {
   /**
    * set gravatar to the profile photo
    */
+<<<<<<< HEAD
   public static void setGravatar() throws FileNotFoundException, IOException {
+=======
+  public static void setGravatar(String gravatarEmail) throws FileNotFoundException, IOException
+  {
+>>>>>>> master
     //first takes the user's email and makes it into the correct hex string
     User u = user();
-    String hash = md5Hex((u.email.trim()).toLowerCase());
+    String hash = md5Hex((gravatarEmail.trim()).toLowerCase());
     String urlPath = "http://www.gravatar.com/avatar/"+hash+".jpg"+
       "?" +//parameters
       "size=100&d=mm";
     URL url = new URL(urlPath);
     BufferedImage image = ImageIO.read(url);
+<<<<<<< HEAD
     if(u.profile.gravatarPhoto == null) {//don't yet have a gravatarPhoto
       try {
+=======
+    if(u.profile.gravatarPhoto == null){//don't yet have a gravatarPhoto
+      try{
+>>>>>>> master
         File gravatar = new File(hash+".jpg");
         ImageIO.write(image, "jpg",gravatar);
 
@@ -216,12 +227,17 @@ public class Photos extends OBController {
             u.profile.gravatarPhoto = photo;
             user.profile.save();
           }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
           gravatar.delete();
         }
       } catch(Exception f) {
         redirect("https://en.gravatar.com/site/signup/");
       }
     }
+<<<<<<< HEAD
     else {//have already added the gravatar picture, so we need to displace pic.
       Photo oldPhoto = u.profile.gravatarPhoto;
       File gravatar = new File(hash+".jpg");
@@ -234,11 +250,29 @@ public class Photos extends OBController {
         Blob blob = new Blob();
         blob.set(new FileInputStream(gravatar),
                  MimeTypes.getContentType(gravatar.getName()));
+=======
+    else//have already added the gravatar picture, so we need to displace pic.
+    {
+      Photo oldPhoto = Photo.findById(u.profile.gravatarPhoto.id);
+      try{
+        File gravatar = new File(hash+".jpg");
+        ImageIO.write(image, "jpg",gravatar);
 
-        oldPhoto.image = blob;
-        validation.match(oldPhoto.image.type(), IMAGE_TYPE);
-        validation.max(oldPhoto.image.length(), MAX_FILE_SIZE);
+        if(gravatar != null){
 
+          shrinkImage(gravatar);
+
+          //create new blob
+          Blob blob = new Blob();
+          blob.set(new FileInputStream(gravatar),
+              MimeTypes.getContentType(gravatar.getName()));
+>>>>>>> master
+
+          oldPhoto.image = blob;
+          validation.match(oldPhoto.image.type(), IMAGE_TYPE);
+          validation.max(oldPhoto.image.length(), MAX_FILE_SIZE);
+
+<<<<<<< HEAD
         if (validation.hasErrors()) {
           validation.keep(); /* Remember errors after redirect. */
         }
@@ -254,10 +288,38 @@ public class Photos extends OBController {
         }
       }
       gravatar.delete();//delete file. We don't need it
+=======
+          if (validation.hasErrors()) {
+            validation.keep(); /* Remember errors after redirect. */}
+          else {
+            oldPhoto.save();
+            User user = user();
+            user.profile.profilePhoto = oldPhoto;
+
+            //set gravatarPhoto id
+            u.profile.gravatarPhoto = oldPhoto;
+            user.profile.save();
+          }
+
+        }
+
+        gravatar.delete();//delete file. We don't need it
+      }
+      catch(Exception f)
+      {
+        redirect("https://en.gravatar.com/site/signup/");
+      }
+>>>>>>> master
     }
+
+    //if reach here have successfully changed the gravatar so we reset the email
+    u.profile.gravatarEmail = gravatarEmail;
+    u.profile.save();
+
     setProfilePhotoPage();//render page
   }
 
+<<<<<<< HEAD
 
   /**
    * helper method for gravtar. does hex
@@ -272,6 +334,8 @@ public class Photos extends OBController {
     }
     return sb.toString();
   }
+=======
+>>>>>>> master
 
   /**
    * helper method for gravatar
@@ -283,7 +347,7 @@ public class Photos extends OBController {
     try {
       MessageDigest md =
         MessageDigest.getInstance("MD5");
-      return hex (md.digest(message.getBytes("CP1252")));
+      return Codec.byteToHexString(md.digest(message.getBytes("CP1252")));
     } catch (NoSuchAlgorithmException e) {
     } catch (UnsupportedEncodingException e) {
     }

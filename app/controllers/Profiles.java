@@ -10,7 +10,7 @@ import models.Profile.Relationship;
 
 public class Profiles extends OBController {
 
-  public static void updateBio(String bio){
+  public static void updateBio(String bio) {
     User user  = user();
     Profile profile = user.profile;
 
@@ -24,9 +24,9 @@ public class Profiles extends OBController {
   }
 
   public static void updateInformation(Date birthday, String relationshipStatus, String gender, String interestedIn,
-                                       Date anniversary, String language, String religion, String political){
+                                       Date anniversary, String language, String religion, String political) {
     User user = user();
-    Profile profile = user.profile;
+    Profile profile = Profile.find("owner = ?", user).first();
     profile.religion = religion;
     profile.birthday = birthday;
     profile.gender = gender;
@@ -39,7 +39,7 @@ public class Profiles extends OBController {
       lang.save();
     }
     UserLanguage userlang = new UserLanguage(profile, lang);
-    userlang.save();
+    n           userlang.save();
     profile.languages.add(userlang);
 
     profile.political = political;
@@ -101,12 +101,16 @@ public class Profiles extends OBController {
     User user = user();
     Profile profile = user.profile;
 
-    Location loc = Location.find("byLocation", hometown).first();
-    if(loc == null){
-      loc = new Location(hometown);
-      loc.save();
+    if(!hometown.equals("Add Hometown")){
+      Location loc = Location.find("location = ?", hometown).first();
+      if(loc == null){
+        loc = new Location(hometown);
+        loc.save();
+      }
+      profile.hometown = loc;
     }
-    profile.hometown = loc;
+    else
+      profile.hometown = null;
 
     profile.save();
     renderTemplate("Application/edit_basic.html", profile);
@@ -125,11 +129,12 @@ public class Profiles extends OBController {
     renderTemplate("Application/edit_basic.html", profile);
   }
 
+
   /*
-  public static void updateBasic(String religion, String bio, Date birthday, String gender,
-                                 String relationshipStatus, String language, String political, String phone,
-                                 String address, List<Enrollment> education, List<Employment> work, Location hometown,
-                                 String quotes) {
+    public static void updateBasic(String religion, String bio, Date birthday, String gender,
+    String relationshipStatus, String language, String political, String phone,
+    String address, List<Enrollment> education, List<Employment> work, Location hometown,
+    String quotes) {
     User user = user();
     Profile profile = user.profile;
     profile.religion = religion;
@@ -139,8 +144,8 @@ public class Profiles extends OBController {
 
     Language lang = Language.find("name = ?", language).first();
     if (lang == null){
-      lang = new Language(language);
-      lang.save();
+    lang = new Language(language);
+    lang.save();
     }
     UserLanguage userlang = new UserLanguage(user, lang);
     userlang.save();
@@ -156,6 +161,6 @@ public class Profiles extends OBController {
     profile.save();
     user.save();
     renderTemplate("Application/edit_basic.html", profile);
-  }
-*/
+    }
+  */
 }

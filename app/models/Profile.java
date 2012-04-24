@@ -21,6 +21,7 @@ public class Profile extends Model {
 
   public String gender; // The user's gender:female or male
   public String locale; // The user's locale (ISO Language Code and ISO Country
+  public String gravatarEmail;
 
   @OneToOne
   public User significantOther; // The user's significant other
@@ -29,12 +30,10 @@ public class Profile extends Model {
   public String bio; // The user's biography
   public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
 
-  @ManyToOne
+  @OneToOne
   public Photo profilePhoto; // The user's profile picture.
-
-  @ManyToOne
+  @OneToOne
   public Photo gravatarPhoto;
-
 
   public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
 
@@ -135,9 +134,10 @@ public class Profile extends Model {
     this.email = "";
     this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
     this.gravatarPhoto = null;
+    this.gravatarEmail = owner.email;
   }
 
-  public Profile(User owner, String bio, String gender, String quotes, String phone, String website){
+  public Profile(User owner, String bio, String gender, String quotes, String phone, String website) {
     this.owner = owner;
     this.bio = bio;
     this.gender = gender;

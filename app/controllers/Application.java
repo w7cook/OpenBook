@@ -166,8 +166,8 @@ public class Application extends OBController {
 
   public static void edit_basic(Long userID) {
     User user = User.findById(userID);
-        Profile profile = Profile.find("owner = ?", user).first();
-        render(profile);
+    Profile profile = Profile.find("owner = ?", user).first();
+    render(profile);
   }
 
 

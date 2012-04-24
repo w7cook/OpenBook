@@ -19,6 +19,15 @@
   });
 </script>
 
+ <script>
+  $(function() {
+	$( "#datepicker" ).datepicker({
+		changeMonth: true,
+		changeYear: true
+	});
+  });
+</script>
+
 <div class="globalContentAbout">  
   <div class="LeftColumnAbout">   
     <div class="Panel">
@@ -81,7 +90,7 @@
         <tr>
           <td><label>&{'profile.interested.in'}:</label></td>
           <td>#{select 'gender', value:profile.interestedIn} 
-              #{option 'Blank'}#{/option}
+              #{option ''}#{/option}
               #{option 'Men'}Men#{/option} 
               #{option 'Women'}Women#{/option} 
               #{option 'Both'}Both#{/option} 
@@ -153,9 +162,8 @@
           #{/if}
           #{if profile.interestedIn}
           <tr>
-            <td><label>Interested in:</label>
-            </td>
-            <td>${profile.interestedIn}</td>
+            <td><label>Interested in:</label></td>
+            <td class="data">${profile.interestedIn}</td>
           </tr>
           #{/if}
           #{if profile.relationshipStatus}
@@ -308,8 +316,9 @@
         <table>
           <tr>
               <td><label>&{'profile.hometown'}: </label></td>
-              <td><input type=text name="hometown"
-                value="${profile.hometown ? profile.hometown : 'Add hometown'}">
+              <td><input type="text" name="hometown" onfocus="if(this.value == 'Add Hometown'){this.value = '';}"
+					onblur="if(this.value == ''){this.value='Add Hometown';}"
+                value="${profile.hometown ? profile.hometown : 'Add Hometown'}">
               </td>
           </tr>
         </table>
@@ -321,7 +330,7 @@
           #{if profile.hometown}
           <tr>
               <td><label>&{'profile.hometown'}: </label></td>
-              <td>${profile.hometown}</td>
+              <td>${profile.hometown.toString()}</td>
           </tr>
           #{/if}
         </table>
@@ -357,5 +366,5 @@
       </div>
     </div>
   </div>
-
+  <div class="demo">
 </div>
