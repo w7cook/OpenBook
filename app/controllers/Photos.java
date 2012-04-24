@@ -13,6 +13,8 @@ import models.*;
 import java.security.*;
 import java.net.*;
 import java.awt.image.*;
+import net.coobird.thumbnailator.*;
+
 @With(Secure.class)
 public class Photos extends OBController {
 
@@ -87,8 +89,8 @@ public class Photos extends OBController {
   private static void shrinkImage(File image) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(image);
     if (bufferedImage != null && (bufferedImage.getWidth() > MAX_PIXEL_SIZE ||
-        bufferedImage.getHeight() > MAX_PIXEL_SIZE)) {
-      Images.resize(image, image, MAX_PIXEL_SIZE, MAX_PIXEL_SIZE, true);
+                                  bufferedImage.getHeight() > MAX_PIXEL_SIZE)) {
+      Thumbnails.of(image).size(MAX_PIXEL_SIZE, MAX_PIXEL_SIZE).toFile(image);
     }
   }
 
