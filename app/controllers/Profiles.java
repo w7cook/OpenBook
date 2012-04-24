@@ -39,7 +39,7 @@ public class Profiles extends OBController {
       lang.save();
     }
     UserLanguage userlang = new UserLanguage(profile, lang);
-    n           userlang.save();
+    userlang.save();
     profile.languages.add(userlang);
 
     profile.political = political;

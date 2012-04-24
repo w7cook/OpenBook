@@ -15,58 +15,28 @@
 
 <div class="lhs-navBoxHeader" style="line-height:25px;">BIRTHDAYS</div>
 <div class="lhs-navBoxBody" style="DISPLAY: block">
-<<<<<<< HEAD
   <iframe style="DISPLAY: none" id="HiddenDiv" src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "158" height = "100%"
-	  scrolling = "auto" align = "middle" marginheight = "0" 
-	  marginwidth = "0" hspace = "5" vspace = "5" frameborder = "0" style="border:none;">
-  </iframe>
+          scrolling = "auto" align = "middle" marginheight = "0" 
+          marginwidth = "0" hspace = "5" vspace = "5" frameborder = "0" style="border:none;">
+  </iframe> 
   
   <a id="showDiv" style="DISPLAY: none" onclick ="javascript:ShowHide('HiddenDiv')" href="javascript:;" ><i>Hide    </i><img src="public/images/col.gif" /></a>
-  <a id="hideDiv" onclick ="javascript:ShowHide('HiddenDiv')" href="javascript:;" ><i>Show    </i><img src="public/images/exp.gif" /></a>  
-=======
-<iframe style="DISPLAY: none" id="HiddenDiv" src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "158" height = "100%"
-          scrolling = "auto" align = "middle" marginheight = "0" 
-          marginwidth = "0" hspace = "5" vspace = "5" frameborder = "0" style="border:none;"> </iframe> 
-
-
-
-<a id="showDiv" style="DISPLAY: none" onclick ="javascript:ShowHide('HiddenDiv')" href="javascript:;" ><i>Hide    </i><img src="public/images/col.gif" /></a>
-<a id="hideDiv" onclick ="javascript:ShowHide('HiddenDiv')" href="javascript:;" ><i>Show    </i><img src="public/images/exp.gif" /></a>
-
->>>>>>> master
+  <a id="hideDiv" onclick ="javascript:ShowHide('HiddenDiv')" href="javascript:;" ><i>Show    </i><img src="public/images/exp.gif" /></a>
 </div>
 
-
 <script language="JavaScript">
-<<<<<<< HEAD
   function ShowHide(divId) {
     if(document.getElementById(divId).style.display == 'none') {
       document.getElementById(divId).style.display='block';
       document.getElementById('showDiv').style.display='block';
       document.getElementById('hideDiv').style.display='none';
-    }
-    else {
-=======
-function ShowHide(divId)
-{
-    if(document.getElementById(divId).style.display == 'none')
-    {
-      document.getElementById(divId).style.display='block';
-      document.getElementById('showDiv').style.display='block';
-      document.getElementById('hideDiv').style.display='none';
 
     }
-    else
-    {
->>>>>>> master
+    else {
       document.getElementById(divId).style.display = 'none';
       document.getElementById('showDiv').style.display='none';
       document.getElementById('hideDiv').style.display='block';
     }
-<<<<<<< HEAD
   }
 </script>
-=======
-}
-</script>
->>>>>>> master
+
