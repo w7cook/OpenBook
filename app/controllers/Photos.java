@@ -90,7 +90,8 @@ public class Photos extends OBController {
     BufferedImage bufferedImage = ImageIO.read(image);
     if (bufferedImage != null && (bufferedImage.getWidth() > MAX_PIXEL_SIZE ||
                                   bufferedImage.getHeight() > MAX_PIXEL_SIZE)) {
-      Thumbnails.of(image).size(MAX_PIXEL_SIZE, MAX_PIXEL_SIZE).toFile(image);
+      Thumbnailator.createThumbnail(image, image,
+                                    MAX_PIXEL_SIZE, MAX_PIXEL_SIZE);
     }
   }
 
