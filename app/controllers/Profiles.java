@@ -27,6 +27,7 @@ public class Profiles extends OBController {
 	Date anniversary, String language, String religion, String political){
 		User user = user();
 		Profile profile = Profile.find("owner = ?", user).first();
+//		Profile profile = user.profile;
 	  profile.religion = religion;
 	  profile.birthday = birthday;
 	  profile.gender = gender;
@@ -43,7 +44,7 @@ public class Profiles extends OBController {
     	userlang.save();
     	profile.languages.add(userlang);
 		}
-		userlang = null;
+		userlang = null;                                  /// ***** testing, make sure to remove
 		userlang.deleteAll();
 
 	  profile.political = political;
