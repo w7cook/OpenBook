@@ -112,15 +112,15 @@ public class Application extends OBController {
     news(id);
   }
 
-/**
- * Create a timeline for the current user
- * @param id user ID
- * */
- public static void createTimeline(Long id){
-	User user = User.findById(id);
-	user.createTimeline();
-	renderTemplate("Timeline/Timeline.html",user);
- }
+  /**
+   * Create a timeline for the current user
+   * @param id user ID
+   */
+  public static void createTimeline(Long id){
+    User user = User.findById(id);
+    user.createTimeline();
+    renderTemplate("Timeline/Timeline.html",user);
+  }
 
   public static void account_save(User update, String old_password) {
     User currentUser = user();
@@ -128,9 +128,7 @@ public class Application extends OBController {
     validation.required(update.first_name).message("First name is required");
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
-    validation.isTrue(
-        currentUser.password.equals(Crypto.passwordHash(old_password)))
-        .message("Password does not match");
+    validation.isTrue(currentUser.password.equals(Crypto.passwordHash(old_password))).message("Password does not match");
 
     if (validation.hasErrors()) {
       User user = update;
@@ -166,8 +164,8 @@ public class Application extends OBController {
 
   public static void edit_basic(Long userID) {
     User user = User.findById(userID);
-	  Profile profile = Profile.find("owner = ?", user).first();
-	  render(profile);
+    Profile profile = Profile.find("owner = ?", user).first();
+    render(profile);
   }
 
 
@@ -180,37 +178,10 @@ public class Application extends OBController {
     c.delete();
     news(userId);
   }
-  
+
   public static void postComment(Long commentableId, String author, String content) {
     Commentable parent = Commentable.findById(commentableId);
     User au = User.find("email = ?", author).first();
     parent.addComment(au, content);
   }
-
-  public static void notFound() {
-    response.status = Http.StatusCode.NOT_FOUND;
-    renderText("");
-  }
-
-
-  public static void addLikeAjax (Long likeableId){
-    User u = user();
-    Likeable l = Likeable.findById(likeableId);
-    l.addLike(u);
-    Map<String,String> m = new HashMap<String,String>();
-    m.put("numLikes", Integer.toString(l.likes.size()));
-    m.put("likeableID",likeableId.toString());
-    renderJSON(m);
-  }
-
-  public static void removeLikeAjax (Long likeableId){
-    User u = user();
-    Likeable l = Likeable.findById(likeableId);
-    l.removeLike(u);
-    Map<String,String> m = new HashMap<String,String>();
-    m.put("numLikes", Integer.toString(l.likes.size()));
-    m.put("likeableID",likeableId.toString());
-    renderJSON(m);
-  }
-
 }
