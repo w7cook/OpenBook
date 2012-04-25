@@ -1,7 +1,7 @@
 
 <div class="profile-pic">
   <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a> 
-  #{if (_user.profile.profilePhoto == -1 || _user.profile.profilePhoto == null)} 
+  #{if (_user.profile.profilePhoto.id == -1 || _user.profile.profilePhoto == null)} 
     <img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
   #{/if} 
   #{else} 
@@ -17,7 +17,7 @@
 <div class="lhs-navBoxHeader">FAVORITES</div>
 <div class="lhs-navBoxBody">
 	<a href="@{Application.news()}">News Feed</a> 
-	<a href="/timeline/${_user.id}">Timeline</a> 
+	<a href="/users/${_user.id}/timeline">Timeline</a> 
 	<a href="/users/${_user.id}/events">Events</a> 
 	<a href="@{Checkin.checkin()}">Checkin</a>
 	<a href="@{Messages.inbox()}">Inbox [${_user.unreadCount()}]</a> 

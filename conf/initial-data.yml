@@ -96,24 +96,24 @@ Relationship(r5):
     accepted:   true
 
 Status(firstBobStatus):
-    author:         bob
+    owner:         bob
     content:        >
                     Short sweet twitter like messages that will have inline @mentions and #tags.
 
 Status(firstJeffStatus):
-    author:         jeff
+    owner:         jeff
     content:        >
                     Hey @b3bob hope you like #MassEffect3
 
 Status(secondBobStatus):
-    author:         bob
+    owner:         bob
     content:        >
                     @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
 
 Post(firstBobPost):
     postedObj:      bob
     date:           2009-06-14
-    author:         bob
+    owner:         bob
     content:        >
                     The model has a central position in a Play! application. It is the domain-specific
                     representation of the information on which the application operates.
@@ -128,14 +128,14 @@ Post(firstBobPost):
 Post(secondBobPost):
     postedObj:      bob
     date:           2009-03-25
-    author:         bob
+    owner:         bob
     content:        >
                     Well, it's just a test.
 
 Post(jeffPost):
     postedObj:      jeff
     date:           2009-06-06
-    author:         jeff
+    owner:         jeff
     content:        >
                     A Play! application follows the MVC architectural pattern as applied to the
                     architecture of the Web.
@@ -147,7 +147,7 @@ Post(jeffPost):
 Post(jeffPost2):
     postedObj:      jeff
     date:           2009-06-07
-    author:         jeff
+    owner:         jeff
     content:        >
                     More stuff
 
@@ -168,21 +168,21 @@ Group(g2):
 Post(g1 post1):
     postedObj:      g1
     date:           2009-06-07
-    author:         bob
+    owner:         bob
     content:        >
                     This is the first post for Bob's group. It shouldn't appear on his news feed!
 
 Post(g1 post2):
     postedObj:      g1
     date:           2009-06-07
-    author:         jeff
+    owner:         jeff
     content:        >
                     And this is a second post.
 
 Post(g2 post1):
     postedObj:      g2
     date:           2009-06-07
-    author:         alice
+    owner:         alice
     content:        >
                     First post!
 
@@ -208,7 +208,7 @@ Category(sports):
     name:           Sports
 
 FThread(thread1):
-    author:         bob
+    owner:         bob
     title:          This is a thread
     postedAt:       2009-04-05
     category:       main
@@ -224,7 +224,7 @@ FThread(thread1):
                     sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
 
 FThread(thread2):
-    author:         bob
+    owner:         bob
     title:          This is another thread
     postedAt:       2009-04-06
     category:       main
@@ -240,7 +240,7 @@ FThread(thread2):
                     sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
 
 FThread(thread3):
-    author:         alice
+    owner:         alice
     title:          I hate dubstep
     postedAt:       2011-03-06
     category:       music
@@ -256,14 +256,14 @@ FThread(thread3):
                     sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
 
 Comment(fc1):
-    author:         bob
+    owner:         bob
     content:        >
                     I knew that ...
     date:           2011-06-15
     parentObj:      thread3
 
 Comment(fc2):
-    author:         alice
+    owner:         alice
     content:        >
                     i love dubstep
     date:           2011-09-05
@@ -284,14 +284,14 @@ Page(nachoCheese):
 Post(cats post1):
     postedObj:      cats
     date:           2009-06-07
-    author:         bob
+    owner:         bob
     content:        >
                     I HATE CATZ!!!
 
 Post(cats post2):
     postedObj:      cats
     date:           2009-06-07
-    author:         jeff
+    owner:         jeff
     content:        >
                     CHEEZEBURGAHZ!!
                     

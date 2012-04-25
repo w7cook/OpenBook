@@ -77,50 +77,56 @@ GET     /users/{<[0-9]+>userId}                 Users.about #Get account info fo
 DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
-GET     /posts/?                                Posts.posts #Get all posts
-POST    /posts/?                                Posts.makeNewPost #Add/update post
-GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
-DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
-GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
+GET     /posts/?                                        Posts.posts #Get all posts
+POST    /posts/?                                        Posts.makeNewPost
+GET     /posts/{<[0-9]+>postId}                         Posts.post #Get a specific post
+DELETE  /posts/{<[0-9]+>postId}                         Posts.deletePost #Delete a post
+GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all posts by a user
 
 #Links
-#Post    /links/?                                #Add/update link
+#Post    /links/?                                       #Add/update link
 
 #Comments
-GET     /comments/?                              Comments.comments #Get all comments
-GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specific comment
-#DELETE  /comments/{<[0-9]+>commentId}            #Delete a comment
-#GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
-#POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
-GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
+GET     /comments/?                                     Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}                   Comments.comment #Get a specific comment
+DELETE  /comments/{<[0-9]+>commentId}                   Comments.deleteComment #Delete a comment
+GET     /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.comments #Get all comments for a status
+POST    /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.addComment #Add a comment to a status
+GET     /users/{<[0-9]+>userId}/comments/?              Comments.userComments #get all comments by a user
 
 #Events
 GET     /events/?                                       Events.events #all events
 GET     /events/upcoming/?                              Events.upcoming #upcoming events
 GET     /events/past/?                                  Events.past #past events
 GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
-GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #upcoming events
-GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #past events
+GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #1 users upcoming events
+GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #1 users past events
 GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
 
 GET     /events/eventcreator                            Events.addEvent
 POST    /events                                         Events.addEvent
 
 #Relationships
-GET     /relationships                                                  Relationships.relationships
+GET     /relationships                                  Relationships.relationships
 
 #Timeline
-GET     /timeline/{<[0-9]+>userId}                 Timeline.Timeline #Get timeline for specific user
+GET     /users/{<[0-9]+>userId}/timeline                Timeline.Timeline #Get timeline for specific user
 
 # Checkin
-GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at
+GET     /checkin                                        Checkin.checkin
+GET     /checkin/at                                     Checkin.at
 
-*       /photos/{anything}                      Application.notFound
-*       /users/{anything}/photos/?              Application.notFound
+*       /photos/{anything}                              404
+*       /users/{anything}/photos/?                      404
 
 # Groups
 GET     /groups/{id}                            Groups.group
+
+#Likes
+GET     /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.likes
+POST    /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.like
+DELETE  /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.unLike
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -6,7 +6,7 @@
   <br />
   <h3>${_title_string}</h3>
   #{list items:_events, as:'event'} 
-    #{if event.author.equals(_currentUser)}
+    #{if event.owner.equals(_currentUser)}
       <a href="/events/${event.id}">${event.name}</a>
       <a class="button" href="@{Events.deleteEvent(event.id)}">
         Remove Event
