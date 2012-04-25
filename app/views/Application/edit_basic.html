@@ -316,8 +316,9 @@
         <table>
           <tr>
               <td><label>&{'profile.hometown'}: </label></td>
-              <td><input type=text name="hometown"
-                value="${profile.hometown ? profile.hometown : 'Add hometown'}">
+              <td><input type="text" name="hometown" onfocus="if(this.value == 'Add Hometown'){this.value = '';}"
+					onblur="if(this.value == ''){this.value='Add Hometown';}"
+                value="${profile.hometown ? profile.hometown : 'Add Hometown'}">
               </td>
           </tr>
         </table>
@@ -329,7 +330,7 @@
           #{if profile.hometown}
           <tr>
               <td><label>&{'profile.hometown'}: </label></td>
-              <td>${profile.hometown}</td>
+              <td>${profile.hometown.toString()}</td>
           </tr>
           #{/if}
         </table>

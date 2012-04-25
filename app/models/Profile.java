@@ -1,9 +1,7 @@
 package models;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,6 +18,7 @@ import controllers.Skins;
 public class Profile extends Model {
   @OneToOne(cascade=CascadeType.ALL)
   public User owner;
+
   public String gender; // The user's gender:female or male
   public String locale; // The user's locale (ISO Language Code and ISO Country
   public String gravatarEmail;
@@ -30,7 +29,7 @@ public class Profile extends Model {
 
   public String bio; // The user's biography
   public String interestedIn; //genders the user is intersted in: Male, Female, Both, Neither
-  
+
   @OneToOne
   public Photo profilePhoto; // The user's profile picture.
   @OneToOne
@@ -40,6 +39,7 @@ public class Profile extends Model {
 
   @ManyToOne
   public Location location; // The user's current city
+
   @ManyToOne
   public Location hometown; // The user's hometown
 
@@ -49,14 +49,47 @@ public class Profile extends Model {
 
   public String political; // The user's political view
   public String quotes; // The user's favorite quotes
-  public String relationshipStatus; // The user's relationship
+
+  public enum Relationship {
+    SINGLE ("single"),
+    ENGAGED ("engaged"),
+    MARRIED ("married"),
+    ITSCOMPLICATED ("it's complicated"),
+    OPEN ("open"),
+    WIDOWED ("widowed"),
+    SEPERATED ("seperated"),
+    DIVORCED ("divorced"),
+    CIVILUNION ("civil union"),
+    DOMESTIC ("domestic partnership");
+
+    private final String text;
+    Relationship(String text) {
+      this.text = text;
+    }
+
+    public String toString() {
+      return text;
+    }
+
+    public static Relationship fromString(String text) {
+      for (Relationship r : Relationship.values())
+        if (r.text.equalsIgnoreCase(text))
+          return r;
+      return null;
+    }
+  }
+  public Relationship relationshipStatus; // The user's relationship
+
+  private static final Relationship[] singleArray = {Relationship.SINGLE, Relationship.ITSCOMPLICATED, Relationship.WIDOWED, Relationship.SEPERATED, Relationship.DIVORCED};
+  public static final HashSet<Relationship> single =  new HashSet(Arrays.asList(singleArray));
+
   // status:Single,In a relationship, Engaged,Married,It's
   // complicated,In an open relationship,Widowed,Separated,Divorced,In
   // a civil union,In a domestic partnership
 
   public String religion; // The user's religious views
 
-   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
   public List<Enrollment> education; // A list of the user's education history
 
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
@@ -72,21 +105,16 @@ public class Profile extends Model {
   public String website; // the user's website
   public String email; //the user's email
 
-  public boolean hasAnniversary()
-  {
-	if (relationshipStatus == null)
-		return false;
-    return !(relationshipStatus.equals("Single") || relationshipStatus.equals("It's complicated")
-      || relationshipStatus.equals("Widowed") || relationshipStatus.equals("Separated") || relationshipStatus.equals("Divorced"));
+  public boolean hasAnniversary() {
+    return !single.contains(relationshipStatus);
   }
 
   public Profile(User owner) {
-
     this.anniversary = null;
     this.bio = "";
     this.birthday = null;
     this.interestedIn = "";
-    this.relationshipStatus = "Single";
+    this.relationshipStatus = Relationship.SINGLE;
     this.gender = "";
     this.hometown = null;
     this.location = null;
@@ -95,8 +123,8 @@ public class Profile extends Model {
     this.quotes = "";
     this.significantOther = null;
     this.religion = "";
-	
-	this.languages = new ArrayList<UserLanguage>();
+
+    this.languages = new ArrayList<UserLanguage>();
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
     this.skin = Skins.getSkin("default","default_skin");//the default skin look is used
@@ -107,17 +135,14 @@ public class Profile extends Model {
     this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
     this.gravatarPhoto = null;
     this.gravatarEmail = owner.email;
-    }
+  }
 
-	public Profile(User owner, String bio, String gender, String quotes, String phone, String website){
-		this.owner = owner;
-		this.bio = bio;
-		this.gender = gender;
-		this.phone = phone;
-		this.quotes = quotes;
-		this.website = website;
-	}
-
+  public Profile(User owner, String bio, String gender, String quotes, String phone, String website) {
+    this.owner = owner;
+    this.bio = bio;
+    this.gender = gender;
+    this.phone = phone;
+    this.quotes = quotes;
+    this.website = website;
+  }
 }
-
-

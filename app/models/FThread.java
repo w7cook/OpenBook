@@ -14,10 +14,6 @@ public class FThread extends Commentable {
   @Required
   public String title;
 
-  @Required
-  @ManyToOne
-  public User author;
-
   @Required @As("yyyy-MM-dd")
   public Date postedAt;
 
@@ -30,8 +26,8 @@ public class FThread extends Commentable {
   public String content;
 
   public FThread(String title, User author, Date postedAt, String content) {
+    super(author);
     this.title = title;
-    this.author = author;
     this.postedAt = new Date();
     this.content = content;
   }
