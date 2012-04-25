@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Event extends Postable {
 
   @ManyToOne
-  public User author;
+  public User owner;
 
   /*
    * @OneToMany public EventInvite invitedUsers;
@@ -39,12 +39,12 @@ public class Event extends Postable {
 
   public Event(User author, String name, String script,
       String location) {
-    this.author = author;
+    this.owner = author;
     this.name = name;
     this.script = script;
     this.location = location;
     this.members = new ArrayList<User>();
-    this.members.add(author);
+    this.members.add(owner);
   }
 
   public EventInvite newEventInvite(User curGuest) {
