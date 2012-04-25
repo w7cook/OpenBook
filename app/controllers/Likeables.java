@@ -22,7 +22,7 @@ public class Likeables extends OBController {
     if(thing == null)
       notFound();
     thing.addLike(user());
-    ok();
+    likes(thing.id);
   }
 
   public static void unLike (Long likeableId) {
@@ -30,6 +30,6 @@ public class Likeables extends OBController {
     if(thing == null)
       notFound();
     thing.removeLike(user());
-    ok();
+    likes(thing.id);
   }
 }

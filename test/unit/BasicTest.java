@@ -58,7 +58,7 @@ public class BasicTest extends UnitTest {
 		assertEquals(1, bobPosts.size());
 		Post firstPost = bobPosts.get(0);
 		assertNotNull(firstPost);
-		assertEquals(bob, firstPost.author);
+		assertEquals(bob, firstPost.owner);
 		assertEquals("Hello world", firstPost.content);
 		assertNotNull(firstPost.createdAt);
 	}
@@ -99,13 +99,13 @@ public class BasicTest extends UnitTest {
 
 		Comment firstComment = bobPostComments.get(0);
 		assertNotNull(firstComment);
-		assertEquals("Jeff", firstComment.author.username);
+		assertEquals("Jeff", firstComment.owner.username);
 		assertEquals("Nice post", firstComment.content);
 		assertNotNull(firstComment.createdAt);
 
 		Comment secondComment = bobPostComments.get(1);
 		assertNotNull(secondComment);
-		assertEquals("Tom", secondComment.author.username);
+		assertEquals("Tom", secondComment.owner.username);
 		assertEquals("I knew that !", secondComment.content);
 		assertNotNull(secondComment.createdAt);
 	}
@@ -137,7 +137,7 @@ public class BasicTest extends UnitTest {
 		
 		Status bobfirst = bobStatuses.get(0);
 		assertNotNull(bobfirst);
-		assertEquals("Bob", bobfirst.author.username);
+		assertEquals("Bob", bobfirst.owner.username);
 		assertEquals("I just had lunch", bobfirst.content);
 		assertNotNull(bobfirst.createdAt);
 	}
@@ -167,7 +167,7 @@ public class BasicTest extends UnitTest {
 
 		// Navigate to allComments
 		assertEquals(2, bobPost.comments.size());
-		assertEquals("Jeff", bobPost.comments.get(0).author.username);
+		assertEquals("Jeff", bobPost.comments.get(0).owner.username);
 
 		// Delete the post
 		bobPost.delete();
