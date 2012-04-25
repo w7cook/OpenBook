@@ -90,8 +90,8 @@ GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all pos
 GET     /comments/?                                     Comments.comments #Get all comments
 GET     /comments/{<[0-9]+>commentId}                   Comments.comment #Get a specific comment
 DELETE  /comments/{<[0-9]+>commentId}                   Comments.deleteComment #Delete a comment
-GET     /status/{<[0-9]+>statusId}/comments/?           Comments.comments #Get all comments for a status
-POST    /status/{<[0-9]+>statusId}/comments/?           Comments.addComment #Add a comment to a status
+GET     /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.comments #Get all comments for a status
+POST    /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.addComment #Add a comment to a status
 GET     /users/{<[0-9]+>userId}/comments/?              Comments.userComments #get all comments by a user
 
 #Events
@@ -110,7 +110,7 @@ POST    /events                                         Events.addEvent
 GET     /relationships                                  Relationships.relationships
 
 #Timeline
-GET     /timeline/{<[0-9]+>userId}                      Timeline.Timeline #Get timeline for specific user
+GET     /users/{<[0-9]+>userId}/timeline                Timeline.Timeline #Get timeline for specific user
 
 # Checkin
 GET     /checkin                                        Checkin.checkin
@@ -123,9 +123,9 @@ GET     /checkin/at                                     Checkin.at
 GET     /groups/{id}                            Groups.group
 
 #Likes
-GET     /status/{<[0-9]+>likeableId}/likes      Likeables.likes
-POST    /status/{<[0-9]+>likeableId}/likes      Likeables.like
-DELETE  /status/{<[0-9]+>likeableId}/likes      Likeables.unLike
+GET     /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.likes
+POST    /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.like
+DELETE  /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.unLike
 
 
 # Ignore favicon requests

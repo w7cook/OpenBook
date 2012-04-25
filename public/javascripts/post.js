@@ -11,7 +11,7 @@ function deleteThing(id, type) {
 function like(id, type, userId, likeTxt, unlikeTxt) {
   var likes;  //array of users who like the thing
   
-  var url = '/status/' + id + '/likes';
+  var url = '/' + type + 's/' + id + '/likes';
   $.ajax({
     dataType: 'json',
     async: false,
@@ -33,8 +33,9 @@ function like(id, type, userId, likeTxt, unlikeTxt) {
       $.ajax({
         url: url,
         type: 'POST',
+        dataType: 'json',
         success: function(data, textStatus, jqXHR) {
-          numlikes++;
+          numlikes = data.length;
           var likeSpanText = (numlikes === 1) ? 'Like' : 'Likes';
           numLikesSpan.text(numlikes + ' ' + likeSpanText);
           $('#like' + type + id).text(unlikeTxt);
@@ -48,8 +49,9 @@ function like(id, type, userId, likeTxt, unlikeTxt) {
       $.ajax({
         url: url,
         type: 'DELETE',
+        dataType: 'json',
         success: function(data, textStatus, jqXHR) {
-          numlikes--;
+          numlikes = data.length;
           var likeSpanText = (numlikes === 1) ? 'Like' : 'Likes';
           numLikesSpan.text(numlikes + ' ' + likeSpanText);
           $('#like' + type + id).text(likeTxt);
@@ -63,16 +65,16 @@ function like(id, type, userId, likeTxt, unlikeTxt) {
 }
 
 function submitComment(id) {
-  nonws = /\S/;
-  textbox = $('#commentContent' + id)
-  content = textbox.val();
+  var nonws = /\S/;
+  var textbox = $('#commentContent' + id)
+  var content = textbox.val();
   if(!nonws.test(content)) {
     textbox.val('');
     textbox.focus();
   }
   else {
     $.ajax({
-      url: 'status/' + id + '/comments',
+      url: '/posts/' + id + '/comments',
       type: 'POST',
       data: {'commentContent': content},
       success: function (data, textStatus, jqXHR) {
