@@ -1,9 +1,7 @@
 package controllers;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.*;
+import java.util.*;
 
 import models.Enrollment;
 import models.Language;
@@ -30,29 +28,23 @@ public class Profiles extends OBController {
 	}
 	
 	public static void updateInformation(String birthday, String relationshipStatus, String gender, String interestedIn, 
-	Date anniversary, String language, String religion, String political){
+	                  Date anniversary, String language, String religion, String political){
 		User user = user();
 		Profile profile = Profile.find("owner = ?", user).first();
-		System.out.println("*****\n\n\nBirthday is this: " + birthday);
-//		Profile profile = user.profile;
+		System.out.println("*****\n\n\nBirthday is this: " + birthday + "\n\n\n\n\n\n******");
 	  profile.religion = religion;
-	  DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
-//	  try{
-//	    profile.birthday = birthday_formatting.parse(birthday);
-//	  }
-//	  catch (ParseException e){
-//	    e.printStackTrace();
-//	  }
-//	  profile.birthday = birthday;
+    DateFormat birthday_formatting = new SimpleDateFormat("dd-MMM-yy");
+	  try{
+	    profile.birthday = (Date) birthday_formatting.parse(birthday);
+	  } catch (java.text.ParseException e) {
+      e.printStackTrace();
+    }
+	  
 	  profile.gender = gender;
 		profile.interestedIn = interestedIn;
 //	  profile.relationshipStatus = relationshipStatus;		
 
 		Language lang = Language.find("name = ?", language).first();
-//		if (lang == null){
-//			lang = new Language(language);
-//			lang.save();
-//		}
     UserLanguage userlang = new UserLanguage(profile, lang);
 		if (lang != null){
     	userlang.save();
@@ -145,39 +137,4 @@ public class Profiles extends OBController {
 		profile.save();
 		renderTemplate("Application/edit_basic.html", profile);	
 	}
-
-
-/*
-  public static void updateBasic(String religion, String bio, Date birthday, String gender,
-      String relationshipStatus, String language, String political, String phone,
-      String address, List<Enrollment> education, List<Employment> work, Location hometown,
-      String quotes) {
-	User user = user();
-	Profile profile = user.profile;
-    profile.religion = religion;
-    profile.birthday = birthday;
-    profile.gender = gender;
-    profile.relationshipStatus = relationshipStatus;
-
-	Language lang = Language.find("name = ?", language).first();
-	if (lang == null){
-		lang = new Language(language);
-		lang.save();
-	}
-	UserLanguage userlang = new UserLanguage(user, lang);
-	userlang.save();
-    profile.languages.add(userlang);
-
-    profile.political = political;
-    profile.phone = phone;
-    profile.address = address;
-    profile.education = education;
-    profile.work = work;
-  //  u.profile.hometown = hometown;
-    profile.quotes = quotes;
-    profile.save();
-    user.save();
-    renderTemplate("Application/edit_basic.html", profile);
-    }
-  */
 }

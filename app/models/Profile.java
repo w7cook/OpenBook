@@ -35,7 +35,7 @@ public class Profile extends Model {
   @OneToOne
   public Photo gravatarPhoto;
 
-  public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
+  public Date birthday; // The user's birthday, uses jJQuery UI
 
   @ManyToOne
   public Location location; // The user's current city
