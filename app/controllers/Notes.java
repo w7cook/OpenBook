@@ -11,21 +11,19 @@ import play.mvc.*;
 
 public class Notes extends OBController {
 
-    public static void viewNotes() {
-        User user = user();
-        render(user);
-    }
+  public static void viewNotes() {
+    User user = user();
+    render(user);
+  }
 
-    public static void newNote() {
-        User user = user();
-        render(user);
-    }
+  public static void newNote() {
+    User user = user();
+    render(user);
+  }
 
-    public static void saveNote(String title, String content) {
-
-        Note n = new Note(user(), title, content);
-        n.save();
-        viewNotes();
-    }
-
+  public static void saveNote(String title, String content) {
+    Note n = new Note(user(), title, content);
+    n.save();
+    viewNotes();
+  }
 }
