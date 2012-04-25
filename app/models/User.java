@@ -77,6 +77,10 @@ public class User extends Postable {
   @ElasticSearchIgnore
   @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
   public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
+	
+  @ElasticSearchIgnore
+  @OneToMany(mappedBy = "owner", cascade=CascadeType.ALL)
+  public List<LinkedVideo> videos; //videos of the user
 
   @ElasticSearchIgnore
   @ManyToMany(mappedBy="thoseWhoLike")
