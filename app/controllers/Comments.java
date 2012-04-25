@@ -55,7 +55,7 @@ public class Comments extends OBController {
       error("commentContent can't be null");
     final Commentable cc = Commentable.findById(statusId);
     if(cc == null)
-      notFound();
+      notFound(statusId + " is not the id of a Commentable");
     final User user = user();
     final Comment comment = new Comment(cc, user, commentContent).save();
     render(user, comment);
