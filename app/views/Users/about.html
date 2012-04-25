@@ -1,26 +1,26 @@
 #{extends 'main.html' /}
 <div class="grid_3">
-<div class="profile-pic">
-  #{if (user.profile.profilePhoto == -1 || user.profile.profilePhoto == null)} 
-  <img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
-  #{/if} 
-  #{else} 
-  <img src="@{Photos.getPhoto(user.profile.profilePhoto.id)}" height="120" width="120" /> 
-  #{/else}
-</div>
-<div style="clear: both;text-align:center;width: 100%;">
-  <a href="@{Users.about(user.id)}"> 
-  <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${user.name}</span>
-  </a>
-</div>
-<div>
-Born: ${ user.profile.birthday}
-<br/>
-Lives in: ${ user.profile.location}
-</div>
+  <div class="profile-pic">
+    #{if (user.profile.profilePhoto.id == -1 || user.profile.profilePhoto == null)} 
+      <img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
+    #{/if} 
+    #{else} 
+      <img src="@{Photos.getPhoto(user.profile.profilePhoto.id)}" height="120" width="120" /> 
+    #{/else}
+  </div>
+  <div style="clear: both;text-align:center;width: 100%;">
+    <a href="@{Users.about(user.id)}"> 
+      <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${user.name}</span>
+    </a>
+  </div>
+  <div>
+    Born: ${ user.profile.birthday}
+    <br/>
+    Lives in: ${ user.profile.location}
+  </div>
 </div>
 <div class="grid_12">
-#{list items:user.posts, as:'item'}
-  #{post currentUser:currentUser, user:user, item:item /}
-#{/list}
+  #{list items:user.posts, as:'item'}
+    #{post currentUser:currentUser, user:user, item:item /}
+  #{/list}
 </div>

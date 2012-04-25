@@ -10,16 +10,11 @@ public class Photo extends Post {
   @Required
   public Blob image;
 
-  @Required
-  @ManyToOne
-  public User owner;
-
   public Photo(User owner, Blob image) {
     super(owner, owner, "");
-    this.owner = owner;
     this.image = image;
   }
-  
+
   public Photo(User owner, Blob image, String caption){
     super(owner, owner, caption);
     this.image = image;

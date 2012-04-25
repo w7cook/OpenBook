@@ -1,10 +1,10 @@
 /**AlbumController
  * purpose: controls all actions associated with an Alb
- * 
+ *
  * created by: Chris. Cale
- * 
+ *
  * email: collegeassignment@gmail.com
- * 
+ *
  */
 
 package controllers;
@@ -18,27 +18,24 @@ import controllers.Secure;
 import models.*;
 
 
-@With(Secure.class)
-public class AlbumController extends Controller{
-
-
+public class AlbumController extends OBController{
 
   /**create
-   * 
+   *
    * @param title of new album
-   * 
+   *
    * @return saves new album into database
    */
-  public static void create(String title)//@Required(message = "A title is required") 
+  public static void create(String title)//@Required(message = "A title is required")
   {
     Album newAlbum = new Album(title, Application.user());
     newAlbum.save();
   }
 
   /**delete
-   * 
+   *
    * @param Id of album
-   * 
+   *
    * @return none
    */
   public static void delete(Long Id){
@@ -48,15 +45,15 @@ public class AlbumController extends Controller{
   }
 
   /**getAlbum
-   * 
+   *
    * @param Id of album
-   * 
+   *
    * @return renders album to page
    */
   public static void getAlbum(Long Id){
     Album album = Album.findById(Id);
     if(album == null){
-      Application.notFound();
+      notFound();
     }
     else{
       //      response.setContentTypeIfNotSet(album.image.type());
@@ -67,14 +64,14 @@ public class AlbumController extends Controller{
 
 
   /**addPhoto
-   * 
+   *
    * @param Long Id of album
    * @param String title
    * @return returns true if the name of album has changed
    */
   public static boolean changeTitle(Long Id, String newTitle){
 
-    Album album = Album.findById(Id); 
+    Album album = Album.findById(Id);
     String oldTitle = album.title;
     album.title = newTitle;
     //updateDate(album.albumId);
@@ -82,14 +79,14 @@ public class AlbumController extends Controller{
   }
 
   /**addPhotoToAlbum
-   * 
+   *
    * @param Long albumId
    * @param Long photoId
    * @return boolean if photo was added to album
    */
   public static boolean addPhotoToAlbum(Long albumId, Long photoId){
 
-    Album album = Album.findById(albumId); 
+    Album album = Album.findById(albumId);
     Photo photo = Photo.findById(photoId);
     int oldSize = album.photos.size();
     album.photos.add(photo);
@@ -100,14 +97,14 @@ public class AlbumController extends Controller{
 
 
   /**deletePhotoFromAlbum
-   * 
+   *
    * @param albumId
    * @param photoId
    * @return boolean true if photo is deleted from album
    */
   public static boolean deletePhotoFromAlbum(Long albumId, Long photoId){
 
-    Album album = Album.findById(albumId); 
+    Album album = Album.findById(albumId);
     Photo photo = Photo.findById(photoId);
     int oldSize = album.photos.size();
     album.photos.remove(photo);
@@ -117,12 +114,12 @@ public class AlbumController extends Controller{
   }
 
   /**updateDate
-   * 
+   *
    * @param Id
    * @return boolean true if dateModified has changed
    */
   public static boolean updateDate(Long Id){
-    Album album = Album.findById(Id); 
+    Album album = Album.findById(Id);
     Date oldDate = album.lastDateModified;
     Date date = new Date();
     album.lastDateModified = date;
@@ -130,16 +127,16 @@ public class AlbumController extends Controller{
   }
 
   /**getAll
-   * 
+   *
    * @return a list of all albums
    */
   public static List<Album> getAll(){
     return Album.findAll();// no idea how this works???
   }
 
-  
+
   /**getNext
-   * 
+   *
    * @param albumId
    * @param index
    * @return photo at current index + 1
@@ -151,7 +148,7 @@ public class AlbumController extends Controller{
   }
 
   /**getPrev
-   * 
+   *
    * @param albumId
    * @param index
    * @return photo at current index -1
@@ -167,11 +164,5 @@ public class AlbumController extends Controller{
   public static void export(){
     System.out.println("TO BE COMPLETED: EXPORT FUNCTIONALITY");
   }
-
-
-
-
-
-
 }//end of class
 

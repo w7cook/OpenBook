@@ -15,7 +15,6 @@ import java.net.*;
 import java.awt.image.*;
 import net.coobird.thumbnailator.*;
 
-@With(Secure.class)
 public class Photos extends OBController {
 
   /* All possible image mime types in a single regex. */
@@ -36,10 +35,10 @@ public class Photos extends OBController {
   }
 
   public static void getPhoto(Long photoId) {
-    
+
     Photo photo = Photo.findById(photoId);
     if (photo == null) {
-      Application.notFound();
+      notFound("That photo does not exist.");
     }
     else {
       response.setContentTypeIfNotSet(photo.image.type());
@@ -112,77 +111,72 @@ public class Photos extends OBController {
     if (!validation.hasErrors()) {
       photo.save();
     }
+
     redirect("/users/" + photo.owner.id + "/photos");
   }
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    if (photo.owner.equals(user())) {
-      photo.delete();
-    }
+    if (photo == null)
+      notFound("That photo does not exist.");
+    if (!photo.owner.equals(user()))
+      forbidden();
+    photo.delete();
     redirect("/users/" + photo.owner.id + "/photos");
   }
 
-  public static void setProfilePhotoPage()
-  {
+
+  public static void setProfilePhotoPage()  {
     User user = user();
-    //make sure get all of the photos
-    List<Photo> photos;
-    if (user.id == null) {
-      photos = null;
-    }
-    else {
-      photos = Photo.find("byOwner", user).fetch();
-    }
+    List<Photo> photos = Photo.find("byOwner", user).fetch();
     render(user,photos);
   }
 
-  public static void changeBGImage()
-  {
+
+  public static void changeBGImage() {
     User user = user();
     photos(user.id);
   }
 
   public static void setProfilePhoto(Long photoId) {
-
+    User user = user();
     Photo photo = Photo.findById(photoId);
-    if(photo != null){
-      User user = user();
-      if (photo.owner.equals(user)) {
-        user.profile.profilePhoto = photo;
-        user.profile.save();
-      }
-    }
+    if (photo == null)
+      notFound("That photo does not exist.");
+
+    if (!photo.owner.equals(user()))
+      forbidden();
+
+    user.profile.profilePhoto = photo;
+    user.profile.save();
     setProfilePhotoPage();//render page
   }
 
   /**
    * addProfilePhoto
-   * 
+   *
    * just does the adding of the photo and then uses setProfilePhoto to set the profilePhoto
    * @param image
    * @throws FileNotFoundException
    * @throws IOException
    */
-  public static void addProfilePhoto(File image) throws FileNotFoundException, IOException 
-  {
-    if(image != null){
-      try{
+  public static void addProfilePhoto(File image) throws FileNotFoundException, IOException {
+    if(image != null) {
+      try {
         shrinkImage(image);
         Photo photo = fileToPhoto(image);
         validation.match(photo.image.type(), IMAGE_TYPE);
         validation.max(photo.image.length(), MAX_FILE_SIZE);
 
         if (validation.hasErrors()) {
-          validation.keep(); /* Remember errors after redirect. */} 
+          validation.keep(); /* Remember errors after redirect. */}
         else {
           photo.save();
           User user = user();
           user.profile.profilePhoto = photo;
           user.profile.save();
         }
-      }catch(FileNotFoundException f)
-      {
+      } catch(FileNotFoundException f) {
         setProfilePhotoPage();//for if try to put in null file
       }
     }
@@ -192,30 +186,29 @@ public class Photos extends OBController {
   /**
    * set gravatar to the profile photo
    */
-  public static void setGravatar(String gravatarEmail) throws FileNotFoundException, IOException 
-  {
+
+  public static void setGravatar(String gravatarEmail) throws FileNotFoundException, IOException {
     //first takes the user's email and makes it into the correct hex string
     User u = user();
     String hash = md5Hex((gravatarEmail.trim()).toLowerCase());
     String urlPath = "http://www.gravatar.com/avatar/"+hash+".jpg"+
-    "?" +//parameters
-    "size=100&d=mm";
+      "?" +//parameters
+      "size=100&d=mm";
     URL url = new URL(urlPath);
     BufferedImage image = ImageIO.read(url);
-    if(u.profile.gravatarPhoto == null){//don't yet have a gravatarPhoto
-      try{
+    if(u.profile.gravatarPhoto == null) { // don't yet have a gravatarPhoto
+      try {
         File gravatar = new File(hash+".jpg");
         ImageIO.write(image, "jpg",gravatar);
 
-        if(gravatar != null){
-
+        if(gravatar != null) {
           shrinkImage(gravatar);
           Photo photo = fileToPhoto(gravatar);
           validation.match(photo.image.type(), IMAGE_TYPE);
           validation.max(photo.image.length(), MAX_FILE_SIZE);
 
           if (validation.hasErrors()) {
-            validation.keep(); /* Remember errors after redirect. */} 
+            validation.keep(); /* Remember errors after redirect. */}
           else {
             photo.save();
             User user = user();
@@ -225,19 +218,13 @@ public class Photos extends OBController {
             u.profile.gravatarPhoto = photo;
             user.profile.save();
           }
-
           gravatar.delete();
-
         }
-
-      }
-      catch(Exception f)
-      {
+      } catch(Exception f) {
         redirect("https://en.gravatar.com/site/signup/");
       }
     }
-    else//have already added the gravatar picture, so we need to displace pic.
-    {
+    else { // have already added the gravatar picture, so we need to displace pic.
       Photo oldPhoto = Photo.findById(u.profile.gravatarPhoto.id);
       try{
         File gravatar = new File(hash+".jpg");
@@ -250,14 +237,14 @@ public class Photos extends OBController {
           //create new blob
           Blob blob = new Blob();
           blob.set(new FileInputStream(gravatar),
-              MimeTypes.getContentType(gravatar.getName()));
+                   MimeTypes.getContentType(gravatar.getName()));
 
           oldPhoto.image = blob;
           validation.match(oldPhoto.image.type(), IMAGE_TYPE);
           validation.max(oldPhoto.image.length(), MAX_FILE_SIZE);
 
           if (validation.hasErrors()) {
-            validation.keep(); /* Remember errors after redirect. */} 
+            validation.keep(); /* Remember errors after redirect. */}
           else {
             oldPhoto.save();
             User user = user();
@@ -272,8 +259,7 @@ public class Photos extends OBController {
 
         gravatar.delete();//delete file. We don't need it
       }
-      catch(Exception f)
-      {
+      catch(Exception f) {
         redirect("https://en.gravatar.com/site/signup/");
       }
     }
@@ -281,10 +267,9 @@ public class Photos extends OBController {
     //if reach here have successfully changed the gravatar so we reset the email
     u.profile.gravatarEmail = gravatarEmail;
     u.profile.save();
-    
+
     setProfilePhotoPage();//render page
   }
-
 
   /**
    * helper method for gravatar
@@ -294,7 +279,7 @@ public class Photos extends OBController {
    */
   private static String md5Hex (String message) {
     try {
-      MessageDigest md = 
+      MessageDigest md =
         MessageDigest.getInstance("MD5");
       return Codec.byteToHexString(md.digest(message.getBytes("CP1252")));
     } catch (NoSuchAlgorithmException e) {
@@ -302,6 +287,4 @@ public class Photos extends OBController {
     }
     return null;
   }
-
-
 }

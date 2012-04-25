@@ -4,7 +4,6 @@ import java.util.*;
 
 import play.*;
 import play.mvc.*;
-import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
@@ -28,43 +27,41 @@ public class Posts extends OBController {
   public static void deletePost(Long postId) {
     User user = user();
     Post p = Post.findById(postId);
-    if (!p.author.equals(user))
+    if (p == null)
+      notFound();
+    if (!p.owner.equals(user))
       forbidden();
     p.delete();
-    posts(user.id);
+    ok();
   }
 
   public static void makeNewPost(String postContent) {
-    final Post p = new Post(user(), user(),
-                            HTML.htmlEscape(postContent)).save();
-    Map<String, Object> m = new HashMap<String, Object>();
-    m.put("item", p);
-    m.put("user", user());
-    m.put("currentUser", user());
-    renderTemplate(m);
+    if (postContent == null)
+      error("postContent can't be null");
+    User user = user();
+    final Post post = new Post(user, user, postContent).save();
+    render(user, post);
   }
 
   public static void makeNewPagePost(String postContent, String pid) {
     Page page = Page.findById(Long.parseLong(pid));
-    final Post p = new Post(page, user(),
-        HTML.htmlEscape(postContent)).save();
+    final Post p = new Post(page, user(), postContent).save();
     Map<String, Object> m = new HashMap<String, Object>();
     m.put("item", p);
     m.put("user", user());
     m.put("currentUser", user());
     renderTemplate(m);
   }
-  
+
   public static void makeNewGroupPost(String postContent, String gid) {
-	    Group group = Group.findById(Long.parseLong(gid));
-	    final Post p = new Post(group, user(),
-	        HTML.htmlEscape(postContent)).save();
-	    Map<String, Object> m = new HashMap<String, Object>();
-	    m.put("item", p);
-	    m.put("user", user());
-	    m.put("currentUser", user());
-	    renderTemplate(m);
-	  }
+            Group group = Group.findById(Long.parseLong(gid));
+            final Post p = new Post(group, user(), postContent).save();
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("item", p);
+            m.put("user", user());
+            m.put("currentUser", user());
+            renderTemplate(m);
+          }
 
   public static void poke(Long userId) {
     String poked = new String(user() + " has poked " + (User)User.findById(userId) + "!");
