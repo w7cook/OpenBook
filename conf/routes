@@ -119,6 +119,13 @@ GET     /checkin/at                                     Checkin.at
 *       /photos/{anything}                              404
 *       /users/{anything}/photos/?                      404
 
+# Video
+GET			/users/{<[0-9]+>ownerId}/videos/linked/?				Videos.listLinkedVideos
+GET 		/videos/linked 																	Videos.listMyLinkedVideos
+POST 		/videos 																				Videos.createLinkedVideo 
+DELETE 	/videos/linked/{<[0-9]+>photoId} 								Videos.removeLinkedVideo
+
+
 # Groups
 GET     /groups/{id}                            Groups.group
 
