@@ -19,7 +19,7 @@
 	#{if _as != 'teaser'}
 	<div class="post-content">
 		<div class="about">Detail:</div>
-		${_post.content.nl2br()}
+		${_post.content.markdown().nl2br()}
 	</div>
 	#{/if}
 </div>
@@ -38,7 +38,7 @@
 				value=DELETE> #{/form}
 		</div>
 		<div class="comment-content">
-			${comment.content.escape().nl2br()}</div>
+			${comment.content.escape().markdown().nl2br()}</div>
 	</div>
 	#{/list}
 </div>
