@@ -19,8 +19,10 @@
     Lives in: ${ user.profile.location}
   </div>
 </div>
-<div class="grid_12">
+<div class="grid_12" id="postsList">
   #{list items:user.posts, as:'item'}
-    #{post currentUser:currentUser, user:user, item:item /}
+    #{post user:currentUser, item:item /}
   #{/list}
 </div>
+
+<script src="/public/javascripts/post.js"></script>
