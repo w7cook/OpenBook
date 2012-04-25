@@ -9,7 +9,7 @@ import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
-  public class Status extends Commentable {
+public class Status extends Commentable {
 
   private static final Pattern links_pattern = Pattern.compile("\\b?[@#]\\w*\\b");
   // private static final Pattern youtube_pattern = Pattern.compile();
@@ -49,15 +49,12 @@ import play.data.validation.*;
       else
         System.out.print("Error occured");
     }
-
     return unlinked_content;
   }
 
 
   public static List<Status> findTaggedWith(String... tags) {
-    return Status.find(
-                       "select distinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.owner, p.message, p.update_time having count(t.id) = :size"
+    return Status.find("select distinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.owner, p.message, p.update_time having count(t.id) = :size"
                        ).bind("tags", tags).bind("size", tags.length).fetch();
   }
-
 }
