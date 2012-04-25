@@ -1,30 +1,30 @@
 #{extends 'main.html' /}
-  <link rel="stylesheet" type="text/css" media="screen"
-    href="@{'/public/stylesheets/about.css'}" />
+<link rel="stylesheet" type="text/css" media="screen"
+      href="@{'/public/stylesheets/about.css'}" />
 
 <script>
   $(document).ready(function(){
-      $("button#AboutMeEditButton").click(function(){$("div#EditDataAboutMe").toggle(); 
-                        $("div#AboutMeData").toggle(); return false;});
+    $("button#AboutMeEditButton").click(function(){$("div#EditDataAboutMe").toggle(); 
+    $("div#AboutMeData").toggle(); return false;});
     $("button#InformationEditButton").click(function(){$("div#EditDataInformation").toggle(); 
-                        $("div#InformationData").toggle(); return false;}); 
+    $("div#InformationData").toggle(); return false;}); 
     $("button#ContactInfoEditButton").click(function(){$("div#EditDataContactInfo").toggle(); 
-                        $("div#ContactInfoData").toggle(); return false;}); 
+    $("div#ContactInfoData").toggle(); return false;}); 
     $("button#WorkEduEditButton").click(function(){$("div#EditDataWorkEdu").toggle(); 
-                        $("div#WorkEduData").toggle(); return false;});
+    $("div#WorkEduData").toggle(); return false;});
     $("button#LivingEditButton").click(function(){$("div#EditDataLiving").toggle(); 
-                        $("div#LivingData").toggle(); return false;});  
+    $("div#LivingData").toggle(); return false;});  
     $("button#QuoteEditButton").click(function(){$("div#EditDataQuote").toggle(); 
-                        $("div#QuoteData").toggle(); return false;});                         
+    $("div#QuoteData").toggle(); return false;});                         
   });
 </script>
 
- <script>
+<script>
   $(function() {
-	$( "#datepicker" ).datepicker({
-		changeMonth: true,
-		changeYear: true
-	});
+    $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
   });
 </script>
 
@@ -36,28 +36,28 @@
       </button><br/>
       <div class="editData" id="EditDataAboutMe" style="display:none;">
         #{form @Profiles.updateBio() }
-        <table>
-          <tr>
-            <td><label>&{'profile.bio'}:</label>
-            </td>
-
-            <td><input size=50 type="text" name="bio" onfocus="if(this.value == 'Write About Yourself'){this.value = '';}"
-				onblur="if(this.value == ''){this.value='Write About Yourself';}" 
-				value="${profile.bio ? profile.bio : 'Write About Yourself'}">
-            </td>
-          </tr>
-        </table>
-        <input type="submit" value="Save" id="updateBio" />
-		<input type="reset" value="Cancel">
+          <table>
+            <tr>
+              <td><label>&{'profile.bio'}:</label>
+              </td>
+              
+              <td><input size=50 type="text" name="bio" onfocus="if(this.value == 'Write About Yourself'){this.value = '';}"
+			 onblur="if(this.value == ''){this.value='Write About Yourself';}" 
+			 value="${profile.bio ? profile.bio : 'Write About Yourself'}">
+              </td>
+            </tr>
+          </table>
+          <input type="submit" value="Save" id="updateBio" />
+	  <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="AboutMeData" style="display:block;">
         <table>
           #{if profile.bio}
-          <tr>
-            <td><label>&{'profile.bio'}:</label></td>
-            <td>${profile.bio}</td>
-          </tr>
+            <tr>
+              <td><label>&{'profile.bio'}:</label></td>
+              <td>${profile.bio}</td>
+            </tr>
           #{/if}
         </table>
       </div>
@@ -67,85 +67,90 @@
       <button class="EditButton" id="InformationEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
       <div class="editData" id="EditDataInformation" style="display:none;">
-      #{form @Profiles.updateInformation()}
-      <table>
-        <tr>
-          <td><label>&{'profile.birthday'}: </br> </label>
-          </td>
-          <td>
-            <script>DateInput('orderdate', true)</script>
-              <input type=text name=birthday
-                value="${profile.birthday ? profile.birthday.format('MMM dd ') : 'extra bday field?'}">
-          </td>
-        </tr>
-        <tr>
-          <td><label>&{'profile.sex'}:</label></td>
-          <td>#{select 'gender', value:profile.gender} 
-              #{option 'Male'}Male#{/option} 
-              #{option 'Female'}Female#{/option}
-              #{/select}</td>
-          <!--  Show my sex on my timeline  -->
-        </tr>
-
+        #{form @Profiles.updateInformation()}
+          <table>
+            <tr>
+              <td><label>&{'profile.birthday'}: </br> </label>
+              </td>
+              <td>
+                <script>DateInput('orderdate', true)</script>
+                <input type=text name=birthday
+                       value="${profile.birthday ? profile.birthday.format('MMM dd ') : 'extra bday field?'}">
+              </td>
+            </tr>
+            <tr>
+              <td><label>&{'profile.sex'}:</label></td>
+              <td>
+                #{select 'gender', value:profile.gender} 
+                  #{option 'Male'}Male#{/option} 
+                  #{option 'Female'}Female#{/option}
+                #{/select}
+              </td>
+              <!--  Show my sex on my timeline  -->
+            </tr>
+            
         <tr>
           <td><label>&{'profile.interested.in'}:</label></td>
-          <td>#{select 'gender', value:profile.interestedIn} 
+          <td>
+            #{select 'gender', value:profile.interestedIn} 
               #{option ''}#{/option}
               #{option 'Men'}Men#{/option} 
               #{option 'Women'}Women#{/option} 
               #{option 'Both'}Both#{/option} 
               #{option 'Neither'}Neither#{/option} 
-              #{/select}</td>
+            #{/select}
+          </td>
         </tr>
-
+        
         <tr>
           <td><label>&{'profile.relationship.status'}: </label></td>
-          <td>#{select 'status',
-                value:profile.relationshipStatus} 
-                #{option 'Single'}Single#{/option} 
-                #{option 'In a relationship'}In a relationship#{/option} 
-                #{option 'Engaged'}Engaged#{/option}
-                #{option 'Married'}Married#{/option} 
-                #{option 'It\'s complicated'}It's complicated#{/option} 
-                #{option 'In an open relationship'}In an open relationship#{/option}
-                #{option 'Widowed'}Widowed#{/option} 
-                #{option 'Separated'}Separated#{/option} 
-                #{option 'Divorced'}Divorced#{/option} 
-                #{option 'In a civil union'}In a civil union#{/option} 
-                #{option 'In a domestic partnership'}In a domestic partnership#{/option} 
-                #{/select}</td>
+          <td>
+            #{select 'status', value:profile.relationshipStatus} 
+              #{option 'Single'}Single#{/option} 
+              #{option 'In a relationship'}In a relationship#{/option} 
+              #{option 'Engaged'}Engaged#{/option}
+              #{option 'Married'}Married#{/option} 
+              #{option 'It\'s complicated'}It's complicated#{/option} 
+              #{option 'In an open relationship'}In an open relationship#{/option}
+              #{option 'Widowed'}Widowed#{/option} 
+              #{option 'Separated'}Separated#{/option} 
+              #{option 'Divorced'}Divorced#{/option} 
+              #{option 'In a civil union'}In a civil union#{/option} 
+              #{option 'In a domestic partnership'}In a domestic partnership#{/option} 
+            #{/select}
+          </td>
         </tr>
-
+        
         #{if profile.hasAnniversary()}
-        <tr>
-          <td><label>&{'profile.anniversary'}: </br></label></td>
-          <td><script>DateInput('orderdate', true)</script></td>
-        </tr>
+          <tr>
+            <td><label>&{'profile.anniversary'}: </br></label></td>
+            <td><script>DateInput('orderdate', true)</script></td>
+          </tr>
         #{/if}
 
         <tr>
           <td><label>&{'profile.languages'}: </label>
           </td>
           <td><input type=text name="language"
-                value="Add a language"/>
+                     value="Add a language"/>
           </td>
         </tr>
         <tr>
           <td><label>&{'profile.religious.views'}: </label></td>
           <td><input size=20 type=text name=religion
-                value="${profile.religion ? profile.religion : ''}">
+                     value="${profile.religion ? profile.religion : ''}">
           </td>
         </tr>
         <tr>
           <td><label>&{'profile.political.views'}: </label></td>
           <td><input size=20 type=text name=political
-                value="${profile.political ? profile.political : ''}">
+                     value="${profile.political ? profile.political : ''}">
           </td>
         </tr>
       </table>
       <input type="submit" value="Save" id="updateInformation" />
-      #{/form}
-      </div>
+    #{/form}
+  </div>
       <div class="Data" id="InformationData" style="display:block;">
         <table>
           #{if profile.birthday}
