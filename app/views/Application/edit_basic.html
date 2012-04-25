@@ -74,8 +74,8 @@
           <td><label>&{'profile.birthday'}: </br> </label>
           </td>
           <td>
-              <input type=text id="datepicker" name="birthday"
-                value="${profile.birthday ? profile.birthday.format('MMM dd ') : 'MM/DD/YYYY'}">
+              <input type="text" id="datepicker" name="birthday"
+                value=""/>
           </td>
         </tr>
         <tr>
@@ -156,7 +156,7 @@
               #{/if}
           #{if profile.gender}
           <tr>
-            <td><label>Sex:</label></td>
+            <td><label><b>Sex:</b></label></td>
             <td class="data">${profile.gender}</td>
           </tr>
           #{/if}
@@ -193,13 +193,13 @@
           #{/if}
           #{if profile.religion}
           <tr>
-            <td><label>Religious views: </label></td>
-            <td>${profile.religion}</td>
+            <td><label><b>Religious views: </b></label></td>
+            <td>   ${profile.religion}</td>
             </tr>
           #{/if}
           #{if profile.political}
             <tr>
-                <td><label>Political Views: </label></td>
+                <td><label><b>Political Views: </b></label></td>
             	<td>${profile.political}</td>
             </tr>
           #{/if}

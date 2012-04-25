@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.DateFormat;
 import java.util.*;
 
 import play.*;
@@ -23,13 +24,16 @@ public class Profiles extends OBController {
 		renderTemplate("Application/edit_basic.html", profile);
 	}
 	
-	public static void updateInformation(Date birthday, String relationshipStatus, String gender, String interestedIn, 
+	public static void updateInformation(String birthday, String relationshipStatus, String gender, String interestedIn, 
 	Date anniversary, String language, String religion, String political){
 		User user = user();
 		Profile profile = Profile.find("owner = ?", user).first();
+		System.out.println("*****\n\n\nBirthday is this: " + birthday);
 //		Profile profile = user.profile;
 	  profile.religion = religion;
-	  profile.birthday = birthday;
+//	  DateFormat birthday_formatting = new DateFormat();
+//	  profile.birthday = (new DateFormat()).parse(birthday);
+//	  profile.birthday = birthday;
 	  profile.gender = gender;
 		profile.interestedIn = interestedIn;
 	  profile.relationshipStatus = relationshipStatus;		
@@ -44,8 +48,6 @@ public class Profiles extends OBController {
     	userlang.save();
     	profile.languages.add(userlang);
 		}
-		userlang = null;                                  /// ***** testing, make sure to remove
-		userlang.deleteAll();
 
 	  profile.political = political;
 		profile.save();

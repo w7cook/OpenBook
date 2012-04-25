@@ -52,6 +52,7 @@ Profile(bobProfile):
     email:          bob@gmail.com
     bio:            >
                     Hi, I'm Bob
+    religion:       Jewish
 
 Profile(jeffProfile):
     owner:          jeff
