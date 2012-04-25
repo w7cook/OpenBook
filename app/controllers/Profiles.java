@@ -1,13 +1,18 @@
 package controllers;
 
 import java.text.DateFormat;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
-import play.*;
-import play.mvc.*;
-import controllers.Secure;
-import models.*;
-import models.Profile.Relationship;
+import models.Enrollment;
+import models.Language;
+import models.Location;
+import models.Profile;
+import models.User;
+import models.UserLanguage;
+
+import org.apache.ivy.util.cli.ParseException;
 
 public class Profiles extends OBController {
 	
@@ -31,12 +36,17 @@ public class Profiles extends OBController {
 		System.out.println("*****\n\n\nBirthday is this: " + birthday);
 //		Profile profile = user.profile;
 	  profile.religion = religion;
-//	  DateFormat birthday_formatting = new DateFormat();
-//	  profile.birthday = (new DateFormat()).parse(birthday);
+	  DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
+//	  try{
+//	    profile.birthday = birthday_formatting.parse(birthday);
+//	  }
+//	  catch (ParseException e){
+//	    e.printStackTrace();
+//	  }
 //	  profile.birthday = birthday;
 	  profile.gender = gender;
 		profile.interestedIn = interestedIn;
-	  profile.relationshipStatus = relationshipStatus;		
+//	  profile.relationshipStatus = relationshipStatus;		
 
 		Language lang = Language.find("name = ?", language).first();
 //		if (lang == null){
@@ -56,7 +66,7 @@ public class Profiles extends OBController {
 	
 	public static void updateContactInfo(String phone, String address){
 		User user = user();
-		Profile profile = user.profile;
+		Profile profile = Profile.find("owner = ?", user).first();
 		
 		if(!phone.equals("Add A Phone Number"))
 			profile.phone = phone;

@@ -1,33 +1,8 @@
 #{extends 'main.html' /}
   <link rel="stylesheet" type="text/css" media="screen"
     href="@{'/public/stylesheets/about.css'}" />
-
-<script>
-  $(document).ready(function(){
-      $("button#AboutMeEditButton").click(function(){$("div#EditDataAboutMe").toggle(); 
-                        $("div#AboutMeData").toggle(); return false;});
-    $("button#InformationEditButton").click(function(){$("div#EditDataInformation").toggle(); 
-                        $("div#InformationData").toggle(); return false;}); 
-    $("button#ContactInfoEditButton").click(function(){$("div#EditDataContactInfo").toggle(); 
-                        $("div#ContactInfoData").toggle(); return false;}); 
-    $("button#WorkEduEditButton").click(function(){$("div#EditDataWorkEdu").toggle(); 
-                        $("div#WorkEduData").toggle(); return false;});
-    $("button#LivingEditButton").click(function(){$("div#EditDataLiving").toggle(); 
-                        $("div#LivingData").toggle(); return false;});  
-    $("button#QuoteEditButton").click(function(){$("div#EditDataQuote").toggle(); 
-                        $("div#QuoteData").toggle(); return false;});                         
-  });
-</script>
-
- <script>
-  $(function() {
-	$( "#datepicker" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		yearRange: "-100:+0"
-	});
-  });
-</script>
+    
+  <script type="text/javascript" src="/public/javascripts/profile.js"></script>
 
 <div class="globalContentAbout">  
   <div class="LeftColumnAbout">   
@@ -119,7 +94,7 @@
         #{if profile.hasAnniversary()}
         <tr>
           <td><label>&{'profile.anniversary'}: </br></label></td>
-          <td><script>DateInput('orderdate', true)</script></td>
+          <td><input type="text" id="datepicker" name="anniversary" value=""/></td>
         </tr>
         #{/if}
 

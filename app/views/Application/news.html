@@ -11,7 +11,7 @@
   <!--
       #{if user.id != currentUser.id}
       <a href="@{Posts.poke(user.id)}">Poke!</a>
-      #{/if}
+      #{/if} -->
       
       #{if user.id == currentUser.id}
       <a id="about-button" href="@{Application.edit_basic(user.id)}">About me</a>
@@ -19,6 +19,7 @@
       #{else}
       <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
       #{/else}
+      <!--
 </div>
 <br />
 #{if user.checkFriendship(user.id) == 'Request Friendship'}
