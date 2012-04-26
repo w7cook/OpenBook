@@ -18,7 +18,7 @@
             <iframe src="${((models.Link)_item).external_url}"></iframe>
           </div>
         #{/if}
-        ${_item.content.nl2br()}
+        ${_item.content.markdown().nl2br()}
       </div>  
     </div>
 
