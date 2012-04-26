@@ -67,7 +67,7 @@ public class Photos extends OBController {
     if (image == null ||
         !MimeTypes.getContentType(image.getName()).matches(IMAGE_TYPE)) {
       validation.addError("image",
-                          "You must specify a valid image type to upload.");
+                          "validation.image.type");
       redirect("/users/" + user().id + "/photos");
     }
 
