@@ -35,7 +35,6 @@ public class Photos extends OBController {
   }
 
   public static void getPhoto(Long photoId) {
-
     Photo photo = Photo.findById(photoId);
     if (photo == null) {
       notFound("That photo does not exist.");

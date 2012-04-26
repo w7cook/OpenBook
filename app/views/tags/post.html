@@ -9,14 +9,18 @@
     </div>
     <div class="post-content">
       #{if _item.getClass().getName() == "models.Photo"}
-        <div class="post-image"><img src="@{Photos.getPhoto(_item.id)}" /></div>
+        <div class="post-image">
+          <img class="thumbnail" src="@{Photos.getPhoto(_item.id)}" />
+        </div>
       #{/if}
-      #{if _item.getClass().getName() == "models.Link"}
+      #{elseif _item.getClass().getName() == "models.Link"}
         <div class="post-link">
           <iframe src="${((models.Link)_item).external_url}"></iframe>
         </div>
-      #{/if}
-      ${_item.content.markdown().nl2br()}
+      #{/elseif}
+      #{else}
+        ${_item.content.markdown().nl2br()}
+      #{/else}
     </div>  
   </li>
 
