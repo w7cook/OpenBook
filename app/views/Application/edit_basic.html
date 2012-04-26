@@ -94,7 +94,7 @@
         #{if profile.hasAnniversary()}
         <tr>
           <td><label>&{'profile.anniversary'}: </br></label></td>
-          <!--<td><input type="text" id="datepicker" name="anniversary" value=""/></td> -->
+          <td><input type="text" id="datepicker" name="anniversary" value=""/></td>
         </tr>
         #{/if}
 
@@ -126,7 +126,7 @@
           #{if profile.birthday}
           <tr>
             <td><label><b>Birthday:</b></label></td>
-                <td class="data">${profile.birthday.format('MMM dd ')}</td>
+                <td class="data">${profile.birthday.format("MM/dd/yyyy")}</td>
           </tr>
               #{/if}
           #{if profile.gender}
@@ -144,15 +144,14 @@
           #{if profile.relationshipStatus}
           <tr>
             <td><label><b>Relationship Status: </b></label></td>
-            <td>${profile.relationshipStatus}
+            <td class="data">${profile.relationshipStatus}
             </td>
           </tr>
           #{/if}
           #{if profile.hasAnniversary()}
           <tr>
             <td><label><b>Anniversary: </b></br></label></td>
-            <td>${profile.anniversary}
-            </td>
+            <td class="data">${profile.anniversary.format("MM/dd/yyyy")}</td>
           </tr>
           #{/if}
           #{if profile.languages.size() > 0}

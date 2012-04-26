@@ -30,21 +30,25 @@ public class Profiles extends OBController {
 	}
 	
 	public static void updateInformation(String birthday, String relationshipStatus, String gender, String interestedIn, 
-	                  Date anniversary, String language, String religion, String political){
+	                  String anniversary, String language, String religion, String political){
 		User user = user();
 		Profile profile = Profile.find("owner = ?", user).first();
-		System.out.println("*****\n\n\nBirthday is this: " + birthday + "\n\n\n\n\n\n******");
 	  profile.religion = religion;
-    DateFormat birthday_formatting = new SimpleDateFormat("dd-MMM-yy");
+    DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
 	  try{
 	    profile.birthday = (Date) birthday_formatting.parse(birthday);
-	     System.out.println("\n\n\nTest try block\n\n\n\n");
 	  } catch (java.text.ParseException e) {
       e.printStackTrace();
     }
 	  
 	  profile.gender = gender;
 		profile.interestedIn = interestedIn;
+		DateFormat anniversary_formatting = new SimpleDateFormat("MM/dd/yyyy");
+		try {
+		  profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
+		} catch (java.text.ParseException e) {
+		  e.printStackTrace();
+		}
 //	  profile.relationshipStatus = relationshipStatus;		
 
 		Language lang = Language.find("name = ?", language).first();
