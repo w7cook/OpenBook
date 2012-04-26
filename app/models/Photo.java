@@ -9,6 +9,8 @@ import play.libs.*;
 import play.db.jpa.*;
 import play.data.validation.*;
 import net.coobird.thumbnailator.*;
+import net.coobird.thumbnailator.geometry.*;
+import net.coobird.thumbnailator.name.*;
 
 @Entity
 public class Photo extends Post {
@@ -29,7 +31,8 @@ public class Photo extends Post {
   }
 
   public Photo(User owner, File image, String caption)
-                                    throws IOException, FileNotFoundException {
+                                      throws IOException,
+                                             FileNotFoundException {
     super(owner, owner, caption);
     shrinkImage(image);
     this.image = fileToBlob(image);
@@ -43,9 +46,21 @@ public class Photo extends Post {
     this.createThumbnails();
   }
 
-  /* Create a thumbnail for each size specified in THUMBNAIL_SIZES. */
-  private void createThumbnails() {
-    
+  private void createThumbnails() throws IOException {
+    this.thumbnail120x120 = this.createThumbnailBlob(120, 120);
+    this.thumbnail50x50 = this.createThumbnailBlob(50, 50);
+    this.thumbnail30x30 = this.createThumbnailBlob(30, 30);
+  }
+
+  private Blob createThumbnailBlob(int width, int height) throws IOException {
+    File image = this.image.getFile();
+    File thumbnail = Thumbnails.of(image)
+                               .size(width, height)
+                               .crop(Positions.CENTER)
+                               .outputFormat("jpg")
+                               .asFiles(Rename.NO_CHANGE)
+                               .get(0);
+    return fileToBlob(thumbnail);
   }
 
   /**
