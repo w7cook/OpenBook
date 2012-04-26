@@ -51,6 +51,11 @@ POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /photos/setGravatar                     Photos.setGravatar
 
+# Thumbnails
+GET     /photos/120x120/{<[0-9]+>photoId}       Thumbnails.get120x120
+GET     /photos/50x50/{<[0-9]+>photoId}         Thumbnails.get50x50
+GET     /photos/30x30/{<[0-9]+>photoId}         Thumbnails.get30x30
+
 #Signup
 GET     /signup                                 Signup.signup
 GET     /captcha                                Signup.captcha
