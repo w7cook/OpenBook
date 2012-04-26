@@ -8,13 +8,8 @@ require:
    - play -> markdown 1.7
    - org.elasticsearch -> elasticsearch 0.17
    - se.scalablesolutions.akka -> akka-amqp 1.1.2
-<<<<<<< HEAD
-     
-=======
    - net.coobird -> thumbnailator 0.4.1
-    
->>>>>>> 6c3aac98cb71869a4360205d7485659159ce609d
- 
+     
 repositories:
     - elasticsearch:
         type: iBiblio
