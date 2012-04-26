@@ -13,13 +13,11 @@ import models.*;
 import java.security.*;
 import java.net.*;
 import java.awt.image.*;
-import net.coobird.thumbnailator.*;
 
 public class Photos extends OBController {
 
   /* All possible image mime types in a single regex. */
   public static final String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
-  public static final int MAX_PIXEL_SIZE = 1024;
   public static final int MAX_FILE_SIZE = 2 * 1024 * 1024;  /* Size in bytes. */
 
   public static void photos(Long ownerId) {
@@ -35,7 +33,6 @@ public class Photos extends OBController {
   }
 
   public static void getPhoto(Long photoId) {
-
     Photo photo = Photo.findById(photoId);
     if (photo == null) {
       notFound("That photo does not exist.");
@@ -47,51 +44,20 @@ public class Photos extends OBController {
   }
 
   /**
-   * Convert a given File to a Photo model.
-   *
-   * @param   image   the file to convert.
-   * @return          the newly created Photo model.
-   * @throws          FileNotFoundException
-   */
-  public static Photo fileToPhoto(File image) throws FileNotFoundException {
-    Blob blob = new Blob();
-    blob.set(new FileInputStream(image),
-        MimeTypes.getContentType(image.getName()));
-    return new Photo(user(), blob);
-  }
-
-  /**
    * Convert a given File to a Photo model.Used in Bootstrap.java
    *
    * @param   image   the file to convert.
    * @return          the newly created Photo model.
    * @throws          FileNotFoundException
    */
-  public static Photo initFileToPhoto(String path, String caption) throws FileNotFoundException {
+  public static Photo initFileToPhoto(String path, String caption)
+                                                  throws IOException,
+                                                         FileNotFoundException {
     File image = new File(path);
-    Blob blob = new Blob();
-    blob.set(new FileInputStream(image),
-        MimeTypes.getContentType(image.getName()));
     User user = User.find("username = ?", "default").first();//set owner as default owner
-    Photo photo = new Photo(user, blob);
-    photo.content = caption;//give credit
+    Photo photo = new Photo(user, image, caption);
     photo.save();
     return photo;
-  }
-
-  /**
-   * Shrink the image to MAX_PIXEL_SIZE if necessary.
-   *
-   * @param   image   the file to convert.
-   * @throws          IOException
-   */
-  private static void shrinkImage(File image) throws IOException {
-    BufferedImage bufferedImage = ImageIO.read(image);
-    if (bufferedImage != null && (bufferedImage.getWidth() > MAX_PIXEL_SIZE ||
-                                  bufferedImage.getHeight() > MAX_PIXEL_SIZE)) {
-      Thumbnailator.createThumbnail(image, image,
-                                    MAX_PIXEL_SIZE, MAX_PIXEL_SIZE);
-    }
   }
 
   public static void addPhoto(File image) throws FileNotFoundException,
@@ -103,8 +69,7 @@ public class Photos extends OBController {
       redirect("/users/" + user().id + "/photos");
     }
 
-    shrinkImage(image);
-    Photo photo = fileToPhoto(image);
+    Photo photo = new Photo(user(), image);
     validation.match(photo.image.type(), IMAGE_TYPE);
     validation.max(photo.image.length(), MAX_FILE_SIZE);
 
@@ -163,8 +128,7 @@ public class Photos extends OBController {
   public static void addProfilePhoto(File image) throws FileNotFoundException, IOException {
     if(image != null) {
       try {
-        shrinkImage(image);
-        Photo photo = fileToPhoto(image);
+        Photo photo = new Photo(user(), image);
         validation.match(photo.image.type(), IMAGE_TYPE);
         validation.max(photo.image.length(), MAX_FILE_SIZE);
 
@@ -202,8 +166,7 @@ public class Photos extends OBController {
         ImageIO.write(image, "jpg",gravatar);
 
         if(gravatar != null) {
-          shrinkImage(gravatar);
-          Photo photo = fileToPhoto(gravatar);
+          Photo photo = new Photo(user(), gravatar);
           validation.match(photo.image.type(), IMAGE_TYPE);
           validation.max(photo.image.length(), MAX_FILE_SIZE);
 
@@ -231,15 +194,7 @@ public class Photos extends OBController {
         ImageIO.write(image, "jpg",gravatar);
 
         if(gravatar != null){
-
-          shrinkImage(gravatar);
-
-          //create new blob
-          Blob blob = new Blob();
-          blob.set(new FileInputStream(gravatar),
-                   MimeTypes.getContentType(gravatar.getName()));
-
-          oldPhoto.image = blob;
+          oldPhoto.updateImage(gravatar);
           validation.match(oldPhoto.image.type(), IMAGE_TYPE);
           validation.max(oldPhoto.image.length(), MAX_FILE_SIZE);
 
