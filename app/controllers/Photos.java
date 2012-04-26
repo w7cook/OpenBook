@@ -64,13 +64,14 @@ public class Photos extends OBController {
                                                  IOException {
     validation.keep(); /* Remember any errors after redirect. */
 
-    if (image == null) {
-      validation.addError("image", "You must specify an image to upload.");
+    if (image == null ||
+        !MimeTypes.getContentType(image.getName()).matches(IMAGE_TYPE)) {
+      validation.addError("image",
+                          "You must specify a valid image type to upload.");
       redirect("/users/" + user().id + "/photos");
     }
 
     Photo photo = new Photo(user(), image);
-    validation.match(photo.image.type(), IMAGE_TYPE);
     validation.max(photo.image.length(), MAX_FILE_SIZE);
 
     if (!validation.hasErrors()) {
