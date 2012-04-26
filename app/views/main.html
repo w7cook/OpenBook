@@ -55,7 +55,6 @@
     });
   });
 </script>
-
     <link rel="stylesheet" type="text/css" media="screen"
 	      href="@{Skins.stylesheet()}" />
     <link rel="stylesheet" type="text/css" media="screen"
@@ -74,8 +73,8 @@
   <body id="page">
     <header id="header">
       <a id="logo" class="logo" href="@{Application.news()}" style="padding-left:5px;">openbook</a>
-      <a id="showFriends"><img src="@{'public/images/friend_request_icon.png'}" /></a>
-      <body>${currentUser.requestedFriendCount()}</body>
+      <a id="showFriends"><i class="icon-user"></i></a>
+      ${currentUser.requestedFriendCount()}
       <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
       <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
       <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >
