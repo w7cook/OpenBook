@@ -35,14 +35,9 @@
 
   <ul class="photo-list">
     #{list items:photos, as:'photo' }
-      <li>
         <img src="@{Thumbnails.get120x120(photo.id)}" />
-        #{if currentUser.equals(photo.owner)}
-          #{form @Photos.setProfilePhoto(photo.id)}
-            <input type="submit" name="submit" class="btn" value=&{'photo.setAsProfilePhoto'} />
-          #{/form}
-        #{/if}
-      </li>
+        <a class = "button" href="@{Photos.setProfilePhoto(photo.id)}">
+        &{'photo.setAsProfilePhoto'}</a> <br>
     #{/list}
   </ul>
 </div>
