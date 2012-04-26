@@ -58,7 +58,7 @@ public class Videos extends OBController {
             
       LinkedVideo new_vid = new LinkedVideo(usr, video_title, video_link, video_caption, (int)link_type, getVideoId(video_link, link_type));
       
-      new_vid.likes = new ArrayList<Likes>();
+      new_vid.thoseWhoLike = new HashSet<User>();
       new_vid.comments = new ArrayList<Comment>();
       new_vid.thumbnail_url = getThumb(new_vid.video_id, link_type);
       new_vid.save();
@@ -155,7 +155,7 @@ public class Videos extends OBController {
   public static void removeComment(long comment_id){
     Comment com = Comment.findById(comment_id);
     LinkedVideo vid = (LinkedVideo) com.parentObj;
-    if (!com.author.equals(user()))
+    if (!com.owner.equals(user()))
       forbidden();
     com.delete();
     
