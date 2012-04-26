@@ -74,7 +74,7 @@
         </tr>
 
         <tr>
-          <td><label>&{'profile.relationship.status'}: </label></td>
+          <td><label><b>&{'profile.relationship.status'}: </b></label></td>
           <td>#{select 'status',
                 value:profile.relationshipStatus} 
                 #{option 'Single'}Single#{/option} 
@@ -93,26 +93,26 @@
 
         #{if profile.hasAnniversary()}
         <tr>
-          <td><label>&{'profile.anniversary'}: </br></label></td>
+          <td><label><b>&{'profile.anniversary'}: </b></br></label></td>
           <td><input type="text" id="datepicker" name="anniversary" value=""/></td>
         </tr>
         #{/if}
 
         <tr>
-          <td><label>&{'profile.languages'}: </label>
+          <td><label><b>&{'profile.languages'}: </b></label>
           </td>
           <td><input type=text name="language"
                 value="Add a language"/>
           </td>
         </tr>
         <tr>
-          <td><label>&{'profile.religious.views'}: </label></td>
+          <td><label><b>&{'profile.religious.views'}: </b></label></td>
           <td><input size=20 type=text name=religion
                 value="${profile.religion ? profile.religion : ''}">
           </td>
         </tr>
         <tr>
-          <td><label>&{'profile.political.views'}: </label></td>
+          <td><label><b>&{'profile.political.views'}: </b></label></td>
           <td><input size=20 type=text name=political
                 value="${profile.political ? profile.political : ''}">
           </td>
