@@ -12,8 +12,6 @@ import net.coobird.thumbnailator.*;
 import net.coobird.thumbnailator.geometry.*;
 import net.coobird.thumbnailator.name.*;
 
-import controllers.Thumbnails;
-
 @Entity
 public class Photo extends Post {
 
