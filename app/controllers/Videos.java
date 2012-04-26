@@ -57,8 +57,8 @@ public class Videos extends OBController {
     else{
             
       LinkedVideo new_vid = new LinkedVideo(usr, video_title, video_link, video_caption, (int)link_type, getVideoId(video_link, link_type));
-      
-      new_vid.thoseWhoLike = new HashSet<User>();
+     	
+			new_vid.thoseWhoLike = new HashSet<User>();
       new_vid.comments = new ArrayList<Comment>();
       new_vid.thumbnail_url = getThumb(new_vid.video_id, link_type);
       new_vid.save();
@@ -79,7 +79,7 @@ public class Videos extends OBController {
   
   public static char decipherLinkType(String link){
     
-    Pattern YOUTUBE = Pattern.compile("(?:https?://)?(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w]*");
+    Pattern YOUTUBE = Pattern.compile("(?:https?://)?(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w\\-]*");
     Pattern DAILYMOTION = Pattern.compile("(?:https?://)?(?:www\\.)?dailymotion\\.com/video/([\\w\\d]{6})(?:_.*)?");
     Pattern VIMEO = Pattern.compile("(?:https?://)?(?:www\\.)?vimeo\\.com/(\\d)+");
     
@@ -100,7 +100,7 @@ public class Videos extends OBController {
   
   public static String getVideoId(String link, char link_type){
     
-    Pattern YOUTUBE = Pattern.compile("https?://(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w]*");
+    Pattern YOUTUBE = Pattern.compile("https?://(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w\\-]*");
     Pattern DAILYMOTION = Pattern.compile("https?://(?:www\\.)?dailymotion\\.com/video/([\\w\\d]{6})(?:_.*)?");
     Pattern VIMEO = Pattern.compile("https?://(?:www\\.)?vimeo\\.com/(\\d)+");
     
