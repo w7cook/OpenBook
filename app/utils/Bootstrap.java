@@ -23,7 +23,7 @@ public class Bootstrap extends Job {
       //load in pictures
       Photo photo;
       String path = new java.io.File(".").getCanonicalPath() + "/public/images/";
-      photo = Photos.initFileToPhoto(path+"GreenTaijitu.svg",
+      photo = Photos.initFileToPhoto(path+"GreenTaijitu.png",
                                      "By Chinneeb via Wikimedia Commons");
       peacePhotoID = photo.id;
       photo = Photos.initFileToPhoto(path+"default.png",
