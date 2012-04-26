@@ -2,10 +2,10 @@
 <div class="grid_3">
   <div class="profile-pic">
     #{if (user.profile.profilePhoto.id == -1 || user.profile.profilePhoto == null)} 
-      <img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
+      <img src="@{Thumbnails.get120x120(2)}" />
     #{/if} 
     #{else} 
-      <img src="@{Photos.getPhoto(user.profile.profilePhoto.id)}" height="120" width="120" /> 
+      <img src="@{Thumbnails.get120x120(user.profile.profilePhoto.id)}" />
     #{/else}
   </div>
   <div style="clear: both;text-align:center;width: 100%;">

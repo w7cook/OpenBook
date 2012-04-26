@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import play.data.validation.Phone;
+
 import utils.Bootstrap;
 
 import controllers.Photos;
@@ -35,7 +37,7 @@ public class Profile extends Model {
   @OneToOne
   public Photo gravatarPhoto;
 
-  public Date birthday; // The user's birthday, uses javascript: http://www.dynamicdrive.com/dynamicindex7/jasoncalendar.htm
+  public Date birthday; // The user's birthday, uses jJQuery UI
 
   @ManyToOne
   public Location location; // The user's current city
@@ -100,7 +102,7 @@ public class Profile extends Model {
 
 
   //CONTACT INFORMATION
-  public String phone; // the user's phone number
+  @Phone public String phone; // the user's phone number
   public String address; // the user's address
   public String website; // the user's website
   public String email; //the user's email
