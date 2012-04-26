@@ -1,8 +1,7 @@
 <div class="post" id="post${_item.id}">
   <div class="hideable">
     <div class="left">
-      <img style="width: 50px; height: 50px;"
-           src="@{Photos.getPhoto(_item.owner.profile.profilePhoto.id)}" />
+      <img src="@{Thumbnails.get50x50(_item.owner.profile.profilePhoto.id)}" />
     </div>
     
     <div class="individual-post">
@@ -52,8 +51,8 @@
     </div>    
     
     <div id="new_comment_for_post${_item.id}" style="clear: both;" >
-      <img style="width: 30px; height: 30px; vertical-align: top;"      
-           src=@{Photos.getPhoto(_user.profile.profilePhoto.id)} display="inline" />       
+      <img style="vertical-align: top;"      
+           src=@{Thumbnails.get30x30(_user.profile.profilePhoto.id)} display="inline" />       
       <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" placeholder="new comment..." 
                 style="color:grey;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
       <button class="button" id="commentSubmit${_item.id}" onclick="submitComment(${_item.id})">Comment</button>
