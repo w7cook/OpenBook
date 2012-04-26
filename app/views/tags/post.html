@@ -26,20 +26,17 @@
 
     <!-- Post Metadata -->  
   <li class="individual-post-metadata" style="margins:0.5em 0;">
+    ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}.
     <span id ="post${_item.id}likes">
-      ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
+      ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if}.
     </span> 
     <button id="likepost${_item.id}"class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
       #{if _item.likedBy(_user)}&{'comment.unlike'}#{/if}
       #{else}&{'comment.like'}#{/else}
     </button>
-    . ${_item.comments.size()} Comment
-    #{if _item.comments.size() != 1}s
-      . 
-      #{timeago date:_item.updatedAt /}
-      #{if _item.owner ==  _user} 
-        . <button class="button" onclick="deleteThing(${_item.id}, 'post')">remove post</button> 
-      #{/if}
+    #{timeago date:_item.updatedAt /}.
+    #{if _item.owner ==  _user} 
+      <button class="button" onclick="deleteThing(${_item.id}, 'post')">remove post</button> 
     #{/if}
   </li>
 
