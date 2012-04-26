@@ -17,7 +17,9 @@
             <iframe src="${((models.Link)_item).external_url}"></iframe>
           </div>
         #{/if}
+        #{if _item.getClass().getName() != "models.Photo"}
         ${_item.content.markdown().nl2br()}
+        #{/if}
       </div>  
     </div>
 
