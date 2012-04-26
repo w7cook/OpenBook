@@ -12,11 +12,13 @@ import models.UserLanguage;
 
 import org.apache.ivy.util.cli.ParseException;
 
+import play.data.validation.Error;
+
 public class Profiles extends OBController {
 	
 	public static void updateBio(String bio){
 		User user  = user();
-		Profile profile = user.profile;
+		Profile profile = Profile.find("owner = ?", user).first();
 		
 		if(!bio.equals("Write About Yourself"))
 			profile.bio = bio;
@@ -36,6 +38,7 @@ public class Profiles extends OBController {
     DateFormat birthday_formatting = new SimpleDateFormat("dd-MMM-yy");
 	  try{
 	    profile.birthday = (Date) birthday_formatting.parse(birthday);
+	     System.out.println("\n\n\nTest try block\n\n\n\n");
 	  } catch (java.text.ParseException e) {
       e.printStackTrace();
     }
@@ -60,10 +63,18 @@ public class Profiles extends OBController {
 		User user = user();
 		Profile profile = Profile.find("owner = ?", user).first();
 		
-		if(!phone.equals("Add A Phone Number"))
+		if(!phone.equals("Add A Phone Number")){
 			profile.phone = phone;
+		}
 		else
 			profile.phone = "";
+		validation.phone(profile.phone);
+		if(validation.hasErrors()) {
+		  for(Error error: validation.errors()){
+		    System.out.println("\n\n\n\n" + error.message() + "\n\n\n\n");
+		  }
+		  profile.phone = "Add A Phone Number";
+		}
 		
 		if(!address.equals("Add Current Address"))
 			profile.address = address;
@@ -127,7 +138,7 @@ public class Profiles extends OBController {
 	
 	public static void updateQuote(String quotation){
 		User user = user();
-		Profile profile = user.profile;
+		Profile profile = Profile.find("owner = ?", user).first();
 		
 		if(!quotation.equals("Add a Favorite Quotation"))
 			profile.quotes = quotation;

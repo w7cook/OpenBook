@@ -46,7 +46,7 @@ Profile(bobProfile):
     locale:         Austin
     significantOther:   alice
     anniversary:    2000-01-01
-    birthday:       1990-04-24
+    birthday:       1990-04-29
     phone:          555-123-4567
     address:        123 Somewhere St.
     email:          bob@gmail.com

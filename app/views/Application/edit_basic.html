@@ -14,7 +14,7 @@
         #{form @Profiles.updateBio() }
         <table>
           <tr>
-            <td><label>&{'profile.bio'}:</label>
+            <td><label><b>&{'profile.bio'}:</b></label>
             </td>
 
             <td><input size=50 type="text" name="bio" onfocus="if(this.value == 'Write About Yourself'){this.value = '';}"
@@ -31,7 +31,7 @@
         <table>
           #{if profile.bio}
           <tr>
-            <td><label>&{'profile.bio'}:</label></td>
+            <td><label><b>&{'profile.bio'}:</b></label></td>
             <td>${profile.bio}</td>
           </tr>
           #{/if}
@@ -150,7 +150,7 @@
           #{/if}
           #{if profile.hasAnniversary()}
           <tr>
-            <td><label>Anniversary: </br></label></td>
+            <td><label><b>Anniversary: </b></br></label></td>
             <td>${profile.anniversary}
             </td>
           </tr>
@@ -189,14 +189,14 @@
         #{form @Profiles.updateContactInfo()}
         <table>
             <tr>
-              <td><label>&{'profile.phone'}: </label></td>
+              <td><label><b>&{'profile.phone'}: </b></label></td>
               <td><input type="text" name="phone" onfocus="if(this.value == 'Add A Phone Number'){this.value = '';}"
 				onblur="if(this.value == ''){this.value='Add A Phone Number';}"
                 value="${profile.phone ? profile.phone : 'Add A Phone Number'}">
               </td>
             </tr>
             <tr>
-              <td><label>&{'profile.address'}: </label></td>
+              <td><label><b>&{'profile.address'}: </b></label></td>
               <td><input type="text" name="address" onfocus="if(this.value == 'Add Current Address'){this.value = '';}"
 				onblur="if(this.value == ''){this.value='Add Current Address';}"
                 value="${profile.address ? profile.address : 'Add Current Address'}">
@@ -211,13 +211,20 @@
         <table>
           #{if profile.phone}
           <tr>
-              <td><label>Phone: </label></td>
-          <td>${profile.phone}</td>
+              <td><label><b>Phone: </b></label></td>
+          #{ifErrors}
+          	#{errors}
+          	  <li><b>Please enter a phone number</b></li>
+          	#{/errors}
+          #{/ifErrors}
+          #{else}
+            <td>${profile.phone}</td>
+          #{/else}
           </tr>
           #{/if}
           #{if profile.address}
           <tr>
-              <td><label>Address: </label></td>
+              <td><label><b>Address: </b></label></td>
           <td>${profile.address}</td>
           </tr>
           #{/if}
