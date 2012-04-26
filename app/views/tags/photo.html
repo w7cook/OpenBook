@@ -1,5 +1,5 @@
 <li>
-  <img class="thumbnail" src=@{Photos.getPhoto(_photo.id)} />
+  <img class="thumbnail" src=@{Thumbnails.get120x120(_photo.id)} />
   #{if _currentUser.equals(_photo.owner)}
     <br />
     <a href="@{Photos.removePhoto(_photo.id)}"
