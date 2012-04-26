@@ -24,10 +24,8 @@
     </div>  
   </li>
 
-  <hr>
-    
     <!-- Post Metadata -->  
-  <li class="individual-post-metadata">
+  <li class="individual-post-metadata" style="margins:0.5em 0;">
     <span id ="post${_item.id}likes">
       ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
     </span> 
@@ -44,8 +42,6 @@
       #{/if}
     #{/if}
   </li>
-
-  <hr>
 
   <li id="commentsArea"> 
     <ul id="commentsList${_item.id}" class="unstyled commentsList">
