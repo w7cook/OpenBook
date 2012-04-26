@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="-41.5 -41.5 83 83">
-<circle fill="#027e40" r="38" stroke="#027e40" stroke-width="3px"/>
-<g fill="#fff">
-<path d="M0,38A19,19 0 1,1 0,0A19,19 0 1,0 0-38A38,38 0 1,0 0,38M0-14a5,5 0 0,1 0-10a5,5 0 0,1 0,10"/>
-<circle cy="19" r="5"/>
-</g></svg>
