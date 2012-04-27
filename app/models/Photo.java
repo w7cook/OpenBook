@@ -57,6 +57,7 @@ public class Photo extends Post {
     File thumbnail = Thumbnails.of(image)
                                .size(width, height)
                                .crop(Positions.CENTER)
+                               .outputQuality(1.0)
                                .asFiles(Rename.NO_CHANGE)
                                .get(0);
     return fileToBlob(thumbnail);
