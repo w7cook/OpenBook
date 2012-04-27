@@ -59,7 +59,7 @@ function initialize() {
                 ].join(' ');
     }
     
-    infowindow.setContent('<div><a href="checkin/at?location='+
+    infowindow.setContent('<div><a href="checkins/at?location='+
                           place.geometry.location+'&name='+place.name+
                           '&address='+place.formatted_address+
                           '">Checkin Here</a><br>'+

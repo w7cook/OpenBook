@@ -13,6 +13,8 @@ title=openbook
 checkin.at=You checked in at
 checkin.checkin=Checkin
 checkin.iamat=I am at
+checkin.checkedinat=Checked in at: 
+
 
 # Comment
 comment.like = Like
