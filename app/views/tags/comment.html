@@ -3,7 +3,7 @@
   <div class="comment-content span4">
     <div class="comment-author">              
       <a href="@{Users.about(_comment.owner.id)}">
-        <img src="@{Thumbnails.get30x30(_comment.owner.profile.profilePhoto.id)}" />
+        <img src="@{Thumbnails.get30x30(_comment.owner.profile.profilePhoto.id)}" width="30" height="30" />
         ${_comment.owner.name}
       </a>
     </div>

@@ -17,7 +17,7 @@
       <div class="post">
         <div class="hideable">
           <div class="left">
-            <img src=@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)} />
+            <img src=@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)} width="50" height="50" />
           </div>
           <div class="tohide hide">
             <div class="post-content">${item.content.markdown().nl2br()}</div>
