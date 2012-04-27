@@ -10,6 +10,8 @@ validation.max=Image size cannot exceed %2$d bytes
 checkin.at=You checked in at
 checkin.checkin=Checkin
 checkin.iamat=I am at
+checkin.checkedinat=Checked in at: 
+
 
 # Comment
 comment.like = Like
