@@ -29,7 +29,7 @@
       <div class="message" id="msg${item.id}">
       <div class="hideable">
         <div class="left">
-          <img src="@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)}" />
+          <img src="@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)}" width="50" height="50" />
         </div>
         <div class="individual-msg-metadata">
           #{timeago date:item.updatedAt /}
