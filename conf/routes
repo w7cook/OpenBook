@@ -118,8 +118,7 @@ GET     /relationships                                  Relationships.relationsh
 GET     /users/{<[0-9]+>userId}/timeline                Timeline.Timeline #Get timeline for specific user
 
 # Checkin
-GET     /checkin                                        Checkin.checkin
-GET     /checkin/at                                     Checkin.at
+GET     /checkins                                        Checkin.checkin
 
 *       /photos/{anything}                              404
 *       /users/{anything}/photos/?                      404
