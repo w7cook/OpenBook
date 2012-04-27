@@ -165,12 +165,11 @@ public class User extends Postable {
 
 
   public List<Post> news() {
-    return Post.find("SELECT p FROM Post p INNER JOIN p.owner.friends u WHERE p.postedObj.id = u.id ORDER BY p.updatedAt DESC").fetch();
+    return Post.find("SELECT p FROM Post p INNER JOIN p.owner.friends u WHERE u = ?1 AND p.postedObj MEMBER OF User ORDER BY p.updatedAt DESC", this).fetch();
   }
 
   public List<Post> subscriptionNews() {
-    return Post.find(
-                     "SELECT p FROM Post p, IN(p.owner.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
+    return Post.find("SELECT p FROM Post p, IN(p.owner.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
                      this.id).fetch();
   }
 

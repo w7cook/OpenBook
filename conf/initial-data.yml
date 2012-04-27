@@ -1,4 +1,5 @@
 # Test data
+
 User(bob):
     first_name:         Bob
     last_name:          Thomson
