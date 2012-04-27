@@ -73,8 +73,10 @@ public class Photo extends Post {
     BufferedImage bufferedImage = ImageIO.read(image);
     if (bufferedImage != null && (bufferedImage.getWidth() > MAX_PIXEL_SIZE ||
                                   bufferedImage.getHeight() > MAX_PIXEL_SIZE)) {
-      Thumbnailator.createThumbnail(image, image,
-                                    MAX_PIXEL_SIZE, MAX_PIXEL_SIZE);
+      Thumbnails.of(image)
+                .size(MAX_PIXEL_SIZE, MAX_PIXEL_SIZE)
+                .outputQuality(1.0)
+                .toFile(image);
     }
   }
 
