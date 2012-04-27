@@ -20,7 +20,7 @@ public class Checkin extends OBController {
   public static void at(String location, String name, String address) {
     if (location != null && name != null && address != null
         && !location.equals("") && !name.equals("") && !address.equals("")) {
-      new Post(user(), user(), HTML.htmlEscape("Checked in at: "+name+"\n"+address)).save();
+      new models.Checkin(user(), user(), location, name, address).save();
       Application.news(null);
     }
     else {
