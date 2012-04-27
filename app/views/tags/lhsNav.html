@@ -2,7 +2,7 @@
 <div class="profile-pic">
   <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a> 
   #{if (_user.profile.profilePhoto.id == -1 || _user.profile.profilePhoto == null)} 
-    <img src="@{Thumbnails.get120x120(2)}" />
+    <img src="@{Thumbnails.get120x120(2)}" height="120" width="120" />
   #{/if} 
   #{else} 
     <img src="@{Thumbnails.get120x120(_user.profile.profilePhoto.id)}" /> 
