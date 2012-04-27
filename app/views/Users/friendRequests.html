@@ -3,10 +3,10 @@
 <div id="contentArea-BigPage">
   <td>
     <h3>Friend Requests</h3> 
-    #{list items:user.requestedFriends(), as:'request'} 
-    <a href=@{Application.requestFriends(request.from.id)}>Accept</a>
-    <a href=@{Application.removeFriends(request.from.id)}>Deny</a> 
-    <a href=@{Application.news(request.from.id)}> ${request.from}</a><br>
+    #{list items:user.friendRequests, as:'request'} 
+      <a href=@{Users.requestFriends(request.id)}>Accept</a>
+      <a href=@{Users.removeFriends(request.id)}>Deny</a> 
+      <a href="/users/${request.id}"> ${request.name}</a><br>
     #{/list}
   </td>
 </div>

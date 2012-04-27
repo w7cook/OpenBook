@@ -55,7 +55,9 @@ public class Users extends OBController {
       notFound();
     if (!(user.isFriendsWith(currentUser) || user.equals(currentUser)))
       unauthorized();
-    render(currentUser, user);
+    Set<User> friends = new HashSet(user.friends);
+    friends.remove(user);
+    render(currentUser, friends);
   }
 
   public static void friendRequests(Long userId) {
@@ -130,6 +132,8 @@ public class Users extends OBController {
       notFound();
     other.friends.remove(user);
     user.friends.remove(other);
+    user.friendRequests.remove(other);
+    user.save();
     ok();
   }
 }

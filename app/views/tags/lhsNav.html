@@ -48,8 +48,10 @@
 <div class="lhs-navBoxHeader">FRIENDS</div>
 <div class="lhs-navBoxBody">
   #{list items:_user.friends, as:'friend'}
-    <a href="/users/${friend.id}">${friend.name}</a>
-    <br />
+    #{if !friend.equals(_user)}
+      <a href="/users/${friend.id}">${friend.name}</a>
+      <br />
+    #{/if}
   #{/list}
   <br />
   <a href="/users/${_user.id}/friends">see all friends..</a><br />

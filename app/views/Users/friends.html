@@ -9,7 +9,7 @@
   
   %{boolean toggle = true;}%
   <table>
-    #{list items:user.friends, as:'friendship'}
+    #{list items:friends, as:'friendship'}
       <tr>
         #{if (toggle == true)}
           <td>
