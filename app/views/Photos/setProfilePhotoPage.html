@@ -35,7 +35,7 @@
 
   <ul class="photo-list">
     #{list items:photos, as:'photo' }
-        <img src="@{Thumbnails.get120x120(photo.id)}" />
+        <img src="@{Thumbnails.get120x120(photo.id)}" width="120" height="120" />
         <a class = "button" href="@{Photos.setProfilePhoto(photo.id)}">
         &{'photo.setAsProfilePhoto'}</a> <br>
     #{/list}

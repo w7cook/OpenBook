@@ -95,7 +95,7 @@
       #{/form}
       <div class="account">
 	<a href="@{Application.account()}">
-	  <img src="@{Thumbnails.get30x30(currentUser.profile.profilePhoto.id)}"/> ${currentUser.name}
+	  <img src="@{Thumbnails.get30x30(currentUser.profile.profilePhoto.id)}" width="30" height="30" /> ${currentUser.name}
         </a>
         <a href="@{Application.news()}">Home</a>
 	<a href="@{Secure.logout()}">Logout</a>

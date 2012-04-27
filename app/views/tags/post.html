@@ -2,7 +2,7 @@
   <li class="individual-post">
     <div class="post-author" style="clear: both;">
       <a href="/users/${_item.owner.id}">
-        <img src="@{Thumbnails.get50x50(_item.owner.profile.profilePhoto.id)}" />
+        <img src="@{Thumbnails.get50x50(_item.owner.profile.profilePhoto.id)}" width="50" height="50" />
         ${_item.owner.name}
       </a>
     </div>
@@ -50,7 +50,7 @@
   
   <li id="new_comment_for_post${_item.id}" style="margin-top:1em;">
     <img style="vertical-align: top;"      
-         src=@{Thumbnails.get30x30(_user.profile.profilePhoto.id)} display="inline" />       
+         src=@{Thumbnails.get30x30(_user.profile.profilePhoto.id)} display="inline" width="30" height="30" />
     <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" placeholder="new comment..." 
               style="color:grey; width: 350px; height: 30px;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
     <button class="button" id="commentSubmit${_item.id}" onclick="submitComment(${_item.id})">Comment</button>
