@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-<div class="grid_3">
+<div class="span2">
   <div class="profile-pic">
     #{if (user.profile.profilePhoto.id == -1 || user.profile.profilePhoto == null)} 
       <img src="@{Thumbnails.get120x120(2)}" />
@@ -19,7 +19,7 @@
     Lives in: ${ user.profile.location}
   </div>
 </div>
-<div class="grid_12" id="postsList">
+<div class="span10" id="postsList">
   #{list items:user.posts, as:'item'}
     #{post user:currentUser, item:item /}
   #{/list}
