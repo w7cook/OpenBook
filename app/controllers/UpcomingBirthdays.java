@@ -40,7 +40,7 @@ public class UpcomingBirthdays extends OBController {
       Date friendBirthday = u.profile.birthday;
 
       if(friendBirthday == null) { //The user's friend did not set a birthday date field
-        x.to.getProfile().birthday = y; //for testing purposes
+        u.profile.birthday = y; //for testing purposes
         friendBirthday =  y; //for testing purposes
         //continue; //comment out for testing
       }
