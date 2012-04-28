@@ -98,15 +98,15 @@ public class Events extends OBController {
       User currentUser = user();
       validation.required(curEvent.name).message("Event name is required");
       validation.required(curEvent.script).message(
-                                                   "Event description is required");
+          "Event description is required");
       validation.required(curEvent.location).message(
-                                                     "Event location is required");
+          "Event location is required");
       validation.isTrue(!startMonth.equals("-1")).message(
-                                                          "Event start month is required");
+          "Event start month is required");
       validation.isTrue(!startDay.equals("-1")).message(
-                                                        "Event start day is required");
+          "Event start day is required");
       validation.isTrue(!startTime.equals("-1")).message(
-                                                         "Event start time is required");
+          "Event start time is required");
       if (validation.hasErrors()) {
         Event thisEvent = curEvent;
         renderTemplate("Events/addEvent.html", thisEvent);
