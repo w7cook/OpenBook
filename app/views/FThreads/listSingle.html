@@ -1,5 +1,7 @@
-#{extends 'main.html' /} #{set 'title'} OpenBook :: ${thread.title}
-#{/set}
+#{extends 'two_panel.html' /}  
+
+#{set 'title'} OpenBook :: ${thread.title} #{/set}
+
 
 <div id="forumContainer">
 	<div id="forumHeader">
@@ -13,42 +15,110 @@
 	<div class="forumInner">
 		<div class="threadAuthorInfo">
 			<a href="/?id=${thread.author.id}">${thread.author}</a>:<br /> <span
-				class="threadDate">${thread.postedAt.format('M-d-yy, h:mm
-				a')}</span>
+				class="threadDate">${thread.postedAt.format('M-d-yy, h:mm a')}</span>
 		</div>
 
 		<div class="threadContent">${thread.content}</div>
 	</div>
 
 
+	
 	#{list items:thread.comments(), as:'comment'}
 
-	<div class="forumInner">
+	<div class="forumInner comment${comment.id}">
 		<div class="threadAuthorInfo">
 			<a href="/?id=${comment.author.id}">${comment.author}</a>:<br /> <span
-				class="threadDate">${comment.createdAt.format('M-d-yy, h:mm
-				a')}</span>
+				class="threadDate">${comment.createdAt.format('M-d-yy, h:mm a')}
+				#{if comment.author ==  _user} 
+					<br /><a href="#" onclick="deleteComment(${comment.id}, event)">Remove post</a>
+				#{/if}
+				</span>
 		</div>
 
 		<div class="threadContent">${comment.content.escape().nl2br()}</div>
 	</div>
 	#{/list}
 
+
 	<div class="forumInner">
 		<div class="threadAuthorInfo">Post reply:</div>
 
 		<div class="threadContent">
-			<form action="">
-				<textarea id="threadReply">
-			 	</textarea>
+			<form action="#">
+				<textarea id="threadReply"></textarea>
+				
 
-				<input style="float: right" id="threadSubmit" type="submit"
-					value="Submit reply" />
+				<input style="float: right" id="threadSubmit" type="submit" onclick="event.preventDefault();" value="Submit reply" />
 				<div style="clear: both;"></div>
 			</form>
 		</div>
 
 	</div>
+	
+	<script type="text/javascript">
+	   $('input#threadSubmit').click(function(event) {
+	       var commentData = {
+	             commentContent : $("textarea#threadReply").val(),
+	             statusId : ${thread.id},
+	             userId : ${_user.id},
+	         };
+	       
+	         $.post("/comments/makeNewComment", commentData, function(data) {
+	       	 var $fi = $('.forumInner');
+	         var $el = $fi.eq($fi.length-2);
+	         
+	         var currentTime = new Date();
+	         var month = currentTime.getMonth() + 1;
+	         var day = currentTime.getDate();
+	         var year = currentTime.getYear().toString().slice(1);
+	         var hours = currentTime.getHours();
+	         var minutes = currentTime.getMinutes();
+	         if (minutes < 10)
+	         {
+	        	 minutes = "0" + minutes
+	         }
+	         if (hours == 0)
+	         {
+	        	 hours = 12;
+	        	 var ampm = "AM";
+	         }
+	         else if(hours > 11)
+	         {
+	        	 var ampm = "PM";
+	        	 hours = hours - 12;
+	         } 
+	         else 
+	         {
+	        	 var ampm = "AM";
+	         }
+
+	         var new_item = "<div class='forumInner comment#{if thread.comments().size() != 0}${comment.id + 1}#{/if}'>" +
+	         "<div class='threadAuthorInfo'>" +
+	           "<a href='/?id=${_user.id}'>${_user.name}</a>:<br /> <span class='threadDate'>" + 
+	            month + "-" + day + "-" + year + ", " + hours + ":" + minutes + " " + ampm + "<br /><a href='#' onclick='deleteComment(#{if thread.comments().size() != 0}${comment.id + 1}#{/if}, event)'>Remove post</a></span>" + 
+	           "</div><div class='threadContent'>" + commentData.commentContent +"</div></div>";
+	           $("textarea#threadReply").val("");
+	           $el.after(new_item);
+	           new_item.slideDown();
+	         });
+	   });
+	   
+	   
+	   function deleteComment(id, event) {
+		   event.preventDefault();
+		   var deleteData = {
+		             id : id,
+		             userId : ${_user.id},
+		         };
+		         $('div.comment' + id).slideUp();
+		         $.post("/comments/deleteComment", deleteData, function() {
+		         });   
+	   }
+	   
+	   
+	   
+	</script>
+	
 
 
 

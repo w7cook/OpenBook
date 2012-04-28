@@ -39,4 +39,14 @@ public class FThread extends Commentable {
   public List<Comment> comments() {
     return Comment.find("parentObj = ? order by createdAt asc", this).fetch();
   }
+  
+  public Comment last_comment() {
+	Comment last = null;
+	List<Comment> comments = Comment.find("parentObj = ? order by createdAt asc", this).fetch();
+	for(Comment elem:comments) {
+	    last = elem;
+	}
+	return last;
+  }
+  
 }

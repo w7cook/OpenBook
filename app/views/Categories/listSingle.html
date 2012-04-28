@@ -1,34 +1,45 @@
-#{extends 'main.html' /} #{set 'title'} OpenBook :: ${category.name}
-#{/set}
+#{extends 'two_panel.html' /} 
 
-<div id="forumContainer">
-	<div id="forumHeader">
-		<div class="headerLeft">
-			<a href="/threads">Forum</a> / ${category.name}
-		</div>
-		<div class="headerRight">Last post</div>
-	</div>
+#{set 'title'} OpenBook :: ${category.name} #{/set}
 
-	#{if FThreads.size()} #{list items:FThreads, as:'FThread'}
-	<div class="threadList">
-		<div class="forumInner">
-			<div class="threadLeft">
-				<a href="${FThread.category.id}/${FThread.id}">${FThread.title}</a>
+<div id="contentArea-AutoPage">
+	<h2>Public Threads</h2>
+	<hr>
+	<div id="forumContainer">
+		<div id="forumHeader">
+		<div style="width: 100%; height: 30px;"><a class="newThread" href="/threads/newThread/${category.id}">New thread</a></div>
+			
+			<div class="headerLeft">
+				<a href="/threads">Forum</a> / ${category.name}
 			</div>
-			<div class="threadRight" style="padding-top: 12px;">
-				<a href="/?id=${FThread.author.id}">${FThread.author}</a><br />
-				${FThread.postedAt.format('M-d-yy, h:mm a')}
+			<div class="headerRight">Last post</div>
+		</div>
+	
+		#{if FThreads.size()} #{list items:FThreads, as:'FThread'}
+		<div class="threadList">
+			<div class="forumInner">
+				<div class="threadLeft">
+					<a href="${FThread.category.id}/${FThread.id}">${FThread.title}</a>
+				</div>
+				<div class="threadRight" style="padding-top: 12px;">
+				#{if FThread.comments().size() > 0}
+					<a href="/?id=${FThread.last_comment().author.id}">${FThread.last_comment().author}</a><br />
+					${FThread.last_comment().createdAt.format('M-d-yy, h:mm a')}
+				#{/if}
+				#{else}
+					<a href="/?id=${FThread.author.id}">${FThread.author}</a><br />
+					${FThread.postedAt.format('M-d-yy, h:mm a')}
+				#{/else}
+				</div>
 			</div>
 		</div>
-	</div>
-	#{/list} #{/if} #{else}
-	<div class="threadList">
-		<div class="forumInner">
-			<div class="threadLeft">This category has no threads.</div>
+		#{/list} #{/if} #{else}
+		<div class="threadList">
+			<div class="forumInner">
+				<div class="threadLeft">This category has no threads.</div>
+			</div>
 		</div>
+		#{/else}
+	
 	</div>
-	#{/else}
-
 </div>
-
-<div style="clear: both;"></div>

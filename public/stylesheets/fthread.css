@@ -4,79 +4,53 @@ div#forumContainer {
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 700px;
-	font-family: "Lucida Grande";
-	font-size: 11px;
+	width: 100%;
 }
 
 div#forumHeader {
-	background: rgba(0, 0, 0, 0.2);
-	border-radius: 15px;
+	width: 100%;
 	font-weight: bold;
-	height: 40px;
-	color: #FFF;
-	text-shadow: 2px 2px 3px #000;
+	min-height: 30px;
 	font-size: 16px;
 }
 
-div#forumHeader a {
-	color: white;
-	text-decoration: none;
-}
-
-div#forumHeader a:hover {
-	text-decoation: underline;
-}
 
 div.forumInner {
-	margin-left: auto;
-	margin-right: auto;
-	width: 660px;
+	width: 100%;
 	border-bottom: 1px dotted black;
-	min-height: 50px;
+	min-height: 40px;
 	overflow: hidden;
 }
 
 div.threadList {
-	height: 50px;
-}
-
-div.threadList a {
-	color: black;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-div.threadList a:hover {
-	text-decoration: underline;
+	width: 100%;
+	padding: 0px;
 }
 
 div.threadLeft {
 	padding-top: 18px;
 	float: left;
-	width: 470px;
-	font-size: 13px;
+	width: 60%;
+	font-size: 15px;
 }
 
 div.threadRight {
 	padding-top: 4px;
 	float: right;
-	width: 190px;
-
+	width:35%;
+	font-size: 11px;
 }
 
 div.headerLeft {
-	margin-left: 20px;
 	margin-top: 10px;
 	float: left;
-	width: 470px;
+	width: 60%;
 }
 
 div.headerRight {
 	margin-top: 10px;
 	float: right;
-	width: 190px;
-	margin-right: 20px;
+	width: 35%;
 }
 
 div.thread {
@@ -85,31 +59,21 @@ div.thread {
 }
 
 div.threadAuthorInfo {
+	float: left;
 	font-weight: bold;
 	text-align: center;
 	font-size: 12px;
-	width: 200px;
-	float: left;
+	width: 25%;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
 
 div.threadContent {
-	width: 460px;
-	margin-left: 200px;
+	width: 70%;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	min-height: 30px;
-}
-
-div.threadAuthorInfo a {
-	font-weight: bold;
-	text-decoration: none;
-	color: black;
-}
-
-div.threadAuthorInfo a:hover {
-	text-decoration: underline;
+	float: right;
 }
 
 span.threadDate {
@@ -118,8 +82,8 @@ span.threadDate {
 }
 
 textarea#threadReply {
-	background: rgba(0, 0, 0, 0.2);
-	width: 445px;
+	background: rgba(0, 0, 0, 0.05);
+	width: 98%;
 	border: 1px dashed black;
 	min-height: 150px;
 	font-family: "Lucida Grande";
@@ -129,10 +93,8 @@ textarea#threadReply {
 
 input#threadSubmit {
 	margin-top: 10px;
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.05);
 	border-radius: 15px;
-	font-family: "Lucida Grande";
-	font-size: 10px;
 	font-weight: bold;
 	border: 0px;
 	padding: 5px;
@@ -142,4 +104,29 @@ span.threadError {
 	font-size: 12px;
 	font-weight: bold;
 	color: red;
+}
+
+a.newThread {
+	float: left;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	padding: 5px;
+	background: silver;
+}
+
+input#threadTitle {
+	width: 688px;
+	font-size: 16px;
+	font-weight: bold;
+	border: 1px solid black;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+textarea#threadText {
+	padding: 5px;
+	width: 688px;
+	height: 250px;
+	border: 1px solid black;
+	font-family: Helvetica;
 }
