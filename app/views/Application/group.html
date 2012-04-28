@@ -8,21 +8,21 @@
         <a href="@{Events.events()}">Events</a> <br>
         <a href="/users/${user.id}">about</a> <br> 
         <a href="@{Checkin.checkin()}">Checkin</a> <br>
-	<a href="/users${user.id}/friends">friends:</a><br>
-	#{list items:user.confirmedFriends(), as:'friendship'}
+        <a href="/users${user.id}/friends">friends:</a><br>
+        #{list items:user.confirmedFriends(), as:'friendship'}
           <a href="@{Application.news(friendship.to.id)}">${friendship.to.name }</a><br> #{/list} <br>Groups:<br>
-	#{list items:user.getGroups(), as:'Group'}
+        #{list items:user.getGroups(), as:'Group'}
           <a href="@{Application.group(Group.id)}">${Group.groupName}</a><br>
-	#{/list}
+        #{/list}
       </td>
       <td>
-	<h1>${group.groupName}</h1>
-	<h2>${group.description}</h2>
-	<h3>The group is owned by ${group.owner}</h3>
-	<h4>The Group members:</h4>
+        <h1>${group.groupName}</h1>
+        <h2>${group.description}</h2>
+        <h3>The group is owned by ${group.owner}</h3>
+        <h4>The Group members:</h4>
         #{list items:group.members, as:'member'}
           <a href="/users/${member.id}">${member.name}</a><br>
-	#{/list}
+        #{/list}
       </td>
     </tr>
   </table>
