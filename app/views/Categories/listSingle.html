@@ -23,13 +23,13 @@
 				</div>
 				<div class="threadRight" style="padding-top: 12px;">
 				#{if FThread.comments().size() > 0}
-					<a href="/?id=${FThread.last_comment().author.id}">
-					  ${FThread.last_comment().author}
+					<a href="/?id=${FThread.last_comment().owner.id}">
+					  ${FThread.last_comment().owner}
 					</a><br />
 					${FThread.last_comment().createdAt.format('M-d-yy, h:mm a')}
 				#{/if}
 				#{else}
-					<a href="/?id=${FThread.author.id}">${FThread.author}</a><br />
+					<a href="/?id=${FThread.owner.id}">${FThread.owner}</a><br />
 					${FThread.postedAt.format('M-d-yy, h:mm a')}
 				#{/else}
 				</div>

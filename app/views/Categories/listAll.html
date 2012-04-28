@@ -21,8 +21,8 @@
 					<a href="/threads/${category.get_most_recent().category.id}/
 					  ${category.get_most_recent().id}">
 					  ${category.get_most_recent().title}</a><br />
-					  Posted by: <a href="/?id=${category.get_most_recent().author.id}">
-					  ${category.get_most_recent().author}
+					  Posted by: <a href="/?id=${category.get_most_recent().owner.id}">
+					  ${category.get_most_recent().owner}
 					  </a><br />
 						${category.get_most_recent().postedAt.format('M-d-yy, h:mm a')}
 					#{/if}

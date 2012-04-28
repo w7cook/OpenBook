@@ -14,7 +14,7 @@
 
 	<div class="forumInner">
 		<div class="threadAuthorInfo">
-			<a href="/?id=${thread.author.id}">${thread.author}</a>:<br /> <span
+			<a href="/?id=${thread.owner.id}">${thread.owner}</a>:<br /> <span
 				class="threadDate">${thread.postedAt.format('M-d-yy, h:mm a')}</span>
 		</div>
 
@@ -27,9 +27,9 @@
 
 	<div class="forumInner comment${comment.id}">
 		<div class="threadAuthorInfo">
-			<a href="/?id=${comment.author.id}">${comment.author}</a>:<br /> <span
+			<a href="/?id=${comment.owner.id}">${comment.owner}</a>:<br /> <span
 				class="threadDate">${comment.createdAt.format('M-d-yy, h:mm a')}
-				#{if comment.author ==  _user} 
+				#{if comment.owner ==  _user} 
 					<br /><a href="#" onclick="deleteComment(${comment.id}, event)">Remove
 					post</a>
 				#{/if}
