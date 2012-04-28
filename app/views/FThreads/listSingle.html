@@ -62,10 +62,9 @@
 	       var commentData = {
 	             commentContent : $("textarea#threadReply").val(),
 	             statusId : ${thread.id},
-	             userId : ${_user.id},
 	         };
 	       
-	         $.post("/comments/makeNewComment", commentData, function(data) {
+	         $.post("/comments/addComment", commentData, function(data) {
 	       	 var $fi = $('.forumInner');
 	         var $el = $fi.eq($fi.length-2);
 	         
@@ -114,8 +113,7 @@
 	   function deleteComment(id, event) {
 		   event.preventDefault();
 		   var deleteData = {
-		             id : id,
-		             userId : ${_user.id},
+		             commentId : id,
 		         };
 		         $('div.comment' + id).slideUp();
 		         $.post("/comments/deleteComment", deleteData, function() {
