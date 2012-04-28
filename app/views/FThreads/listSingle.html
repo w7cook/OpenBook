@@ -30,7 +30,8 @@
 			<a href="/?id=${comment.author.id}">${comment.author}</a>:<br /> <span
 				class="threadDate">${comment.createdAt.format('M-d-yy, h:mm a')}
 				#{if comment.author ==  _user} 
-					<br /><a href="#" onclick="deleteComment(${comment.id}, event)">Remove post</a>
+					<br /><a href="#" onclick="deleteComment(${comment.id}, event)">Remove
+					post</a>
 				#{/if}
 				</span>
 		</div>
@@ -48,7 +49,8 @@
 				<textarea id="threadReply"></textarea>
 				
 
-				<input style="float: right" id="threadSubmit" type="submit" onclick="event.preventDefault();" value="Submit reply" />
+				<input style="float: right" id="threadSubmit" type="submit" 
+				       onclick="event.preventDefault();" value="Submit reply" />
 				<div style="clear: both;"></div>
 			</form>
 		</div>
@@ -92,11 +94,16 @@
 	        	 var ampm = "AM";
 	         }
 
-	         var new_item = "<div class='forumInner comment#{if thread.comments().size() != 0}${comment.id + 1}#{/if}'>" +
+	         var new_item = "<div class='forumInner comment" +
+	         "#{if thread.comments().size() != 0}${comment.id + 1}#{/if}'>" +
 	         "<div class='threadAuthorInfo'>" +
-	           "<a href='/?id=${_user.id}'>${_user.name}</a>:<br /> <span class='threadDate'>" + 
-	            month + "-" + day + "-" + year + ", " + hours + ":" + minutes + " " + ampm + "<br /><a href='#' onclick='deleteComment(#{if thread.comments().size() != 0}${comment.id + 1}#{/if}, event)'>Remove post</a></span>" + 
-	           "</div><div class='threadContent'>" + commentData.commentContent +"</div></div>";
+	         "<a href='/?id=${_user.id}'>${_user.name}</a>:<br />" +
+	         "<span class='threadDate'>" + month + "-" + day + "-" + year + ", " +
+	         hours + ":" + minutes + " " + ampm + "<br /><a href='#' " + 
+	         "onclick='deleteComment(#{if thread.comments().size() != 0}" +
+	         "${comment.id + 1}#{/if}, event)'>Remove post</a></span>" + 
+	           "</div><div class='threadContent'>" + commentData.commentContent +
+	         "</div></div>";
 	           $("textarea#threadReply").val("");
 	           $el.after(new_item);
 	           new_item.slideDown();

@@ -5,26 +5,28 @@
 	#{if thisWeekBday.size()==0 && todayBday.size() == 0}There are no upcoming birthdays.#{/if} 
 	#{else} 
 	  #{if todayBday.size() != 0}
+	  <div><img src = "/public/images/cake.png"> </img> <b>Today: </b></div>
        #{list items: todayBday, as:'birthdayPerson'}
-         <div><img src = "/public/images/cake.png"> </img> Today: </div> 
          <p>
+         
          <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
-         <span>${birthdayPerson.getProfile().birthday.format('MMM dd')}</span>
-         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+         <br />
+         <span>${thisYear- birthdayPerson.getProfile().birthday.getYear()} years old</span>
+         <hr />
+         
         #{/list}
     #{/if}
-    <style>
-    body {
-     line-height: 0.1;
-    }
-    </style>
+    
+
     #{if thisWeekBday.size() != 0}
+		 <br />
+		 <div><b>This week: </b></div> 
 	     #{list items: thisWeekBday, as:'birthdayPerson'}
-		     <div><img src = "/public/images/cake.png"> </img> This week: </div> 
          <p>
          <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
+		     <br />
 		     <span>${birthdayPerson.getProfile().birthday.format('MMM dd')}</span>
-		     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		     <hr />
 	     #{/list}
      #{/if}
     #{/else}

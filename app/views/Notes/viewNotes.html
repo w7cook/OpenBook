@@ -1,15 +1,13 @@
 #{extends 'two_panel.html' /}
-<div class="grid_9">
-  <div id="contentArea">
-    
-    <br> <a href ="@{Notes.newNote()}">Create new note!</a>
-    
-    <h2>Notes</h2>
-    #{list items:user.viewNotes(), as:'item'}
-      <div class="message">
-        Title: ${item.title}<br />
-        Content: ${item.content.nl2br()}<br />
-      </div>
-    #{/list}
-  </div>
+<div id="contentArea">
+  
+  <br> <a href ="@{Notes.newNote()}">Create new note!</a>
+  
+  <h2>Notes</h2>
+  #{list items:user.viewNotes(), as:'item'}
+    <div class="message">
+      Title: ${item.title}<br />
+      Content: ${item.content.nl2br()}<br />
+    </div>
+  #{/list}
 </div>

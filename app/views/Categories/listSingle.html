@@ -23,7 +23,9 @@
 				</div>
 				<div class="threadRight" style="padding-top: 12px;">
 				#{if FThread.comments().size() > 0}
-					<a href="/?id=${FThread.last_comment().author.id}">${FThread.last_comment().author}</a><br />
+					<a href="/?id=${FThread.last_comment().author.id}">
+					  ${FThread.last_comment().author}
+					</a><br />
 					${FThread.last_comment().createdAt.format('M-d-yy, h:mm a')}
 				#{/if}
 				#{else}
@@ -42,4 +44,5 @@
 		#{/else}
 	
 	</div>
+
 </div>

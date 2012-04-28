@@ -3,32 +3,41 @@
 <div id="contentArea-BigPage">
   <h2>&{'photo.setProfilePhoto'}</h2>
   <hr />
-
+  
   #{ifErrors}
-  <ul class="errors">
-    #{errors}
-    <li>${error}</li> #{/errors}
-  </ul>
+    <ul class="errors">
+      #{errors}
+        <li>${error}</li>
+      #{/errors}
+    </ul>
   #{/ifErrors} 
   
-  <a class="button" href="@{Photos.setGravatar()}"><b>&{'photo.useGravatar'}</b></a> 
-  <br>
+  #{form @Photos.setGravatar(), enctype:'multipart/form-data'} 
+  <b>Gravatar Email: </b><input type=text name=gravatarEmail 
+     value="${currentUser.profile.gravatarEmail}" /> 
+  <input type=submit class="button" value=&{'photo.useGravatar'} />
+  #{/form}  
+  
   <a href="https://en.gravatar.com/site/signup/">&{'photo.signUpGravatar'}</a>
   <br>&{'photo.gravatarNote'}</br>
   <br>
   
   
   #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data'} 
-  <b> &{'photo.newPhoto'}: </b> <input type="file"
-    name="image" /> <input type="submit" name="submit" value=&{'photo.upload'} />
-  #{/form} <br> <b>&{'photo.useExistingPhoto'}</b> <br>
+    <b> &{'photo.newPhoto'}: </b>
+    <input type="file" name="image" />
+    <input type="submit" name="submit" class="btn" value=&{'photo.upload'} />
+  #{/form}
+  <br>
+  <b>&{'photo.useExistingPhoto'}</b>
+  <br>
+
 
   <ul class="photo-list">
     #{list items:photos, as:'photo' }
-    <li><img src="@{Photos.getPhoto(photo.id)}" width="120"
-      height="150" /> #{if currentUser.equals(photo.owner)} #{form
-      @Photos.setProfilePhoto(photo.id)} <input type="submit"
-      name="submit" value=&{'photo.setAsProfilePhoto'} /> #{/form} #{/if}</li>
+        <img src="@{Thumbnails.get120x120(photo.id)}" width="120" height="120" />
+        <a class = "button" href="@{Photos.setProfilePhoto(photo.id)}">
+        &{'photo.setAsProfilePhoto'}</a> <br>
     #{/list}
   </ul>
 </div>

@@ -1,15 +1,15 @@
 
 <div class="profile-pic">
   <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a> 
-  #{if (_user.profile.profilePhoto == -1 || _user.profile.profilePhoto == null)} 
-    <img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
+  #{if (_user.profile.profilePhoto.id == -1 || _user.profile.profilePhoto == null)} 
+    <img src="@{Thumbnails.get120x120(2)}" width="120" height="120" />
   #{/if} 
   #{else} 
-    <img src="@{Photos.getPhoto(_user.profile.profilePhoto)}" height="120" width="120" /> 
+    <img src="@{Thumbnails.get120x120(_user.profile.profilePhoto.id)}" width="120" height="120" /> 
   #{/else}
 </div>
 <div style="clear: both;text-align:center;width: 100%;">
-  <a href="@{Application.account()}"> <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${_user.name}</span>
+  <a href="/users/${_user.id}"> <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${_user.name}</span>
   </a>
 </div>
 
@@ -19,9 +19,9 @@
 	<a href="@{Application.news()}">News Feed</a> 
 	<a href="/users/${_user.id}/timeline">Timeline</a> 
 	<a href="/users/${_user.id}/events">Events</a> 
-	<a href="@{Checkin.checkin()}">Checkin</a>
+	<a href="@{Checkins.checkin()}">Checkin</a>
 	<a href="@{Messages.inbox()}">Inbox [${_user.unreadCount()}]</a> 
-	<a href="/requests">Friend Requests</a> 
+	<a href="/users/${_user.id}/requests">Friend Requests</a> 
 	<a href="/changeSkin">Change Skin</a>
 	<a href="@{Notes.viewNotes()}">Notes</a>
 </div>
