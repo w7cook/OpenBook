@@ -1,132 +1,27 @@
 /* -- Threads -- */
 
-div#forumContainer {
+div .header {
 	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
-
-div#forumHeader {
-	width: 100%;
-	font-weight: bold;
-	min-height: 30px;
-	font-size: 16px;
-}
-
-
-div.forumInner {
-	width: 100%;
 	border-bottom: 1px dotted black;
-	min-height: 40px;
-	overflow: hidden;
 }
 
-div.threadList {
-	width: 100%;
-	padding: 0px;
+div .category {
+	border-bottom: 1px dotted black; 
+  margin-top: 10px; 
+  padding-bottom: 10px;
 }
 
-div.threadLeft {
-	padding-top: 18px;
-	float: left;
-	width: 60%;
-	font-size: 15px;
+div .cat-name {
+	padding-top: 20px;
 }
 
-div.threadRight {
-	padding-top: 4px;
-	float: right;
-	width:35%;
-	font-size: 11px;
+div .cat-latest {
+	min-height: 50px; 
+	font-size: 11px; 
+  line-height: 18px;
 }
 
-div.headerLeft {
-	margin-top: 10px;
-	float: left;
-	width: 60%;
-}
-
-div.headerRight {
-	margin-top: 10px;
-	float: right;
-	width: 35%;
-}
-
-div.thread {
-	height: 20px;
-	
-}
-
-div.threadAuthorInfo {
-	float: left;
-	font-weight: bold;
-	text-align: center;
-	font-size: 12px;
-	width: 25%;
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-div.threadContent {
-	width: 70%;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	min-height: 30px;
-	float: right;
-}
-
-span.threadDate {
-	font-weight: normal;
-	font-size: 9px;
-}
-
-textarea#threadReply {
-	background: rgba(0, 0, 0, 0.05);
-	width: 98%;
-	border: 1px dashed black;
-	min-height: 150px;
-	font-family: "Lucida Grande";
-	font-size: 10px;
-	padding: 5px;
-}
-
-input#threadSubmit {
-	margin-top: 10px;
-	background: rgba(0, 0, 0, 0.05);
-	border-radius: 15px;
-	font-weight: bold;
-	border: 0px;
-	padding: 5px;
-}
-
-span.threadError {
-	font-size: 12px;
-	font-weight: bold;
-	color: red;
-}
-
-a.newThread {
-	float: left;
-	margin-bottom: 10px;
-	border-radius: 5px;
-	padding: 5px;
-	background: silver;
-}
-
-input#threadTitle {
-	width: 688px;
-	font-size: 16px;
-	font-weight: bold;
-	border: 1px solid black;
-	padding: 5px;
-	margin-bottom: 5px;
-}
-
-textarea#threadText {
-	padding: 5px;
-	width: 688px;
-	height: 250px;
-	border: 1px solid black;
-	font-family: Helvetica;
+div .cat-empty {
+	padding-top: 20px;
+  min-height: 30px;
 }

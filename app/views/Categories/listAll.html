@@ -1,36 +1,51 @@
 #{extends 'two_panel.html' /} 
 
 #{set 'title'} OpenBook :: Forums #{/set}
-<div id="contentArea-AutoPage">
+
 	<h2>Public Threads</h2>
-	<hr>
-	<div id="forumContainer">
-		<div id="forumHeader">
-			<div class="headerLeft">Forum</div>
-			<div class="headerRight">Last post</div>
-		</div>
 	
-		#{if Categories.size()} #{list items:Categories, as:'category'}
-		<div class="threadList">
-			<div class="forumInner">
-				<div class="threadLeft">
-					<a href="threads/${category.id}">${category.name}</a>
-				</div>
-				<div class="threadRight">
-					#{if category.get_most_recent() != null} 
-					<a href="/threads/${category.get_most_recent().category.id}/
-					  ${category.get_most_recent().id}">
-					  ${category.get_most_recent().title}</a><br />
-					  Posted by: <a href="/?id=${category.get_most_recent().owner.id}">
-					  ${category.get_most_recent().owner}
-					  </a><br />
-						${category.get_most_recent().postedAt.format('M-d-yy, h:mm a')}
-					#{/if}
-				</div>
-			</div>
-		</div>
-		#{/list} #{/if} #{else} There currently no categories configured.
-		#{/else}
+	<div class="well" style="background-color: rgb(238, 238, 238)">
+	
+	<div class="row-fluid buttons">
+	 <button class="btn btn-success">Create new category</button>
 	</div>
+	
+	<div class="row-fluid header">
+	 <div class="span8"><h3>Forum</h3></div>
+	 <div class="span4"><h3>Last post</h3></div>
+	</div>
+	
+	#{if Categories.size()} 
+		#{list items:Categories, as:'category'}
+			<div class="row-fluid category">
+		   <div class="span8 cat-name">
+		     <h4><a href="threads/${category.id}">${category.name}</a></h4>
+		   </div>
+		   #{if category.get_most_recent() != null} 
+		   <div class="span4 cat-latest">
+          <a href="/threads/${category.get_most_recent().category.id}/
+            ${category.get_most_recent().id}">
+            ${category.get_most_recent().title}</a><br />
+            Posted by: <a href="/?id=${category.get_most_recent().owner.id}">
+            ${category.get_most_recent().owner}
+            </a><br />
+            ${category.get_most_recent().postedAt.format('M-d-yy, h:mm a')}
+		   </div>
+		   #{/if}
+		   #{else}
+		   <div class="span4 cat-latest cat-empty">
+		    None
+		   </div>
+		   #{/else}
+		  </div>
+		#{/list}
+	#{/if}
+	#{else}
+	<div class="row-fluid" style="border-bottom: 1px dotted black; 
+	                              padding-top: 20px;">
+   There are no thread categories currently configured.  Contact an 
+   administrator to set some up.
+  </div>  
+	#{/else}
 	
 </div>
