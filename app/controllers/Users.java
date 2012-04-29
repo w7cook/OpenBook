@@ -105,7 +105,7 @@ public class Users extends OBController {
     if(user.equals(other)) {
       user.friends.add(other);
       user.save();
-      ok();
+      renderText("friends");
     }
 
     // If the other person has already requested friendship with you
@@ -114,11 +114,12 @@ public class Users extends OBController {
       user.friends.add(other);
       other.friends.add(user);
       user.save();
-      ok();
+      other.save();
+      renderText("friends");
     }
     other.friendRequests.add(user);
     other.save();
-    ok();
+    renderText("requested");
   }
 
   /** Attempt to end a relationship with a user
@@ -133,7 +134,9 @@ public class Users extends OBController {
     other.friends.remove(user);
     user.friends.remove(other);
     user.friendRequests.remove(other);
+    other.friendRequests.remove(user);
     user.save();
+    other.save();
     ok();
   }
 }
