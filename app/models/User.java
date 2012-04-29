@@ -151,6 +151,10 @@ public class User extends Postable {
     return Message.find("byRecipient", this).fetch();
   }
 
+  public List<Message> unreadMessages() {
+    return Message.find("byRecipientAndRead", this, false).fetch();
+  }
+
   public long unreadCount() {
     return Message.find("SELECT m FROM Message m WHERE m.recipient = ?1 AND m.read = false", this).fetch().size();
   }
