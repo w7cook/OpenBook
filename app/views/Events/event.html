@@ -32,7 +32,7 @@
 
   <h4>Going(${event.getMemberCount()}):</h4>
   #{list items:event.members, as:'member'}
-    <a href="@{Users.about(member.id)}">${member.name}</a>   
+    <a href="/users/${member.id}">${member.name}</a>   
     #{if user.equals(member) && !user.equals(event.owner)}
       <a class="button" href="@{Events.leaveEvent(event.id, member.id)}">
         Decline
@@ -41,10 +41,10 @@
     <br />
   #{/list}
   
-  #{if user.uninvitedFriends(event.id, user.id).size() > 0}
+  #{if event.uninvitedFriends(user).size() > 0}
   <h4>Invite Friends:</h4>
-  #{list items:user.uninvitedFriends(event.id, user.id), as:'guest'}
-    <a href="@{Users.about(guest.id)}">${guest.name}</a>
+  #{list items:event.uninvitedFriends(user), as:'guest'}
+    <a href="/users/${guest.id}">${guest.name}</a>
     <a class="button" href="@{Events.addEventInvite(event.id, guest.id)}">
       Add to Event
     </a>

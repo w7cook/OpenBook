@@ -2,10 +2,7 @@ package controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import models.Event;
 import models.Post;
@@ -97,20 +94,16 @@ public class Events extends OBController {
     if (params.get("submit") != null) {
       User currentUser = user();
       validation.required(curEvent.name).message("Event name is required");
-      validation.required(curEvent.script).message(
-          "Event description is required");
-      validation.required(curEvent.location).message(
-          "Event location is required");
-      validation.isTrue(!startMonth.equals("-1")).message(
-          "Event start month is required");
-      validation.isTrue(!startDay.equals("-1")).message(
-          "Event start day is required");
-      validation.isTrue(!startTime.equals("-1")).message(
-          "Event start time is required");
+      validation.required(curEvent.script).message("Event description is required");
+      validation.required(curEvent.location).message("Event location is required");
+      validation.isTrue(!startMonth.equals("-1")).message("Event start month is required");
+      validation.isTrue(!startDay.equals("-1")).message("Event start day is required");
+      validation.isTrue(!startTime.equals("-1")).message("Event start time is required");
       if (validation.hasErrors()) {
         Event thisEvent = curEvent;
         renderTemplate("Events/addEvent.html", thisEvent);
-      } else {
+      }
+      else {
         Event event = curEvent;
         event.owner = currentUser;
 
@@ -132,7 +125,7 @@ public class Events extends OBController {
         } else if (curEvent.privilege.equals("inviteOnly")) {
           event.inviteOnly = true;
         }
-        event.members = new ArrayList<User>();
+        event.members = new HashSet<User>();
         event.members.add(currentUser);
         event.save();
         event(event.id);

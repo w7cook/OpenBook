@@ -79,21 +79,9 @@
     <header id="header">
       <a id="logo" class="logo" href="@{Application.news()}" style="padding-left:5px;">openbook</a>
       <a id="showFriends"><i class="icon-user"></i></a>
-      ${currentUser.requestedFriendCount()}
+      ${currentUser.numFriendRequests()}
       <a href="#"><img src="@{'public/images/messages_icon.png'}" /></a>
       <a href="#"><img src="@{'public/images/notifications_icon.png'}" /></a>
-      <div id="friendRequest" onclick="event.stopPropagation()" style="border: thin solid #000000; background-color: #ffffff; z-index: 2; top: 40px; display: none; position:absolute; margin-left: 100px;" >
-        #{list items:currentUser.requestedFriends(), as:'request'}
-        <div style="border-bottom: thin solid #000033; color: black; z-index: 3; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 3px">
-          <img style="width:50px; height:50px;" src=@{Photos.getPhoto(request.from.profile.profilePhoto.id)} />
-	  <a style="color: #000099;" href=@{Application.news(request.from.id)}> ${request.from}</a>
-	  <br>
-	  <a style="color: #000099;" href=@{Application.requestFriends(request.from.id)}>Accept</a> 
-	  <a style="color: #000099;" href=@{Application.removeFriends(request.from.id)}>Deny</a>
-	  <br>
-	</div>
-	#{/list}
-      </div>        	
       #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
         <input type="text" name="search" value="${params.search?.escape()?.raw()}" />
         <input type="submit" class="btn" value="&{'elasticsearch.search'}" />
