@@ -3,7 +3,7 @@ function deleteThing(id, type) {
     url: '/' + type + 's/' + id,
     type: 'DELETE',
     success: function() {
-      $('div#' + type + id).slideUp();
+      $('#' + type + id).slideUp();
     }
   });
 }

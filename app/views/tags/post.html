@@ -1,63 +1,58 @@
-<div class="post" id="post${_item.id}">
-  <div class="hideable">
-    <div class="left">
-      <img src="@{Thumbnails.get50x50(_item.owner.profile.profilePhoto.id)}" />
-    </div>
-    
-    <div class="individual-post">
-      <div class="post-author" style="clear: both;">
-        <a href="/users/${_item.owner.id}">${_item.owner.name}</a>
-      </div>
-      <div class="post-content">
-        #{if _item.getClass().getName() == "models.Photo"}
-          <div class="post-image"><img src="@{Photos.getPhoto(_item.id)}" /></div>
-        #{/if}
-        #{if _item.getClass().getName() == "models.Link"}
-          <div class="post-link">
-            <iframe src="${((models.Link)_item).external_url}"></iframe>
-          </div>
-        #{/if}
-        #{if _item.getClass().getName() != "models.Photo"}
-        ${_item.content.markdown().nl2br()}
-        #{/if}
-      </div>  
+<ul class="unstyled well" id="post${_item.id}">
+  <li class="individual-post">
+    <div class="post-author" style="clear: both;">
+      <a href="/users/${_item.owner.id}">
+        <img src="@{Thumbnails.get50x50(_item.owner.profile.profilePhoto.id)}" width="50" height="50" />
+        ${_item.owner.name}
+      </a>
     </div>
 
-    
-    <!-- Post Metadata -->  
-    <div class="individual-post-metadata">
-      <span id ="post${_item.id}likes">
-        ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if} 
-      </span> 
-      <button id="likepost${_item.id}"class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
-        #{if _item.likedBy(_user)}&{'comment.unlike'}#{/if}
-        #{else}&{'comment.like'}#{/else}
-      </button>
-      
-      . ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s
-      . 
-      #{timeago date:_item.updatedAt /}
-      #{if _item.owner ==  _user} 
-        . <button class="button" onclick="deleteThing(${_item.id}, 'post')">remove post</button> 
+    <div class="post-content">
+      #{if _item.getClass().getName() == "models.Photo"}
+        <div class="post-image">
+          <img class="thumbnail" src="@{Photos.getPhoto(_item.id)}" />
+        </div>
       #{/if}
-    #{/if}   
-    </div>
-    <!-- End Post Metadata --> 
+      #{elseif _item.getClass().getName() == "models.Link"}
+        <div class="post-link">
+          <iframe src="${((models.Link)_item).external_url}"></iframe>
+        </div>
+      #{/elseif}
+      #{else}
+        ${_item.content.markdown().nl2br()}
+      #{/else}
+    </div>  
+  </li>
 
-    <div id ="commentsArea"> 
-      <div id="commentsList${_item.id}" class="commentsList" style="width: 100%;">
-        #{list items:_item.getComments(), as:'comment'} 
-          #{comment user:_user, comment:comment /} 
-        #{/list}
-      </div>
-    </div>    
-    
-    <div id="new_comment_for_post${_item.id}" style="clear: both;" >
-      <img style="vertical-align: top;"      
-           src=@{Thumbnails.get30x30(_user.profile.profilePhoto.id)} display="inline" />       
-      <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" placeholder="new comment..." 
-                style="color:grey;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
-      <button class="button" id="commentSubmit${_item.id}" onclick="submitComment(${_item.id})">Comment</button>
-    </div>
-  </div>
-</div>
+    <!-- Post Metadata -->  
+  <li class="individual-post-metadata" style="margins:0.5em 0;">
+    ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}.
+    <span id ="post${_item.id}likes">
+      ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if}.
+    </span> 
+    <button id="likepost${_item.id}"class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
+      #{if _item.likedBy(_user)}&{'comment.unlike'}#{/if}
+      #{else}&{'comment.like'}#{/else}
+    </button>
+    #{timeago date:_item.updatedAt /}.
+    #{if _item.owner ==  _user} 
+      <button class="button" onclick="deleteThing(${_item.id}, 'post')">remove post</button> 
+    #{/if}
+  </li>
+
+  <li id="commentsArea"> 
+    <ul id="commentsList${_item.id}" class="unstyled commentsList">
+      #{list items:_item.getComments(), as:'comment'} 
+        <li style="margin-top:0.5em;">#{comment user:_user, comment:comment /}</li>
+      #{/list}
+    </ul>
+  </li>    
+  
+  <li id="new_comment_for_post${_item.id}" style="margin-top:1em;">
+    <img style="vertical-align: top;"      
+         src=@{Thumbnails.get30x30(_user.profile.profilePhoto.id)} display="inline" width="30" height="30" />
+    <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" placeholder="new comment..." 
+              style="color:grey; width: 350px; height: 30px;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
+    <button class="button" id="commentSubmit${_item.id}" onclick="submitComment(${_item.id})">Comment</button>
+  </li>
+</ul>

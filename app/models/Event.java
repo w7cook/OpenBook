@@ -1,8 +1,6 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
@@ -35,15 +33,14 @@ public class Event extends Postable {
 
   @ManyToMany
   @JoinTable(name="EventMembers")
-  public List<User> members;
+  public Set<User> members;
 
-  public Event(User author, String name, String script,
-      String location) {
+  public Event(User author, String name, String script, String location) {
     this.owner = author;
     this.name = name;
     this.script = script;
     this.location = location;
-    this.members = new ArrayList<User>();
+    this.members = new HashSet<User>();
     this.members.add(owner);
   }
 
@@ -69,5 +66,11 @@ public class Event extends Postable {
 
   public int getMemberCount() {
     return members.size();
+  }
+
+  public Set<User> uninvitedFriends(User user) {
+    HashSet ret = new HashSet(user.friends);
+    ret.removeAll(this.members);
+    return ret;
   }
 }

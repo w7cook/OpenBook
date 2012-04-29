@@ -5,38 +5,9 @@
     <a href="#">Add Photo</a>
     <a href="#">Share Link</a>
     <a href="#">Ask Question</a>
-    <a id="about-button" href="@{Application.edit_basic(user.id)}">About me</a>
+    <a id="about-button" href="/users/${user.id}/profile">About me</a>
   </div>
   
-  
-  <!--
-      #{if user.id != currentUser.id}
-      <a href="@{Posts.poke(user.id)}">Poke!</a>
-      #{/if}
-      
-      #{if user.id == currentUser.id}
-
-      #{/if}
-      #{else}
-      <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
-      #{/else}
-</div>
-<br />
-#{if user.checkFriendship(user.id) == 'Request Friendship'}
-<a id="friend-button" href="@{Application.requestFriends(user.id)}">
-  ${user.checkFriendship(user.id)}
-</a>
-#{/if}
-#{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-Friendship Requested
-#{/elseif}
-#{elseif user.checkFriendship(user.id) == 'Friends'}
-Friends :) 
-<a id="friend-button" href="@{Application.removeFriends(user.id)}">
-  Remove friend
-</a>
-#{/elseif}
--->
   
   <div class="ui_InputContainer" id="PostContainer">
     <textarea name="post_content" id="postContent" class="ui_TextArea" placeholder="new post..." rows="3" cols="20" maxlength="400" ></textarea>

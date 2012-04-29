@@ -1,0 +1,12 @@
+#{extends 'two_panel.html' /}
+
+<div id="contentArea-BigPage">
+  <td>
+    <h3>Friend Requests</h3> 
+    #{list items:user.friendRequests, as:'request'} 
+      <a href=@{Users.requestFriends(request.id)}>Accept</a>
+      <a href=@{Users.removeFriends(request.id)}>Deny</a> 
+      <a href="/users/${request.id}"> ${request.name}</a><br>
+    #{/list}
+  </td>
+</div>

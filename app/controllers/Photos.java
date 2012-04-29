@@ -158,7 +158,7 @@ public class Photos extends OBController {
     String hash = md5Hex((gravatarEmail.trim()).toLowerCase());
     String urlPath = "http://www.gravatar.com/avatar/"+hash+".jpg"+
       "?" +//parameters
-      "size=100&d=mm";
+      "size=120&d=mm";
     URL url = new URL(urlPath);
     BufferedImage image = ImageIO.read(url);
     if(u.profile.gravatarPhoto == null) { // don't yet have a gravatarPhoto
