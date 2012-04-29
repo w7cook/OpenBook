@@ -60,12 +60,14 @@ public class User extends Postable {
   public TimelineModel timeline;
 
   @ElasticSearchIgnore
-  @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
-  public List<Relationship> friends; // A list of the user's friendship history
+  @JoinTable(name="friends_table")
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  public Set<User> friends;
 
   @ElasticSearchIgnore
-  @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
-  public List<Relationship> friendedBy; // A list of the user's friendship history
+  @JoinTable(name="friend_requests_table")
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  public Set<User> friendRequests; // A list of the user's friendship history
 
   @ElasticSearchIgnore
   public boolean subscription; // Whether the user has allowed subscriptions or not
@@ -86,8 +88,11 @@ public class User extends Postable {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
+    this.friends = new HashSet<User>();
+    this.friendRequests = new HashSet<User>();
+
+    friends.add(this);
     this.save();
-    new Relationship(this).save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -99,11 +104,13 @@ public class User extends Postable {
     this.last_name = last_name;
     this.name = first_name + " " + last_name;
 
-    this.save();
     profile = new Profile(this);
     profile.save();
-    new Relationship(this).save();
-    this.save();
+
+    this.friends = new HashSet<User>();
+    this.friendRequests = new HashSet<User>();
+    friends.add(this);
+
     this.timeline = new TimelineModel(this);
     timeline.save();
     this.save();
@@ -119,14 +126,16 @@ public class User extends Postable {
       this.last_name = user.last_name;
       user.verified = true;
 
-      this.save();
       profile = new Profile(this);
       profile.save();
-      new Relationship(this).save();
+
+      this.friends = new HashSet<User>();
+      this.friendRequests = new HashSet<User>();
+      friends.add(this);
+
+      this.timeline = new TimelineModel(this);
+      timeline.save();
       this.save();
-    this.timeline = new TimelineModel(this);
-    timeline.save();
-    this.save();
     }
   }
 
@@ -142,8 +151,8 @@ public class User extends Postable {
     return Message.find("byRecipient", this).fetch();
   }
 
-  public int unreadCount() {
-   return Message.find("SELECT m FROM Message m WHERE m.recipient = ?1 AND m.read = false", this).fetch().size();
+  public long unreadCount() {
+    return Message.find("SELECT m FROM Message m WHERE m.recipient = ?1 AND m.read = false", this).fetch().size();
   }
 
   public List<Note> viewNotes() {
@@ -156,14 +165,11 @@ public class User extends Postable {
 
 
   public List<Post> news() {
-    return Post.find(
-                     "SELECT p FROM Post p, IN(p.owner.friendedBy) u WHERE (u.from.id = ?1 and p.postedObj.id = u.to.id) and (U.accepted = true or (u.to.id = ?1 and p.postedObj.id = u.from.id)) order by p.updatedAt desc",
-                     this.id).fetch();
+    return Post.find("SELECT p FROM Post p INNER JOIN p.owner.friends u WHERE u = ?1 AND p.postedObj MEMBER OF User ORDER BY p.updatedAt DESC", this).fetch();
   }
 
   public List<Post> subscriptionNews() {
-    return Post.find(
-                     "SELECT p FROM Post p, IN(p.owner.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
+    return Post.find("SELECT p FROM Post p, IN(p.owner.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
                      this.id).fetch();
   }
 
@@ -184,60 +190,12 @@ public class User extends Postable {
   }
 
 
-  /** Checks the status of a friendship
-   *
-   * @param id the user to check friendship status with
-   * @return a string representing the status
-   */
-  public String checkFriendship(Long id) {
-    User current = Application.user();
-    if (Application.user().id == id) {
-      return "";
-    }
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ?1 AND r.to = ?2", current, this).first();
-    if (r1 != null) {
-      if (r1.accepted) {
-        return "Friends";
-      }
-      if (r1.requested){
-        return "Friendship Requested";
-      }
-    }
-    return "Request Friendship";
-  }
-
-  /** Get any confirmed friends
-   *
-   * @return a list of relationships for confirmed friends
-   */
-  public List<Relationship> confirmedFriends() {
-    return Relationship.find("SELECT r FROM Relationship r where r.from = ? and r.accepted = true", this).fetch();
-  }
-
-
-  /** Get a list of any users who have requested to be friends
-   *
-   * @return a list of relationships related to incoming friend requests
-   */
-  public List<Relationship> requestedFriends() {
-    return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
-  }
-
-  /** Get a list of <numFriends> users who have requested to be friends
-   *
-   * @param numFriends the number of friends you want to fetch.
-   * @return a list of relationships related to incoming friend requests
-   */
-  public List<Relationship> requestedFriends(int numFriends) {
-    return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch(numFriends);
-  }
-
   /** Get the number of users users who have requested to be friends
    *
-   * @return the number of relationships related to incoming friend requests
+   * @return the number outstanding friend requests
    */
-  public long requestedFriendCount() {
-    return Relationship.count("to = ? and requested = true and accepted = false", this);
+  public long numFriendRequests() {
+    return friendRequests.size();
   }
 
   public List<Group> getGroups(){
@@ -273,13 +231,7 @@ public class User extends Postable {
   }
 
   public boolean isFriendsWith(User user) {
-    for(Relationship f: this.confirmedFriends()){
-      if(f.to == this && f.from == user)
-        return true;
-      if(f.to == user && f.from == this)
-        return true;
-    }
-    return false;
+    return friends.contains(user);
   }
 
   /** Get all authored events
@@ -322,24 +274,5 @@ public class User extends Postable {
       }
     }
     return answer;
-  }
-
-  /** List all friends uninvited to an event
-   *
-   * @return a list of users that are friends with the current user, not yet invited to event
-   */
-  public List<User> uninvitedFriends(Long eventId, Long userId){
-    User guest = User.findById(userId);
-    Event event = Event.findById(eventId);
-    List<Relationship> friends = guest.confirmedFriends();
-    List<User> inviteFriends = new ArrayList<User>();
-
-    for(int i = 0; i < friends.size(); i++){
-      User u = friends.get(i).to;
-      if (!(event.members).contains(u)){
-        inviteFriends.add(u);
-      }
-    }
-    return inviteFriends;
   }
 }

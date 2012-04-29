@@ -37,6 +37,7 @@ public class Bootstrap extends Job {
       Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
       Fixtures.loadModels("initial-data.yml");//rest of the data
       hashPasswords();
+      initFriends();
     }
   }
 
@@ -46,5 +47,22 @@ public class Bootstrap extends Job {
       u.password = Crypto.passwordHash(u.password);
       u.save();
     }
+  }
+
+  public static void initFriends() {
+    List<User> users = User.findAll();
+    for (User u : users) {
+      u.friends.add(u);
+      u.save();
+    }
+    User bob = User.findById(2L);
+    User alice = User.findById(3L);
+    User jeff = User.findById(4L);
+
+    bob.friends.add(jeff);
+    alice.friends.add(jeff);
+    jeff.friends.add(bob);
+    jeff.friends.add(alice);
+    jeff.save();
   }
 }
