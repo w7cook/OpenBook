@@ -56,8 +56,8 @@
           ${currentUser.numFriendRequests()}
         </a>
         <ul class="dropdown-menu">
-          #{if user.numFriendRequests() > 0}
-            #{list items:user.friendRequests, as:'request'}
+          #{if currentUser.numFriendRequests() > 0}
+            #{list items:currentUser.friendRequests, as:'request'}
               <li>
                 <a href="/users/${request.id}">${request.name} wants to be friends.</a>
               </li>
@@ -76,8 +76,8 @@
           ${currentUser.unreadCount()}
         </a>
         <ul class="dropdown-menu">
-          #{if user.unreadCount() > 0}
-            #{list items:user.unreadMessages(), as:'message'}
+          #{if currentUser.unreadCount() > 0}
+            #{list items:currentUser.unreadMessages(), as:'message'}
               <li>
                 <a href="/messages">Message From: ${message.owner}.</a>
               </li>
