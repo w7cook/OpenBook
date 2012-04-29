@@ -6,7 +6,8 @@
     <script src=@{'/public/bootstrap/docs/assets/js/jquery.js'}></script>
     <script src=@{'/public/javascripts/util.js'}></script>
     <script src=@{'/public/javascripts/jquery.autoresize.js'}></script>
-    
+    <script type="text/javascript" src="/public/javascripts/jquery.ba-outside-events.js"></script>
+    <script type="text/javascript" src="/public/javascripts/query.ba-outside-events.min.js"></script>
     
     <script type="text/javascript" src="/public/javascripts/jquery-ui-1.8.19.custom/js/jquery-ui-1.8.19.custom.min.js"></script>
     <script type="text/javascript" src="@{'/public/javascripts/calendarDateInput.js'}"></script>
@@ -14,6 +15,8 @@
     <script type="text/javascript" src="/public/javascripts/jquery.autoresize.js"></script>
     <script type="text/javascript" src="/public/javascripts/jquery-autocomplete.js"></script>
     <script type="text/javascript" src="/public/javascripts/jquery.timeago.js"></script>
+    
+    
     
     <script type="text/javascript" src="/public/bootstrap/docs/assets/js/bootstrap.js"></script>    
     
@@ -74,9 +77,9 @@
         </a>
         <ul class="dropdown-menu">
           #{if user.unreadCount() > 0}
-            #{list items:user.inbox(), as:'message'}
+            #{list items:user.unreadMessages(), as:'message'}
               <li>
-                <a href="/users/${request.id}">Message From: ${message.owner}.</a>
+                <a href="/messages">Message From: ${message.owner}.</a>
               </li>
             #{/list}
           #{/if}

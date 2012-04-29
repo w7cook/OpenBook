@@ -27,7 +27,7 @@ public class UpcomingBirthdays extends OBController {
     int thisYear = today.getYear()+1900;
 
     Date y = new Date();
-    y.setDate(day+1);
+    y.setDate(day);
     y.setYear(-10);
 
 
@@ -40,9 +40,9 @@ public class UpcomingBirthdays extends OBController {
       Date friendBirthday = u.profile.birthday;
 
       if(friendBirthday == null) { //The user's friend did not set a birthday date field
-        //x.to.getProfile().birthday = y; //for testing purposes
-        //friendBirthday =  y; //for testing purposes
-        continue; //comment out for testing
+        u.profile.birthday = y; //for testing purposes
+        friendBirthday =  y; //for testing purposes
+        //continue; //comment out for testing
       }
       friendBirthday.setYear(today.getYear());
 
