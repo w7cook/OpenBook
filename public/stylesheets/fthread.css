@@ -1,5 +1,8 @@
 /* -- Threads -- */
 
+div .well {
+	background-color: rgb(238, 238, 238);
+}
 div .header {
 	margin-top: 10px;
 	border-bottom: 1px dotted black;
@@ -9,6 +12,7 @@ div .category {
 	border-bottom: 1px dotted black; 
   margin-top: 10px; 
   padding-bottom: 10px;
+  height: 50px;
 }
 
 div .cat-name {
@@ -16,12 +20,39 @@ div .cat-name {
 }
 
 div .cat-latest {
-	min-height: 50px; 
 	font-size: 11px; 
   line-height: 18px;
+}
+
+div .thread-latest {
+  font-size: 11px; 
+  line-height: 18px;
+  margin-top: 10px;
 }
 
 div .cat-empty {
 	padding-top: 20px;
   min-height: 30px;
+}
+
+#newItem {
+	color: white;
+}
+
+#delItem {
+  color: white;
+}
+
+div .cat-name h4 {
+	display: inline;
+}
+
+.categoryDescription {
+	font-size: 11px;
+	color: #747170;
+}
+
+.error {
+	margin-left: 5px;
+	color: red;
 }
