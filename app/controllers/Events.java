@@ -38,9 +38,7 @@ public class Events extends OBController {
     User user = userId == null ? null : (User) User.findById(userId);
     User currentUser = user();
     List<Event> events;
-
     List<Event> today;
-
     if(user == null){
       events = Event.findAll();  //TODO: change to public and friends after visibility gets sorted
       today = new ArrayList<Event>();
@@ -61,7 +59,7 @@ public class Events extends OBController {
       today = new ArrayList<Event>();
     }
     else {
-      events = user.myUpcomingEvents();//upcomingEvents()
+      events = user.myUpcomingEvents();
       today = user.todayEvents();
     }
     render(user, events, today);
@@ -104,9 +102,7 @@ public class Events extends OBController {
   public static void addEventInvite(Long eventId, Long guestId) {
     User guest = User.findById(guestId);
     Event event = Event.findById(eventId);
-
-    event.inviteMember(guest);//event.addMember(guest)
-
+    event.inviteMember(guest);
     event.save();
     event(event.id);
   }
@@ -138,12 +134,10 @@ public class Events extends OBController {
       else {
         Event event = curEvent;
         event.owner = currentUser;
-
         event.name = curEvent.name;
         event.script = curEvent.script;
         event.location = curEvent.location;
         event.startDate = setDate(startTime, startMonth, startDay);
-
         if (!endMonth.equals("-1") && !endDay.equals("-1")
             && !endTime.equals("-1")) {
           event.endDate = setDate(endTime, endMonth, endDay);
@@ -172,8 +166,6 @@ public class Events extends OBController {
       events(user().id);
     }
   }
-
-
 
   public static String convertDateToString(Date myDate){
     DateFormat df = new SimpleDateFormat("MMMM d 'at' HH:mm a");
