@@ -38,34 +38,49 @@ public class Events extends OBController {
     User user = userId == null ? null : (User) User.findById(userId);
     User currentUser = user();
     List<Event> events;
-    if(user == null)
+    
+    List<Event> today;
+    
+    if(user == null){
       events = Event.findAll();  //TODO: change to public and friends after visibility gets sorted
-    else
-      events = user.myEvents();
-    render(user, currentUser, events);
+      today = new ArrayList<Event>();
+    }
+    else{
+      events = user.myUpcomingEvents();//change back to myEvents()
+      today = user.todayEvents();
+    }
+    render(user, currentUser, events, today);
   }
 
   public static void upcoming(Long userId) {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
-    if(userId == null)
-      events = Event.find("SELECT r FROM Event r where r.endDate >= ?", new Date()).fetch();
-    else
+    List<Event> today;
+    if(userId == null){
+      events = Event.find("SELECT r FROM Event r where r.endDate >= ? order by r.startDate", new Date()).fetch();
+      today = new ArrayList<Event>();
+    }
+    else {
       events = user.upcomingEvents();
-    render(user, events);
+      today = user.todayEvents();
+    }
+    render(user, events, today);
   }
 
   public static void past(Long userId) {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
-    if(userId == null)
-      events = Event.find("SELECT r FROM Event r where r.endDate < ?", new Date()).fetch();
-    else
+    List<Event> today;
+    if(userId == null){
+      events = Event.find("SELECT r FROM Event r where r.endDate < ? order by r.startDate", new Date()).fetch();
+      today = new ArrayList<Event>();
+    }
+    else {
       events = user.pastEvents();
-    render(user, events);
+      today = new ArrayList<Event>();
+    }
+    render(user, events, today);
   }
-
-
 
   public static void addEvent() {
     render();
