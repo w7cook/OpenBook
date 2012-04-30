@@ -165,20 +165,6 @@ Profile(jeffP):
     bio:            >
                     Hi, my name is Jeff, I have a really cool bio. Stay tuned for more
 
-Comment(fc1):
-    owner:         bob
-    content:        >
-                    I knew that ...
-    date:           2011-06-15
-    parentObj:      thread3
-
-Comment(fc2):
-    owner:         alice
-    content:        >
-                    i love dubstep
-    date:           2011-09-05
-    parentObj:      thread3
-
 Page(cats):
     admin:          alice
     title:          CATS
