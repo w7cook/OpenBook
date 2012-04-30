@@ -83,6 +83,14 @@ public class User extends Postable {
   @ElasticSearchIgnore
   @ManyToMany(mappedBy="thoseWhoLike")
   public Set<Likeable> likes;
+  
+  @ElasticSearchIgnore
+  @ManyToMany(mappedBy="usersWhoAnswered")
+  public Set<Answer> userAnswers;
+  
+  @ElasticSearchIgnore
+  @OneToMany(mappedBy="owner")
+  public Set<Question> questions;
 
   public User(String email, String password, String username) {
     this.email = email;
