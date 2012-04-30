@@ -104,7 +104,9 @@ public class Events extends OBController {
   public static void addEventInvite(Long eventId, Long guestId) {
     User guest = User.findById(guestId);
     Event event = Event.findById(eventId);
-    event.addMember(guest);
+
+    event.inviteMember(guest);//event.addMember(guest)
+
     event.save();
     event(event.id);
   }
@@ -154,7 +156,11 @@ public class Events extends OBController {
           event.friends = true;
         } else if (curEvent.privilege.equals("inviteOnly")) {
           event.inviteOnly = true;
-        }
+        }    
+        event.invited = new HashSet<User>();
+        event.invited.add(currentUser);
+        event.maybe = new HashSet<User>();
+        event.awaitreply = new HashSet<User>();
         event.members = new HashSet<User>();
         event.declined = new HashSet<User>();
         event.members.add(currentUser);
@@ -205,6 +211,22 @@ public class Events extends OBController {
     Event event = Event.findById(eventId);
     event.removeMember(guest);
     event.save();
-    events(userId);
+    events(guest.id);
+  }
+
+  public static void joinEvent(Long eventId, Long userId){
+    User guest = User.findById(userId);
+    Event event = Event.findById(eventId);
+    event.addMember(guest);
+    event.save();
+    event(event.id);
+  }
+
+  public static void maybeEvent(Long eventId, Long userId){
+    User guest = User.findById(userId);
+    Event event = Event.findById(eventId);
+    event.addMaybe(guest);
+    event.save();
+    event(event.id);
   }
 }
