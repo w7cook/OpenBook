@@ -1,3 +1,11 @@
+function nl2br(str, is_xhtml)
+{
+  var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />'
+      : '<br>';
+  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag
+      + '$2');
+}
+
 function submitCategory(id)
 {
   if ($('#category-name').val() == '' || $('#category-description').val() == '')
@@ -156,11 +164,11 @@ function deleteThread(id)
 function deleteComment(id, event)
 {
   event.preventDefault();
-  
+
   var deleteData = {
     commentId : id,
   };
-  
+
   $.ajax({
     url : '/comments/' + id,
     type : 'DELETE',
@@ -169,13 +177,13 @@ function deleteComment(id, event)
     {
       $('#thd-' + id).slideUp(300);
     }
-  });  
+  });
 }
 
 function postComment(thdId, event)
 {
   event.preventDefault();
-  
+
   if ($('textarea#threadReply').val() == '')
   {
 
@@ -183,8 +191,8 @@ function postComment(thdId, event)
   else
   {
     var commentData = {
-        commentContent : $('textarea#threadReply').val(),
-        statusId : thdId
+      commentContent : $('textarea#threadReply').val(),
+      statusId : thdId
     };
 
     $.ajax({
@@ -194,7 +202,7 @@ function postComment(thdId, event)
       'complete' : function(jqXHR, textStatus, response)
       {
         $('textarea#threadReply').val('');
-        
+
         var currentTime = new Date();
         var month = currentTime.getMonth() + 1;
         var day = currentTime.getDate();
@@ -203,48 +211,59 @@ function postComment(thdId, event)
         var minutes = currentTime.getMinutes();
         if (minutes < 10)
         {
-            minutes = "0" + minutes
+          minutes = "0" + minutes
         }
         if (hours == 0)
         {
-            hours = 12;
-            var ampm = "AM";
+          hours = 12;
+          var ampm = "AM";
         }
-        else if(hours > 11)
+        else if (hours > 11)
         {
-            var ampm = "PM";
-            hours = hours - 12;
-        } 
-        else 
-        {
-            var ampm = "AM";
+          var ampm = "PM";
+          hours = hours - 12;
         }
-        
+        else
+        {
+          var ampm = "AM";
+        }
+
         var $fi = $('.category');
-        var $el = $fi.eq($fi.length-2);
-        
+        var $el = $fi.eq($fi.length - 2);
+
         var username = $('#userinfo').data('username');
         var userId = $('#userinfo').data('userid');
-        
-        var newId = response.substr
-        
-        var newComment = "" +
-        "<div class='row-fluid category' id='thd-${comment.id}'>    " +
-        "<div class='authorDetails'>" +
-        "<a href='#' onclick='deleteComment(${comment.id}, event)'>" +
-        "<i class='icon-remove'></i></a>" +
-        "<a href='/?id=" + userId + "'>" +
-        "<img src='/photos/120x120/" + userId + "' class='postAvatar'></a>" +
-        "<h4><a href='/?id=${comment.owner.id}'>" + username + "</a></h4>" +
-        "<span class='postDate'>" + month + "-" + day + "-" + year + ", " +
-        hours + ":" + minutes + " " + ampm +
-        "</span></div><div class='postContent'>" + commentData.commentContent +
-        "</div></div>";
-        
-        
+
+        var newComment = ""
+            + "<div class='row-fluid category' id='thd-${comment.id}'>    "
+            + "<div class='authorDetails'>"
+            + "<a href='#' onclick='deleteComment(${comment.id}, event)'>"
+            + "<i class='icon-remove'></i></a>" + "<a href='/?id="
+            + userId
+            + "'>"
+            + "<img src='/photos/120x120/"
+            + userId
+            + "' class='postAvatar'></a>"
+            + "<h4><a href='/?id=${comment.owner.id}'>"
+            + username
+            + "</a></h4>"
+            + "<span class='postDate'>"
+            + month
+            + "-"
+            + day
+            + "-"
+            + year
+            + ", "
+            + hours
+            + ":"
+            + minutes
+            + " "
+            + ampm
+            + "</span></div><div class='postContent'>"
+            + nl2br(commentData.commentContent) + "</div></div>";
+
         $el.after(newComment);
-        
-        
+
       }
     });
   }
