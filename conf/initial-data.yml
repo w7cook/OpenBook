@@ -1,4 +1,5 @@
 # Test data
+
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -8,6 +9,7 @@ User(bob):
     password:           secret
     isAdmin:            true
     subscription:       true
+
 
 User(alice):
     first_name:         Alice
@@ -41,59 +43,27 @@ User(gparker):
     subscription:       true
 
 Profile(bobProfile):
-    owner:          bob
-    gender:         male
-    locale:         Austin
+    owner:              bob
+    gender:             male
+    locale:             Austin
     significantOther:   alice
-    anniversary:    2000-01-01
-    birthday:       1990-04-24
-    phone:          555-123-4567
-    address:        123 Somewhere St.
-    email:          bob@gmail.com
-    bio:            >
-                    Hi, I'm Bob
+    anniversary:        2000-01-01
+    birthday:           1990-04-29
+    phone:              555-123-4567
+    address:            123 Somewhere St.
+    email:              bob@gmail.com
+    bio:                >
+                        Hi, I'm Bob
+    religion:           Jewish
 
 Profile(jeffProfile):
-    owner:          jeff
+    owner:              jeff
 
 Profile(aliceProfile):
-    owner:          alice
+    owner:              alice
 
 Profile(gparkerProfile):
-    owner:          gparker
-
-
-Relationship(s1):
-    from:       bob
-    to:         bob
-
-Relationship(s2):
-    from:       alice
-    to:         alice
-
-Relationship(s3):
-    from:       jeff
-    to:         jeff
-
-Relationship(r1):
-    from:       bob
-    to:         jeff
-    accepted:   true
-
-Relationship(r3):
-    from:       alice
-    to:         jeff
-    accepted:   true
-
-Relationship(r4):
-    from:       jeff
-    to:         alice
-    accepted:   true
-
-Relationship(r5):
-    from:       jeff
-    to:         bob
-    accepted:   true
+    owner:              gparker
 
 Status(firstBobStatus):
     owner:         bob

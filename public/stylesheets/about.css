@@ -31,6 +31,7 @@ span.PanelTitle{
 	text-align: left;
 	direction: ltr;
 	font-weight: bold;
+	text-decoration: underline;
 }
 
 button.EditButton{

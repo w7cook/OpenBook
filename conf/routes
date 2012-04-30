@@ -11,10 +11,22 @@ GET     /es-admin/                              elasticsearch.ElasticSearchAdmin
 # Home page
 GET     /                                       Application.news
 
-GET     /about                                  Application.about
-GET     /edit_basic                             Application.edit_basic
-GET     /account                                Application.account
-GET     /requests                               Application.friendRequests
+
+
+#Account
+GET     /users/?                                Users.users #Get a list of all users
+POST    /users/?                                Signup.signup_user
+PUT     /users/{<[0-9]+>userId}                 Users.updateUser
+GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
+DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
+GET     /users/{<[0-9]+>userId}/profile         Users.profile
+GET     /users/{<[0-9]+>userId}/friends         Users.friends
+POST    /users/{<[0-9]+>userId}/friends         Users.requestFriends
+DELETE  /users/{<[0-9]+>userId}/friends         Users.removeFriends
+GET     /users/{<[0-9]+>userId}/requests        Users.friendRequests
+
+GET     /testFriends                            Users.testFriends
+
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
@@ -51,6 +63,11 @@ POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /photos/setGravatar                     Photos.setGravatar
 
+# Thumbnails
+GET     /photos/120x120/{<[0-9]+>photoId}       Thumbnails.get120x120
+GET     /photos/50x50/{<[0-9]+>photoId}         Thumbnails.get50x50
+GET     /photos/30x30/{<[0-9]+>photoId}         Thumbnails.get30x30
+
 #Signup
 GET     /signup                                 Signup.signup
 GET     /captcha                                Signup.captcha
@@ -61,20 +78,13 @@ GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
 # Notes
-GET     /notes/all                              Notes.viewNotes
+GET     /notes                                  Notes.viewNotes
 GET     /notes/newNote                          Notes.newNote
 POST    /notes                                  Notes.saveNote
 
 # Search
 GET     /users/search                           UserSearch.search
 GET     /groups/search                          GroupSearch.search
-
-#Account
-GET     /users/?                                Users.users #Get a list of all users
-#POST    /users/?                                Signup.signup #Add /  a user
-PUT     /users/{<[0-9]+>userId}                 Users.updateUser
-GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
-DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 
 #Posts
 GET     /posts/?                                        Posts.posts #Get all posts
@@ -113,8 +123,8 @@ GET     /relationships                                  Relationships.relationsh
 GET     /users/{<[0-9]+>userId}/timeline                Timeline.Timeline #Get timeline for specific user
 
 # Checkin
-GET     /checkin                                        Checkin.checkin
-GET     /checkin/at                                     Checkin.at
+GET     /checkins                                       Checkins.checkin
+GET     /checkins/at                                    Checkins.at
 
 *       /photos/{anything}                              404
 *       /users/{anything}/photos/?                      404

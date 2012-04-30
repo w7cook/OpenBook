@@ -1,8 +1,6 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
@@ -11,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Event extends Postable {
+public class Event extends Postable implements Comparable<Event>{
 
   @ManyToOne
   public User owner;
@@ -35,15 +33,14 @@ public class Event extends Postable {
 
   @ManyToMany
   @JoinTable(name="EventMembers")
-  public List<User> members;
+  public Set<User> members;
 
-  public Event(User author, String name, String script,
-      String location) {
+  public Event(User author, String name, String script, String location) {
     this.owner = author;
     this.name = name;
     this.script = script;
     this.location = location;
-    this.members = new ArrayList<User>();
+    this.members = new HashSet<User>();
     this.members.add(owner);
   }
 
@@ -69,5 +66,17 @@ public class Event extends Postable {
 
   public int getMemberCount() {
     return members.size();
+  }
+
+  public Set<User> uninvitedFriends(User user) {
+    HashSet ret = new HashSet(user.friends);
+    ret.removeAll(this.members);
+    return ret;
+  }
+
+  public int compareTo(Event e){
+    if (e.startDate == this.startDate)return 0;
+    else if (e.startDate.before(this.startDate)) return 1;
+    else return -1;
   }
 }

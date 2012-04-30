@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.*;
 import java.util.*;
 
 import play.*;
@@ -8,11 +9,22 @@ import controllers.Secure;
 import models.*;
 import models.Profile.Relationship;
 
+import models.Enrollment;
+import models.Language;
+import models.Location;
+import models.Profile;
+import models.User;
+import models.UserLanguage;
+
+import org.apache.ivy.util.cli.ParseException;
+
+import play.data.validation.Error;
+
 public class Profiles extends OBController {
 
-  public static void updateBio(String bio) {
+  public static void updateBio(String bio){
     User user  = user();
-    Profile profile = user.profile;
+    Profile profile = Profile.find("owner = ?", user).first();
 
     if(!bio.equals("Write About Yourself"))
       profile.bio = bio;
@@ -23,24 +35,34 @@ public class Profiles extends OBController {
     renderTemplate("Application/edit_basic.html", profile);
   }
 
-  public static void updateInformation(Date birthday, String relationshipStatus, String gender, String interestedIn,
-                                       Date anniversary, String language, String religion, String political) {
+  public static void updateInformation(String birthday, String relationshipStatus, String gender, String interestedIn,
+                                       String anniversary, String language, String religion, String political){
     User user = user();
     Profile profile = Profile.find("owner = ?", user).first();
     profile.religion = religion;
-    profile.birthday = birthday;
+    DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
+    try{
+      profile.birthday = (Date) birthday_formatting.parse(birthday);
+    } catch (java.text.ParseException e) {
+      e.printStackTrace();
+    }
+
     profile.gender = gender;
     profile.interestedIn = interestedIn;
-    profile.relationshipStatus = Relationship.fromString(relationshipStatus);
+    DateFormat anniversary_formatting = new SimpleDateFormat("MM/dd/yyyy");
+    try {
+      profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
+    } catch (java.text.ParseException e) {
+      e.printStackTrace();
+    }
+    //        profile.relationshipStatus = relationshipStatus;
 
     Language lang = Language.find("name = ?", language).first();
-    if (lang == null){
-      lang = new Language(language);
-      lang.save();
-    }
     UserLanguage userlang = new UserLanguage(profile, lang);
-    userlang.save();
-    profile.languages.add(userlang);
+    if (lang != null){
+      userlang.save();
+      profile.languages.add(userlang);
+    }
 
     profile.political = political;
     profile.save();
@@ -49,12 +71,20 @@ public class Profiles extends OBController {
 
   public static void updateContactInfo(String phone, String address){
     User user = user();
-    Profile profile = user.profile;
+    Profile profile = Profile.find("owner = ?", user).first();
 
-    if(!phone.equals("Add A Phone Number"))
+    if(!phone.equals("Add A Phone Number")){
       profile.phone = phone;
+    }
     else
       profile.phone = "";
+    validation.phone(profile.phone);
+    if(validation.hasErrors()) {
+      for(Error error: validation.errors()){
+        System.out.println("\n\n\n\n" + error.message() + "\n\n\n\n");
+      }
+      profile.phone = "Add A Phone Number";
+    }
 
     if(!address.equals("Add Current Address"))
       profile.address = address;
@@ -118,7 +148,7 @@ public class Profiles extends OBController {
 
   public static void updateQuote(String quotation){
     User user = user();
-    Profile profile = user.profile;
+    Profile profile = Profile.find("owner = ?", user).first();
 
     if(!quotation.equals("Add a Favorite Quotation"))
       profile.quotes = quotation;
@@ -128,39 +158,4 @@ public class Profiles extends OBController {
     profile.save();
     renderTemplate("Application/edit_basic.html", profile);
   }
-
-
-  /*
-    public static void updateBasic(String religion, String bio, Date birthday, String gender,
-    String relationshipStatus, String language, String political, String phone,
-    String address, List<Enrollment> education, List<Employment> work, Location hometown,
-    String quotes) {
-    User user = user();
-    Profile profile = user.profile;
-    profile.religion = religion;
-    profile.birthday = birthday;
-    profile.gender = gender;
-    profile.relationshipStatus = relationshipStatus;
-
-    Language lang = Language.find("name = ?", language).first();
-    if (lang == null){
-    lang = new Language(language);
-    lang.save();
-    }
-    UserLanguage userlang = new UserLanguage(user, lang);
-    userlang.save();
-    profile.languages.add(userlang);
-
-    profile.political = political;
-    profile.phone = phone;
-    profile.address = address;
-    profile.education = education;
-    profile.work = work;
-    //  u.profile.hometown = hometown;
-    profile.quotes = quotes;
-    profile.save();
-    user.save();
-    renderTemplate("Application/edit_basic.html", profile);
-    }
-  */
 }

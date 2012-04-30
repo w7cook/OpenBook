@@ -8,6 +8,7 @@ require:
    - play -> markdown 1.7
    - org.elasticsearch -> elasticsearch 0.17
    - se.scalablesolutions.akka -> akka-amqp 1.1.2
+   - net.coobird -> thumbnailator 0.4.1
     
  
 repositories:

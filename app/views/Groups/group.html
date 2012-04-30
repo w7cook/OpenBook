@@ -6,7 +6,7 @@
   <h3>The group is owned by ${group.owner}</h3>
   <h4>The Group members:</h4>
   #{list items:group.members, as:'member'}
-    <a href="@{Application.about(member.id)}">${member.name}</a>
+    <a href="/users/${member.id}">${member.name}</a>
     <br>
   #{/list}
   <hr />

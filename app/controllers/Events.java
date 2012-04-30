@@ -2,10 +2,7 @@ package controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import models.Event;
 import models.Post;
@@ -41,34 +38,49 @@ public class Events extends OBController {
     User user = userId == null ? null : (User) User.findById(userId);
     User currentUser = user();
     List<Event> events;
-    if(user == null)
+    
+    List<Event> today;
+    
+    if(user == null){
       events = Event.findAll();  //TODO: change to public and friends after visibility gets sorted
-    else
-      events = user.myEvents();
-    render(user, currentUser, events);
+      today = new ArrayList<Event>();
+    }
+    else{
+      events = user.myUpcomingEvents();//change back to myEvents()
+      today = user.todayEvents();
+    }
+    render(user, currentUser, events, today);
   }
 
   public static void upcoming(Long userId) {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
-    if(userId == null)
-      events = Event.find("SELECT r FROM Event r where r.endDate >= ?", new Date()).fetch();
-    else
+    List<Event> today;
+    if(userId == null){
+      events = Event.find("SELECT r FROM Event r where r.endDate >= ? order by r.startDate", new Date()).fetch();
+      today = new ArrayList<Event>();
+    }
+    else {
       events = user.upcomingEvents();
-    render(user, events);
+      today = user.todayEvents();
+    }
+    render(user, events, today);
   }
 
   public static void past(Long userId) {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
-    if(userId == null)
-      events = Event.find("SELECT r FROM Event r where r.endDate < ?", new Date()).fetch();
-    else
+    List<Event> today;
+    if(userId == null){
+      events = Event.find("SELECT r FROM Event r where r.endDate < ? order by r.startDate", new Date()).fetch();
+      today = new ArrayList<Event>();
+    }
+    else {
       events = user.pastEvents();
-    render(user, events);
+      today = new ArrayList<Event>();
+    }
+    render(user, events, today);
   }
-
-
 
   public static void addEvent() {
     render();
@@ -97,20 +109,16 @@ public class Events extends OBController {
     if (params.get("submit") != null) {
       User currentUser = user();
       validation.required(curEvent.name).message("Event name is required");
-      validation.required(curEvent.script).message(
-                                                   "Event description is required");
-      validation.required(curEvent.location).message(
-                                                     "Event location is required");
-      validation.isTrue(!startMonth.equals("-1")).message(
-                                                          "Event start month is required");
-      validation.isTrue(!startDay.equals("-1")).message(
-                                                        "Event start day is required");
-      validation.isTrue(!startTime.equals("-1")).message(
-                                                         "Event start time is required");
+      validation.required(curEvent.script).message("Event description is required");
+      validation.required(curEvent.location).message("Event location is required");
+      validation.isTrue(!startMonth.equals("-1")).message("Event start month is required");
+      validation.isTrue(!startDay.equals("-1")).message("Event start day is required");
+      validation.isTrue(!startTime.equals("-1")).message("Event start time is required");
       if (validation.hasErrors()) {
         Event thisEvent = curEvent;
         renderTemplate("Events/addEvent.html", thisEvent);
-      } else {
+      }
+      else {
         Event event = curEvent;
         event.owner = currentUser;
 
@@ -132,7 +140,7 @@ public class Events extends OBController {
         } else if (curEvent.privilege.equals("inviteOnly")) {
           event.inviteOnly = true;
         }
-        event.members = new ArrayList<User>();
+        event.members = new HashSet<User>();
         event.members.add(currentUser);
         event.save();
         event(event.id);
