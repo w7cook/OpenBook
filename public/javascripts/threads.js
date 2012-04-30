@@ -6,7 +6,7 @@ function nl2br(str, is_xhtml)
       + '$2');
 }
 
-function submitCategory(id)
+function submitCategory()
 {
   if ($('#category-name').val() == '' || $('#category-description').val() == '')
   {
@@ -26,60 +26,62 @@ function submitCategory(id)
       name : $('#category-name').val(),
       description : $('#category-description').val()
     };
+   
 
     $.ajax({
       url : '/threads/newCategory',
       type : 'POST',
       data : categoryData,
-      success : function(data, textStatus, jqXHR)
+      success : function(response)
       {
-        $('#msg-sent-alert').slideDown(300).delay(8000).slideUp(300);
+        catId = response;
+        var newCategory = "" + "<div class='row-fluid category' id='cat-" + catId
+        + "'>" + "<div class='span8 cat-name'>" + "<h4><a href='threads/" + catId
+        + "'>" + $('#category-name').val() + "</a></h4>"
+        + "<span class='categoryDescription'> - "
+        + $('#category-description').val() + "</span>" + "</div>"
+        + "<div class='span4 cat-latest cat-empty'>None</div>" + "</div>";
+
+        var $fi = $('.category');
+        var $el = $fi.eq($fi.length - 1);
+    
+        $el.after(newCategory);
+    
+        var newDelete = "<div id='deleteCat-" + catId
+            + "' class='deleteCat' ><a href='#' " + "onclick='deleteCategory(" + catId
+            + ")' data-dismiss='modal'>" + "<i class='icon-remove'></i></a> "
+            + $('#category-name').val() + "</div>";
+    
+        var $fi2 = $('.deleteCat');
+        var $el2 = $fi2.eq($fi2.length - 1);
+    
+        $el2.after(newDelete);
+    
+        var newButton = "<button class='btn btn-success' data-dismiss='modal' "
+            + "id='createCat' onclick='submitCategory()'>"
+            + "Create category</button>"
+    
+        $('#createCat').replaceWith(newButton);
+
+
+
+        if ($('.cat-name').length >= 8)
+        {
+          $('#newItem').remove();
+        }
       },
-      error : function(jqXHR, textStatus, errorThrown)
+      error : function(jqXHR, textStatus, errorThrown, response)
       {
         $('#msg-failed-alert').slideDown(300).delay(8000).slideUp(300);
       },
-      'complete' : function(jqXHR, textStatus)
+      'complete' : function(response)
       {
         $('#category-name').val('');
         $('#category-description').val('');
       }
     });
 
-    var newCategory = "" + "<div class='row-fluid category' id='cat-" + id
-        + "'>" + "<div class='span8 cat-name'>" + "<h4><a href='threads/" + id
-        + "'>" + $('#category-name').val() + "</a></h4>"
-        + "<span class='categoryDescription'> - "
-        + $('#category-description').val() + "</span>" + "</div>"
-        + "<div class='span4 cat-latest cat-empty'>None</div>" + "</div>";
 
-    var $fi = $('.category');
-    var $el = $fi.eq($fi.length - 1);
-
-    $el.after(newCategory);
-
-    var newDelete = "<div id='deleteCat-" + id
-        + "' class='deleteCat' ><a href='#' " + "onclick='deleteCategory(" + id
-        + ")' data-dismiss='modal'>" + "<i class='icon-remove'></i></a> "
-        + $('#category-name').val() + "</div>";
-
-    var $fi2 = $('.deleteCat');
-    var $el2 = $fi2.eq($fi2.length - 1);
-
-    $el2.after(newDelete);
-
-    var newButton = "<button class='btn btn-success' data-dismiss='modal' "
-        + "id='createCat' onclick='submitCategory(" + ++id + ")'>"
-        + "Create category</button>"
-
-    $('#createCat').replaceWith(newButton);
-
-    $('#numCats').html(id);
-
-    if ($('.cat-name').length >= 8)
-    {
-      $('#newItem').remove();
-    }
   }
 }
 

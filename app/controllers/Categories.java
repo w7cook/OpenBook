@@ -39,9 +39,11 @@ public class Categories extends OBController {
   }
   
   public static void newCategory (String name, String description) {
+	final Category category;
 	if (Category.findAll().size() < MAX_CATEGORIES)
 	{
-		final Category category = new Category(name, description).save();
+		category = new Category(name, description).save();
+		renderJSON(category.id);
 	}
   }
   
