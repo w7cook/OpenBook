@@ -12,8 +12,9 @@ div .category {
 	border-bottom: 1px dotted black; 
   margin-top: 10px; 
   padding-bottom: 10px;
-  height: 50px;
+  min-height: 50px;
   position: relative;
+  
 }
 
 div .cat-name {
@@ -43,6 +44,7 @@ div.modal-body input#thread-title {
 div.modal-body textarea#thread-content {
 	width: 98%;
 	height: 250px;
+	resize: vertical;
 }
 
 #newItem {
@@ -67,8 +69,46 @@ div .cat-name h4 {
 	color: red;
 }
 
-a.removeThread {
+div.category .icon-remove {
 	position: absolute;
 	right: 0px;
 	top: 0px;
+}
+
+div.authorDetails .icon-remove {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+div.authorDetails {
+	text-align: center;
+	width: 250px;
+	float: left;
+}
+
+div.postContent {
+	margin-left: 250px;
+}
+
+img.postAvatar {
+	margin-bottom: 5px;
+	border: 1px dashed black;
+	height: 150px;
+	width: 150px;
+}
+
+span.postDate {
+	font-size: 11px;
+}
+
+textarea#threadReply {
+	height: 200px;
+	width: 99%;
+	resize: vertical;
+}
+
+#postReply {
+	float: right;
+	color: white;
 }
