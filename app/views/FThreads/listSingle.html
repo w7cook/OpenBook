@@ -1,6 +1,5 @@
-#{extends 'two_panel.html' /}  
-
-#{set 'title'} OpenBook :: ${thread.title} #{/set}
+#{extends 'two_panel.html' /} #{set 'title'} OpenBook :: ${thread.title}
+#{/set}
 
 
 <div id="forumContainer">
@@ -15,25 +14,24 @@
 	<div class="forumInner">
 		<div class="threadAuthorInfo">
 			<a href="/?id=${thread.owner.id}">${thread.owner}</a>:<br /> <span
-				class="threadDate">${thread.postedAt.format('M-d-yy, h:mm a')}</span>
+				class="threadDate">
+				${thread.postedAt.format("M-d-yy, h:mm a")}</span>
 		</div>
 
 		<div class="threadContent">${thread.content}</div>
 	</div>
 
 
-	
+
 	#{list items:thread.comments(), as:'comment'}
 
 	<div class="forumInner comment${comment.id}">
 		<div class="threadAuthorInfo">
 			<a href="/?id=${comment.owner.id}">${comment.owner}</a>:<br /> <span
-				class="threadDate">${comment.createdAt.format('M-d-yy, h:mm a')}
-				#{if comment.owner ==  _user} 
-					<br /><a href="#" onclick="deleteComment(${comment.id}, event)">Remove
-					post</a>
-				#{/if}
-				</span>
+				class="threadDate"> 
+				${comment.createdAt.format('M-d-yy, h:mm a')} #{if comment.owner == _user} <br /> <a href="#"
+				onclick="deleteComment(${comment.id}, event)">Remove post</a> #{/if}
+			</span>
 		</div>
 
 		<div class="threadContent">${comment.content.escape().nl2br()}</div>
@@ -47,16 +45,16 @@
 		<div class="threadContent">
 			<form action="#">
 				<textarea id="threadReply"></textarea>
-				
 
-				<input style="float: right" id="threadSubmit" type="submit" 
-				       onclick="event.preventDefault();" value="Submit reply" />
+
+				<input style="float: right" id="threadSubmit" type="submit"
+					onclick="event.preventDefault();" value="Submit reply" />
 				<div style="clear: both;"></div>
 			</form>
 		</div>
 
 	</div>
-	
+
 	<script type="text/javascript">
 	   $('input#threadSubmit').click(function(event) {
 	       var commentData = {
@@ -123,10 +121,19 @@
 	   
 	   
 	</script>
-	
+
 
 
 
 </div>
 
 <div style="clear: both;"></div>
+
+
+<h2>
+	<a href="/threads">Public Threads</a> / <a href="/threads/${thread.category.id}">${thread.category.name}</a>
+	/ ${thread.title}
+</h2>
+
+<div class="well"></div>
+

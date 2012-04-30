@@ -92,8 +92,59 @@ function deleteCategory(id) {
 	});
 
 	if ($('.cat-name').length == 8) {
-		$('#delItem')
-				.before(
-						"<a class='btn btn-primary' data-toggle='modal' href='#create-category' id='newItem'>Create new category</a> ");
+		$('#delItem').before(
+				"<a class='btn btn-primary' data-toggle='modal' "
+						+ "href='#create-category' id='newItem'>Create new "
+						+ "category</a> ");
 	}
+}
+
+function submitThread(catId) {
+	if ($('#thread-title').val() == '' || $('#thread-content').val() == '') {
+
+	} else {
+		var threadData = {
+			categoryId : catId,
+			title : $('#thread-title').val(),
+			content : $('#thread-content').val()
+		};
+
+		$.ajax({
+			url : '/threads/newThread',
+			type : 'POST',
+			data : threadData,
+			success : function(response) {
+				window.location = "/threads/" + catId + "/" + response
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				$('#msg-failed-alert').slideDown(300).delay(8000).slideUp(300);
+			},
+			'complete' : function(jqXHR, textStatus) {
+				$('#thread-title').val('');
+				$('#thread-content').val('');
+			}
+		});
+	}
+}
+
+function deleteThread(id) {
+	var deleteData = {
+		threadId : id,
+	};
+
+	$.ajax({
+		url : '/threads/deleteThread',
+		type : 'POST',
+		data : deleteData,
+		success : function(data, textStatus, jqXHR) {
+			$('#msg-sent-alert').slideDown(300).delay(8000).slideUp(300);
+
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			$('#msg-failed-alert').slideDown(300).delay(8000).slideUp(300);
+		},
+		'complete' : function(jqXHR, textStatus) {
+			$('#cat-' + id).slideUp(300);
+		}
+	});
 }

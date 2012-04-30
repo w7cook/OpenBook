@@ -32,9 +32,10 @@ public class Categories extends OBController {
   }
 
   public static void listSingle(Long catId) {
+	User _user = Application.user();
     Category category = Category.findById(catId);
     List<FThread> FThreads = FThread.find("category = ? order by postedAt desc", category).fetch(10);
-    render(FThreads, category);
+    render(FThreads, category, _user);
   }
   
   public static void newCategory (String name, String description) {

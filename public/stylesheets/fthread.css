@@ -13,6 +13,7 @@ div .category {
   margin-top: 10px; 
   padding-bottom: 10px;
   height: 50px;
+  position: relative;
 }
 
 div .cat-name {
@@ -35,6 +36,15 @@ div .cat-empty {
   min-height: 30px;
 }
 
+div.modal-body input#thread-title {
+  width: 98%;
+}
+
+div.modal-body textarea#thread-content {
+	width: 98%;
+	height: 250px;
+}
+
 #newItem {
 	color: white;
 }
@@ -55,4 +65,10 @@ div .cat-name h4 {
 .error {
 	margin-left: 5px;
 	color: red;
+}
+
+a.removeThread {
+	position: absolute;
+	right: 0px;
+	top: 0px;
 }

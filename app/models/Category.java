@@ -10,7 +10,8 @@ public class Category extends Model {
 
   public String name;
   public String description;
-
+  public Likeable latest;
+  
   @OneToMany(mappedBy="category", cascade=CascadeType.ALL)
   public List<FThread> threads;
 
