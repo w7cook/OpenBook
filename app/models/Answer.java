@@ -36,12 +36,17 @@ public class Answer extends Model {
 	
 	public Answer addUserChoice(User user){
 		for(Answer a : question.answers)
-			if(a.answeredBy(user))
-				return null;
+			if(a.removeUserChoice(user))
+				a.save();
 		usersWhoAnswered.add(user);
 		user.userAnswers.add(this);
+		user.save();
 		this.save();
 		return this;
+	}
+	
+	public boolean removeUserChoice(User user){
+		return usersWhoAnswered.remove(user);
 	}
 	
 	public boolean answeredBy(User user){

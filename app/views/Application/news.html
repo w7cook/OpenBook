@@ -36,7 +36,8 @@ function toggleUpdateStatus(id) {
   </div>
   <div class="ui_InputContainer" id="question-upload" style="display: none">
     #{form @Questions.addQuestion(), enctype:'multipart/form-data'}
-      <input type="text" name="question" />
+    Question: <input type="text" name="question" /><br />
+    Answers: <br />
       <ol id="answer_list">
         <li><input type="text" name="answers" value="" /></li>
         <li><input type="text" name="answers" value="" /></li>
