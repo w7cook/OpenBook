@@ -38,34 +38,62 @@ public class Events extends OBController {
     User user = userId == null ? null : (User) User.findById(userId);
     User currentUser = user();
     List<Event> events;
-    if(user == null)
+    List<Event> today;
+    if(user == null){
       events = Event.findAll();  //TODO: change to public and friends after visibility gets sorted
-    else
-      events = user.myEvents();
-    render(user, currentUser, events);
+      today = new ArrayList<Event>();
+    }
+    else{
+      events = user.myUpcomingEvents();
+      today = user.todayEvents();
+    }
+    render(user, currentUser, events, today);
   }
 
   public static void upcoming(Long userId) {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
-    if(userId == null)
-      events = Event.find("SELECT r FROM Event r where r.endDate >= ?", new Date()).fetch();
-    else
-      events = user.upcomingEvents();
-    render(user, events);
+    List<Event> today;
+    if(userId == null){
+      events = Event.find("SELECT r FROM Event r where r.endDate >= ? order by r.startDate", new Date()).fetch();
+      today = new ArrayList<Event>();
+    }
+    else {
+      events = user.myUpcomingEvents();
+      today = user.todayEvents();
+    }
+    render(user, events, today);
   }
 
   public static void past(Long userId) {
     User user = userId == null ? user() : (User) User.findById(userId);
     List<Event> events;
-    if(userId == null)
-      events = Event.find("SELECT r FROM Event r where r.endDate < ?", new Date()).fetch();
-    else
-      events = user.pastEvents();
-    render(user, events);
+    List<Event> today;
+    if(userId == null){
+      events = Event.find("SELECT r FROM Event r where r.endDate < ? order by r.startDate", new Date()).fetch();
+      today = new ArrayList<Event>();
+    }
+    else {
+      events = user.myPastEvents();
+      today = new ArrayList<Event>();
+    }
+    render(user, events, today);
   }
 
-
+  public static void declinedEvents(Long userId){
+    User user = userId == null ? user() : (User) User.findById(userId);
+    List<Event> events;
+    List<Event> today;
+    if(userId == null){
+      events = new ArrayList<Event>();
+      today = new ArrayList<Event>();
+    }
+    else {
+      events = user.myDeclinedEvents();
+      today = user.declinedTodayEvents();
+    }
+    render(user, events, today);
+  }
 
   public static void addEvent() {
     render();
@@ -74,7 +102,7 @@ public class Events extends OBController {
   public static void addEventInvite(Long eventId, Long guestId) {
     User guest = User.findById(guestId);
     Event event = Event.findById(eventId);
-    event.addMember(guest);
+    event.inviteMember(guest);
     event.save();
     event(event.id);
   }
@@ -106,12 +134,10 @@ public class Events extends OBController {
       else {
         Event event = curEvent;
         event.owner = currentUser;
-
         event.name = curEvent.name;
         event.script = curEvent.script;
         event.location = curEvent.location;
         event.startDate = setDate(startTime, startMonth, startDay);
-
         if (!endMonth.equals("-1") && !endDay.equals("-1")
             && !endTime.equals("-1")) {
           event.endDate = setDate(endTime, endMonth, endDay);
@@ -124,8 +150,13 @@ public class Events extends OBController {
           event.friends = true;
         } else if (curEvent.privilege.equals("inviteOnly")) {
           event.inviteOnly = true;
-        }
+        }    
+        event.invited = new HashSet<User>();
+        event.invited.add(currentUser);
+        event.maybe = new HashSet<User>();
+        event.awaitreply = new HashSet<User>();
         event.members = new HashSet<User>();
+        event.declined = new HashSet<User>();
         event.members.add(currentUser);
         event.save();
         event(event.id);
@@ -135,8 +166,6 @@ public class Events extends OBController {
       events(user().id);
     }
   }
-
-
 
   public static String convertDateToString(Date myDate){
     DateFormat df = new SimpleDateFormat("MMMM d 'at' HH:mm a");
@@ -174,6 +203,22 @@ public class Events extends OBController {
     Event event = Event.findById(eventId);
     event.removeMember(guest);
     event.save();
-    events(userId);
+    events(guest.id);
+  }
+
+  public static void joinEvent(Long eventId, Long userId){
+    User guest = User.findById(userId);
+    Event event = Event.findById(eventId);
+    event.addMember(guest);
+    event.save();
+    event(event.id);
+  }
+
+  public static void maybeEvent(Long eventId, Long userId){
+    User guest = User.findById(userId);
+    Event event = Event.findById(eventId);
+    event.addMaybe(guest);
+    event.save();
+    event(event.id);
   }
 }
