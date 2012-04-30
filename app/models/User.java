@@ -251,7 +251,7 @@ public class User extends Postable {
    * @return a list of upcoming events that User has authored
    */
   public List<Event> upcomingEvents() {
-    return Event.find("SELECT r FROM Event r where r.owner = ?1 AND r.endDate >= ?2 ORDER BY r.startDate", this, new Date()).fetch();
+    return Event.find("SELECT r FROM Event r where r.owner = ?1 AND r.startDate >= ?2 ORDER BY r.startDate", this, new Date()).fetch();
   }
 
   /** Get all past events
@@ -262,16 +262,20 @@ public class User extends Postable {
     return Event.find("SELECT r FROM Event r where r.owner = ?1 AND r.endDate < ?2 ORDER BY r.startDate", this, new Date()).fetch();
   }
 
-  /** List all events for any user
+  /** List all past events for any user
    *
-   * @return a list of events the user is a member of
+   * @return a list of past events the user is a member of
    */
-  public List<Event> myEvents() {
+  public List<Event> myPastEvents() {
+    //past events
     List<Event> allEvents= Event.findAll();
+    List<Event> allUpcoming = myUpcomingEvents();
+    List<Event> allToday = todayEvents();
     List<Event> answer= new ArrayList<Event>();
     for(Event e : allEvents){
       for(User u : e.members){
-        if(u.equals(this)){
+        if(u.equals(this) && !allUpcoming.contains(e) && !allToday.contains(e)){
+       // if(u.equals(this)){
           answer.add(e);
           break;
         }
@@ -301,12 +305,56 @@ public class User extends Postable {
     return answer;
   }
   
+  /** List all events for any user happening today
+   * 
+   * @ return a list of events that happen today the user is a member of
+   */
   public List<Event> todayEvents(){
     List<Event> allEvents = Event.findAll();
     List<Event> answer= new ArrayList<Event>();
     Calendar cal = Calendar.getInstance();
     for(Event e : allEvents){
       for(User u : e.members){
+        if(u.equals(this) && (e.startDate.getDate() == cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() == cal.get(Calendar.MONTH))){
+          answer.add(e);
+          break;
+        }
+      }
+    }
+    Collections.sort(answer);
+    return answer;
+  }
+  
+  /** List all events for any user upcoming that the user declined
+   * 
+   * @ return a list of events that haven't happened yet the user declined
+   */
+  public List<Event> myDeclinedEvents(){
+    List<Event> allEvents = Event.find("SELECT r FROM Event r where r.startDate > ?", new Date()).fetch();
+    List<Event> answer= new ArrayList<Event>();
+    Calendar cal = Calendar.getInstance();
+    for(Event e : allEvents){
+      for(User u : e.declined){
+        if(u.equals(this) && (e.startDate.getDate() != cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() != cal.get(Calendar.MONTH))){
+          answer.add(e);
+          break;
+        }
+      }
+    }
+    Collections.sort(answer);
+    return answer;
+  }
+  
+  /** List all declined events for any user happening today
+   * 
+   * @ return a list of declined events that happen today 
+   */
+  public List<Event> declinedTodayEvents(){
+    List<Event> allEvents = Event.findAll();
+    List<Event> answer= new ArrayList<Event>();
+    Calendar cal = Calendar.getInstance();
+    for(Event e : allEvents){
+      for(User u : e.declined){
         if(u.equals(this) && (e.startDate.getDate() == cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() == cal.get(Calendar.MONTH))){
           answer.add(e);
           break;
