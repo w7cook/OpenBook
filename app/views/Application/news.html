@@ -1,9 +1,15 @@
 #{extends 'three_panel.html' /}
 <div id="contentArea">
+  <script>
+function toggleUpdateStatus(id) {
+  jQuery('.ui_InputContainer').hide();
+  jQuery('#' + id).show();
+}
+  </script>
   <div class="pagelet">
-    <a href="#">Update Status</a>
-    <a href="#">Add Photo</a>
-    <a href="#">Share Link</a>
+    <a href="#" onclick="toggleUpdateStatus('PostContainer')">Update Status</a>
+    <a href="#" onClick="toggleUpdateStatus('photo-upload')">Add Photo</a>
+    <a href="#" onClick="toggleUpdateStatus('link-upload')">Share Link</a>
     <a href="#">Ask Question</a>
     <a id="about-button" href="/users/${user.id}/profile">About me</a>
   </div>
@@ -21,7 +27,7 @@
       <input type="submit" name="submit" value="Upload" /> 
     #{/form}
   </div>
-  <div class="ui_inputContainer" id="link-upload" style="display: none">
+  <div class="ui_InputContainer" id="link-upload" style="display: none">
     #{form @Links.addLink(), enctype:'multipart/form-data'}
       <input type="text" name="url" value="video url" />
       <input type="text" name="content" />
