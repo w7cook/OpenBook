@@ -41,11 +41,18 @@ function submitCategory()
         + "<span class='categoryDescription'> - "
         + $('#category-description').val() + "</span>" + "</div>"
         + "<div class='span4 cat-latest cat-empty'>None</div>" + "</div>";
-
-        var $fi = $('.category');
-        var $el = $fi.eq($fi.length - 1);
-    
-        $el.after(newCategory);
+        
+        if ($('.cat-empty').length == 1)
+        {
+          $('.cat-empty').replaceWith(newCategory);
+        }
+        else
+        {
+          var $fi = $('.category');
+          var $el = $fi.eq($fi.length - 1);
+      
+          $el.after(newCategory);
+        }
     
         var newDelete = "<div id='deleteCat-" + catId
             + "' class='deleteCat' ><a href='#' " + "onclick='deleteCategory(" + catId
@@ -56,14 +63,6 @@ function submitCategory()
         var $el2 = $fi2.eq($fi2.length - 1);
     
         $el2.after(newDelete);
-    
-        var newButton = "<button class='btn btn-success' data-dismiss='modal' "
-            + "id='createCat' onclick='submitCategory()'>"
-            + "Create category</button>"
-    
-        $('#createCat').replaceWith(newButton);
-
-
 
         if ($('.cat-name').length >= 8)
         {
