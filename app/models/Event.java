@@ -14,10 +14,6 @@ public class Event extends Postable implements Comparable<Event>{
   @ManyToOne
   public User owner;
 
-  /*
-   * @OneToMany public EventInvite invitedUsers;
-   */
-
   public String name;
   public String script;
   public String location;
@@ -29,7 +25,6 @@ public class Event extends Postable implements Comparable<Event>{
   public boolean open = false;
   public boolean friends = false;
   public boolean inviteOnly = false;
-  // public Location eventVenue;
 
   @ManyToMany
   @JoinTable(name="InvitedRepliedEventMembers")
@@ -62,12 +57,6 @@ public class Event extends Postable implements Comparable<Event>{
     this.maybe = new HashSet<User>();
     this.declined = new HashSet<User>();
     this.members.add(owner);
-  }
-
-  public EventInvite newEventInvite(User curGuest) {
-    EventInvite myEventInvite = new EventInvite(this, curGuest).save();
-    this.save();
-    return myEventInvite;
   }
 
   public List<Post> getPosts() {
