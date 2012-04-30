@@ -38,15 +38,15 @@ public class Events extends OBController {
     User user = userId == null ? null : (User) User.findById(userId);
     User currentUser = user();
     List<Event> events;
-    
+
     List<Event> today;
-    
+
     if(user == null){
       events = Event.findAll();  //TODO: change to public and friends after visibility gets sorted
       today = new ArrayList<Event>();
     }
     else{
-      events = user.myUpcomingEvents();//change back to myEvents()
+      events = user.myUpcomingEvents();
       today = user.todayEvents();
     }
     render(user, currentUser, events, today);
@@ -61,7 +61,7 @@ public class Events extends OBController {
       today = new ArrayList<Event>();
     }
     else {
-      events = user.upcomingEvents();
+      events = user.myUpcomingEvents();//upcomingEvents()
       today = user.todayEvents();
     }
     render(user, events, today);
@@ -76,8 +76,23 @@ public class Events extends OBController {
       today = new ArrayList<Event>();
     }
     else {
-      events = user.pastEvents();
+      events = user.myPastEvents();
       today = new ArrayList<Event>();
+    }
+    render(user, events, today);
+  }
+
+  public static void declinedEvents(Long userId){
+    User user = userId == null ? user() : (User) User.findById(userId);
+    List<Event> events;
+    List<Event> today;
+    if(userId == null){
+      events = new ArrayList<Event>();
+      today = new ArrayList<Event>();
+    }
+    else {
+      events = user.myDeclinedEvents();
+      today = user.declinedTodayEvents();
     }
     render(user, events, today);
   }
@@ -141,6 +156,7 @@ public class Events extends OBController {
           event.inviteOnly = true;
         }
         event.members = new HashSet<User>();
+        event.declined = new HashSet<User>();
         event.members.add(currentUser);
         event.save();
         event(event.id);

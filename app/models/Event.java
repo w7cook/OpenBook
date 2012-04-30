@@ -34,6 +34,10 @@ public class Event extends Postable implements Comparable<Event>{
   @ManyToMany
   @JoinTable(name="EventMembers")
   public Set<User> members;
+  
+  @ManyToMany
+  @JoinTable(name="DeclinedEventMembers")
+  public Set<User> declined;
 
   public Event(User author, String name, String script, String location) {
     this.owner = author;
@@ -41,6 +45,7 @@ public class Event extends Postable implements Comparable<Event>{
     this.script = script;
     this.location = location;
     this.members = new HashSet<User>();
+    this.declined = new HashSet<User>();
     this.members.add(owner);
   }
 
@@ -57,11 +62,15 @@ public class Event extends Postable implements Comparable<Event>{
   public void addMember(User u) {
     if (!members.contains(u))
       members.add(u);
+    if(declined.contains(u))
+      declined.remove(u);
   }
 
   public void removeMember(User u) {
     if (members.contains(u))
       members.remove(u);
+    if(!declined.contains(u))
+      declined.add(u);
   }
 
   public int getMemberCount() {
