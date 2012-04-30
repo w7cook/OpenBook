@@ -273,9 +273,9 @@ public class User extends Postable {
     List<Event> allToday = todayEvents();
     List<Event> answer= new ArrayList<Event>();
     for(Event e : allEvents){
-      for(User u : e.members){
+      for(User u : e.invited){
         if(u.equals(this) && !allUpcoming.contains(e) && !allToday.contains(e)){
-       // if(u.equals(this)){
+          // if(u.equals(this)){
           answer.add(e);
           break;
         }
@@ -284,7 +284,7 @@ public class User extends Postable {
     Collections.sort(answer);
     return answer;
   }
-  
+
   /** List all events for any user upcoming
    * 
    * @ return a list of events that haven't happened yet the user is a member of
@@ -294,7 +294,7 @@ public class User extends Postable {
     List<Event> answer= new ArrayList<Event>();
     Calendar cal = Calendar.getInstance();
     for(Event e : allEvents){
-      for(User u : e.members){
+      for(User u : e.invited){
         if(u.equals(this) && (e.startDate.getDate() != cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() != cal.get(Calendar.MONTH))){
           answer.add(e);
           break;
@@ -304,7 +304,7 @@ public class User extends Postable {
     Collections.sort(answer);
     return answer;
   }
-  
+
   /** List all events for any user happening today
    * 
    * @ return a list of events that happen today the user is a member of
@@ -314,7 +314,7 @@ public class User extends Postable {
     List<Event> answer= new ArrayList<Event>();
     Calendar cal = Calendar.getInstance();
     for(Event e : allEvents){
-      for(User u : e.members){
+      for(User u : e.invited){
         if(u.equals(this) && (e.startDate.getDate() == cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() == cal.get(Calendar.MONTH))){
           answer.add(e);
           break;
@@ -324,7 +324,7 @@ public class User extends Postable {
     Collections.sort(answer);
     return answer;
   }
-  
+
   /** List all events for any user upcoming that the user declined
    * 
    * @ return a list of events that haven't happened yet the user declined
@@ -344,7 +344,7 @@ public class User extends Postable {
     Collections.sort(answer);
     return answer;
   }
-  
+
   /** List all declined events for any user happening today
    * 
    * @ return a list of declined events that happen today 

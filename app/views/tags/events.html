@@ -31,8 +31,11 @@
       #{if _title_string.equals("Upcoming Declined Events")}
       #{if todayevent.declined.contains(_currentUser)}
         <a href="/events/${todayevent.id}">${todayevent.name}</a>
-         <a class="button" href="@{Events.addEventInvite(todayevent.id, _currentUser.id)}">
-         Join
+         <a class="button" href="@{Events.joinEvent(todayevent.id, _currentUser.id)}">
+          Join
+         </a>
+         <a class="button" href="@{Events.maybeEvent(todayevent.id, _currentUser.id)}">
+          Maybe
          </a>
         <br />
       #{/if} 
@@ -42,6 +45,21 @@
       #{if todayevent.members.contains(_currentUser)}
         <a href="/events/${todayevent.id}">${todayevent.name}</a>
          <i> You're going.</i>
+        <br />
+      #{/if} 
+      #{if todayevent.maybe.contains(_currentUser)}
+        <a href="/events/${todayevent.id}">${todayevent.name}</a>
+         <i> You might go.</i>
+        <br />
+      #{/if}
+      #{if todayevent.awaitreply.contains(_currentUser)}
+        <a href="/events/${todayevent.id}">${todayevent.name}</a>
+         <a class="button" href="@{Events.joinEvent(todayevent.id, _currentUser.id)}">
+          Join
+         </a>
+         <a class="button" href="@{Events.leaveEvent(todayevent.id, _currentUser.id)}">
+          Decline
+         </a>
         <br />
       #{/if} 
       #{/else}
@@ -66,8 +84,11 @@
       #{if _title_string.equals("Upcoming Declined Events")}
       #{if event.declined.contains(_currentUser)}
         <a href="/events/${event.id}">${event.name}</a>
-         <a class="button" href="@{Events.addEventInvite(event.id, _currentUser.id)}">
+         <a class="button" href="@{Events.joinEvent(event.id, _currentUser.id)}">
          Join
+         </a>
+         <a class="button" href="@{Events.maybeEvent(event.id, _currentUser.id)}">
+         Maybe
          </a>
         <br />
       #{/if} 
@@ -78,7 +99,22 @@
         <a href="/events/${event.id}">${event.name}</a>
          <i> You're going.</i>
         <br />
-      #{/if} 
+      #{/if}
+      #{if event.maybe.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <i> You might go.</i>
+        <br />
+      #{/if}
+       #{if event.awaitreply.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <a class="button" href="@{Events.joinEvent(event.id, _currentUser.id)}">
+          Join
+         </a>
+         <a class="button" href="@{Events.leaveEvent(event.id, _currentUser.id)}">
+          Decline
+         </a>
+        <br />
+      #{/if}  
       #{/else}
       
     #{/else}   
