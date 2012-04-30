@@ -48,6 +48,18 @@ public class Users extends OBController {
     return names;
   }
 
+  public static void friends(Long userId) {
+    User user = User.findById(userId);
+    User currentUser = user();
+    if (user == null)
+      notFound();
+    if (!(user.isFriendsWith(currentUser) || user.equals(currentUser)))
+      unauthorized();
+    Set<User> friends = new HashSet(user.friends);
+    friends.remove(user);
+    render(currentUser, friends);
+  }
+
   public static void friendRequests(Long userId) {
     User user = user();
     if (userId != null && userId != user.id)
@@ -78,7 +90,7 @@ public class Users extends OBController {
     render(user, profile);
   }
 
-  /** Request to be friends with a given user, changing appropriate Relationship flags where necessary.
+  /** Request to be friends with a given user
    *
    * @param userId the user to request friendship with
    */
@@ -88,49 +100,29 @@ public class Users extends OBController {
     User other = User.findById(userId);
     if(other == null)
       notFound();
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
 
-    if (r1 == null) {
-      r1 = new Relationship(user, other, true);
-      r1.save();
+    // I know it's redundant, but it's helpful for testing purposes
+    if(user.equals(other)) {
+      user.friends.add(other);
+      user.save();
+      renderText("friends");
     }
 
-    if (r2 != null) {
-
-      // If the other user has already requested, this request should make them friends
-      if (r2.requested) {
-        r1.requested = false;
-        r2.requested = false;
-        r1.accepted = true;
-        r2.accepted = true;
-        r1.save();
-        r2.save();
-      } else if (r2.accepted){
-        Application.news(userId);
-        return;
-      } else {
-        r1.requested = true;
-      }
+    // If the other person has already requested friendship with you
+    if (user.friendRequests.contains(other)) {
+      user.friendRequests.remove(other);
+      user.friends.add(other);
+      other.friends.add(user);
+      user.save();
+      other.save();
+      renderText("friends");
     }
-    // If the user has already made a request for friendship, do nothing
-    else if (r1 != null) {
-      if (r1.requested) {
-        Application.news(userId);
-        return;
-      } else {
-        r1.requested = true;
-        r1.save();
-        Application.news(userId);
-        return;
-      }
-    }
-    System.out.println(r1.requested);
-    r1.save();
-    Application.news(userId);
+    other.friendRequests.add(user);
+    other.save();
+    renderText("requested");
   }
 
-  /** Attempt to end a relationship with a user, changing appropriate Relationship flags where necessary
+  /** Attempt to end a relationship with a user
    *
    * @param userId the user to remove
    */
@@ -139,19 +131,12 @@ public class Users extends OBController {
     User other = User.findById(userId);
     if (other == null)
       notFound();
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
-
-    if (r1 != null) {
-      r1.requested = false;
-      r1.accepted = false;
-      r1.save();
-    }
-    if (r2 != null) {
-      r2.accepted = false;
-      r2.requested = false;
-      r2.save();
-    }
-    Application.news(userId);
+    other.friends.remove(user);
+    user.friends.remove(other);
+    user.friendRequests.remove(other);
+    other.friendRequests.remove(user);
+    user.save();
+    other.save();
+    ok();
   }
 }

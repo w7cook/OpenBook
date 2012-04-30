@@ -52,6 +52,10 @@ a:active {
 color:white;
 }
 
+#header .dropdown-menu a {
+  color:black;
+}
+
 
 #logo {
   color: white

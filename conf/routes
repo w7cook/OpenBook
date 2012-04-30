@@ -20,10 +20,12 @@ PUT     /users/{<[0-9]+>userId}                 Users.updateUser
 GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
 DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 GET     /users/{<[0-9]+>userId}/profile         Users.profile
-#GET     /users/{<[0-9]+>userId}/friends
-POST    /users/{<[0-9]+>id}/friends             Users.requestFriends
-DELETE  /users/{<[0-9]+>id}/friends             Users.removeFriends
+GET     /users/{<[0-9]+>userId}/friends         Users.friends
+POST    /users/{<[0-9]+>userId}/friends         Users.requestFriends
+DELETE  /users/{<[0-9]+>userId}/friends         Users.removeFriends
 GET     /users/{<[0-9]+>userId}/requests        Users.friendRequests
+
+GET     /testFriends                            Users.testFriends
 
 
 #Skins
