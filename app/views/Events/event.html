@@ -34,19 +34,58 @@
   #{list items:event.members, as:'member'}
     <a href="/users/${member.id}">${member.name}</a>   
     #{if user.equals(member) && !user.equals(event.owner)}
+      <a class="button" href="@{Events.maybeEvent(event.id, member.id)}">
+        Maybe
+      </a>
       <a class="button" href="@{Events.leaveEvent(event.id, member.id)}">
-        Decline
+        Not Going
       </a>
     #{/if} 
     <br />
   #{/list}
+  
+  #{if event.getMaybeCount() > 0}
+  <h4>Maybe(${event.getMaybeCount()}):</h4>
+  #{list items:event.maybe, as:'mmember'}
+    <a href="/users/${mmember.id}">${mmember.name}</a>   
+    #{if user.equals(mmember) && !user.equals(event.owner)}
+      <a class="button" href="@{Events.joinEvent(event.id, mmember.id)}">
+        Going
+      </a>
+      <a class="button" href="@{Events.leaveEvent(event.id, mmember.id)}">
+        Not Going
+      </a>
+    #{/if} 
+    <br />
+  #{/list}
+  #{/if}
+  
+  #{if event.getInvitedCount() > 0}
+  <h4>Invited(${event.getInvitedCount()}):</h4>
+  #{list items:event.awaitreply, as:'imember'}
+    <a href="/users/${imember.id}">${imember.name}</a>   
+    #{if user.equals(imember) && !user.equals(event.owner)}
+      <a class="button" href="@{Events.joinEvent(event.id, imember.id)}">
+        Going
+      </a>
+      <a class="button" href="@{Events.maybeEvent(event.id, imember.id)}">
+        Maybe
+      </a>
+      <a class="button" href="@{Events.leaveEvent(event.id, imember.id)}">
+        Not Going
+      </a>
+    #{/if} 
+    <br />
+  #{/list}
+  #{/if}
+  <br />
   
   #{if event.uninvitedFriends(user).size() > 0}
   <h4>Invite Friends:</h4>
   #{list items:event.uninvitedFriends(user), as:'guest'}
     <a href="/users/${guest.id}">${guest.name}</a>
     <a class="button" href="@{Events.addEventInvite(event.id, guest.id)}">
-      Add to Event
+      Invite
     </a>
     <br />
   #{/list}
