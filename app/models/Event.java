@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Event extends Postable {
+public class Event extends Postable implements Comparable<Event>{
 
   @ManyToOne
   public User owner;
@@ -72,5 +72,11 @@ public class Event extends Postable {
     HashSet ret = new HashSet(user.friends);
     ret.removeAll(this.members);
     return ret;
+  }
+
+  public int compareTo(Event e){
+    if (e.startDate == this.startDate)return 0;
+    else if (e.startDate.before(this.startDate)) return 1;
+    else return -1;
   }
 }
