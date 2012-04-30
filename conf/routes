@@ -96,6 +96,10 @@ GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all pos
 #Links
 #Post    /links/?                                       #Add/update link
 
+#Questions
+POST	/questions					Questions.askQuestion
+GET	/answers/{<[0-9]+>answerId}			Answers.chooseAnswer
+
 #Comments
 GET     /comments/?                                     Comments.comments #Get all comments
 GET     /comments/{<[0-9]+>commentId}                   Comments.comment #Get a specific comment
