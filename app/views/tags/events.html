@@ -1,5 +1,16 @@
 <div id="contentArea-BigPage">
+
+  #{if _title_string.equals("Upcoming Events")}
   <h2>Events</h2>
+  #{/if}
+  #{if _title_string.equals("My Past Events")}
+  <h2>Past Events</h2>
+  #{/if}
+  #{if _title_string.equals("Upcoming Declined Events")}
+  <h2>Declined Events</h2>
+  #{/if}
+  
+ 
   <hr />
   <a class=button href="/events/eventcreator">+ Create Event</a><br />
   <br /> 
@@ -16,11 +27,25 @@
       <br />
     #{/if}        
     #{else}
+    
+      #{if _title_string.equals("Upcoming Declined Events")}
+      #{if todayevent.declined.contains(_currentUser)}
+        <a href="/events/${todayevent.id}">${todayevent.name}</a>
+         <a class="button" href="@{Events.addEventInvite(todayevent.id, _currentUser.id)}">
+         Join
+         </a>
+        <br />
+      #{/if} 
+      #{/if}
+    
+      #{else}
       #{if todayevent.members.contains(_currentUser)}
         <a href="/events/${todayevent.id}">${todayevent.name}</a>
          <i> You're going.</i>
         <br />
       #{/if} 
+      #{/else}
+      
     #{/else}   
   #{/list}
   <br />
@@ -37,17 +62,32 @@
       <br />
     #{/if}        
     #{else}
+    
+      #{if _title_string.equals("Upcoming Declined Events")}
+      #{if event.declined.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <a class="button" href="@{Events.addEventInvite(event.id, _currentUser.id)}">
+         Join
+         </a>
+        <br />
+      #{/if} 
+      #{/if}
+      
+      #{else}
       #{if event.members.contains(_currentUser)}
         <a href="/events/${event.id}">${event.name}</a>
          <i> You're going.</i>
         <br />
       #{/if} 
+      #{/else}
+      
     #{/else}   
   #{/list}
   #{/if}
   
   #{if _title_string.equals("Upcoming Events")}
   <hr />
-  <a class=button href="/events/past">Past Events</a>
+  <a class=button href="@{Events.past(_currentUser.id)}">Past Events</a><br />
+  <a class=button href="@{Events.declinedEvents(_currentUser.id)}">Declined Events</a>
   #{/if}
 </div>
