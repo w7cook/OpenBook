@@ -10,7 +10,7 @@ function toggleUpdateStatus(id) {
     <a href="#" onclick="toggleUpdateStatus('PostContainer')">Update Status</a>
     <a href="#" onClick="toggleUpdateStatus('photo-upload')">Add Photo</a>
     <a href="#" onClick="toggleUpdateStatus('link-upload')">Share Link</a>
-    <a href="#">Ask Question</a>
+    <a href="#" onClick="toggleUpdateStatus('question-upload')">Ask Question</a>
     <a id="about-button" href="/users/${user.id}/profile">About me</a>
   </div>
   
@@ -32,6 +32,17 @@ function toggleUpdateStatus(id) {
       <input type="text" name="url" value="video url" />
       <input type="text" name="content" />
       <input type="submit" name="submit" value="Upload" />
+    #{/form}
+  </div>
+  <div class="ui_InputContainer" id="question-upload" style="display: none">
+    #{form @Questions.addQuestion(), enctype:'multipart/form-data'}
+      <input type="text" name="question" />
+      <ol id="answer_list">
+        <li><input type="text" name="answers" value="" /></li>
+        <li><input type="text" name="answers" value="" /></li>
+      </ol>
+      <input type="button" value="Add answer" onclick="addFormField('answer_list', 'answers')" />
+      <input type="submit" name="submit" value="Ask Question" />
     #{/form}
   </div>
   
