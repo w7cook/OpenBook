@@ -61,12 +61,12 @@ public class User extends Postable {
 
   @ElasticSearchIgnore
   @JoinTable(name="friends_table")
-  @ManyToMany(cascade = CascadeType.PERSIST)
+  @ManyToMany(cascade = CascadeType.ALL)
   public Set<User> friends;
 
   @ElasticSearchIgnore
   @JoinTable(name="friend_requests_table")
-  @ManyToMany(cascade = CascadeType.PERSIST)
+  @ManyToMany(cascade = CascadeType.ALL)
   public Set<User> friendRequests; // A list of the user's friendship history
 
   @ElasticSearchIgnore
@@ -138,7 +138,7 @@ public class User extends Postable {
       profile.save();
 
       this.friends = new HashSet<User>();
-      this.friendRequests = new HashSet<User>();
+      this.save();
       friends.add(this);
 
       this.timeline = new TimelineModel(this);
