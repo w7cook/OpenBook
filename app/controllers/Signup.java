@@ -107,6 +107,9 @@ public class Signup extends Controller {
    */
   public static void confirm(String id) {
     TempUser user = TempUser.find("SELECT u FROM TempUser u WHERE u.UUID = ?", id).first();
+    if(user == null) {
+      return;
+    }
     if (user.verified == false) {
       new User(user).save();
     }
