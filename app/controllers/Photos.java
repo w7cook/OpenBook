@@ -76,6 +76,13 @@ public class Photos extends OBController {
 
     if (!validation.hasErrors()) {
       photo.save();
+      
+      //Add a TimelineEvent to the Timeline
+      if (photo.owner.timeline != null){
+		photo.owner.timeline.addEvent(photo.id, TimelineModel.Action.CREATE, new Vector<User>(), photo.owner.first_name + " " + photo.owner.last_name + " uploaded a picture ");
+		photo.owner.timeline.save();
+
+	  }
     }
 
     redirect("/users/" + photo.owner.id + "/photos");

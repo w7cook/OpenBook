@@ -9,12 +9,15 @@ import play.db.jpa.*;
 public class Category extends Model {
 
   public String name;
-
+  public String description;
+  public Likeable latest;
+  
   @OneToMany(mappedBy="category", cascade=CascadeType.ALL)
   public List<FThread> threads;
 
-  public Category(String name) {
+  public Category(String name, String description) {
     this.name = name;
+    this.description = description;
 
   }
   
