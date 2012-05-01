@@ -66,7 +66,7 @@ function like(id, type, userId, likeTxt, unlikeTxt) {
 
 function submitComment(id) {
   var nonws = /\S/;
-  var textbox = $('#commentContent' + id)
+  var textbox = $('#commentContent' + id);
   var content = textbox.val();
   if(!nonws.test(content)) {
     textbox.val('');
@@ -94,9 +94,9 @@ function submitComment(id) {
 
 //TODO: merge with submitComment
 function submitPost() {
-  nonws = /\S/;
-  textbox = $('#postContent');
-  content = textbox.val();
+  var nonws = /\S/;
+  var textbox = $('#postContent');
+  var content = textbox.val();
   if(!nonws.test(content)) {
     textbox.val('');
     textbox.focus();
@@ -107,7 +107,7 @@ function submitPost() {
       type: 'POST',
       data: {'postContent': content},
       success: function (data, textStatus, jqXHR) {
-        newPost = $(data).hide();
+        var newPost = $(data).hide();
         $('#postsList').prepend(newPost);
         newPost.slideDown();
       },
