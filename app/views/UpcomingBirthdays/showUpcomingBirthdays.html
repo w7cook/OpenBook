@@ -2,70 +2,68 @@
 
 <base target="_parent" />
 <div class="lhs-navBoxBody">
-	#{if thisWeekBday.size()==0 && todayBday.size() == 0}There are no upcoming birthdays.#{/if} 
-	#{else} 
-	  #{if todayBday.size() != 0}
-	  <div><img src = "/public/images/cake.png"> </img> <b>Today: </b></div>
-	  <button id="hideDiv" onclick ="dlg1.dialog('open')"><i>Write on their wall</i></button>
-       #{list items: todayBday, as:'birthdayPerson'}
-         <p>
-         
-         <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
-         <br />
-         <span>${thisYear- birthdayPerson.getProfile().birthday.getYear()} years old</span>
-         <hr />
-         
-        #{/list}
+  #{if thisWeekBday.size()==0 && todayBday.size() == 0}There are no upcoming birthdays.#{/if} 
+  #{else} 
+    #{if todayBday.size() != 0}
+      <div><img src = "/public/images/cake.png"> </img> <b>Today: </b></div>
+      <button id="hideDiv" onclick ="dlg1.dialog('open')"><i>Write on their wall</i></button>
+      #{list items: todayBday, as:'birthdayPerson'}
+        <p>
+          <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
+          <br />
+          <span>${thisYear- birthdayPerson.getProfile().birthday.getYear()} years old</span>
+          <hr />
+        </p>
+      #{/list}
     #{/if}
     
 
     #{if thisWeekBday.size() != 0}
-		 <br />
-		 <div><b>This week: </b></div> 
-	     #{list items: thisWeekBday, as:'birthdayPerson'}
-         <p>
-         <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
-		     <br />
-		     <span>${birthdayPerson.getProfile().birthday.format('MMM dd')}</span>
-		     <hr />
-	     #{/list}
+      <br />
+      <div><b>This week: </b></div> 
+      #{list items: thisWeekBday, as:'birthdayPerson'}
+        <p>
+          <span><a href="@{Users.about(birthdayPerson.id)}">${birthdayPerson}</a></span>
+          <br />
+          <span>${birthdayPerson.getProfile().birthday.format('MMM dd')}</span>
+          <hr />
+        </p>
+      #{/list}
      #{/if}
     #{/else}
     
-    
+<!--    
     <script language="JavaScript">
     var $jParent = window.parent.jQuery.noConflict();
     var birthdayIframe = $jParent('#HiddenDiv');
-	var dlg1 = $jParent('#modalHolder');
-	var ran = false;
-	
-	dlg1.bind( "clickoutside", function(event){
-			if(ran == true)
-			{
-				dlg1.dialog("close");
-				ran = false;
-			}
-	});
-	
-	dlg1 = dlg1.dialog({
-		position: { 
-		    my: 'right top',
-		    at: 'left top',
-		    of: birthdayIframe
-	  			   },
-	    width: 300,
-	    //height: 150,
-	    modal: false,
-	    autoOpen: false,
-	    resizable: false,
-	    closeOnEscape: true,
-	    draggable: false,
-		show: "fade",
-		hide: "drop",
-	    open: function(event, ui) { dlg1.dialog("widget").find(".ui-dialog-titlebar").hide(); ran = true; $(".ui-dialog-titlebar-close").hide(); }
-	});
-	
-	</script>
-	
-	
-	
+        var dlg1 = $jParent('#modalHolder');
+        var ran = false;
+        
+        dlg1.bind( "clickoutside", function(event){
+                        if(ran == true)
+                        {
+                                dlg1.dialog("close");
+                                ran = false;
+                        }
+        });
+        
+        dlg1 = dlg1.dialog({
+                position: { 
+                    my: 'right top',
+                    at: 'left top',
+                    of: birthdayIframe
+                                   },
+            width: 300,
+            //height: 150,
+            modal: false,
+            autoOpen: false,
+            resizable: false,
+            closeOnEscape: true,
+            draggable: false,
+                show: "fade",
+                hide: "drop",
+            open: function(event, ui) { dlg1.dialog("widget").find(".ui-dialog-titlebar").hide(); ran = true; $(".ui-dialog-titlebar-close").hide(); }
+        });
+        
+        </script>
+-->

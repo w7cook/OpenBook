@@ -1,11 +1,5 @@
 #{extends 'three_panel.html' /}
 <div id="contentArea">
-  <script>
-function toggleUpdateStatus(id) {
-  jQuery('.ui_InputContainer').hide();
-  jQuery('#' + id).show();
-}
-  </script>
   <div class="pagelet">
     <a href="#" onclick="toggleUpdateStatus('PostContainer')">Update Status</a>
     <a href="#" onClick="toggleUpdateStatus('photo-upload')">Add Photo</a>
@@ -52,6 +46,13 @@ function toggleUpdateStatus(id) {
     #{/list}
   </div>
 </div>
+
+<script>
+  function toggleUpdateStatus(id) {
+    jQuery('.ui_InputContainer').hide();
+    jQuery('#' + id).show();
+  }
+</script>
 
 <script>
   /*Show before resizing, with jQuery to avoid glitchy redisplay*/
