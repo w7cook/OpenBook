@@ -328,7 +328,7 @@ a.logo:active {text-decoration:none;}
 
 .post {
   width: 100%;
-  border-bottom: 1px solid #dddddd;
+ /* border-bottom: 1px solid #dddddd;*/
    /*Code to make the post stick out against changed background */
   background-color: white;
   outline: #CCCCCC groove 1px;
