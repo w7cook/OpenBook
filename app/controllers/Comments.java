@@ -50,14 +50,14 @@ public class Comments extends OBController {
     ok();
   }
 
-  public static void addComment(Long statusId, String commentContent) {
-    if (commentContent == null)
-      error("commentContent can't be null");
+  public static void addComment(Long statusId, String content) {
+    if (content == null)
+      error("content can't be null");
     final Commentable cc = Commentable.findById(statusId);
     if(cc == null)
       notFound(statusId + " is not the id of a Commentable");
     final User user = user();
-    final Comment comment = new Comment(cc, user, commentContent).save();
+    final Comment comment = new Comment(cc, user, content).save();
     render(user, comment);
   }
 }

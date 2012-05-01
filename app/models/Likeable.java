@@ -34,18 +34,18 @@ public abstract class Likeable extends Model {
     this.owner = owner;
   }
 
-  public Likeable addLike(User user) {
+  public boolean addLike(User user) {
     thoseWhoLike.add(user);
-    user.likes.add(this);
+    boolean changed = user.likes.add(this);
     this.save();
-    return this;
+    return changed;
   }
 
-  public Likeable removeLike(User user) {
+  public boolean removeLike(User user) {
     thoseWhoLike.remove(user);
-    user.likes.remove(this);
+    boolean changed = user.likes.remove(this);
     this.save();
-    return this;
+    return changed;
   }
 
   public boolean likedBy(User user) {
