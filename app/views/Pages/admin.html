@@ -2,8 +2,6 @@
 <script type="text/javascript" src="/public/javascripts/tabber.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/page.css" TYPE="text/css" MEDIA="screen">
 </head>
-	<br>
-	${page.info}<br>
 <div class="tabber">
 
   <div class="tabbertab">
@@ -28,12 +26,10 @@
         #{/errors}
       </ul>
     	#{/ifErrors}
-  		<div class="photo-upload">
-    		#{form @PGEphotos.addPagePhoto(page.id), enctype:'multipart/form-data'}
+    		#{form @Pages.addPhoto(page.id), enctype:'multipart/form-data'}
       		<input type="file" name="image" style="float:left"/>
       		<input type="submit" name="submit" value="Upload" class="ui_TextBoxButton" />
         #{/form}
-    	</div>
   </div>
   
   <div class="tabbertab">

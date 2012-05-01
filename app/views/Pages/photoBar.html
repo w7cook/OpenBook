@@ -1,6 +1,6 @@
 <div class="photo-bar">
-	#{list items:photos, as:'photo'}
-		<a href="#" id = "Button" onclick="return false;">#{photo  photo:photo /}</a>
+	#{list items:photos, as:'_photo'}
+		<img class="thumbnail" src=@{Thumbnails.get50x50(_photo.id)} />
   #{/list}		
 </div>
 

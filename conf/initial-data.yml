@@ -242,12 +242,14 @@ Comment(fc2):
 Page(cats):
     admin:          alice
     title:          CATS
+    profilePhoto:   2
     info:           >
                     I haz them!!
 
 Page(nachoCheese):
     admin:          jeff
     title:          Nacho Cheese
+    profilePhoto:   2
     info:           >
                     What do you call cheese that isn't yours?
 

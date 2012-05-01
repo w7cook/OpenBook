@@ -1,19 +1,25 @@
 package controllers;
 
+import java.awt.image.BufferedImage;
 import java.util.*;
-
-import play.*;
-import play.mvc.*;
-import play.utils.HTML;
-import controllers.Secure;
-import models.*;
-
-import play.data.validation.Error;
 import javax.imageio.ImageIO;
 import java.io.*;
+import play.*;
+import play.data.validation.Error;
+import play.libs.*;
+import play.mvc.*;
+import play.db.jpa.*;
+import models.*;
+import java.security.*;
+import java.net.*;
+import java.awt.image.*;
+import play.utils.HTML;
 
 @With(Secure.class)
 public class Pages extends OBController {
+	
+	public static final String IMAGE_TYPE = "^image/(gif|jpeg|pjpeg|png)$";
+  public static final int MAX_FILE_SIZE = 2 * 1024 * 1024;  /* Size in bytes. */
 	
 	public static void newPage(){
 		User user = user();
@@ -25,7 +31,6 @@ public class Pages extends OBController {
 		User currentUser = user();
 		Page page = new Page(user, title, info).save();
 		new UserPage(user, page).save();
-		//render("Pages/myPage.html", page,user, currentUser);
 		display(page.id);
 	}
 	
@@ -34,10 +39,8 @@ public class Pages extends OBController {
   	Page page = Page.findById(id); 
   	page.info = info;
     page.save();
-    //User _currentUser = user();
     User _user = user();
     display(id);
-    //render("Pages/myPage.html", page, _user);
   }
 	                                                                     
 	public static void myPages(){
@@ -54,10 +57,8 @@ public class Pages extends OBController {
 		Page page = Page.findById(id);
 		boolean fan = isFan(id);
 		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
-		List<Photo> photos = PGEphotos.pagePhotos(id, 4);
-		List<Photo> allPhotos = PGEphotos.pagePhotos(id, 20);
-		Photo profilePhoto = Photo.findById(page.profilePhoto);
-		render("Pages/myPage.html", page, fan, _user, _currentUser, photos, profilePhoto, allPhotos);
+		List<Photo> photos = page.photos;
+		render("Pages/myPage.html", page, fan, _user, _currentUser, photos);
 	}
 
 	public static void pages(){
@@ -100,4 +101,35 @@ public class Pages extends OBController {
 		else{return true;}
 	}
 	
+	public static void addPhoto(Long id, File image) throws FileNotFoundException,
+                                                 IOException {
+		Page page = Page.findById(id);
+		    validation.keep(); /* Remember any errors after redirect. */
+
+    if (image == null ||
+        !MimeTypes.getContentType(image.getName()).matches(IMAGE_TYPE)) {
+      validation.addError("image",
+                          "validation.image.type");
+      redirect("/users/" + user().id + "/photos");
+    }
+    Photo photo = new Photo(user(), image,"");
+    validation.max(photo.image.length(), MAX_FILE_SIZE);
+
+    if (!validation.hasErrors()) {
+      photo.save();
+      page.photos.add(photo);
+      if(page.photos.size() == 1){
+      	page.profilePhoto = photo.id;
+      }
+      page.save();
+    }
+    display(page.id);
+  }
+  
+  public static void setProfilePic(Long pid, Long photoid){
+  	Page p = Page.findById(pid);
+  	p.profilePhoto = photoid;
+  	p.save();
+  	display(pid);
+  }
 }

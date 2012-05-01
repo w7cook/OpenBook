@@ -25,6 +25,9 @@ public class Page extends Postable {
 	
 	public Long profilePhoto;
 	
+	@OneToMany
+	public List<Photo> photos;
+	
 	public Page(User user, String newTitle, String newInfo){
 		this.admin = user;
 		this.title = newTitle;
