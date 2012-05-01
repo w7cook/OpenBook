@@ -1,0 +1,30 @@
+<div class="photo-bar">
+	#{list items:photos, as:'_photo'}
+		<img class="thumbnail" src=@{Thumbnails.get50x50(_photo.id)} />
+  #{/list}		
+</div>
+
+<script>
+$(function() {
+		function runEffect() {
+		// run the effect
+			$( "#test" ).show( scale, options, 500, callback );
+		};
+
+		//callback function to bring a hidden box back
+		function callback() {
+			setTimeout(function() {
+				$( "#test:visible" ).removeAttr( "style" ).fadeOut();
+			}, 1000 );
+		};
+
+		// set effect from select menu value
+		$( "#Button" ).click(function() {
+				alert();
+			runEffect();
+			return false;
+		});
+
+		$( "#test" ).hide();
+}
+</script>
