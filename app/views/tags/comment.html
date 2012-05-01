@@ -1,6 +1,5 @@
 <div id="comment${_comment.id}" class="row" style="background-color:#e8e8e8">
-  <div class="span1"></div>
-  <div class="comment-content span4">
+  <div class="comment-content span4 offset1">
     <div class="comment-author">              
       <a href="@{Users.about(_comment.owner.id)}">
         <img src="@{Thumbnails.get30x30(_comment.owner.profile.profilePhoto.id)}" width="30" height="30" />
@@ -9,7 +8,8 @@
     </div>
     ${_comment.content.markdown().nl2br()}
   </div>
-  <div class="comment-metadata span4">
+  <div class="span7"></div>
+  <div class="comment-metadata span4 offset1">
     <span id="comment${_comment.id}likes">
       ${_comment.numLikes()} Like#{if _comment.numLikes() != 1}s#{/if}
     </span>
