@@ -98,6 +98,7 @@ public class User extends Postable {
     this.username = username;
     this.friends = new HashSet<User>();
     this.friendRequests = new HashSet<User>();
+    this.save();
 
     friends.add(this);
     this.save();
@@ -117,6 +118,7 @@ public class User extends Postable {
 
     this.friends = new HashSet<User>();
     this.friendRequests = new HashSet<User>();
+    this.save();
     friends.add(this);
 
     this.timeline = new TimelineModel(this);
@@ -139,6 +141,7 @@ public class User extends Postable {
 
       this.friends = new HashSet<User>();
       this.friendRequests = new HashSet<User>();
+      this.save();
       friends.add(this);
 
       this.timeline = new TimelineModel(this);

@@ -134,7 +134,7 @@ public class Profile extends Model {
     this.address = "";
     this.website = "";
     this.email = "";
-    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    this.profilePhoto = Photo.findById(1L);
     this.gravatarPhoto = null;
     this.gravatarEmail = owner.email;
   }
