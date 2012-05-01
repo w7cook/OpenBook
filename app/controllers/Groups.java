@@ -26,21 +26,15 @@ public class Groups extends OBController {
 	}
 	
 	public static void newGroupPost(Long groupId, Long userId, String post_content){
-		//Variable declarations/init
-		User user = (User)User.findById(userId);
-		Group group = (Group)Group.findById(groupId);
-		Vector<User> participants = new Vector<User>();
-		participants.add(user);
-		
 		//Post to group
 		Post p = new Post((Group)Group.findById(groupId), (User)User.findById(userId), post_content).save();
 
+		User user = (User)User.findById(userId);
+		Group group = (Group)Group.findById(groupId);
 		//Add TimelineEvent to Timeline
-		if (user.timeline != null){
-		user.timeline.addEvent(p.id, TimelineModel.Action.CREATE, participants, user.first_name + " " + user.last_name + " posted in " + group.groupName);
-		user.timeline.save();
-	}
-
+		if (user.timeline != null)
+		    user.timeline.addEvent(user.id, group, TimelineModel.Action.CREATE, new Vector<User>(), user.first_name + " " + user.last_name + " posted in " + group.groupName);
+	
 		group(groupId);
 	}
 
