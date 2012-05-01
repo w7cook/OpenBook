@@ -2,28 +2,29 @@
 <div class="profile-pic">
   <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a> 
   #{if (_user.profile.profilePhoto.id == -1 || _user.profile.profilePhoto == null)} 
-    <img src="@{Thumbnails.get120x120(2)}" />
+    <img src="@{Thumbnails.get120x120(2)}" width="120" height="120" />
   #{/if} 
   #{else} 
-    <img src="@{Thumbnails.get120x120(_user.profile.profilePhoto.id)}" /> 
+    <img src="@{Thumbnails.get120x120(_user.profile.profilePhoto.id)}" width="120" height="120" /> 
   #{/else}
 </div>
 <div style="clear: both;text-align:center;width: 100%;">
-  <a href="@{Application.account()}"> <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${_user.name}</span>
+  <a href="/users/${_user.id}"> <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${_user.name}</span>
   </a>
 </div>
 
 <!--  As much as I want to put a DIV around the menu boxes, we cannot afford to do so (a certain amount of padding will be added automatically and make it look bad. -VA -->
 <div class="lhs-navBoxHeader">FAVORITES</div>
 <div class="lhs-navBoxBody">
-	<a href="@{Application.news()}">News Feed</a> 
-	<a href="/users/${_user.id}/timeline">Timeline</a> 
-	<a href="/users/${_user.id}/events">Events</a> 
-	<a href="@{Checkin.checkin()}">Checkin</a>
-	<a href="@{Messages.inbox()}">Inbox [${_user.unreadCount()}]</a> 
-	<a href="/requests">Friend Requests</a> 
-	<a href="/changeSkin">Change Skin</a>
-	<a href="@{Notes.viewNotes()}">Notes</a>
+  <a href="@{Application.news()}">News Feed</a> 
+  <a href="/users/${_user.id}/timeline">Timeline</a> 
+  <a href="/users/${_user.id}/events">Events</a> 
+  <a href="@{Checkins.checkin()}">Checkin</a>
+  <a href="@{Messages.inbox()}">Inbox [${_user.unreadCount()}]</a> 
+  <a href="/users/${_user.id}/requests">Friend Requests</a> 
+  <a href="/changeSkin">Change Skin</a>
+  <a href="@{Notes.viewNotes()}">Notes</a>
+  <a href="@{Categories.listAll()}">Threads</a>
 </div>
 
 
@@ -42,18 +43,19 @@
 <div class="lhs-navBoxHeader">PAGES</div>
 <div class="lhs-navBoxBody">
   <a href="@{Pages.pages()}">All Pages</a>
-  <a href="@{Pages.myPages()}"> My pages </a>
-  
+  <a href="@{Pages.myPages()}"> My pages </a>  
 </div>
 
 <div class="lhs-navBoxHeader">FRIENDS</div>
 <div class="lhs-navBoxBody">
-  #{list items:_user.confirmedFriends(), as:'friendship'}
-  <a href="@{Users.about(friendship.to.id)}">
-    ${ friendship.to.name}
-  </a><br />
-  #{/list} <br />
-  <a href="@{Relationships.relationships(_user.id)}">see all friends..</a><br />
+  #{list items:_user.friends, as:'friend'}
+    #{if !friend.equals(_user)}
+      <a href="/users/${friend.id}">${friend.name}</a>
+      <br />
+    #{/if}
+  #{/list}
+  <br />
+  <a href="/users/${_user.id}/friends">see all friends..</a><br />
   <br />
 </div>
 

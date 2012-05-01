@@ -1,0 +1,44 @@
+#{extends 'two_panel.html' /}
+
+<div id="contentArea-BigPage">
+  
+  <h2>All Friends:</h2>
+  <hr/>
+  
+  <br />
+  
+  %{boolean toggle = true;}%
+  <table>
+    #{list items:friends, as:'friendship'}
+      <tr>
+        #{if (toggle == true)}
+          <td>
+            <div style="background-color:white; width = 100%; align=left">
+              <img class="thumbnail" style = "vertical-align: middle"
+                   src=@{Thumbnails.get30x30(friendship.profile.profilePhoto.id)} ALIGN=LEFT width="30" height="30" />
+              <a href="/users/${friendship.id}">${friendship.name}</a>
+              <br />	
+              <button id="friend-button" onclick="alert('HTTP DELETE /users/${friendship.id}/friends')">remove</button>
+              <br />
+              %{toggle = false;}%
+            </div>
+          </td>
+        #{/if}
+
+        #{else}
+          <td>
+            <div style="background-color:rgb(232, 232, 232); width=100%; align = left">
+              <img class="thumbnail" style = "vertical-align: middle"
+                   src=@{Thumbnails.get30x30(friendship.profile.profilePhoto.id)} ALIGN=LEFT width="30" height="30" />
+              <a href="/users/${friendship.id}">${friendship.name}</a>
+              <br />  
+              <button id="friend-button" onclick="alert('HTTP DELETE /users/${friendship.id}/friends')">remove</button>
+              <br /> 
+              %{toggle = true;}%
+            </div>
+          </td>
+        #{/else}
+      </tr>
+    #{/list}
+  </table>
+</div>

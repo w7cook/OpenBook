@@ -7,19 +7,6 @@
   <h1>Inbox</h1>
   <hr />
   <br />
-  #{if user.checkFriendship(user.id) == 'Request Friendship'}
-    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-      ${user.checkFriendship(user.id)}
-    </a>
-  #{/if}
-  #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-    Friendship Requested
-  #{/elseif}
-  #{elseif user.checkFriendship(user.id) == 'Friends'}
-    Friends :) <a id="friend-button"
-                  href="@{Application.removeFriends(user.id)}"> Remove friend </a>
-  #{/elseif}
-  <br>
   <a href="@{Messages.createMessage()}">Create Thread</a>
   
   <h2>Messages</h2>
@@ -29,7 +16,7 @@
       <div class="message" id="msg${item.id}">
       <div class="hideable">
         <div class="left">
-          <img src="@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)}" />
+          <img src="@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)}" width="50" height="50" />
         </div>
         <div class="individual-msg-metadata">
           #{timeago date:item.updatedAt /}

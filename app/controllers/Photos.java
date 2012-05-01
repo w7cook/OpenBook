@@ -76,6 +76,10 @@ public class Photos extends OBController {
 
     if (!validation.hasErrors()) {
       photo.save();
+      
+      //Add a TimelineEvent to the Timeline, if the user has one
+      if (photo.owner.timeline != null)
+	  photo.owner.timeline.addEvent(photo.owner.id, photo, TimelineModel.Action.CREATE, new Vector<User>(), photo.owner.first_name + " " + photo.owner.last_name + " uploaded a picture ");    
     }
 
     redirect("/users/" + photo.owner.id + "/photos");
@@ -158,7 +162,7 @@ public class Photos extends OBController {
     String hash = md5Hex((gravatarEmail.trim()).toLowerCase());
     String urlPath = "http://www.gravatar.com/avatar/"+hash+".jpg"+
       "?" +//parameters
-      "size=100&d=mm";
+      "size=120&d=mm";
     URL url = new URL(urlPath);
     BufferedImage image = ImageIO.read(url);
     if(u.profile.gravatarPhoto == null) { // don't yet have a gravatarPhoto
@@ -244,3 +248,4 @@ public class Photos extends OBController {
     return null;
   }
 }
+

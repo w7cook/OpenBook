@@ -1,0 +1,8 @@
+<div id="question_${_question.id}">
+	${_question.content}<br />
+	<ul>
+	%{
+	_question.answers.each{println "<li><a href='/answers/"+it.id+"'>"+it.answer+"</a> : "+it.numTimesAnswered()+"</li>"}
+	  }%
+  </ul>
+</div>

@@ -1,0 +1,6 @@
+<div id="page-box" style="width:100%">
+	Click picture to set as profile picture<br>
+	#{list items:photos, as:'_photo'}
+		<a href="@{Pages.setProfilePic(page.id, _photo.id)}"><img class="thumbnail" src=@{Thumbnails.get50x50(_photo.id)} /></a>
+	#{/list}
+</div>

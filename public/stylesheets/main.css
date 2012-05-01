@@ -52,6 +52,10 @@ a:active {
 color:white;
 }
 
+#header .dropdown-menu a {
+  color:black;
+}
+
 
 #logo {
   color: white
@@ -154,10 +158,9 @@ padding: 0px;
 }
 
 .profile-pic {
-position: relative;
-margin-left: 12.5%;
-width: 100%;
-
+  text-align: center;
+  position: relative;
+  width: 100%;
 }
 
 .profile-pic a{
@@ -165,9 +168,9 @@ width: 100%;
 }
 
 .profile-pic img{
-	/*max-width: 140px;*/
+	max-width: 120px;
 	width: 80%;
-height: 80%; /*Resize the profile-picture here, picture will take up all the space*/
+  height: 80%; /*Resize the profile-picture here, picture will take up all the space*/
 }
 
 .profile-pic:hover a{
@@ -325,7 +328,7 @@ a.logo:active {text-decoration:none;}
 
 .post {
   width: 100%;
-  border-bottom: 1px solid #dddddd;
+ /* border-bottom: 1px solid #dddddd;*/
    /*Code to make the post stick out against changed background */
   background-color: white;
   outline: #CCCCCC groove 1px;
