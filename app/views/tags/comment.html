@@ -11,13 +11,18 @@
     ${_comment.content.markdown().nl2br()}
   </div>
   <div class="span7"></div>
-  <div class="comment-metadata span4 offset1">
-    <span id="comment${_comment.id}likes">
-      ${_comment.numLikes()} Like#{if _comment.numLikes() != 1}s#{/if}
+  <div id="comment-metadata-${_comment.id}" class="comment-metadata span4 offset1">
+    <span class="num-likes">${_comment.numLikes()}</span>
+    <span class="num-likes-text">
+      Like#{if _comment.numLikes() != 1}s#{/if}.
     </span>
-    <button id="likecomment${_comment.id}" class="button" onclick="like(${_comment.id}, 'comment', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
-      #{if _comment.likedBy(_user)}&{'comment.unlike'}#{/if}
-      #{else}&{'comment.like'}#{/else}
+    <button class="button unlike-btn #{if !_comment.likedBy(_user)}hide#{/if}"
+            onclick="unlike('/comments/${_comment.id}/likes', 'comment-metadata-${_comment.id}')">
+      &{'comment.unlike'}
+    </button>
+    <button class="button like-btn #{if _comment.likedBy(_user)}hide#{/if}"
+            onclick="like('/comments/${_comment.id}/likes', 'comment-metadata-${_comment.id}')">
+      &{'comment.like'}
     </button>
     <span class="comment-date">
       #{timeago date:_comment.updatedAt /}

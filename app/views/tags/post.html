@@ -30,14 +30,19 @@
   </li>
 
     <!-- Post Metadata -->  
-  <li class="individual-post-metadata" style="margins:0.5em 0;">
+  <li id="post-metadata-${_item.id}" class="individual-post-metadata" style="margins:0.5em 0;">
     ${_item.comments.size()} Comment#{if _item.comments.size() != 1}s#{/if}.
-    <span id ="post${_item.id}likes">
-      ${_item.numLikes()} Like#{if _item.numLikes() != 1}s#{/if}.
-    </span> 
-    <button id="likepost${_item.id}"class="button" onclick="like(${_item.id}, 'post', ${_user.id}, '&{'comment.like'}', '&{'comment.unlike'}')">
-      #{if _item.likedBy(_user)}&{'comment.unlike'}#{/if}
-      #{else}&{'comment.like'}#{/else}
+    <span class="num-likes">${_item.numLikes()}</span>
+    <span class="num-likes-text">
+      Like#{if _item.numLikes() != 1}s#{/if}.
+    </span>
+    <button class="button unlike-btn #{if !_item.likedBy(_user)}hide#{/if}"
+            onclick="unlike('/posts/${_item.id}/likes', 'post-metadata-${_item.id}')">
+      &{'comment.unlike'}
+    </button>
+    <button class="button like-btn #{if _item.likedBy(_user)}hide#{/if}"
+            onclick="like('/posts/${_item.id}/likes', 'post-metadata-${_item.id}')">
+      &{'comment.like'}
     </button>
     #{timeago date:_item.updatedAt /}.
     #{if _item.owner ==  _user} 
