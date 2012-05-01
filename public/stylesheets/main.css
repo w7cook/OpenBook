@@ -428,3 +428,11 @@ border-width: 1px;
 border-color:grey;
 border-left-style:groove;
 }
+
+.post-content {
+  overflow:hidden;
+}
+
+.comment-content {
+  overflow:hidden;
+}
