@@ -45,6 +45,11 @@ public class SignupTest extends FunctionalTest {
     assertNotNull(response);
     assertEquals(1, User.count());
     assertEquals(1, TempUser.count());
+    parameters = new HashMap<String, String>();
+    parameters.put("id", ((TempUser) TempUser.findAll().get(0)).UUID);
+    response = POST("/signup/confirm", parameters);
+    assertNotNull(response);
+    assertEquals(2, User.count());
   }
   
   @Test
