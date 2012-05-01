@@ -35,11 +35,11 @@ public class Posts extends OBController {
     ok();
   }
 
-  public static void makeNewPost(String postContent) {
-    if (postContent == null)
-      error("postContent can't be null");
+  public static void makeNewPost(String content) {
+    if (content == null)
+      error("content can't be null");
     User user = user();
-    final Post post = new Post(user, user, postContent).save();
+    final Post post = new Post(user, user, content).save();
     render(user, post);
   }
 
