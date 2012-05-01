@@ -20,7 +20,7 @@
       #{/elseif}
       #{elseif _item.getClass().getName() == "models.Question"}
         <div class="post-question">
-		#{question currentUser:currentUser, question:_item /}
+	  #{question currentUser:currentUser, question:_item /}
         </div>
       #{/elseif}
       #{else}
@@ -46,7 +46,7 @@
   </li>
 
   <li id="commentsArea"> 
-    <ul id="commentsList${_item.id}" class="unstyled commentsList">
+    <ul id="comment-list${_item.id}" class="unstyled commentsList">
       #{list items:_item.getComments(), as:'comment'} 
         <li style="margin-top:0.5em;">#{comment user:_user, comment:comment /}</li>
       #{/list}
@@ -58,6 +58,6 @@
          src=@{Thumbnails.get30x30(_user.profile.profilePhoto.id)} display="inline" width="30" height="30" />
     <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" placeholder="new comment..." 
               style="color:grey; width: 350px; height: 30px;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
-    <button class="button" id="commentSubmit${_item.id}" onclick="submitComment(${_item.id})">Comment</button>
+    <button class="button" id="commentSubmit${_item.id}" onclick="submit('commentContent${_item.id}', 'comment-list${_item.id}', '/posts/${_item.id}/comments')">Comment</button>
   </li>
 </ul>

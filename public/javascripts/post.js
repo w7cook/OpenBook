@@ -64,51 +64,24 @@ function like(id, type, userId, likeTxt, unlikeTxt) {
   }
 }
 
-function submitComment(id) {
+function submit(textboxid, listid, url) {
+  var textbox = $('#' + textboxid);
+  var list = $('#' +listid);
   var nonws = /\S/;
-  var textbox = $('#commentContent' + id);
   var content = textbox.val();
-  if(!nonws.test(content)) {
+  if(textbox === undefined || list === undefined || !nonws.test(content)) {
     textbox.val('');
     textbox.focus();
   }
-  else {
-    $.ajax({
-      url: '/posts/' + id + '/comments',
-      type: 'POST',
-      data: {'commentContent': content},
-      success: function (data, textStatus, jqXHR) {
-        newComment = $(data).hide();
-        $('#commentsList' + id).prepend(newComment);
-        newComment.slideDown();
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      },
-      'complete' : function (jqXHR, textStatus) {
-        textbox.val('');
-      }
-    });
-  }
-}
 
-//TODO: merge with submitComment
-function submitPost() {
-  var nonws = /\S/;
-  var textbox = $('#postContent');
-  var content = textbox.val();
-  if(!nonws.test(content)) {
-    textbox.val('');
-    textbox.focus();
-  }
   else {
     $.ajax({
-      url: '/posts',
+      url: url,
       type: 'POST',
-      data: {'postContent': content},
+      data: {'content': content},
       success: function (data, textStatus, jqXHR) {
         var newPost = $(data).hide();
-        $('#postsList').prepend(newPost);
+        list.prepend(newPost);
         newPost.slideDown();
       },
       error: function (jqXHR, textStatus, errorThrown) {
