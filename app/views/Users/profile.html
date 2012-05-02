@@ -49,8 +49,13 @@
               <td><label><b>&{'profile.birthday'}: </b></br> </label>
               </td>
               <td>
-                <input type="text" id="datepicker" name="birthday"
+              	#{if profile.birthday != null}
+                	<input type="text" id="datepicker" name="birthday"
                        value="${profile.birthday.format("MM/dd/yyyy")}"/>
+                #{/if}
+                #{else}
+                	<input type="text" id="datepicker" name="birthday" value="Add birthday" />
+                #{/else}
               </td>
             </tr>
             <tr>
@@ -121,6 +126,7 @@
             </tr>
           </table>
           <input type="submit" value="Save" id="updateInformation" />
+          <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="InformationData" style="display:block;">
@@ -205,7 +211,7 @@
             </tr>
           </table>
           <input type="submit" value="Save" id="updateContactInfo" />
-	  <input type="reset" value="Cancel">
+	      <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="ContactInfoData" style="display:block;">
@@ -261,6 +267,7 @@
             </tr>
           </table>
           <input type="submit" value="Save" id="updateWorkEdu" />
+          <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="WorkEduData" style="display:block;">  
@@ -299,7 +306,8 @@
               </td>
             </tr>
           </table>
-	  <input type="submit" value="Save" id="updateLiving" />
+	    <input type="submit" value="Save" id="updateLiving" />
+	    <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="LivingData" style="display:block;">
@@ -342,7 +350,5 @@
         </table>
       </div>
     </div>
-  </div>
-  <div class="demo">
   </div>
 </div>
