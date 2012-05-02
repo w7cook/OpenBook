@@ -30,7 +30,6 @@ public class Pages extends OBController {
 		User user = user();
 		User currentUser = user();
 		Page page = new Page(user, title, info).save();
-		//new UserPage(user, page).save();
 		display(page.id);
 	}
 	

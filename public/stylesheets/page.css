@@ -35,6 +35,7 @@ ul.tabbernav li
  list-style: none;
  margin: 0;
  display: inline;
+ 	background-color:white;
 }
 
 ul.tabbernav li a
@@ -149,7 +150,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 .photo-page img.thumbnail{
-    display:inline;
+  display:inline;
 }
 
 .page-box{
@@ -187,6 +188,5 @@ a.popup:hover span {
 	width:100%;
 	padding:3px;
 	border:1px solid #000000;
-	color:#000;
-	background-color:#${skin.get("headerBGColor")}; 
+	color:#0000;
 }
