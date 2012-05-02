@@ -20,12 +20,8 @@
 </div>
 #{if page.admin == _user}
 		#{include 'Pages/admin.html' /}
-		#{include 'Pages/post.html' /}
 #{/if} 
-#{elseif page != null}
-		<hr style="float: left; width: 100%; color: #98AFC7;" />
 		#{include 'Pages/post.html' /}
-#{/elseif}		       
 
 <script>
 var fan_${page.id} = ${fan};
