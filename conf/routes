@@ -64,11 +64,13 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 GET     /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 GET     /photos/{<[0-9]+>photoId}/delete        Photos.removePhoto
-GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /photos/setGravatar                     Photos.setGravatar
+
+# Profile Pic Editor
+GET     /profilePicEditor                       Photos.setProfilePhotoPage
 
 # Thumbnails
 GET     /photos/120x120/{<[0-9]+>photoId}       Thumbnails.get120x120
