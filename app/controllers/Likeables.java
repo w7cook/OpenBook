@@ -21,15 +21,17 @@ public class Likeables extends OBController {
     Likeable thing = Likeable.findById(likeableId);
     if(thing == null)
       notFound();
-    thing.addLike(user());
-    likes(thing.id);
+    if(thing.addLike(user()))
+      ok();
+    notModified();
   }
 
   public static void unLike (Long likeableId) {
     Likeable thing = Likeable.findById(likeableId);
     if(thing == null)
       notFound();
-    thing.removeLike(user());
-    likes(thing.id);
+    if(thing.removeLike(user()))
+      ok();
+    notModified();
   }
 }

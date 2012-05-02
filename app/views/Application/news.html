@@ -7,12 +7,10 @@
     <a href="#" onClick="toggleUpdateStatus('question-upload')">Ask Question</a>
     <a id="about-button" href="/users/${user.id}/profile">About me</a>
   </div>
-  
-  
   <div class="ui_InputContainer" id="PostContainer">
     <textarea name="post_content" id="postContent" class="ui_TextArea" placeholder="new post..." rows="3" cols="20" maxlength="400" ></textarea>
     <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
-           alt="Post" style="vertical-align: bottom;" onclick="submitPost()"/>    
+           alt="Post" style="vertical-align: bottom;" onclick="submit('postContent', 'post-list', '/posts')"/>    
   </div>
   <div class="ui_InputContainer" id="photo-upload" style="display: none;">
     #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
@@ -40,7 +38,7 @@
     #{/form}
   </div>
   
-  <div id="postsList">
+  <div id="post-list">
     #{list items:user.news(), as:'item'} 
       #{post user:user,item:item /}
     #{/list}
