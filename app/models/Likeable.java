@@ -20,6 +20,11 @@ public abstract class Likeable extends Model {
   public Visibility visibility;
 
   @Required
+  @JoinTable(name="whitelist_table")
+  @ManyToMany()
+  public Set<User> whitelist;
+
+  @Required
   @JoinTable(name="likes_table")
   @ManyToMany(cascade = CascadeType.PERSIST)
   public Set<User> thoseWhoLike;
@@ -32,6 +37,7 @@ public abstract class Likeable extends Model {
     this.thoseWhoLike = new HashSet<User>();
     this.visibility = v;
     this.owner = owner;
+    this.whitelist.add(owner);
   }
 
   public boolean addLike(User user) {
