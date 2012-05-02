@@ -14,9 +14,9 @@ function like(url, metaId) {
     url: url,
     type: 'POST',
     success: function(data, textStatus, jqXHR) {
+      meta.find('.like-btn').hide();
+      meta.find('.unlike-btn').fadeIn();
       if(textStatus === 'success') {
-        meta.find('.like-btn').hide();
-        meta.find('.unlike-btn').fadeIn();
         var numLikes = parseInt(meta.find('.num-likes').text());
         numLikes++;
         var likesText = (numLikes === 1) ? 'Like.' : 'Likes.';
@@ -36,9 +36,9 @@ function unlike(url, metaId) {
     url: url,
     type: 'DELETE',
     success: function(data, textStatus, jqXHR) {
+      meta.find('.unlike-btn').hide();
+      meta.find('.like-btn').fadeIn();
       if(textStatus === 'success') {
-        meta.find('.unlike-btn').hide();
-        meta.find('.like-btn').fadeIn();
         var numLikes = parseInt(meta.find('.num-likes').text());
         numLikes--;
         var likesText = (numLikes === 1) ? 'Like.' : 'Likes.';
