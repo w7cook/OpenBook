@@ -84,4 +84,8 @@ public class Post extends Commentable {
     return Status.find("select distinct p from Status p join p.tags as t where t.name in (:tags) group by p.id, p.owner, p.message, p.update_time having count(t.id) = :size"
                        ).bind("tags", tags).bind("size", tags.length).fetch();
   }
+
+  public static List<Post> findVisible(User user) {
+    return Post.find("SELECT DISTINCT p FROM Post p WHERE p.owner = ?1 OR ?1 IN(p.whitelist) OR p.visibility = ?2 OR (p.visibility = ?3 AND ?1 IN(p.owner.friends))", user, Visibility.PUBLIC, Visibility.FRIENDS).fetch();
+  }
 }
