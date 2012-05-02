@@ -26,16 +26,6 @@
 		#{/list}
 	</div>
 	<br>
-	<div id="page-fan">
-		Pages you are a fan of:<br>
-		#{list items:myPages, as:'_page'} 
-			<a class="popup" href="@{Pages.display(_page.id)}" >
-				<img src="@{Photos.getPhoto(_page.profilePhoto)}"
-					style="height:100px; width:100px"/>
-				<span>${_page.title}</span>
-			</a>
-		#{/list}
-	</div>
 	#{/if}
 	#{else}
 		You have no pages 

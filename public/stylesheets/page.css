@@ -28,8 +28,6 @@ ul.tabbernav
  padding: 3px 0;
  border-bottom: 1px solid #778;
  font: bold 12px Verdana, sans-serif;
- background-image: url(${skin.get("headerBGPhoto")});
- background-repeat: repeat-x; 
 }
 
 ul.tabbernav li
@@ -83,12 +81,12 @@ ul.tabbernav li.tabberactive a:hover
  /* If you don't want the tab size changing whenever a tab is changed
     you can set a fixed height */
 
- /* height:200px; */
-
  /* If you set a fix height set overflow to auto and you will get a
     scrollbar when necessary */
 
- /* overflow:auto; */
+ overflow:auto;
+ background: white;
+ 
 }
 
 /* If desired, hide the heading since a heading is provided by the tab */
@@ -160,7 +158,7 @@ ul.tabbernav li.tabberactive a:hover
   width: 100%;
 }
 
-.page-box li a{
+.page-box a{
 	display: inline;
 }
 
