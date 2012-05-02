@@ -91,6 +91,7 @@ photo.setAsProfilePhoto=Set as Profile Photo
 photo.useGravatar="Use Gravatar"
 photo.signUpGravatar=Sign up to use Gravatar
 photo.gravatarNote=Note: After signing up, it may take some time for the photo to propagate.
+photo.notFound=That photo does not exist.
 
 #Threads
 thread.title=Public Threads
