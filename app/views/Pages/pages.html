@@ -1,13 +1,15 @@
-#{extends 'three_panel.html' /}
+#{extends 'two_panel.html' /}
 
 	<div id="contentArea-BigPage">
 
 <h2>Pages</h2>
+<a href="@{Pages.newPage()}"> Create a Page!</a>
 <hr/>
 
 <div id="content-middle">
-	#{list items:allPages, as:'pages'} <a href="@{Pages.display(pages.id)}">${pages.title}<br>
-		#{/list} 
+	#{list items:allPages, as:'pages'} 
+		<a href="@{Pages.display(pages.id)}">${pages.title}<br>
+	#{/list} 
 </div>
 
 </div>

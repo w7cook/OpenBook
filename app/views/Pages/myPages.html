@@ -1,6 +1,7 @@
-#{extends 'main.html' /} #{include 'two_panel.html' /}
-<div id="content-middle">
-	#{list items:myPages, as:'UserPage'} <a
-		href="@{Pages.display(UserPage.page.id)}">${UserPage.page.title}
-		#{/list} 
+#{extends 'main.html' /} #{extends 'three_panel.html' /}
+<div id="contentArea">
+<h1>Your Pages</h1>
+	#{list items:myPages, as:'up'} 
+		<a href="@{Pages.display(up.page.id)}" >${up.page.title}</a>
+	#{/list} 
 </div>

@@ -17,7 +17,7 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById('map_canvas'),
-                                mapOptions);
+                            mapOptions);
   
   var input = document.getElementById('searchTextField');
   var autocomplete = new google.maps.places.Autocomplete(input);
@@ -59,7 +59,7 @@ function initialize() {
                 ].join(' ');
     }
     
-    infowindow.setContent('<div><a href="checkin/at?location='+
+    infowindow.setContent('<div><a href="checkins/at?location='+
                           place.geometry.location+'&name='+place.name+
                           '&address='+place.formatted_address+
                           '">Checkin Here</a><br>'+

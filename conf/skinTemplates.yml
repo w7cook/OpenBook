@@ -2,7 +2,9 @@
 
 #Green Skin (greenHeader)
 models.Skin(GREEN):
- name: green
+ userName: default
+ skinName: green
+ name: defaultgreen
  isPublic: "true"
 
 models.SkinPair(models_SkinPair_1):
@@ -13,6 +15,11 @@ models.SkinPair(models_SkinPair_1):
 models.SkinPair(models_SkinPair_a_1):
  attachedSkin: GREEN
  name: bodyBGColor
+ value: none 
+
+models.SkinPair(models_SkinPair_2):
+ attachedSkin: GREEN
+ name: headerBGPhoto
  value: none 
 
 models.SkinPair(models_SkinPair_5):
@@ -118,7 +125,9 @@ models.SkinPair(models_SkinPair_24):
  
 #Peace Skin
 models.Skin(peace):
- name: peace
+ userName: default
+ skinName: peace
+ name: defaultpeace
  isPublic: "true"
  
 models.SkinPair(models_SkinPair_26):
@@ -130,6 +139,11 @@ models.SkinPair(models_SkinPair_a_2):
  attachedSkin: peace
  name: bodyBGColor
  value: none  
+
+models.SkinPair(models_SkinPair_27):
+ attachedSkin: peace
+ name: headerBGPhoto
+ value: none 
 
 models.SkinPair(models_SkinPair_30):
  attachedSkin: peace
@@ -234,6 +248,9 @@ models.SkinPair(models_SkinPair_49):
  
 #Default Skin (orange header)
 models.Skin(default_skin):
+ userName: default
+ skinName: default_skin
+ name: defaultdefault_skin
  name: default_skin
  isPublic: "true"
 
@@ -247,6 +264,7 @@ models.SkinPair(models_SkinPair_54):
  name: headerBGPhoto
  value: /photos/3
  
+
 models.SkinPair(models_SkinPair_55):
  attachedSkin: default_skin
  name: footerTextAlign
@@ -345,7 +363,9 @@ models.SkinPair(models_SkinPair_73):
  
 #UT Skin
 models.Skin(ut_skin):
- name: ut_skin
+ userName: default
+ skinName: ut_skin
+ name: defaultut_skin
  isPublic: "true"
 
 models.SkinPair(models_SkinPair_74):
@@ -357,6 +377,11 @@ models.SkinPair(models_SkinPair_75):
  attachedSkin: ut_skin
  name: headerBGPhoto
  value: /photos/3 
+ 
+models.SkinPair(models_SkinPair_75_2):
+ attachedSkin: ut_skin
+ name: headerBGColor
+ value: none
  
 models.SkinPair(models_SkinPair_76):
  attachedSkin: ut_skin

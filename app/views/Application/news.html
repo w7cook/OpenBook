@@ -1,88 +1,46 @@
-#{extends 'two_panel.html' /}
-  <div id="contentArea">
-    <div class="pagelet">
-      <a href="#">Update Status</a>
-      <a href="#">Add Photo / Video</a>
-      <a href="#">Ask Question</a>
-
-	  #{if user.id == currentUser.id}
-      #{/if}
-      #{else}
-      <a href="@{Posts.poke(user.id)}">Poke!</a>
-      #{/else}
-
-      #{if user.id == currentUser.id}
-      <a id="about-button" href="@{Application.edit_basic}">About me</a>
-      #{/if}
-      #{else}
-      <a id="about-button" href="@{Application.about(user.id)}">About ${user.first_name}</a>
-      #{/else}
-    </div>
-    <br />
-    #{if user.checkFriendship(user.id) == 'Request Friendship'}
-    <a id="friend-button" href="@{Application.requestFriends(user.id)}">
-      ${user.checkFriendship(user.id)}
-    </a>
-    #{/if}
-    #{elseif user.checkFriendship(user.id) == 'Friendship Requested'}
-    Friendship Requested
-    #{/elseif}
-    #{elseif user.checkFriendship(user.id) == 'Friends'}
-    Friends :) 
-    <a id="friend-button" href="@{Application.removeFriends(user.id)}">
-      Remove friend
-    </a>
-    #{/elseif}
-
-    #{if user.id == currentUser.id}
-
-    <div class="ui_InputContainer" id="PostContainer"><textarea name="post_content" id="postContent" class="ui_TextArea" rows="2" cols="45" maxlength="400" >new post...</textarea>
-    <input type="submit" value="Post" id="postSubmit" class="ui_TextAreaButton" />    
-    </div>
-    #{/if}
-    
-    <div id="postsList">
-      #{list items:user.news(), as:'item'} 
-      #{post currentUser:currentUser,user:user,item:item /}
-      #{/list}
-    </div>
+#{extends 'three_panel.html' /}
+<div id="contentArea">
+  <div class="pagelet">
+    <a href="#">Update Status</a>
+    <a href="#">Add Photo</a>
+    <a href="#">Share Link</a>
+    <a href="#">Ask Question</a>
+    <a id="about-button" href="/users/${user.id}/profile">About me</a>
   </div>
-</div> <!-- grid_8 -->
-
-<div class="grid_4">
-  <div class="lhs-navBoxHeader">RSS Feed</div>  
-  <div class="lhs-navBoxBody">
-    <a href="www.youtube.com/watch?v=oHg5SJYRHA0">Latest News</a>
+  
+  
+  <div class="ui_InputContainer" id="PostContainer">
+    <textarea name="post_content" id="postContent" class="ui_TextArea" placeholder="new post..." rows="3" cols="20" maxlength="400" ></textarea>
+    <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
+           alt="Post" style="vertical-align: bottom;" onclick="submitPost()"/>    
   </div>
-  <div class="lhs-navBoxHeader">Upcoming Events</div>
-  <div class="lhs-navBoxBody">
-	<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Upcoming Events</a>
+  <div class="ui_InputContainer" id="photo-upload" style="display: none;">
+    #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
+      <input type="file" name="image" />
+      <input type="text" name="content" value="Add a caption" />
+      <input type="submit" name="submit" value="Upload" /> 
+    #{/form}
   </div>
-
-  <div class="lhs-navBoxHeader">ETC</div>
-  <div class="lhs-navBoxBody">
-	<a href="www.youtube.com/watch?v=oHg5SJYRHA0">Extra Stuff</a>
+  <div class="ui_inputContainer" id="link-upload" style="display: none">
+    #{form @Links.addLink(), enctype:'multipart/form-data'}
+      <input type="text" name="url" value="video url" />
+      <input type="text" name="content" />
+      <input type="submit" name="submit" value="Upload" />
+    #{/form}
   </div>
-
-<script type="text/javascript">
-  $('input#postSubmit').click(function(event) {
-  var postData = {
-  postContent : $("textarea#postContent").val(),
-  };
-  $.post("/posts/makeNewPost", postData, function(data) {
-  var new_item = $(data).hide();
-  $("div#postsList").prepend(new_item);
-  new_item.slideDown();
-  $("textarea#postContent").val('');
-  });
-  });
-</script>
+  
+  <div id="postsList">
+    #{list items:user.news(), as:'item'} 
+      #{post user:user,item:item /}
+    #{/list}
+  </div>
+</div>
 
 <script>
   /*Show before resizing, with jQuery to avoid glitchy redisplay*/
   $('textarea#postContent').css('display','inline-block');
   $('input#postSubmit').css('display', 'inline-block');
-
+  
   /*autoResize*/
   $('textarea#postContent').autoResize({
   maxHeight: 150,
@@ -95,38 +53,7 @@
   maxHeight: 70,
   minHeight: 20,
   extraSpace: 20
-  }); 
-  
-  
+  });   
 </script>
 
-<script>
-  $('#postContent')
-  .focusin(function() {
-  if ( this.value == 'new post...' ) {
-  this.value = '';    
-  }
-  })
-  .focusout(function() {
-  if ( this.value == '' ) {
-  this.value = 'new post...';    
-  }
-  });
-</script>
-
-
-<script >
-function likeClicked(itemId){
-  var postData = {
-     likeableId  : itemId,
-  };
-  window.alert("WHAT?");
-  $.post("/Application/addLikeAjax", postData, function(data) {
-    $("span#numLikesPost"+data.likeableID).text(data.numLikes+ " Like"+(data.numLikes == 1? "" : "s"));
-  });
-  document.getElementById("likeButton").innerHTML = "Unlike";
-  }
-  return;
-}
-</script>
-
+<script src="/public/javascripts/post.js"></script>

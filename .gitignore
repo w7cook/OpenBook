@@ -13,3 +13,5 @@
 *~
 *.log
 /bin
+/conf/passwd.pwd
+

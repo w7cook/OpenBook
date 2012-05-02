@@ -46,7 +46,7 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 
 		// Create a new post
-		new Post(bob, "My first post", "Hello world").save();
+		new Post(bob, bob, "Hello world").save();
 
 		// Test that the post has been created
 		assertEquals(1, Post.count());
@@ -58,8 +58,7 @@ public class BasicTest extends UnitTest {
 		assertEquals(1, bobPosts.size());
 		Post firstPost = bobPosts.get(0);
 		assertNotNull(firstPost);
-		assertEquals(bob, firstPost.author);
-		assertEquals("My first post", firstPost.title);
+		assertEquals(bob, firstPost.owner);
 		assertEquals("Hello world", firstPost.content);
 		assertNotNull(firstPost.createdAt);
 	}
@@ -86,7 +85,7 @@ public class BasicTest extends UnitTest {
     User tom = new User("tom@gmail.com", "secret", "Tom").save();
 
 		// Create a new post
-		Post bobPost = new Post(bob, "My first post", "Hello world").save();
+		Post bobPost = new Post(bob, bob, "Hello world").save();
 
 		// Post a first comment
 		new Comment(bobPost, jeff, "Nice post").save();
@@ -100,13 +99,13 @@ public class BasicTest extends UnitTest {
 
 		Comment firstComment = bobPostComments.get(0);
 		assertNotNull(firstComment);
-		assertEquals("Jeff", firstComment.author.username);
+		assertEquals("Jeff", firstComment.owner.username);
 		assertEquals("Nice post", firstComment.content);
 		assertNotNull(firstComment.createdAt);
 
 		Comment secondComment = bobPostComments.get(1);
 		assertNotNull(secondComment);
-		assertEquals("Tom", secondComment.author.username);
+		assertEquals("Tom", secondComment.owner.username);
 		assertEquals("I knew that !", secondComment.content);
 		assertNotNull(secondComment.createdAt);
 	}
@@ -138,7 +137,7 @@ public class BasicTest extends UnitTest {
 		
 		Status bobfirst = bobStatuses.get(0);
 		assertNotNull(bobfirst);
-		assertEquals("Bob", bobfirst.author.username);
+		assertEquals("Bob", bobfirst.owner.username);
 		assertEquals("I just had lunch", bobfirst.content);
 		assertNotNull(bobfirst.createdAt);
 	}
@@ -151,7 +150,7 @@ public class BasicTest extends UnitTest {
     User tom = new User("tom@gmail.com", "secret", "Tom").save();
 
 		// Create a new post
-		Post bobPost = new Post(bob, "My first post", "Hello world").save();
+		Post bobPost = new Post(bob, bob, "Hello world").save();
 
 		// Post a first comment
 		bobPost.addComment(jeff, "Nice post");
@@ -168,7 +167,7 @@ public class BasicTest extends UnitTest {
 
 		// Navigate to allComments
 		assertEquals(2, bobPost.comments.size());
-		assertEquals("Jeff", bobPost.comments.get(0).author.username);
+		assertEquals("Jeff", bobPost.comments.get(0).owner.username);
 
 		// Delete the post
 		bobPost.delete();
@@ -223,8 +222,8 @@ public class BasicTest extends UnitTest {
 		User bob = new User("bob@gmail.com", "secret", "Bob").save();
 
 		// Create a new post
-		new Post(bob, "My first post", "Hello world").save();
-		new Post(bob, "Hop", "Hello world").save();
+		new Post(bob, bob, "Hello world").save();
+		new Post(bob, bob, "Hello world").save();
 		
 		List<Post> bobPosts = Post.find("byAuthor", bob).fetch();
 		assertEquals(2, bobPosts.size());

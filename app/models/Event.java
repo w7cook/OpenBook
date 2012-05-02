@@ -1,28 +1,26 @@
 package models;
 
 import java.util.*;
-import javax.persistence.*;
-import play.data.validation.*;
 
-import controllers.Events;
-import controllers.Application;
-import models.Post;
-
-import play.db.jpa.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Event extends Model {
+public class Event extends Postable {
 
   @ManyToOne
-  public User author;
+  public User owner;
 
   /*
    * @OneToMany public EventInvite invitedUsers;
    */
 
-  public String eventName;
-  public String eventScript;
-  public String eventLocation;
+  public String name;
+  public String script;
+  public String location;
   public Date startDate;
   public Date endDate;
   public boolean givenEndDate = false;
@@ -33,17 +31,17 @@ public class Event extends Model {
   public boolean inviteOnly = false;
   // public Location eventVenue;
 
-  @OneToMany
-  public List<User> members;
+  @ManyToMany
+  @JoinTable(name="EventMembers")
+  public Set<User> members;
 
-  public Event(User author, String eventName, String eventScript,
-      String eventLocation) {
-    this.author = author;
-    this.eventName = eventName;
-    this.eventScript = eventScript;
-    this.eventLocation = eventLocation;
-    this.members = new ArrayList<User>();
-    this.members.add(author);
+  public Event(User author, String name, String script, String location) {
+    this.owner = author;
+    this.name = name;
+    this.script = script;
+    this.location = location;
+    this.members = new HashSet<User>();
+    this.members.add(owner);
   }
 
   public EventInvite newEventInvite(User curGuest) {
@@ -53,10 +51,7 @@ public class Event extends Model {
   }
 
   public List<Post> getPosts() {
-    return Post
-        .find(
-            "SELECT p FROM Post p WHERE p.postType = ? and p.title = ? order by p.updatedAt desc",
-            Post.type.EVENT, this.id.toString()).fetch();
+    return posts;
   }
 
   public void addMember(User u) {
@@ -71,5 +66,11 @@ public class Event extends Model {
 
   public int getMemberCount() {
     return members.size();
+  }
+
+  public Set<User> uninvitedFriends(User user) {
+    HashSet ret = new HashSet(user.friends);
+    ret.removeAll(this.members);
+    return ret;
   }
 }
