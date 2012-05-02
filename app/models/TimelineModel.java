@@ -7,24 +7,25 @@ import java.util.Date;
 import java.util.Vector;
 
 @Entity
-public class TimelineModel extends Commentable {
+public class TimelineModel extends Model{
   public enum Action {
     CREATE, MODIFY, DELETE
   };
 
-  Vector<TimelineEvent> events;
+@Required 
+@Lob
+ private Vector<Post> posts;
 
   public TimelineModel(User auth) {
-    super(auth);
-    events = new Vector<TimelineEvent>();
+    this.posts = new Vector<Post>();
   }
 
-  public Vector<TimelineEvent> getEvents() {
-    return this.events;
+  public Vector<Post> getEvents() {
+    return this.posts;
   }
 
-  public void addEvent(Object o, TimelineModel.Action action,
-                       Vector<User> participants, String foreword) {
-    this.events.add(new TimelineEvent(this, o, action, participants, foreword));
+    public void addEvent(long userid, Object o, TimelineModel.Action action, Vector<User> participants, String description) {
+      this.posts.add(new Post((User)User.findById(userid), (User)User.findById(userid), description));
+      this.save();
   }
 }

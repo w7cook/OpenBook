@@ -32,7 +32,7 @@ public class Profiles extends OBController {
       profile.bio = "";
 
     profile.save();
-    renderTemplate("Application/edit_basic.html", profile);
+    renderTemplate("Users/profile.html", profile);
   }
 
   public static void updateInformation(String birthday, String relationshipStatus, String gender, String interestedIn,
@@ -50,10 +50,12 @@ public class Profiles extends OBController {
     profile.gender = gender;
     profile.interestedIn = interestedIn;
     DateFormat anniversary_formatting = new SimpleDateFormat("MM/dd/yyyy");
-    try {
-      profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
-    } catch (java.text.ParseException e) {
-      e.printStackTrace();
+    if(anniversary != null){
+      try {
+        profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
+      } catch (java.text.ParseException e) {
+        e.printStackTrace();
+      }
     }
     //        profile.relationshipStatus = relationshipStatus;
 
@@ -66,7 +68,7 @@ public class Profiles extends OBController {
 
     profile.political = political;
     profile.save();
-    renderTemplate("Application/edit_basic.html", profile);
+    renderTemplate("Users/profile.html", profile);
   }
 
   public static void updateContactInfo(String phone, String address){
@@ -92,7 +94,7 @@ public class Profiles extends OBController {
       profile.address = "";
 
     profile.save();
-    renderTemplate("Application/edit_basic.html", profile);
+    renderTemplate("Users/profile.html", profile);
   }
 
   public static void updateWorkEdu(String edu, String work){
@@ -124,7 +126,7 @@ public class Profiles extends OBController {
       profile.work.add(employment);
     */
     profile.save();
-    renderTemplate("Application/edit_basic.html", profile);
+    renderTemplate("Users/profile.html", profile);
   }
 
   public static void updateLiving(String hometown){
@@ -143,7 +145,7 @@ public class Profiles extends OBController {
       profile.hometown = null;
 
     profile.save();
-    renderTemplate("Application/edit_basic.html", profile);
+    renderTemplate("Users/profile.html", profile);
   }
 
   public static void updateQuote(String quotation){
@@ -156,6 +158,6 @@ public class Profiles extends OBController {
       profile.quotes = "";
 
     profile.save();
-    renderTemplate("Application/edit_basic.html", profile);
+    renderTemplate("Users/profile.html", profile);
   }
 }

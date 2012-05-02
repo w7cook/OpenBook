@@ -4,7 +4,23 @@
 
 <div class="lhs-navBoxHeader" style="line-height:25px;padding-left:2px;">RSS FEED</div>
 <div class="lhs-navBoxBody">
-  <a href="#">Latest News</a>
+  #{list items:_user.feeds, as:'feed'}
+    <a href=${feed.getChannelLink()}>
+      <img src=${feed.getImageNode().ccontent('url')}
+           width=${feed.getImageNode().ccontent('width')}
+           height=${feed.getImageNode().ccontent('height')}></img>
+      ${feed.getTitle()}
+    </a>
+    <ul>
+    #{list items:feed.getItems(4), as:'fitem'}
+      <a href=${fitem.ccontent('link')}>${fitem.ccontent('title')}</a>
+    #{/list}
+    </ul>
+  #{/list}
+  #{form action:@RSSFeeds.addFeed(), method:'GET', style:'display:inline'}
+    <input type='text' name='url'> </input>
+    <input type='submit' value='Add Feed URL'></input>
+  #{/form}
 </div>
 
 <div class="lhs-navBoxHeader" style="line-height:25px;">UPCOMING EVENTS</div>
@@ -19,7 +35,7 @@
 
 <div class="lhs-navBoxHeader" style="line-height:25px;">BIRTHDAYS</div>
 <div class="lhs-navBoxBody" style="DISPLAY: block">
-  <iframe style="DISPLAY: none" id="HiddenDiv" src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "158" height = "100%"
+  <iframe style="DISPLAY: none" id="HiddenDiv" src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "100%" height = "100%"
           scrolling = "auto" align = "middle" marginheight = "0" 
           marginwidth = "0" hspace = "5" vspace = "5" frameborder = "0" style="border:none;">
   </iframe> 

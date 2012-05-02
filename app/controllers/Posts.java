@@ -35,11 +35,11 @@ public class Posts extends OBController {
     ok();
   }
 
-  public static void makeNewPost(String postContent) {
-    if (postContent == null)
-      error("postContent can't be null");
+  public static void makeNewPost(String content) {
+    if (content == null)
+      error("content can't be null");
     User user = user();
-    final Post post = new Post(user, user, postContent).save();
+    final Post post = new Post(user, user, content).save();
     render(user, post);
   }
 
@@ -54,14 +54,14 @@ public class Posts extends OBController {
   }
 
   public static void makeNewGroupPost(String postContent, String gid) {
-            Group group = Group.findById(Long.parseLong(gid));
-            final Post p = new Post(group, user(), postContent).save();
-            Map<String, Object> m = new HashMap<String, Object>();
-            m.put("item", p);
-            m.put("user", user());
-            m.put("currentUser", user());
-            renderTemplate(m);
-          }
+    Group group = Group.findById(Long.parseLong(gid));
+    final Post p = new Post(group, user(), postContent).save();
+    Map<String, Object> m = new HashMap<String, Object>();
+    m.put("item", p);
+    m.put("user", user());
+    m.put("currentUser", user());
+    renderTemplate(m);
+  }
 
   public static void poke(Long userId) {
     String poked = new String(user() + " has poked " + (User)User.findById(userId) + "!");

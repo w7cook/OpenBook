@@ -15,6 +15,7 @@ import controllers.Photos;
 
 @OnApplicationStart
 public class Bootstrap extends Job {
+	
   public static Long peacePhotoID, defaultProfilePhotoID, defaultHeaderPhotoID;
   public void doJob() throws FileNotFoundException, IOException{
     // Check if the database is empty
@@ -40,7 +41,7 @@ public class Bootstrap extends Job {
       initFriends();
     }
   }
-
+  
   public static void hashPasswords() {
     List<User> users= User.findAll();
     for(User u : users) {
