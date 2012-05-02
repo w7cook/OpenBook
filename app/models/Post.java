@@ -86,6 +86,6 @@ public class Post extends Commentable {
   }
 
   public static List<Post> findVisible(User user) {
-    return Post.find("SELECT DISTINCT p FROM Post p WHERE p.owner = ?1 OR ?1 IN(p.whitelist) OR p.visibility = ?2 OR (p.visibility = ?3 AND ?1 IN(p.owner.friends))", user, Visibility.PUBLIC, Visibility.FRIENDS).fetch();
+    return Post.find("SELECT DISTINCT p FROM Post p WHERE p.owner = ?1 OR ?1 IN(p.whitelist) OR p.visibility = ?2 OR (p.visibility = ?3 AND ?1 IN(p.owner.friends)) ORDER BY p.updatedAt DESC", user, Visibility.PUBLIC, Visibility.FRIENDS).fetch();
   }
 }
