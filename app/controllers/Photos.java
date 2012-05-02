@@ -57,6 +57,8 @@ public class Photos extends OBController {
     File image = new File(path);
     User user = User.find("username = ?", "default").first();//set owner as default owner
     Photo photo = new Photo(user, image, caption);
+    /* Make all initial photos world-visible. */
+    photo.visibility = Likeable.Visibility.PUBLIC;
     photo.save();
     return photo;
   }
