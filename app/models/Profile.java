@@ -100,6 +100,8 @@ public class Profile extends Model {
   @ManyToOne
   public Skin skin;//Skin (StyleSheet) used by this Profile
 
+  @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
+  public List<RSSFeed> feeds;
 
   //CONTACT INFORMATION
   @Phone public String phone; // the user's phone number
@@ -129,7 +131,8 @@ public class Profile extends Model {
     this.languages = new ArrayList<UserLanguage>();
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
-    this.skin = Skins.getSkin("default","default_skin");//the default skin look is used
+    this.feeds = new ArrayList<RSSFeed>();
+    this.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
     this.phone = "";
     this.address = "";
     this.website = "";
