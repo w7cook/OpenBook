@@ -50,7 +50,7 @@
               </td>
               <td>
                 <input type="text" id="datepicker" name="birthday"
-                       value=""/>
+                       value="${profile.birthday.format("MM/dd/yyyy")}"/>
               </td>
             </tr>
             <tr>
@@ -63,7 +63,7 @@
             </tr>
             
             <tr>
-              <td><label><b>&{'profile.interested.in'}:</b></label></td>
+              <td><label><b>&{'profile.interested.in'}: </b></label></td>
               <td>
                 #{select 'gender', value:profile.interestedIn} 
                   #{option ''}#{/option}
@@ -96,7 +96,7 @@
             #{if profile.hasAnniversary()}
               <tr>
                 <td><label><b>&{'profile.anniversary'}: </b></br></label></td>
-                <td><input type="text" id="datepicker" name="anniversary" value=""/></td>
+                <td><input type="text" id="datepicker" name="anniversary" /></td>
               </tr>
             #{/if}
             
@@ -137,10 +137,10 @@
               <td class="data">${profile.gender}</td>
             </tr>
           #{/if}
-          #{if profile.interestedIn}
+          #{if !profile.interestedIn}
             <tr>
               <td><label><b>Interested in:</b></label></td>
-              <td class="data">${profile.interestedIn}</td>
+              <td class="data">${profile.interestedIn}test123</td>
             </tr>
           #{/if}
           #{if profile.relationshipStatus}

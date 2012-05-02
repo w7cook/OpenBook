@@ -41,10 +41,12 @@ public class Profiles extends OBController {
     Profile profile = Profile.find("owner = ?", user).first();
     profile.religion = religion;
     DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
-    try{
-      profile.birthday = (Date) birthday_formatting.parse(birthday);
-    } catch (java.text.ParseException e) {
-      e.printStackTrace();
+    if(birthday != null){
+      try{
+        profile.birthday = (Date) birthday_formatting.parse(birthday);
+      } catch (java.text.ParseException e) {
+        e.printStackTrace();
+      }
     }
 
     profile.gender = gender;
@@ -57,6 +59,8 @@ public class Profiles extends OBController {
         e.printStackTrace();
       }
     }
+    if(profile.relationshipStatus != null)
+      System.out.println("\n\n\n\n\n" + profile.relationshipStatus.toString() + "\n\n\n\n");
     //        profile.relationshipStatus = relationshipStatus;
 
     Language lang = Language.find("name = ?", language).first();
