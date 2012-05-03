@@ -59,10 +59,20 @@
   </li>    
   
   <li id="new_comment_for_post${_item.id}" style="margin-top:1em;">
-    <img style="vertical-align: top;"      
-         src=@{Thumbnails.get30x30(_user.profile.profilePhoto.id)} display="inline" width="30" height="30" />
+    <img id="new-comment-profile-pic-${_item.id}" style="vertical-align: top;" class="hide"      
+         src="@{Thumbnails.get30x30(_user.profile.profilePhoto.id)}" display="inline" width="30" height="30" />
     <textarea name="comment_content${_item.id}" id="commentContent${_item.id}" placeholder="new comment..." 
               style="color:grey; width: 350px; height: 30px;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
     <button class="button" id="commentSubmit${_item.id}" onclick="submit('commentContent${_item.id}', 'comment-list${_item.id}', '/posts/${_item.id}/comments')">Comment</button>
   </li>
 </ul>
+
+<script>
+  $('#commentContent${_item.id}').focus(function() {
+    $('#new-comment-profile-pic-${_item.id}').removeClass('hide');
+  });
+  $('#commentContent${_item.id}').blur(function() {
+    if($('#commentContent${_item.id}').val() === '')
+      $('#new-comment-profile-pic-${_item.id}').addClass('hide');
+  });
+</script>

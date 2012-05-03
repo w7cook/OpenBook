@@ -9,29 +9,24 @@ import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
 public class RSSFeeds extends OBController {
-	public static void addFeed(String url) {
-		User u = user();
-		RSSFeed feed = new RSSFeed(u, url);
-		// Add Unique Constraint Check
-		feed.save();
+  public static void addFeed(String url) {
+    User u = user();
+    RSSFeed feed = new RSSFeed(u, url);
+    // Add Unique Constraint Check in model
+    feed.save();
+    redirect("/");
+  }
+  public static void RSSfeeds(Long userId) {
+    User current = User.findById(userId);
+    if (current == null)
+      notFound();
+    List<RSSFeed> feeds = new ArrayList<RSSFeed>();
+    for(RSSFeed f : current.feeds) {
+      feeds.add(f);
+    }
 
-		redirect("/");
-	}
-	public static void RSSfeeds(Long userId) {
-		User current = User.findById(userId);
-		if (current != null){
-
-			List<RSSFeed> feeds = new ArrayList<RSSFeed>();
-
-
-			for(RSSFeed f : current.feeds) {
-				feeds.add(f);
-			}
-
-			render(feeds);
-		}
-	}
+    render(feeds);
+  }
 }
 

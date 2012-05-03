@@ -12,7 +12,7 @@ public class Users extends OBController {
     render(users);
   }
 
-  public static void about(Long userId) {
+  public static void user(Long userId) {
     User user =  userId == null ? user() : (User) User.findById(userId);
     User currentUser = user();
     render(currentUser, user);
