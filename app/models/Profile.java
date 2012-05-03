@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import play.data.validation.Phone;
+import play.data.validation.*;
 
 import utils.Bootstrap;
 
@@ -37,7 +37,7 @@ public class Profile extends Model {
   @OneToOne
   public Photo gravatarPhoto;
 
-  public Date birthday; // The user's birthday, uses jJQuery UI
+  public Date birthday; // The user's birthday, uses JQuery UI
 
   @ManyToOne
   public Location location; // The user's current city

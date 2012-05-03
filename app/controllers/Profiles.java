@@ -45,7 +45,7 @@ public class Profiles extends OBController {
       try{
         profile.birthday = (Date) birthday_formatting.parse(birthday);
       } catch (java.text.ParseException e) {
-        e.printStackTrace();
+        Logger.error("Birthday should be in format: MM/dd/yyyy", e);
       }
     }
 
@@ -56,12 +56,9 @@ public class Profiles extends OBController {
       try {
         profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
       } catch (java.text.ParseException e) {
-        e.printStackTrace();
+        Logger.error("Anniversary should be in format: MM/dd/yyyy", e);
       }
     }
-//    if(profile.relationshipStatus != null)
-//      System.out.println("\n\n\n\n\n" + profile.relationshipStatus.toString() + "\n\n\n\n");
-    //        profile.relationshipStatus = relationshipStatus;
 
     Language lang = Language.find("name = ?", language).first();
     UserLanguage userlang = new UserLanguage(profile, lang);
