@@ -1,8 +1,8 @@
 <ul class="nav nav-list well">
   <li class="nav-header">RSS Feed</li>
   <li>
-    <button id="showDiv" onclick ="ShowHide('RSSiFrame')" style="display:none"><i>Hide</i> <i class="icon-chevron-up"></i></button>
-    <button id="hideDiv" onclick ="ShowHide('RSSiFrame')"><i>Show</i> <i class="icon-chevron-down"></i></button>
+    <button id="showDivRSS" onclick ="ShowHide('RSSiFrame')" style="DISPLAY: none"><i>Hide</i> <i class="icon-chevron-up"></i></button>
+    <button id="hideDivRSS" onclick ="ShowHide('RSSiFrame')" style="DISPLAY: block"><i>Show</i> <i class="icon-chevron-down"></i></button>
     <iframe style="DISPLAY: none;border: none;'" id="RSSiFrame" src="@{RSSFeeds.RSSfeeds(_user.id)}" width="100%" height="100%" scrolling = "auto" align="middle" marginheight="0" marginwidth="0" hspace="5" vaspace="5" frameborder="0">
     </iframe>
     #{form action:@RSSFeeds.addFeed(), method:'GET', style:'display:inline'}
@@ -29,8 +29,8 @@
     </iframe> 
   </li>
   <li>  
-    <button id="showDiv" class="btn hide" onclick ="ShowHide('HiddenDiv')"><i>Hide</i> <i class="icon-chevron-up"></i></button>
-    <button id="hideDiv" class="btn" onclick ="ShowHide('HiddenDiv')"><i>Show</i> <i class="icon-chevron-down"></i></button>
+    <button id="showDivBday" class="btn hide" onclick ="ShowHide('HiddenDiv')"><i>Hide</i> <i class="icon-chevron-up"></i></button>
+    <button id="hideDivBday" class="btn" onclick ="ShowHide('HiddenDiv')"><i>Show</i> <i class="icon-chevron-down"></i></button>
   </li>
 </ul>
 
@@ -38,54 +38,7 @@
   Today's Birthday  
 </div>
 
-<script language="JavaScript">
-  function ShowHide(divId) {
-    if(document.getElementById(divId).style.display == 'none') {
-      document.getElementById(divId).style.display='block';
-      document.getElementById('showDiv').style.display='block';
-      document.getElementById('hideDiv').style.display='none';
 
-    }
-    else {
-      document.getElementById(divId).style.display = 'none';
-      document.getElementById('showDiv').style.display='none';
-      document.getElementById('hideDiv').style.display='block';
-    }
-  }
-</script>
 
-<script> 
-  var birthdayIframe = $('#HiddenDiv');
-  var dlg1 = $('#modalHolder');
-  var ran = false;
-  
-  dlg1.bind( "clickoutside", function(event){
-    if(ran == true) {
-      dlg1.dialog("close");
-      ran = false;
-    }
-  });
-  
-  dlg1 = dlg1.dialog({
-    position: { 
-      my: 'right top',
-      at: 'left top',
-      of: birthdayIframe
-    },
-    width: 300,
-    //height: 150,
-    modal: false,
-    autoOpen: false,
-    resizable: false,
-    closeOnEscape: true,
-    draggable: false,
-    show: "fade",
-    hide: "drop",
-    open: function(event, ui) { 
-      dlg1.dialog("widget").find(".ui-dialog-titlebar").hide(); 
-      ran = true; 
-      $(".ui-dialog-titlebar-close").hide(); 
-    }
-  });  
-</script>
 <script type="text/javascript" src="/public/javascripts/jquery.ba-outside-events.js"></script>
+<script type="text/javascript" src="/public/javascripts/birthday.js"></script>
