@@ -207,6 +207,20 @@ public class User extends Postable {
         this.id).fetch();
   }
 
+<<<<<<< HEAD
+  public Profile getProfile(){
+    if(profile == null){
+      profile = new Profile(this);
+      profile.save();
+    }
+    if (profile.profilePhoto == null) {
+      profile.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    }
+    return profile;
+  }
+
+=======
+>>>>>>> 0e60d5cfe086a645f2024379a9cbdc518eb2828b
   public void createTimeline() {
     if (this.timeline == null) {
       this.timeline = new TimelineModel(this);
