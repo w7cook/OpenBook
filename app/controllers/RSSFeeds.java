@@ -15,7 +15,18 @@ public class RSSFeeds extends OBController {
     RSSFeed feed = new RSSFeed(u, url);
     // Add Unique Constraint Check in model
     feed.save();
-    ok();
+    redirect("/");
+  }
+  public static void RSSfeeds(Long userId) {
+    User current = User.findById(userId);
+    if (current == null)
+      notFound();
+    List<RSSFeed> feeds = new ArrayList<RSSFeed>();
+    for(RSSFeed f : current.feeds) {
+      feeds.add(f);
+    }
+
+    render(feeds);
   }
 }
 

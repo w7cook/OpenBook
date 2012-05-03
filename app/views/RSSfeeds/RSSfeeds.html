@@ -1,0 +1,14 @@
+<base target="_parent" />
+#{list items:feeds, as:'feed'}
+    <a href=${feed.getChannelLink()}>
+      <img src=${feed.getImageNode().ccontent('url')}
+           width=${feed.getImageNode().ccontent('width')}
+           height=${feed.getImageNode().ccontent('height')}></img>
+      ${feed.getTitle()}
+    </a>
+    <ul>
+        #{list items:feed.getItems(4), as:'fitem'}
+            <a href=${fitem.ccontent('link')}>${fitem.ccontent('title')}</a>
+        #{/list}
+    </ul>
+  #{/list}
