@@ -13,12 +13,14 @@ import net.coobird.thumbnailator.geometry.*;
 import net.coobird.thumbnailator.name.*;
 
 @Entity
-public class Photo extends Post {
+public class Photo extends Commentable {
 
   public static final int MAX_PIXEL_SIZE = 1024;
 
   @Required
   public Blob image;
+
+  public String caption;
 
   @Required
   public Blob thumbnail120x120,
@@ -27,13 +29,14 @@ public class Photo extends Post {
 
   public Photo(User owner, File image) throws IOException,
                                               FileNotFoundException {
-    this(owner, image, "");
+    this(owner, image, null);
   }
 
   public Photo(User owner, File image, String caption)
                                       throws IOException,
                                              FileNotFoundException {
-    super(owner, owner, caption);
+    super(owner);
+    this.caption = caption;
     shrinkImage(image);
     this.image = fileToBlob(image);
     this.createThumbnails();
