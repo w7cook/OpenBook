@@ -37,6 +37,8 @@ public class Profile extends Model {
   @OneToOne
   public Photo gravatarPhoto;
 
+  @Match("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[- /.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[- /.\\]\\(19\\|20\\)\\d\\d$")  
+  
   public Date birthday; // The user's birthday, uses JQuery UI
 
   @ManyToOne
@@ -149,5 +151,6 @@ public class Profile extends Model {
     this.phone = phone;
     this.quotes = quotes;
     this.website = website;
+    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
   }
 }

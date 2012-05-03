@@ -146,7 +146,7 @@
           #{if !profile.interestedIn}
             <tr>
               <td><label><b>Interested in:</b></label></td>
-              <td class="data">${profile.interestedIn}</td>
+              <td class="data">${profile.gender} >> test123${profile.interestedIn}</td>
             </tr>
           #{/if}
           #{if profile.relationshipStatus}
@@ -229,6 +229,9 @@
               #{/else}
             </tr>
           #{/if}
+          #{else}
+            
+          #{/else}
           #{if profile.address}
             <tr>
               <td><label><b>Address: </b></label></td>

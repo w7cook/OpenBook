@@ -15,6 +15,7 @@ import play.modules.elasticsearch.annotations.ElasticSearchIgnore;
 import play.modules.elasticsearch.annotations.ElasticSearchable;
 import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
+import utils.Bootstrap;
 
 @ElasticSearchable
 @Entity
@@ -53,7 +54,7 @@ public class User extends Postable {
   public String password;
 
   //  User's basic profile information
-  @OneToOne
+  @OneToOne(mappedBy="owner")
   public Profile profile;
 
   @OneToOne
@@ -196,6 +197,9 @@ public class User extends Postable {
     if(profile == null){
       profile = new Profile(this);
       profile.save();
+    }
+    if (profile.profilePhoto == null) {
+      profile.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
     }
     return profile;
   }
