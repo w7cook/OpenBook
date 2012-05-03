@@ -27,7 +27,7 @@ public class Profile extends Model {
 
   @OneToOne
   public User significantOther; // The user's significant other
-  @Match("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[- /.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[- /.\\]\\(19\\|20\\)\\d\\d$") 
+  @Match("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$")
   public Date anniversary; // date of anniversary
 
   public String bio; // The user's biography
@@ -38,7 +38,7 @@ public class Profile extends Model {
   @OneToOne
   public Photo gravatarPhoto;
 
-  @Match("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[- /.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[- /.\\]\\(19\\|20\\)\\d\\d$")  
+  @Match("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$")
   public Date birthday; // The user's birthday, uses JQuery UI
 
   @ManyToOne

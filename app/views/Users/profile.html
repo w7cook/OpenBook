@@ -5,8 +5,13 @@
 <script type="text/javascript" src="/public/javascripts/profile.js"></script>
 
 <div class="globalContentAbout">  
-  <div class="LeftColumnAbout">   
+  <div class="LeftColumnAbout">  
     <div class="Panel">
+      #{ifErrors}
+        #{errors}
+          <li><b><font color="red"> ${error}</font></b></li>
+        #{/errors}
+      #{/ifErrors} 
       <span class="PanelTitle">&{'profile.about.you'}</span>
       <button class="EditButton" id="AboutMeEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
@@ -146,7 +151,7 @@
           #{if !profile.interestedIn}
             <tr>
               <td><label><b>Interested in:</b></label></td>
-              <td class="data">{profile.interestedIn}</td>
+              <td class="data">${profile.interestedIn}</td>
             </tr>
           #{/if}
           #{if profile.relationshipStatus}
@@ -219,14 +224,7 @@
           #{if profile.phone}
             <tr>
               <td><label><b>Phone: </b></label></td>
-              #{ifErrors}
-                #{errors}
-                  <li><b><font color="red"> Please enter a phone number</font></b></li>
-                #{/errors}
-              #{/ifErrors}
-              #{else}
-                <td>${profile.phone}</td>
-              #{/else}
+              <td>${profile.phone}</td>
             </tr>
           #{/if}
           #{else}
