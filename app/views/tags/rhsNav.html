@@ -1,74 +1,44 @@
-<script src=@{'/public/javascripts/jquery.ba-outside-events.js'}></script>
+<ul class="nav nav-list well">
+  <li class="nav-header">RSS Feed</li>
+  <li>
+    <button id="showDivRSS" onclick ="ShowHide('RSSiFrame')" style="DISPLAY: none"><i>Hide</i> <i class="icon-chevron-up"></i></button>
+    <button id="hideDivRSS" onclick ="ShowHide('RSSiFrame')" style="DISPLAY: block"><i>Show</i> <i class="icon-chevron-down"></i></button>
+    <iframe style="DISPLAY: none;border: none;'" id="RSSiFrame" src="@{RSSFeeds.RSSfeeds(_user.id)}" width="100%" height="100%" scrolling = "auto" align="middle" marginheight="0" marginwidth="0" hspace="5" vaspace="5" frameborder="0">
+    </iframe>
+    #{form action:@RSSFeeds.addFeed(), method:'GET', style:'display:inline'}
+      <input type='text' name='url'> </input>
+      <input type='submit' value='Add Feed URL'></input>
+    #{/form}
+  </li>
+
+  <li class="nav-header">Upcoming Events</li>
+  <li>
+    <a href="/events/upcoming">Upcoming Events</a>
+  </li>
+
+  <li class="nav-header">etc</li>
+  <li>
+    <a href="#">Extra Stuff</a>
+  </li>
+
+  <li class="nav-header">Birthdays</li>
+  <li>
+    <iframe style="DISPLAY: none" id="HiddenDiv" src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "100%" height = "100%"
+            scrolling = "auto" align = "middle" marginheight = "0" 
+            marginwidth = "0" hspace = "5" vspace = "5" frameborder = "0" style="border:none;">
+    </iframe> 
+  </li>
+  <li>  
+    <button id="showDivBday" class="btn hide" onclick ="ShowHide('HiddenDiv')"><i>Hide</i> <i class="icon-chevron-up"></i></button>
+    <button id="hideDivBday" class="btn" onclick ="ShowHide('HiddenDiv')"><i>Show</i> <i class="icon-chevron-down"></i></button>
+  </li>
+</ul>
+
+<div id="modalHolder" style="display:none;">
+  Today's Birthday  
+</div>
+
+
+
 <script type="text/javascript" src="/public/javascripts/jquery.ba-outside-events.js"></script>
-
-
-<div class="lhs-navBoxHeader" style="line-height:25px;padding-left:2px;">RSS FEED</div>
-<div class="lhs-navBoxBody">
-  #{list items:_user.feeds, as:'feed'}
-    <a href=${feed.getChannelLink()}>
-      <img src=${feed.getImageNode().ccontent('url')}
-           width=${feed.getImageNode().ccontent('width')}
-           height=${feed.getImageNode().ccontent('height')}></img>
-      ${feed.getTitle()}
-    </a>
-    <ul>
-    #{list items:feed.getItems(4), as:'fitem'}
-      <a href=${fitem.ccontent('link')}>${fitem.ccontent('title')}</a>
-    #{/list}
-    </ul>
-  #{/list}
-  #{form action:@RSSFeeds.addFeed(), method:'GET', style:'display:inline'}
-    <input type='text' name='url'> </input>
-    <input type='submit' value='Add Feed URL'></input>
-  #{/form}
-</div>
-
-<div class="lhs-navBoxHeader" style="line-height:25px;">UPCOMING EVENTS</div>
-<div class="lhs-navBoxBody">
-  <a href="/events/upcoming">Upcoming Events</a>
-</div>
-
-<div class="lhs-navBoxHeader" style="line-height:25px;">ETC</div>
-<div class="lhs-navBoxBody">
-  <a href="#">Extra Stuff</a>
-</div>
-
-<div class="lhs-navBoxHeader" style="line-height:25px;">BIRTHDAYS</div>
-<div class="lhs-navBoxBody" style="DISPLAY: block">
-  <iframe style="DISPLAY: none" id="HiddenDiv" src="@{UpcomingBirthdays.showUpcomingBirthdays(_user.id)}" width = "100%" height = "100%"
-          scrolling = "auto" align = "middle" marginheight = "0" 
-          marginwidth = "0" hspace = "5" vspace = "5" frameborder = "0" style="border:none;">
-  </iframe> 
-  
-  <button id="showDiv" onclick ="ShowHide('HiddenDiv')" style="display:none"><i>Hide</i> <i class="icon-chevron-up"></i></button>
-  <button id="hideDiv" onclick ="ShowHide('HiddenDiv')"><i>Show</i> <i class="icon-chevron-down"></i></button>
-</div>
-
-<script language="JavaScript">
-  function ShowHide(divId) {
-    if(document.getElementById(divId).style.display == 'none') {
-      document.getElementById(divId).style.display='block';
-      document.getElementById('showDiv').style.display='block';
-      document.getElementById('hideDiv').style.display='none';
-
-    }
-    else {
-      document.getElementById(divId).style.display = 'none';
-      document.getElementById('showDiv').style.display='none';
-      document.getElementById('hideDiv').style.display='block';
-    }
-  }
-</script>
-
-
-
-
-<div id="modalHolder">
-	Today's Birthday
-	<textarea name="comment_content11" id="commentContent11" placeholder="Write something on their wall..." 
-              style="color:grey; width: 280px; height: 20px; resize: none;"  rows="2" cols="35" maxlength="400" ></textarea>
-    <button class="button" id="commentSubmit11" onclick="submitComment(11)">Comment</button>
-    
-	</div>
-	
-	
+<script type="text/javascript" src="/public/javascripts/birthday.js"></script>

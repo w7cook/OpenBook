@@ -8,10 +8,20 @@ import controllers.Secure;
 import models.*;
 
 public class Posts extends OBController {
-  //comments(Long id): will render the user being viewed unless it is a null user then it will render the current user
+
   public static void posts(Long userId) {
-    User user = userId == null ? user() : (User) User.findById(userId);
-    List<Post> posts = userId == null ? user.news() : user.posts;
+    List<Post> posts;
+    User user;
+    if(userId == null) {
+      user = user();
+      posts = Post.findVisible(user);
+    }
+    else {
+      user = User.findById(userId);
+      if (user == null)
+        notFound();
+      posts = user.posts;
+    }
     render(user, posts);
   }
 
