@@ -116,7 +116,7 @@ public class Photos extends OBController {
   public static void setProfilePhoto(Long photoId) {
     User user = user();
     Photo photo = Photo.findById(photoId);
-    if (photo == null || !photo.visible(user())) {
+    if (photo == null || !photo.visible(user)) {
       notFound(Messages.get("photo.notFound"));
     }
     if (!photo.owner.equals(user())) {
