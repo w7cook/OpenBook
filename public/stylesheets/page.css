@@ -1,3 +1,5 @@
+/*ADMIN TABS CSS*/
+
 /* $Id: example.css,v 1.5 2006/03/27 02:44:36 pat Exp $ */
 
 /*--------------------------------------------------
@@ -15,7 +17,8 @@
 .tabber {
 }
 .tabberlive {
- margin-top:1em;
+  margin-top:1em;
+ 	background:white;
 }
 
 /*--------------------------------------------------
@@ -28,8 +31,6 @@ ul.tabbernav
  padding: 3px 0;
  border-bottom: 1px solid #778;
  font: bold 12px Verdana, sans-serif;
- background-image: url(${skin.get("headerBGPhoto")});
- background-repeat: repeat-x; 
 }
 
 ul.tabbernav li
@@ -60,7 +61,7 @@ ul.tabbernav li a:hover
 
 ul.tabbernav li.tabberactive a
 {
- background-color: #fff;
+ background-color: #e76509;
  border-bottom: 1px solid #fff;
 }
 
@@ -83,12 +84,12 @@ ul.tabbernav li.tabberactive a:hover
  /* If you don't want the tab size changing whenever a tab is changed
     you can set a fixed height */
 
- /* height:200px; */
-
  /* If you set a fix height set overflow to auto and you will get a
     scrollbar when necessary */
 
- /* overflow:auto; */
+ overflow:auto;
+ background: white;
+ 
 }
 
 /* If desired, hide the heading since a heading is provided by the tab */
@@ -109,9 +110,11 @@ ul.tabbernav li.tabberactive a:hover
  overflow:auto;
 }
 
+/* PAGE CSS */
 .page-header{
 	width: 100%;
 	height: 130px;
+  background-color: #${skin.get("bodyBGColor")};
 }
 
 .page-data{
@@ -151,7 +154,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 .photo-page img.thumbnail{
-    display:inline;
+  display:inline;
 }
 
 .page-box{
@@ -160,35 +163,22 @@ ul.tabbernav li.tabberactive a:hover
   width: 100%;
 }
 
-.page-box li a{
+.page-box a{
 	display: inline;
 }
 
-a.popup {
-	position:relative;
-	z-index:24;
-	color:#000000;
-	text-decoration:none;
-}
+/*PICTURE MODAL*/
+.ui-dialog { position: relative; padding: .2em; }
+.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative;  }
+.ui-dialog .ui-dialog-title { float: left; margin: .1em 0 .2em; } 
+.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px;background-color:white;}
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.ui-dialog .ui-dialog-content { border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog .ui-dialog-buttonpane button { float: right; margin: .5em .4em .5em 0; cursor: pointer; padding: .2em .6em .3em .6em; line-height: 1.4em; width:auto; overflow:visible; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
 
-a.popup:hover {
-	z-index:25; 
-	background-color:#FFCCD8; 
-}
-
-a.popup span {
-	display:none; 
-}
-
-a.popup:hover span {
-	display:block;
-	position:absolute;
-	text-align:center;
-	top:35px; 
-	left:15px;
-	width:100%;
-	padding:3px;
-	border:1px solid #000000;
-	color:#000;
-	background-color:#${skin.get("headerBGColor")}; 
-}
+.ui-icon-close { color: black; background-position: -80px -128px; }
+.ui-icon-closethick { background-position: -96px -128px; }
