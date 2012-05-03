@@ -7,6 +7,11 @@
 	#{/if}
 	<div class = "page-data">
 	<div class ="page-title">${page.title}</div>
+	#{if page.admin != _user}
+		<div style="float: right">
+			<a class=button id = "fan${page.id}" href='#' onclick="return false;">*{text}*</a>
+		</div>
+	#{/if}
 	<div class ="page-info">${page.info}</div>
 		#{if photos.size() > 1}
 			#{include 'Pages/photoBar.html' /}
@@ -15,16 +20,8 @@
 </div>
 #{if page.admin == _user}
 		#{include 'Pages/admin.html' /}
-		#{include 'Pages/post.html' /}
 #{/if} 
-#{elseif page != null}
-
-		<div style="float: right">
-			<a class=button id = "fan${page.id}" href='#' onclick="return false;">*{text}*</a>
-		</div>
-		<hr style="float: left; width: 100%; color: #98AFC7;" />
 		#{include 'Pages/post.html' /}
-#{/elseif}		       
 
 <script>
 var fan_${page.id} = ${fan};

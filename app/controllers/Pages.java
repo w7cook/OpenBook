@@ -30,7 +30,6 @@ public class Pages extends OBController {
 		User user = user();
 		User currentUser = user();
 		Page page = new Page(user, title, info).save();
-		new UserPage(user, page).save();
 		display(page.id);
 	}
 	
@@ -45,7 +44,7 @@ public class Pages extends OBController {
 	                                                                     
 	public static void myPages(){
 		User _user = user();  
-		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ? and u.page.admin != ?", _user, _user).fetch();
+		List<UserPage> myPages = UserPage.find("select u from UserPage u where u.fan = ?", _user).fetch();
 		List<Page> pages = Page.find("select p from Page p where p.admin = ?",_user).fetch();
 		if(myPages == null){renderText("null");}
 		render(myPages, _user, pages);

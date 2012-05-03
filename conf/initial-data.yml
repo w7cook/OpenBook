@@ -184,7 +184,7 @@ Page(cats):
     info:           >
                     I haz them!!
 
-Page(nachoCheese):
+Page(nachoCheese):                            
     admin:          jeff
     title:          Nacho Cheese
     profilePhoto:   2
@@ -208,21 +208,16 @@ Post(cats post2):
                     CHEEZEBURGAHZ!!
                     
 Post(nachoCheese post1):
-    postType:       "PAGE"
-    title:          1
+    postedObj:      nachoCheese
     date:           2009-06-07
-    author:         jeff
+    owner:          jeff
     visibility:     FRIENDS
     content:        >
                     Nobody likes my page :(
-                    
-UserPage(cats alice):
-    fan:            alice
-    page:           cats
 
 UserPage(nachoCheese jeff):
     fan:            jeff
-    page:           nachoCheese
+    page:           cats
 
 Subscription(sub1):
     subscribed:     alice
