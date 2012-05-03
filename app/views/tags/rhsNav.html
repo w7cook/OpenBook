@@ -4,14 +4,15 @@
 
 <div class="lhs-navBoxHeader" style="line-height:25px;padding-left:2px;">RSS FEED</div>
 <div class="lhs-navBoxBody">
-  <iframe style="DISPLAY: none;border: none;'" id="RSSiFrame" src="@{RSSFeeds.RSSfeeds(_user.id)}" width="100%" height="100% scrolling = "auto" align="middle" marginheight="0" marginwidth="0" hspace="5" vaspace="5" frameborder="0">
-  </iframe>
-  <button id="showDiv" onclick ="ShowHide('RSSiFrame')" style="display:none"><i>Hide</i> <i class="icon-chevron-up"></i></button>
+<button id="showDiv" onclick ="ShowHide('RSSiFrame')" style="display:none"><i>Hide</i> <i class="icon-chevron-up"></i></button>
   <button id="hideDiv" onclick ="ShowHide('RSSiFrame')"><i>Show</i> <i class="icon-chevron-down"></i></button>
    #{form action:@RSSFeeds.addFeed(), method:'GET', style:'display:inline'}
     <input type='text' name='url'> </input>
     <input type='submit' value='Add Feed URL'></input>
   #{/form}
+  <iframe style="DISPLAY: none;border: none;'" id="RSSiFrame" src="@{RSSFeeds.RSSfeeds(_user.id)}" width="100%" height="100% scrolling = "auto" align="middle" marginheight="0" marginwidth="0" hspace="5" vaspace="5" frameborder="0">
+  </iframe>
+  
 </div>
 
 <div class="lhs-navBoxHeader" style="line-height:25px;">UPCOMING EVENTS</div>

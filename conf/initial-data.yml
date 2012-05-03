@@ -224,3 +224,33 @@ Subscription(sub3):
 Subscription(sub4):
     subscribed:     bob
     subscriber:     alice
+    
+RSSFeed(feed1):
+    subscriber:     bob
+    url:            http://www.nytimes.com/services/xml/rss/nyt/Business.xml
+    is_valid:       true
+    
+RSSFeed(feed2):
+    subscriber:     alice
+    url:            http://www.nytimes.com/services/xml/rss/nyt/Science.xml
+    is_valid:       true
+    
+RSSFeed(feed3):
+    subscriber:     jeff
+    url:            http://www.nytimes.com/services/xml/rss/nyt/Sports.xml
+    is_valid:       true
+
+RSSFeed(feed4):
+    subscriber:     bob
+    url:            http://rss.cnn.com/rss/edition.rss
+    is_valid:       true
+    
+RSSFeed(feed5):
+    subscriber:     alice
+    url:            http://rss.cnn.com/rss/edition_world.rss
+    is_valid:       true
+    
+RSSFeed(feed6):
+    subscriber:     jeff
+    url:            http://rss.cnn.com/rss/edition_space.rss
+    is_valid:       true
