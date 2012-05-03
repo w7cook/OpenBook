@@ -32,12 +32,14 @@
         #{/form}
   </div>
   
+  #{if page.photos.size() > 0}
   <div class="tabbertab">
   	<h3>All Photos</h3>
   	#{include 'Pages/pageBox.html' /}
   </div>
-
+  #{/if}
 </div>
+
 
 <script>
 	$(function() {
