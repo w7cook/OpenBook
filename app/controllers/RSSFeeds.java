@@ -1,5 +1,7 @@
 package controllers;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import java.util.*;
 
 import org.w3c.dom.Document;
@@ -15,14 +17,18 @@ import models.*;
 public class RSSFeeds extends OBController {
 	
 	public static void addFeed(String url) {
-		if(!url.equals("")){
+		if(url != null && !url.trim().equals("")){
 			User u = user();
-			RSSFeed feed = new RSSFeed(u, url);
-			// Add Unique Constraint Check
-			feed.save();
+			RSSFeed feed = new RSSFeed(u, url.trim());
+      if (feed.is_valid) {
+        try {
+          feed.save();
+          renderJSON("1");
+        } catch (ConstraintViolationException e) {
+        }
+      }
 		}
-
-		redirect("/");
+    renderJSON("0");
 	}
 	public static void RSSfeeds(Long userId) {
 		User current = User.findById(userId);
@@ -32,9 +38,11 @@ public class RSSFeeds extends OBController {
 
 
 			for(RSSFeed f : current.feeds) {
+        System.out.println(f);
+        if (!f.is_valid) continue;
 				feeds.add(f);
 			}
-
+      System.out.println(feeds);
 			render(feeds);
 		}
 	}
