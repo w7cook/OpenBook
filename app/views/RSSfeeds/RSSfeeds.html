@@ -1,9 +1,9 @@
 <base target="_parent" />
 #{list items:feeds, as:'feed'}
-    <a href=${feed.getChannelLink()}>
-      <img src=${feed.getImageNode().ccontent('url')}
-           width=${feed.getImageNode().ccontent('width')}
-           height=${feed.getImageNode().ccontent('height')}></img>
+    <a href="${feed.getChannelLink()}">
+      <img src="${feed.getImageNodeURL()}"
+           width="${feed.getImageNodeWidth()}"
+           height="${feed.getImageNodeHeight()}"></img>
       ${feed.getTitle()}
     </a>
     <ul>
