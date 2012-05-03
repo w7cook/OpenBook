@@ -75,7 +75,7 @@
             <tr>
               <td><label><b>&{'profile.interested.in'}: </b></label></td>
               <td>
-                #{select 'gender', value:profile.interestedIn} 
+                #{select 'interestedIn', value:profile.interestedIn} 
                   #{option ''}#{/option}
                   #{option 'Men'}Men#{/option} 
                   #{option 'Women'}Women#{/option} 
@@ -148,7 +148,7 @@
               <td class="data">${profile.gender}</td>
             </tr>
           #{/if}
-          #{if !profile.interestedIn}
+          #{if profile.interestedIn}
             <tr>
               <td><label><b>Interested in:</b></label></td>
               <td class="data">${profile.interestedIn}</td>
