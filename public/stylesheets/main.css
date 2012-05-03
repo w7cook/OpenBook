@@ -214,7 +214,8 @@ padding: 0px;
   resize: none;
   color:grey;
   border: none;
-  margin: none;
+  margin:none;
+  margin-left:5px;
   display: none;
   outline: black groove 1px;
 }

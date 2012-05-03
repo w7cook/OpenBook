@@ -12,8 +12,8 @@ import play.utils.HTML;
 import controllers.Secure;
 import models.*;
 
-@With(Secure.class)
 public class RSSFeeds extends OBController {
+	
 	public static void addFeed(String url) {
 		if(!url.equals("")){
 			User u = user();
@@ -21,7 +21,7 @@ public class RSSFeeds extends OBController {
 			// Add Unique Constraint Check
 			feed.save();
 		}
-		
+
 		redirect("/");
 	}
 	public static void RSSfeeds(Long userId) {

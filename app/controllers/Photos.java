@@ -5,6 +5,7 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import java.io.*;
 import play.*;
+import play.i18n.Messages;
 import play.data.validation.Error;
 import play.libs.*;
 import play.mvc.*;
@@ -34,8 +35,8 @@ public class Photos extends OBController {
 
   public static void getPhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    if (photo == null) {
-      notFound("That photo does not exist.");
+    if (photo == null || !photo.visible(user())) {
+      notFound(Messages.get("photo.notFound"));
     }
     else {
       response.setContentTypeIfNotSet(photo.image.type());
@@ -56,6 +57,8 @@ public class Photos extends OBController {
     File image = new File(path);
     User user = User.find("username = ?", "default").first();//set owner as default owner
     Photo photo = new Photo(user, image, caption);
+    /* Make all initial photos world-visible. */
+    photo.visibility = Likeable.Visibility.PUBLIC;
     photo.save();
     return photo;
   }
@@ -87,10 +90,12 @@ public class Photos extends OBController {
 
   public static void removePhoto(Long photoId) {
     Photo photo = Photo.findById(photoId);
-    if (photo == null)
-      notFound("That photo does not exist.");
-    if (!photo.owner.equals(user()))
+    if (photo == null) {
+      notFound(Messages.get("photo.notFound"));
+    }
+    if (!photo.owner.equals(user())) {
       forbidden();
+    }
     photo.delete();
     redirect("/users/" + photo.owner.id + "/photos");
   }
@@ -111,11 +116,12 @@ public class Photos extends OBController {
   public static void setProfilePhoto(Long photoId) {
     User user = user();
     Photo photo = Photo.findById(photoId);
-    if (photo == null)
-      notFound("That photo does not exist.");
-
-    if (!photo.owner.equals(user()))
+    if (photo == null || !photo.visible(user)) {
+      notFound(Messages.get("photo.notFound"));
+    }
+    if (!photo.owner.equals(user())) {
       forbidden();
+    }
 
     user.profile.profilePhoto = photo;
     user.profile.save();
