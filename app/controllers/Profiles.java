@@ -59,8 +59,8 @@ public class Profiles extends OBController {
         e.printStackTrace();
       }
     }
-    if(profile.relationshipStatus != null)
-      System.out.println("\n\n\n\n\n" + profile.relationshipStatus.toString() + "\n\n\n\n");
+//    if(profile.relationshipStatus != null)
+//      System.out.println("\n\n\n\n\n" + profile.relationshipStatus.toString() + "\n\n\n\n");
     //        profile.relationshipStatus = relationshipStatus;
 
     Language lang = Language.find("name = ?", language).first();
