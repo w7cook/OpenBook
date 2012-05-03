@@ -131,7 +131,7 @@
       </div>
       <div class="Data" id="InformationData" style="display:block;">
         <table>
-          #{if profile.birthday}
+          #{if profile.birthday != null}
             <tr>
               <td><label><b>Birthday:</b></label></td>
               <td class="data">${profile.birthday.format("MM/dd/yyyy")}</td>
@@ -146,7 +146,7 @@
           #{if !profile.interestedIn}
             <tr>
               <td><label><b>Interested in:</b></label></td>
-              <td class="data">${profile.interestedIn}test123</td>
+              <td class="data">${profile.interestedIn}</td>
             </tr>
           #{/if}
           #{if profile.relationshipStatus}
@@ -156,7 +156,7 @@
               </td>
             </tr>
           #{/if}
-          #{if profile.hasAnniversary()}
+          #{if profile.anniversary != null}
             <tr>
               <td><label><b>Anniversary: </b></br></label></td>
               <td class="data">${profile.anniversary.format("MM/dd/yyyy")}</td>
