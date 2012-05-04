@@ -1,5 +1,7 @@
 package controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import controllers.Secure;
@@ -17,19 +19,28 @@ public class Messages extends OBController {
     render(user);
   }
   
+  public static void message(Long messageId) {
+    Message item = Message.findById(messageId);
+    if(item == null) {
+      notFound("That message does not exist.");
+    }
+    User user = user();
+    render(user, item);
+  }
+  
   public static void createMessage() {
     User user = user();
     render(user);
   }
   
-  public static void sendMessage(@Required(message="Recipient is required") String recipientUsername, String content) {
+  public static void sendMessage(@Required(message="Recipient is required") String recipientName, String content) {
     User author = user();
-    validation.isTrue(author.getUser(recipientUsername)!=null).message("Invalid Recipient");
+    User recipient = User.find("byName", recipientName).first();
+    validation.isTrue(recipient != null).message("Invalid Recipient");
     if(validation.hasErrors()){
       renderTemplate("Messages/createMessage.html", author);
     }
     else{
-      User recipient = User.getUser(recipientUsername);   
       Message m = new Message(author, recipient, content);
       m.save();
       inbox();

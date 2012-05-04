@@ -178,7 +178,7 @@ public class User extends Postable {
   }
 
   public List<Message> inbox() {
-    return Message.find("byRecipient", this).fetch();
+    return Message.find("SELECT m FROM Message m WHERE m.recipient = ?1 OR m.owner = ?1", this).fetch();
   }
 
   public List<Message> unreadMessages() {

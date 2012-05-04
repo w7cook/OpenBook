@@ -85,6 +85,7 @@ GET     /captcha                                Signup.captcha
 GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
+GET     /messages/{<[0-9]+>messageId}           Messages.message
 
 # Notes
 GET     /notes                                  Notes.viewNotes

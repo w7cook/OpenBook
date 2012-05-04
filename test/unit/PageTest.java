@@ -50,8 +50,8 @@ public class PageTest extends UnitTest {
   public void databasePageTest(){
   	Page billysPage = Page.find("select p from Page p where p.title = ?", "testPage1").first();
   	assertNotNull(billysPage);
-  	
-//  	Pages.deletePage(billysPage.id);
+
+  	billysPage.delete();
   	billysPage = Page.find("select p from Page p where p.title = ?", "testPage1").first();
   	assertNull(billysPage);
   	
