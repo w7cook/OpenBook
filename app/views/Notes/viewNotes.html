@@ -17,7 +17,15 @@
       <p>${item.content.nl2br()}</p>
       </div>
       <br />
-      <br />
     </div>
+    <div class='link'><button onclick='makeSelection()'>edit</button></div>
   #{/list}
 </div>
+
+ <script type="text/javascript">
+    targetElement = null;
+    function makeSelection() {
+
+      var handle = document.open('/users/${user.id}/editNote.html', 'Edit Note', 'width=300, height=250');
+    }
+    </script>

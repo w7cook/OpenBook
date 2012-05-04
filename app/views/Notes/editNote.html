@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv"Script-Content-Type" content="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Expires" content="0"> <!-- disable caching -->
+    <title>Example</title>
+</head>
+<body>
+  <form id="frm" name="frm" action="#">
+    <span>Names: </span>
+    <textarea id='text'col=20 row=10></textarea>
+    <input type="button" value="Select Name" onclick="makeSelection('nameSelection');">
+  </form>
+</body>
+
+ <script type="text/javascript">
+    function makeSelection(id) {
+      if(!frm || !id)
+        return;
+      var elem = document.getElementById(id);
+      if(!elem)
+        return;
+      var val = elem.value;
+      opener.targetElement.value = val;
+      this.close();
+    }
+    </script>
+</html>
+
+
