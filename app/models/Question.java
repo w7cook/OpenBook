@@ -29,7 +29,16 @@ public class Question extends Post{
 	public void addUserAnswer(User user, Answer answer){
 		if(!answer.usersWhoAnswered.contains(user))
 			answer.addUserChoice(user);
+		answer.save();
 		this.save();
+	}
+	
+	// Return the number of user answers for this question
+	public int totalUserAnswers(){
+		int result = 0;
+		for(Answer a : answers)
+			result += a.numTimesAnswered();
+		return result;
 	}
 
 }
