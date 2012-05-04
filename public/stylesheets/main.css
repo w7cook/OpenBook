@@ -214,7 +214,8 @@ padding: 0px;
   resize: none;
   color:grey;
   border: none;
-  margin: none;
+  margin:none;
+  margin-left:5px;
   display: none;
   outline: black groove 1px;
 }
@@ -328,7 +329,7 @@ a.logo:active {text-decoration:none;}
 
 .post {
   width: 100%;
-  border-bottom: 1px solid #dddddd;
+ /* border-bottom: 1px solid #dddddd;*/
    /*Code to make the post stick out against changed background */
   background-color: white;
   outline: #CCCCCC groove 1px;
@@ -427,4 +428,12 @@ width: 1px;
 border-width: 1px;
 border-color:grey;
 border-left-style:groove;
+}
+
+.post-content {
+  overflow:hidden;
+}
+
+.comment-content {
+  overflow:hidden;
 }

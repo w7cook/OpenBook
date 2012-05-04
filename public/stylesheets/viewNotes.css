@@ -1,0 +1,29 @@
+.message p{
+	font-size: 16px;
+}
+.message {
+	 background: url(/public/images/post-it.png) repeat-y;
+	 font: normal 14px Comic Sans MS;
+	 width: 280px;
+	 height: 230px;
+	 margin: 10px 0;
+	 padding: 85px 15px 5px;
+	 overflow: hidden;
+	  word-wrap: break-word; /* IE */
+	  -moz-binding: url('xbl.xml#wordwrap'); /* Firefox (using XBL) */
+}
+.message .title{
+	text-align: center;
+	font-size: 22px;
+	padding: 0 0 10px 0;
+	
+}
+.message .innerMessage{
+	padding:0 10px;
+	padding: 0 0 0 45px;
+	width: 240px;
+}
+
+.link{
+	padding-left: 45px;
+}

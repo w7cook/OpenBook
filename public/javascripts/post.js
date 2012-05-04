@@ -8,107 +8,68 @@ function deleteThing(id, type) {
   });
 }
 
-function like(id, type, userId, likeTxt, unlikeTxt) {
-  var likes;  //array of users who like the thing
-  
-  var url = '/' + type + 's/' + id + '/likes';
+function like(url, metaId) {
+  var meta = $('#' + metaId);
   $.ajax({
-    dataType: 'json',
-    async: false,
-    type: 'GET',
     url: url,
+    type: 'POST',
     success: function(data, textStatus, jqXHR) {
-      likes = data;
+      meta.find('.like-btn').hide();
+      meta.find('.unlike-btn').fadeIn();
+      if(textStatus === 'success') {
+        var numLikes = parseInt(meta.find('.num-likes').text());
+        numLikes++;
+        var likesText = (numLikes === 1) ? 'Like.' : 'Likes.';
+        meta.find('.num-likes').text(numLikes)
+        meta.find('.num-likes-text').text(likesText);
+      }
     },
-    error: function(jqXHR, textStatus, errorThrown) {
-      alert(errorThrown);
+    error: function (jqXHR, textStatus, errorType) {
+      alert('error: ' + errorType);
     }
   });
-  
-  if (likes !== undefined) {
-    var numlikes = likes.length;
-    var numLikesSpan = $('#' + type + id + 'likes');
-    
-    if(likes.indexOf('/users/' + userId) === -1) {
-      $.ajax({
-        url: url,
-        type: 'POST',
-        dataType: 'json',
-        success: function(data, textStatus, jqXHR) {
-          numlikes = data.length;
-          var likeSpanText = (numlikes === 1) ? 'Like' : 'Likes';
-          numLikesSpan.text(numlikes + ' ' + likeSpanText);
-          $('#like' + type + id).text(unlikeTxt);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert(errorThrown);
-        }  
-      });
-    }
-    else {
-      $.ajax({
-        url: url,
-        type: 'DELETE',
-        dataType: 'json',
-        success: function(data, textStatus, jqXHR) {
-          numlikes = data.length;
-          var likeSpanText = (numlikes === 1) ? 'Like' : 'Likes';
-          numLikesSpan.text(numlikes + ' ' + likeSpanText);
-          $('#like' + type + id).text(likeTxt);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert(errorThrown);
-        }
-      });
-    }
-  }
 }
 
-function submitComment(id) {
-  var nonws = /\S/;
-  var textbox = $('#commentContent' + id)
-  var content = textbox.val();
-  if(!nonws.test(content)) {
-    textbox.val('');
-    textbox.focus();
-  }
-  else {
-    $.ajax({
-      url: '/posts/' + id + '/comments',
-      type: 'POST',
-      data: {'commentContent': content},
-      success: function (data, textStatus, jqXHR) {
-        newComment = $(data).hide();
-        $('#commentsList' + id).prepend(newComment);
-        newComment.slideDown();
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        alert(errorThrown);
-      },
-      'complete' : function (jqXHR, textStatus) {
-        textbox.val('');
+function unlike(url, metaId) {
+  var meta = $('#' + metaId);
+  $.ajax({
+    url: url,
+    type: 'DELETE',
+    success: function(data, textStatus, jqXHR) {
+      meta.find('.unlike-btn').hide();
+      meta.find('.like-btn').fadeIn();
+      if(textStatus === 'success') {
+        var numLikes = parseInt(meta.find('.num-likes').text());
+        numLikes--;
+        var likesText = (numLikes === 1) ? 'Like.' : 'Likes.';
+        meta.find('.num-likes').text(numLikes)
+        meta.find('.num-likes-text').text(likesText);
       }
-    });
-  }
+    },
+    error: function (jqXHR, textStatus, errorType) {
+      alert('error: ' + errorType);
+    }
+  });
 }
 
-//TODO: merge with submitComment
-function submitPost() {
-  nonws = /\S/;
-  textbox = $('#postContent');
-  content = textbox.val();
-  if(!nonws.test(content)) {
+function submit(textboxid, listid, url) {
+  var textbox = $('#' + textboxid);
+  var list = $('#' +listid);
+  var nonws = /\S/;
+  var content = textbox.val();
+  if(textbox === undefined || list === undefined || !nonws.test(content)) {
     textbox.val('');
     textbox.focus();
   }
+
   else {
     $.ajax({
-      url: '/posts',
+      url: url,
       type: 'POST',
-      data: {'postContent': content},
+      data: {'content': content},
       success: function (data, textStatus, jqXHR) {
-        newPost = $(data).hide();
-        $('#postsList').prepend(newPost);
+        var newPost = $(data).hide();
+        list.prepend(newPost);
         newPost.slideDown();
       },
       error: function (jqXHR, textStatus, errorThrown) {

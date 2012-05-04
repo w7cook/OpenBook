@@ -17,13 +17,17 @@ GET     /                                       Application.news
 GET     /users/?                                Users.users #Get a list of all users
 POST    /users/?                                Signup.signup_user
 PUT     /users/{<[0-9]+>userId}                 Users.updateUser
-GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
+GET     /users/{<[0-9]+>userId}                 Users.user #Get account info for a specific user
 DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
 GET     /users/{<[0-9]+>userId}/profile         Users.profile
 GET     /users/{<[0-9]+>userId}/friends         Users.friends
 POST    /users/{<[0-9]+>userId}/friends         Users.requestFriends
 DELETE  /users/{<[0-9]+>userId}/friends         Users.removeFriends
 GET     /users/{<[0-9]+>userId}/requests        Users.friendRequests
+GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all posts by a user
+GET     /users/{<[0-9]+>userId}/comments/?              Comments.userComments #get all comments by a user
+GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
 
 GET     /testFriends                            Users.testFriends
 
@@ -42,6 +46,10 @@ POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 GET     /threads                                Categories.listAll
 GET     /threads/{<[0-9]+>catId}                Categories.listSingle
 GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
+POST    /threads/newCategory                    Categories.newCategory
+POST    /threads/deleteCategory                 Categories.deleteCategory
+POST    /threads/newThread                      FThreads.newThread
+POST    /threads/deleteThread                   FThreads.deleteThread
 
 
 # Profile
@@ -50,18 +58,19 @@ GET     /application.next.gif                   staticFile:/public/images/next.g
 GET     /application.calendar.jpg               staticFile:/public/images/calendar.gif
 
 # Photos
-GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 GET     /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 GET     /photos/{<[0-9]+>photoId}/delete        Photos.removePhoto
-GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /photos/setGravatar                     Photos.setGravatar
+
+# Profile Pic Editor
+GET     /profilePicEditor                       Photos.setProfilePhotoPage
 
 # Thumbnails
 GET     /photos/120x120/{<[0-9]+>photoId}       Thumbnails.get120x120
@@ -76,6 +85,7 @@ GET     /captcha                                Signup.captcha
 GET     /messages                               Messages.inbox
 GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
+GET     /messages/{<[0-9]+>messageId}           Messages.message
 
 # Notes
 GET     /notes                                  Notes.viewNotes
@@ -91,10 +101,13 @@ GET     /posts/?                                        Posts.posts #Get all pos
 POST    /posts/?                                        Posts.makeNewPost
 GET     /posts/{<[0-9]+>postId}                         Posts.post #Get a specific post
 DELETE  /posts/{<[0-9]+>postId}                         Posts.deletePost #Delete a post
-GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all posts by a user
 
 #Links
 #Post    /links/?                                       #Add/update link
+
+#Questions
+POST	/questions					Questions.askQuestion
+GET	/answers/{<[0-9]+>answerId}			Answers.chooseAnswer
 
 #Comments
 GET     /comments/?                                     Comments.comments #Get all comments
@@ -102,13 +115,11 @@ GET     /comments/{<[0-9]+>commentId}                   Comments.comment #Get a 
 DELETE  /comments/{<[0-9]+>commentId}                   Comments.deleteComment #Delete a comment
 GET     /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.comments #Get all comments for a status
 POST    /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.addComment #Add a comment to a status
-GET     /users/{<[0-9]+>userId}/comments/?              Comments.userComments #get all comments by a user
 
 #Events
 GET     /events/?                                       Events.events #all events
 GET     /events/upcoming/?                              Events.upcoming #upcoming events
 GET     /events/past/?                                  Events.past #past events
-GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
 GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #1 users upcoming events
 GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #1 users past events
 GET     /events/{<[0-9]+>eventId}                       Events.event #1 event

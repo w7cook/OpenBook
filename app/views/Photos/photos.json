@@ -1,5 +1,0 @@
-[
-  #{list items:photos, as:'item'} 
-    "/photos/${item.id}"#{if !item_isLast},#{/if}
-  #{/list}
-]

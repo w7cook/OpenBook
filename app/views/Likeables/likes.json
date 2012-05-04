@@ -1,5 +1,0 @@
-[
-  #{list items:thing.thoseWhoLike, as:'liker'}
-    "/users/${liker.id}"#{if !liker_isLast},#{/if}
-  #{/list}
-]

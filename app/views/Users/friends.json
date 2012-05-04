@@ -1,5 +1,0 @@
-[
-  #{list items:friends, as:'item'} 
-    "/users/${item.id}"#{if !item_isLast},#{/if}
-  #{/list}
-]

@@ -1,6 +1,0 @@
-{      
-  "author"  : "${post.owner.username}",
-  "parent"  : "/postable/${post.postedObj.id}",
-  "content" : "${post.content}",
-  "creationdate" : "${post.createdAt}"
-}
