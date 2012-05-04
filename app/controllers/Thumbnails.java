@@ -23,6 +23,11 @@ public class Thumbnails extends OBController {
     Photo photo = getPhotoIfVisible(photoId);
     renderBlob(photo.thumbnail120x120);
   }
+  
+  public static void get100x100(Long photoId) {
+    Photo photo = getPhotoIfVisible(photoId);
+    renderBlob(photo.thumbnail100x100);
+  }
 
   public static void get50x50(Long photoId) {
     Photo photo = getPhotoIfVisible(photoId);
