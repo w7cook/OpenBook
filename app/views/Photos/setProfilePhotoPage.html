@@ -12,7 +12,7 @@
     </ul>
   #{/ifErrors} 
   
-  #{form @Photos.setGravatar(), enctype:'multipart/form-data'} 
+  #{form @Photos.setGravatar(), method:'GET'} 
   <b>Gravatar Email: </b><input type=text name=gravatarEmail 
      value="${currentUser.profile.gravatarEmail}" /> 
   <input type=submit class="button" value=&{'photo.useGravatar'} />
@@ -23,7 +23,7 @@
   <br>
   
   
-  #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data'} 
+  #{form @Photos.addProfilePhoto(), enctype:'multipart/form-data', method:'POST'} 
     <b> &{'photo.newPhoto'}: </b>
     <input type="file" name="image" />
     <input type="submit" name="submit" class="btn" value=&{'photo.upload'} />
