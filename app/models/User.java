@@ -65,7 +65,7 @@ public class User extends Postable {
       profile.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
     }
     if (profile.skin == null) {
-      profile.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
+      profile.skin = Skins.getSkin("default","default_skin");//the default skin look is used
     }
     return profile;
   }
