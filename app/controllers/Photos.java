@@ -11,6 +11,7 @@ import play.libs.*;
 import play.mvc.*;
 import play.db.jpa.*;
 import models.*;
+
 import java.security.*;
 import java.net.*;
 import java.awt.image.*;
@@ -96,6 +97,14 @@ public class Photos extends OBController {
     if (!photo.owner.equals(user())) {
       forbidden();
     }
+    User user = user();
+    //deleting your profile photo results in going back to the default profile photo
+    if(user.profile.profilePhoto.equals(photo))
+    {
+      User defaultUser = User.find("username= ?", "default").first();
+      user.profile.profilePhoto = Photo.find("owner=? AND caption=?",defaultUser, "Default Profile Photo").first();
+      user.profile.save();
+    }
     photo.delete();
     redirect("/users/" + photo.owner.id + "/photos");
   }
@@ -115,6 +124,7 @@ public class Photos extends OBController {
 
   public static void setProfilePhoto(Long photoId) {
     User user = user();
+    
     Photo photo = Photo.findById(photoId);
     if (photo == null || !photo.visible(user)) {
       notFound(Messages.get("photo.notFound"));
@@ -155,6 +165,7 @@ public class Photos extends OBController {
         setProfilePhotoPage();//for if try to put in null file
       }
     }
+    
     setProfilePhotoPage();//for if try to put in null file
   }
 

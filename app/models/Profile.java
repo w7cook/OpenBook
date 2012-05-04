@@ -139,7 +139,8 @@ public class Profile extends Model {
     this.address = "";
     this.website = "";
     this.email = "";
-    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    User defaultUser = User.find("username= ?", "default").first();
+    this.profilePhoto = Photo.find("owner=? AND caption=?",defaultUser, "Default Profile Photo").first();
     this.gravatarPhoto = null;
     this.gravatarEmail = owner.email;
   }
@@ -151,6 +152,7 @@ public class Profile extends Model {
     this.phone = phone;
     this.quotes = quotes;
     this.website = website;
-    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    User defaultUser = User.find("username= ?", "default").first();
+    this.profilePhoto = Photo.find("owner=? AND caption=?",defaultUser, "Default Profile Photo").first();
   }
 }

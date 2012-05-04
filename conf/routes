@@ -64,7 +64,7 @@ GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 GET     /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 GET     /photos/{<[0-9]+>photoId}/delete        Photos.removePhoto
-GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
+GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /photos/setGravatar                     Photos.setGravatar

@@ -15,8 +15,7 @@ import controllers.Photos;
 
 @OnApplicationStart
 public class Bootstrap extends Job {
-	
-  public static Long peacePhotoID, defaultProfilePhotoID, defaultHeaderPhotoID;
+
   public void doJob() throws FileNotFoundException, IOException{
     // Check if the database is empty
     if(User.count() == 0) {
@@ -26,13 +25,10 @@ public class Bootstrap extends Job {
       String path = new java.io.File(".").getCanonicalPath() + "/public/images/";
       photo = Photos.initFileToPhoto(path+"GreenTaijitu.png",
                                      "By Chinneeb via Wikimedia Commons");
-      peacePhotoID = photo.id;
       photo = Photos.initFileToPhoto(path+"default.png",
                                      "Default Profile Photo");
-      defaultProfilePhotoID = photo.id;
       photo = Photos.initFileToPhoto(path + "headerBG.png",
                                      "Default Header Background Photo");
-      defaultHeaderPhotoID = photo.id;
       photo = Photos.initFileToPhoto(path + "UT-Austin-Tower.jpg",
                                      "UT Austin via Wikimedia Commons");
       Fixtures.loadModels("skinTemplates.yml");//initial data for skin templates
@@ -66,4 +62,5 @@ public class Bootstrap extends Job {
     jeff.friends.add(alice);
     jeff.save();
   }
+
 }
