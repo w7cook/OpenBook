@@ -1,6 +1,6 @@
 #{extends 'three_panel.html' /}
 <div id="contentArea">
-  <ul class="nav nav-pills row-fluid">
+  <ul class="nav nav-pills">
     <li><a href="#" onclick="toggleUpdateStatus('PostContainer')">Update Status</a></li>
     <li><a href="#" onClick="toggleUpdateStatus('photo-upload')">Add Photo</a></li>
     <li><a href="#" onClick="toggleUpdateStatus('link-upload')">Share Link</a></li>
@@ -8,23 +8,26 @@
     <li><a id="about-button" href="/users/${user.id}/profile">About me</a></li>
   </ul>
 
-  <div class="ui_InputContainer row-fluid" id="PostContainer">
+  <div class="ui_InputContainer" id="PostContainer">
     <textarea name="post_content" id="postContent" class="ui_TextArea" placeholder="new post..." rows="3" cols="20" maxlength="400" ></textarea>
-    <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
-           alt="Post" style="vertical-align: bottom;" onclick="submit('postContent', 'post-list', '/posts')"/>    
+    <div class="ui_InputControls">
+      <input type="submit" name="submit" class="ui_InputButton" value="Post" onclick="submit('postContent', 'post-list', '/posts')"/>
+    </div>  
   </div>
   <div class="ui_InputContainer" id="photo-upload" style="display: none;">
     #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
-      <input type="file" name="image" />
-      <input type="text" name="content" value="Add a caption" />
-      <input type="submit" name="submit" value="Upload" /> 
+      <textarea class="ui_TextArea" name="content" placeholder="new post..." rows="3" cols="20" maxlength="400" ></textarea>
+      <div class="ui_InputControls">
+        <input type="file" name="image" />
+        <input type="submit" name="submit" class="ui_InputButton" value="Post" />
+      </div>
     #{/form}
   </div>
   <div class="ui_InputContainer" id="link-upload" style="display: none">
     #{form @Links.addLink(), enctype:'multipart/form-data'}
       <input type="text" name="url" value="video url" />
       <input type="text" name="content" />
-      <input type="submit" name="submit" value="Upload" />
+      <input type="submit" name="submit" value="Post" />
     #{/form}
   </div>
   <div class="ui_InputContainer" id="question-upload" style="display: none">

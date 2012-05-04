@@ -45,7 +45,12 @@ a:active {
   background-repeat: repeat-x; 
   background-color: #${skin.get("headerBGColor")};
   height: 40px;
-  line-height:40px;  
+  line-height:40px; 
+  min-width: 1000px;
+  
+  -moz-box-shadow:    0px 2px 5px 1px #555;
+  -webkit-box-shadow: 0px 2px 5px 1px #555;
+  box-shadow:         0px 2px 5px 1px #555;
 }
 
 #header a {
@@ -60,6 +65,10 @@ color:white;
 #logo {
   color: white
   padding: 0px 10px 0px 20px;
+}
+
+#header-content{
+  width: 1300px;
 }
 
 .logo {
@@ -87,6 +96,10 @@ color:white;
 #header .account a:hover {
   color: white;
   text-decoration: none;
+}
+
+.container-fluid{
+  padding-top: 4em;
 }
 
 /** left side nav **/
@@ -210,14 +223,13 @@ padding: 0px;
 
 /** Shared UI Elements **/
 .ui_TextArea {
-  width: 88%;
+  width: 515px;
+  height: 4em;
   resize: none;
   color:grey;
   border: none;
   margin:none;
-  margin-left:5px;
   display: none;
-  outline: black groove 1px;
 }
 
 .ui_TextAreaButton {
@@ -235,9 +247,8 @@ padding: 0px;
 
 .ui_TextBox {
 	height:25px;
-	width: 75%;
+	width: 100%;
 	display: inline-block;
-	outline: #000000 groove 1px;
 }
 
 .ui_TextBoxButton {
@@ -255,10 +266,26 @@ padding: 0px;
 }
 
 .ui_InputContainer {
-  outline: black groove 0px;
-	width: 100%;
+  border: 1px solid #CCC;
+	width: 523px;
+	margin-bottom: 10px;
+	padding-bottom: 0;
 	height: auto;
 	background-color: white;
+	float: left;
+	border-radius: 4px 4px 4px 4px;
+	
+	-moz-box-shadow:    1px 1px 3px 1px #CCC;
+  -webkit-box-shadow: 1px 1px 3px 1px #CCC;
+  box-shadow:         1px 1px 3px 1px #CCC;
+}
+
+.ui_InputControls{
+  margin-top: 0;
+  width: 100%;
+  background-color: #CCC;
+  float: left;
+  height: 2.5em;
 }
 
 .ui_ButtonText {
@@ -269,6 +296,10 @@ padding: 0px;
 }
 
 
+.ui_InputButton {
+  float: right;
+  height: 2.5em;
+}
 
 /** pagelet **/ui
 .pagelet {
@@ -341,15 +372,33 @@ a.logo:active {text-decoration:none;}
   float: left;
 }
 
-.post .post-author {
+.individual-post .post-author-image {
+  float: left;
+}
+
+.individual-post a.post-author {
   font-size:14px;
   font-weight:bold;
 }
 
-.post .individual-post {
+.individual-post .post-content-right{
+  float: right;
+  width: 460px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 4px 4px 4px 4px;
+  padding: 5px 0 0 5px;
+  background-color: #EEEEEE;
+  min-height: 20px;
+  
+  -moz-box-shadow:    1px 1px 3px 1px #CCC;
+  -webkit-box-shadow: 1px 1px 3px 1px #CCC;
+  box-shadow:         1px 1px 3px 1px #CCC;
+}
+
+.individual-post {
   float: left;
   margin-left: 5px;
-  width: 440px;
+  width: 523px;
   font-size: 13px;
   font-weight: normal;
   line-height: 15px;
@@ -357,8 +406,13 @@ a.logo:active {text-decoration:none;}
 }
 
 .post-content {
-  width: 100%;
   margin-bottom: 3px;
+  width: 460px;
+  float: left;
+}
+
+.post-content .comment-content {
+  float: left;
 }
 
 .post-content .post-image img{
@@ -373,9 +427,21 @@ a.logo:active {text-decoration:none;}
 }
 
 .comment-content {
-  width: 100%;
   font-size: 0.95em;
 }
+
+.comment-container {
+  float: left;
+  margin-left: 7px;
+  background-color: #E8E8E8;
+  width: 407px;
+  padding: 3px;
+  border-radius: 4px 4px 4px 4px;
+  -moz-box-shadow:    1px 1px 3px 1px #CCC;
+  -webkit-box-shadow: 1px 1px 3px 1px #CCC;
+  box-shadow:         1px 1px 3px 1px #CCC;
+}
+
 .post-date {
   color: gray;
   font-size: x-small;
@@ -427,6 +493,7 @@ height: 100%;
 width: 1px;
 border-width: 1px;
 border-color:grey;
+
 border-left-style:groove;
 }
 
@@ -436,4 +503,27 @@ border-left-style:groove;
 
 .comment-content {
   overflow:hidden;
+}
+
+.fixed {
+  position: fixed;
+}
+
+#lhs {
+  margin-left: 0;
+  -moz-box-shadow:    1px 1px 3px 1px #CCC;
+  -webkit-box-shadow: 1px 1px 3px 1px #CCC;
+  box-shadow:         1px 1px 3px 1px #CCC;
+  z-index: 0;
+}
+
+#rhs {
+  z-index: 0;
+  -moz-box-shadow:    2px 2px 5px 1px #CCC;
+  -webkit-box-shadow: 2px 2px 5px 1px #CCC;
+  box-shadow:         2px 2px 5px 1px #CCC;
+}
+
+#ctr {
+  z-index: 0;
 }

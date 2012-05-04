@@ -25,7 +25,8 @@ public class Photo extends Commentable {
   @Required
   public Blob thumbnail120x120,
               thumbnail50x50,
-              thumbnail30x30;
+              thumbnail30x30,
+              thumbnail100x100;
 
   public Photo(User owner, File image) throws IOException,
                                               FileNotFoundException {
@@ -51,6 +52,7 @@ public class Photo extends Commentable {
 
   private void createThumbnails() throws IOException {
     this.thumbnail120x120 = this.createThumbnailBlob(120, 120);
+    this.thumbnail100x100 = this.createThumbnailBlob(100, 100);
     this.thumbnail50x50 = this.createThumbnailBlob(50, 50);
     this.thumbnail30x30 = this.createThumbnailBlob(30, 30);
   }

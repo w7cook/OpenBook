@@ -47,65 +47,67 @@
     
   </head>
   <body id="page">
-    <header id="header">
-      <a id="logo" class="logo" href="@{Application.news()}" style="padding-left:5px;">openbook</a>
-      <span class="dropdown" id="requests-list">
-        <a class="dropdown-toggle" data-toggle="dropdown" data-target="#requests-list">
-          <i class="icon-user"></i>
-          ${currentUser.numFriendRequests()}
-        </a>
-        <ul class="dropdown-menu">
-          #{if currentUser.numFriendRequests() > 0}
-            #{list items:currentUser.friendRequests, as:'request'}
-              <li>
-                <a href="/users/${request.id}">${request.name} wants to be friends.</a>
-              </li>
-            #{/list}
-          #{/if}
-          #{else}
-            <a>No Friend Requests.</a>
-          #{/else}
-          <li class="divider"></li>
-          <li><a href="/users/${currentUser.id}/friends">See All Friends</a></li>
-        </ul>
-      </span>
-      <span class="dropdown" id="requests-list">
-        <a class="dropdown-toggle" data-toggle="dropdown" data-target="#mesages-list">
-          <i class="icon-envelope"></i>
-          ${currentUser.unreadCount()}
-        </a>
-        <ul class="dropdown-menu">
-          #{if currentUser.unreadCount() > 0}
-            #{list items:currentUser.unreadMessages(), as:'message'}
-              <li>
-                <a href="/messages">Message From: ${message.owner}.</a>
-              </li>
-            #{/list}
-          #{/if}
-          #{else}
-            <a>No Unread Messages.</a>
-          #{/else}
-          <li class="divider"></li>
-          <li><a href="/messages">See All Messages</a></li>
-        </ul>
-      </span>
-      <a href="#"><i class="icon-leaf"></i></a>
-      #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
-        <input type="text" name="search" value="${params.search?.escape()?.raw()}" />
-        <input type="submit" class="btn" value="&{'elasticsearch.search'}" />
-      #{/form}
-      <div class="account">
-        <a href="@{Application.account()}">
-          <img src="@{Thumbnails.get30x30(currentUser.profile.profilePhoto.id)}" width="30" height="30" /> ${currentUser.name}
-        </a>
-        <a href="@{Application.news()}">Home</a>
-        <a href="@{Secure.logout()}">Logout</a>
+    <header id="header" class="navbar-fixed-top">
+      <div class="container">
+        <a id="logo" class="logo" href="@{Application.news()}" style="padding-left:5px;">openbook</a>
+        <span class="dropdown" id="requests-list">
+          <a class="dropdown-toggle" data-toggle="dropdown" data-target="#requests-list">
+            <i class="icon-user"></i>
+            ${currentUser.numFriendRequests()}
+          </a>
+          <ul class="dropdown-menu">
+            #{if currentUser.numFriendRequests() > 0}
+              #{list items:currentUser.friendRequests, as:'request'}
+                <li>
+                  <a href="/users/${request.id}">${request.name} wants to be friends.</a>
+                </li>
+              #{/list}
+            #{/if}
+            #{else}
+              <a>No Friend Requests.</a>
+            #{/else}
+            <li class="divider"></li>
+            <li><a href="/users/${currentUser.id}/friends">See All Friends</a></li>
+          </ul>
+        </span>
+        <span class="dropdown" id="requests-list">
+          <a class="dropdown-toggle" data-toggle="dropdown" data-target="#mesages-list">
+            <i class="icon-envelope"></i>
+            ${currentUser.unreadCount()}
+          </a>
+          <ul class="dropdown-menu">
+            #{if currentUser.unreadCount() > 0}
+              #{list items:currentUser.unreadMessages(), as:'message'}
+                <li>
+                  <a href="/messages">Message From: ${message.owner}.</a>
+                </li>
+              #{/list}
+            #{/if}
+            #{else}
+              <a>No Unread Messages.</a>
+            #{/else}
+            <li class="divider"></li>
+            <li><a href="/messages">See All Messages</a></li>
+          </ul>
+        </span>
+        <a href="#"><i class="icon-leaf"></i></a>
+        #{form action:@UserSearch.search().remove('page'), method:'GET', style:'display:inline'}
+          <input type="text" name="search" value="${params.search?.escape()?.raw()}" />
+          <input type="submit" class="btn" value="&{'elasticsearch.search'}" />
+        #{/form}
+        <div class="account">
+          <a href="@{Application.account()}">
+            <img src="@{Thumbnails.get30x30(currentUser.profile.profilePhoto.id)}" width="30" height="30" /> ${currentUser.name}
+          </a>
+          <a href="@{Application.news()}">Home</a>
+          <a href="@{Secure.logout()}">Logout</a>
+        </div>
       </div>
     </header>
     
     
-    <div class="container-fluid" style="margin-top:1em;">
-      <div class="row-fluid">
+    <div class="container-fluid">
+      <div class="container">
         #{doLayout /}
       </div>
       <footer id="footer" class="row"> 
