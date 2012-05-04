@@ -1,5 +1,7 @@
 package controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import controllers.Secure;
@@ -15,6 +17,15 @@ public class Messages extends OBController {
   public static void inbox() {
     User user = user();
     render(user);
+  }
+  
+  public static void message(Long messageId) {
+    Message item = Message.findById(messageId);
+    if(item == null) {
+      notFound("That message does not exist.");
+    }
+    User user = user();
+    render(user, item);
   }
   
   public static void createMessage() {
