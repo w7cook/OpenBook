@@ -1,13 +1,23 @@
 #{extends 'two_panel.html' /}
+<head?
+	 <link rel="Stylesheet" href="/public/stylesheets/viewNotes.css">
+</head>
 <div id="contentArea">
   
   <br> <a href ="@{Notes.newNote()}">Create new note!</a>
   
-  <h2>Notes</h2>
+  <h1>Notes</h1>
+  <br />
   #{list items:user.viewNotes(), as:'item'}
     <div class="message">
-      Title: ${item.title}<br />
-      Content: ${item.content.nl2br()}<br />
+    	<p class='title'>
+		${item.title}
+		</p>
+      <div class='innerMessage'> 
+      <p>${item.content.nl2br()}</p>
+      </div>
+      <br />
+      <br />
     </div>
   #{/list}
 </div>
