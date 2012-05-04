@@ -15,6 +15,7 @@ import play.modules.elasticsearch.annotations.ElasticSearchIgnore;
 import play.modules.elasticsearch.annotations.ElasticSearchable;
 import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
+import utils.Bootstrap;
 
 @ElasticSearchable
 @Entity
@@ -53,19 +54,35 @@ public class User extends Postable {
   public String password;
 
   //  User's basic profile information
-  @OneToOne
+  @OneToOne(mappedBy="owner")
   public Profile profile;
-  
+  public Profile getProfile(){
+    if(profile == null){
+      profile = new Profile(this);
+      profile.save();
+    }
+    if (profile.profilePhoto == null) {
+      profile.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    }
+    if (profile.skin == null) {
+      profile.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
+    }
+    return profile;
+  }
+
+
   @OneToOne
   public TimelineModel timeline;
 
   @ElasticSearchIgnore
-  @OneToMany(mappedBy = "from", cascade = CascadeType.ALL)
-  public List<Relationship> friends; // A list of the user's friendship history
+  @JoinTable(name="friends_table")
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  public Set<User> friends;
 
   @ElasticSearchIgnore
-  @OneToMany(mappedBy = "to", cascade = CascadeType.ALL)
-  public List<Relationship> friendedBy; // A list of the user's friendship history
+  @JoinTable(name="friend_requests_table")
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  public Set<User> friendRequests; // A list of the user's friendship history
 
   @ElasticSearchIgnore
   public boolean subscription; // Whether the user has allowed subscriptions or not
@@ -78,12 +95,32 @@ public class User extends Postable {
   @OneToMany(mappedBy = "subscribed", cascade = CascadeType.ALL)
   public List<Subscription> subscribers; // A list of subscriptions to the user's subscribers
 
+  @ElasticSearchIgnore
+  @ManyToMany(mappedBy="thoseWhoLike")
+  public Set<Likeable> likes;
+  
+  @ElasticSearchIgnore
+  @ManyToMany(mappedBy="usersWhoAnswered")
+  public Set<Answer> userAnswers;
+  
+  @ElasticSearchIgnore
+  @OneToMany(mappedBy="owner")
+  public Set<Question> questions;
+
+  @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
+  public List<RSSFeed> feeds;
+
+
   public User(String email, String password, String username) {
     this.email = email;
     this.password = Crypto.passwordHash(password);
     this.username = username;
+    this.friends = new HashSet<User>();
+    this.friendRequests = new HashSet<User>();
     this.save();
-    new Relationship(this).save();
+
+    friends.add(this);
+    this.save();
     // this.education = new ArrayList<Enrollment>();
   }
 
@@ -94,18 +131,21 @@ public class User extends Postable {
     this.first_name = first_name;
     this.last_name = last_name;
     this.name = first_name + " " + last_name;
-    
-    this.save();
+
     profile = new Profile(this);
     profile.save();
-    new Relationship(this).save();
+
+    this.friends = new HashSet<User>();
+    this.friendRequests = new HashSet<User>();
     this.save();
+    friends.add(this);
+
     this.timeline = new TimelineModel(this);
     timeline.save();
     this.save();
     // this.education = new ArrayList<Enrollment>();
   }
-  
+
   public User(TempUser user) {
     if (user.verified == false) {
       this.email = user.email;
@@ -114,15 +154,18 @@ public class User extends Postable {
       this.first_name = user.first_name;
       this.last_name = user.last_name;
       user.verified = true;
-      
-      this.save();
+
       profile = new Profile(this);
       profile.save();
-      new Relationship(this).save();
+
+      this.friends = new HashSet<User>();
+      this.friendRequests = new HashSet<User>();
       this.save();
-    this.timeline = new TimelineModel(this);
-    timeline.save();
-    this.save();
+      friends.add(this);
+
+      this.timeline = new TimelineModel(this);
+      timeline.save();
+      this.save();
     }
   }
 
@@ -135,42 +178,33 @@ public class User extends Postable {
   }
 
   public List<Message> inbox() {
-    return Message.find("SELECT m FROM Message m WHERE m.author = ?1 OR m.recipient = ?1", this).fetch();
+    return Message.find("byRecipient", this).fetch();
   }
-  
-  public int unreadCount() {
-   return Message.find("SELECT m FROM Message m WHERE (m.author = ?1 OR m.recipient = ?1) AND m.read = false", this).fetch().size();
-  }
-  
-  public List<Note> viewNotes() {
-	    return Message.find("SELECT n FROM Note n WHERE n.author = ?1", this).fetch();
-	  }
-  
 
+  public List<Message> unreadMessages() {
+    return Message.find("byRecipientAndRead", this, false).fetch();
+  }
+
+  public long unreadCount() {
+    return Message.find("SELECT m FROM Message m WHERE m.recipient = ?1 AND m.read = false", this).fetch().size();
+  }
+
+  public List<Note> viewNotes() {
+    return Note.find("byOwner", this).fetch();
+  }
 
   public List<Comment> comments() {
-    return Comment.find("byAuthor", this).fetch();
+    return Comment.find("byOwner", this).fetch();
   }
 
 
   public List<Post> news() {
-    return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.friendedBy) u WHERE (u.from.id = ?1 and p.postedObj.id = u.to.id) and (U.accepted = true or (u.to.id = ?1 and p.postedObj.id = u.from.id)) order by p.updatedAt desc",
-                     this.id).fetch();
+    return Post.find("SELECT p FROM Post p INNER JOIN p.owner.friends u WHERE u = ?1 AND p.postedObj MEMBER OF User ORDER BY p.updatedAt DESC", this).fetch();
   }
 
   public List<Post> subscriptionNews() {
-    return Post.find(
-                     "SELECT p FROM Post p, IN(p.author.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
-                     this.id).fetch();
-  }
-
-  public Profile getProfile(){
-    if(profile == null){
-      profile = new Profile(this);
-      profile.save();
-    }
-    return profile;
+    return Post.find("SELECT p FROM Post p, IN(p.owner.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
+        this.id).fetch();
   }
 
   public void createTimeline() {
@@ -182,60 +216,12 @@ public class User extends Postable {
   }
 
 
-  /** Checks the status of a friendship
-   *
-   * @param id the user to check friendship status with
-   * @return a string representing the status
-   */
-  public String checkFriendship(Long id) {
-    User current = Application.user();
-    if (Application.user().id == id) {
-      return "";
-    }
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ?1 AND r.to = ?2", current, this).first();
-    if (r1 != null) {
-      if (r1.accepted) {
-        return "Friends";
-      }
-      if (r1.requested){
-        return "Friendship Requested";
-      }
-    }
-    return "Request Friendship";
-  }
-
-  /** Get any confirmed friends
-   *
-   * @return a list of relationships for confirmed friends
-   */
-  public List<Relationship> confirmedFriends() {
-    return Relationship.find("SELECT r FROM Relationship r where r.from = ? and r.accepted = true", this).fetch();
-  }
-
-
-  /** Get a list of any users who have requested to be friends
-   *
-   * @return a list of relationships related to incoming friend requests
-   */
-  public List<Relationship> requestedFriends() {
-    return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch();
-  }
-
-  /** Get a list of <numFriends> users who have requested to be friends
-   *
-   * @param numFriends the number of friends you want to fetch.
-   * @return a list of relationships related to incoming friend requests
-   */
-  public List<Relationship> requestedFriends(int numFriends) {
-    return Relationship.find("SELECT r FROM Relationship r where r.to = ? and r.requested = true and r.accepted = false", this).fetch(numFriends);
-  }
-
   /** Get the number of users users who have requested to be friends
    *
-   * @return the number of relationships related to incoming friend requests
+   * @return the number outstanding friend requests
    */
-  public long requestedFriendCount() {
-    return Relationship.count("to = ? and requested = true and accepted = false", this);
+  public long numFriendRequests() {
+    return friendRequests.size();
   }
 
   public List<Group> getGroups(){
@@ -271,13 +257,7 @@ public class User extends Postable {
   }
 
   public boolean isFriendsWith(User user) {
-    for(Relationship f: this.confirmedFriends()){
-      if(f.to == this && f.from == user)
-        return true;
-      if(f.to == user && f.from == this)
-        return true;
-    }
-    return false;
+    return friends.contains(user);
   }
 
   /** Get all authored events
@@ -285,7 +265,7 @@ public class User extends Postable {
    * @return a list of events that User has authored
    */
   public List<Event> authoredEvents() {
-    return Event.find("SELECT r FROM Event r where r.author = ?", this).fetch();
+    return Event.find("SELECT r FROM Event r where r.owner = ? ORDER BY r.startDate", this).fetch();
   }
 
   /** Get all upcoming events
@@ -293,7 +273,7 @@ public class User extends Postable {
    * @return a list of upcoming events that User has authored
    */
   public List<Event> upcomingEvents() {
-    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate >= ?2", this, new Date()).fetch();
+    return Event.find("SELECT r FROM Event r where r.owner = ?1 AND r.startDate >= ?2 ORDER BY r.startDate", this, new Date()).fetch();
   }
 
   /** Get all past events
@@ -301,43 +281,109 @@ public class User extends Postable {
    * @return a list of past events that User has authored
    */
   public List<Event> pastEvents() {
-    return Event.find("SELECT r FROM Event r where r.author = ?1 AND r.endDate < ?2 ", this, new Date()).fetch();
+    return Event.find("SELECT r FROM Event r where r.owner = ?1 AND r.endDate < ?2 ORDER BY r.startDate", this, new Date()).fetch();
   }
-  
-  /** List all events for any user
-   * 
-   * @return a list of events the user is a member of
+
+  /** List all past events for any user
+   *
+   * @return a list of past events the user is a member of
    */
-  public List<Event> myEvents() {
+  public List<Event> myPastEvents() {
+    //past events
     List<Event> allEvents= Event.findAll();
+    List<Event> allUpcoming = myUpcomingEvents();
+    List<Event> allToday = todayEvents();
     List<Event> answer= new ArrayList<Event>();
     for(Event e : allEvents){
-      for(User u : e.members){
-        if(u.equals(this)){
+      for(User u : e.invited){
+        if(u.equals(this) && !allUpcoming.contains(e) && !allToday.contains(e)){
+          // if(u.equals(this)){
           answer.add(e);
           break;
         }
       }
     }
+    Collections.sort(answer);
     return answer;
   }
-  
-  /** List all friends uninvited to an event
+
+  /** List all events for any user upcoming
    * 
-   * @return a list of users that are friends with the current user, not yet invited to event
+   * @ return a list of events that haven't happened yet the user is a member of
    */
-  public List<User> uninvitedFriends(Long eventId, Long userId){
-    User guest = User.findById(userId);
-    Event event = Event.findById(eventId); 
-    List<Relationship> friends = guest.confirmedFriends();
-    List<User> inviteFriends = new ArrayList<User>();
-    
-    for(int i = 0; i < friends.size(); i++){
-      User u = friends.get(i).to;
-      if (!(event.members).contains(u)){
-        inviteFriends.add(u);
+  public List<Event> myUpcomingEvents(){
+    List<Event> allEvents = Event.find("SELECT r FROM Event r where r.startDate > ?", new Date()).fetch();
+    List<Event> answer= new ArrayList<Event>();
+    Calendar cal = Calendar.getInstance();
+    for(Event e : allEvents){
+      for(User u : e.invited){
+        if(u.equals(this) && (e.startDate.getDate() != cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() != cal.get(Calendar.MONTH))){
+          answer.add(e);
+          break;
+        }
       }
     }
-    return inviteFriends;
+    Collections.sort(answer);
+    return answer;
+  }
+
+  /** List all events for any user happening today
+   * 
+   * @ return a list of events that happen today the user is a member of
+   */
+  public List<Event> todayEvents(){
+    List<Event> allEvents = Event.findAll();
+    List<Event> answer= new ArrayList<Event>();
+    Calendar cal = Calendar.getInstance();
+    for(Event e : allEvents){
+      for(User u : e.invited){
+        if(u.equals(this) && (e.startDate.getDate() == cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() == cal.get(Calendar.MONTH))){
+          answer.add(e);
+          break;
+        }
+      }
+    }
+    Collections.sort(answer);
+    return answer;
+  }
+
+  /** List all events for any user upcoming that the user declined
+   * 
+   * @ return a list of events that haven't happened yet the user declined
+   */
+  public List<Event> myDeclinedEvents(){
+    List<Event> allEvents = Event.find("SELECT r FROM Event r where r.startDate > ?", new Date()).fetch();
+    List<Event> answer= new ArrayList<Event>();
+    Calendar cal = Calendar.getInstance();
+    for(Event e : allEvents){
+      for(User u : e.declined){
+        if(u.equals(this) && (e.startDate.getDate() != cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() != cal.get(Calendar.MONTH))){
+          answer.add(e);
+          break;
+        }
+      }
+    }
+    Collections.sort(answer);
+    return answer;
+  }
+
+  /** List all declined events for any user happening today
+   * 
+   * @ return a list of declined events that happen today 
+   */
+  public List<Event> declinedTodayEvents(){
+    List<Event> allEvents = Event.findAll();
+    List<Event> answer= new ArrayList<Event>();
+    Calendar cal = Calendar.getInstance();
+    for(Event e : allEvents){
+      for(User u : e.declined){
+        if(u.equals(this) && (e.startDate.getDate() == cal.get(Calendar.DAY_OF_MONTH) && e.startDate.getMonth() == cal.get(Calendar.MONTH))){
+          answer.add(e);
+          break;
+        }
+      }
+    }
+    Collections.sort(answer);
+    return answer;
   }
 }

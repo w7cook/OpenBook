@@ -1,0 +1,22 @@
+<div class="photo-bar">
+	#{list items:photos, as:'_photo'}
+		<a id="showPicture${_photo.id}" href="#"><img class="thumbnail" src=@{Thumbnails.get50x50(_photo.id)} /></a>
+		<div id="picture${_photo.id}" title="Photo" style="display:none;width:auto;">
+			<img id="photo${_photo.id}" src=@{Photos.getPhoto(_photo.id)} /><br>
+   	</div>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$('#showPicture${_photo.id}').click(function(){
+				$('#picture${_photo.id}').dialog({
+					title: "Picture",
+					modal:true,
+					position:"center",
+					closeOnEscape: true,
+					closeText: 'Close',
+					width:500
+				});   
+			});
+		});
+		</script>
+	#{/list}		
+</div>   

@@ -1,4 +1,5 @@
 # Test data
+
 User(bob):
     first_name:         Bob
     last_name:          Thomson
@@ -8,6 +9,7 @@ User(bob):
     password:           secret
     isAdmin:            true
     subscription:       true
+
 
 User(alice):
     first_name:         Alice
@@ -41,79 +43,51 @@ User(gparker):
     subscription:       true
 
 Profile(bobProfile):
-    owner:          bob
-    gender:         male
-    locale:         Austin
+    owner:              bob
+    gender:             male
+    locale:             Austin
     significantOther:   alice
-    anniversary:    2000-01-01
-    birthday:       1990-04-24
-    phone:          555-123-4567
-    address:        123 Somewhere St.
-    email:          bob@gmail.com
-    bio:            >
-                    Hi, I'm Bob
+    anniversary:        2000-01-01
+    birthday:           1990-04-29
+    phone:              555-123-4567
+    address:            123 Somewhere St.
+    email:              bob@gmail.com
+    bio:                >
+                        Hi, I'm Bob
+    religion:           Jewish
 
 Profile(jeffProfile):
-    owner:          jeff
+    owner:              jeff
 
 Profile(aliceProfile):
-    owner:          alice
+    owner:              alice
 
 Profile(gparkerProfile):
-    owner:          gparker
-
-
-Relationship(s1):
-    from:       bob
-    to:         bob
-
-Relationship(s2):
-    from:       alice
-    to:         alice
-
-Relationship(s3):
-    from:       jeff
-    to:         jeff
-
-Relationship(r1):
-    from:       bob
-    to:         jeff
-    accepted:   true
-
-Relationship(r3):
-    from:       alice
-    to:         jeff
-    accepted:   true
-
-Relationship(r4):
-    from:       jeff
-    to:         alice
-    accepted:   true
-
-Relationship(r5):
-    from:       jeff
-    to:         bob
-    accepted:   true
+    owner:              gparker
 
 Status(firstBobStatus):
-    author:         bob
+    owner:         bob
+    visibility:     FRIENDS
     content:        >
                     Short sweet twitter like messages that will have inline @mentions and #tags.
 
 Status(firstJeffStatus):
-    author:         jeff
+    owner:         jeff
+    visibility:     FRIENDS
     content:        >
                     Hey @b3bob hope you like #MassEffect3
 
 Status(secondBobStatus):
-    author:         bob
+    owner:          bob
+    visibility:     FRIENDS
     content:        >
                     @jj99 It is the most amazing game ever! 5 out of 5! #MassEffect3
 
 Post(firstBobPost):
     postedObj:      bob
     date:           2009-06-14
-    author:         bob
+    owner:          bob
+    visibility:     PUBLIC
     content:        >
                     The model has a central position in a Play! application. It is the domain-specific
                     representation of the information on which the application operates.
@@ -128,14 +102,16 @@ Post(firstBobPost):
 Post(secondBobPost):
     postedObj:      bob
     date:           2009-03-25
-    author:         bob
+    owner:          bob
+    visibility:     FRIENDS
     content:        >
                     Well, it's just a test.
 
 Post(jeffPost):
     postedObj:      jeff
     date:           2009-06-06
-    author:         jeff
+    owner:          jeff
+    visibility:     FRIENDS
     content:        >
                     A Play! application follows the MVC architectural pattern as applied to the
                     architecture of the Web.
@@ -147,7 +123,8 @@ Post(jeffPost):
 Post(jeffPost2):
     postedObj:      jeff
     date:           2009-06-07
-    author:         jeff
+    owner:          jeff
+    visibility:     FRIENDS
     content:        >
                     More stuff
 
@@ -168,21 +145,24 @@ Group(g2):
 Post(g1 post1):
     postedObj:      g1
     date:           2009-06-07
-    author:         bob
+    owner:          bob
+    visibility:     FRIENDS
     content:        >
                     This is the first post for Bob's group. It shouldn't appear on his news feed!
 
 Post(g1 post2):
     postedObj:      g1
     date:           2009-06-07
-    author:         jeff
+    owner:          jeff
+    visibility:     FRIENDS
     content:        >
                     And this is a second post.
 
 Post(g2 post1):
     postedObj:      g2
     date:           2009-06-07
-    author:         alice
+    owner:          alice
+    visibility:     FRIENDS
     content:        >
                     First post!
 
@@ -195,113 +175,47 @@ Profile(jeffP):
     bio:            >
                     Hi, my name is Jeff, I have a really cool bio. Stay tuned for more
 
-Category(main):
-    name:           Main
-
-Category(music):
-    name:           Music
-
-Category(movies):
-    name:           Movies
-
-Category(sports):
-    name:           Sports
-
-FThread(thread1):
-    author:         bob
-    title:          This is a thread
-    postedAt:       2009-04-05
-    category:       main
-    content:        >
-                    Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
-                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
-                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
-                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
-                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
-                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
-                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
-                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
-
-FThread(thread2):
-    author:         bob
-    title:          This is another thread
-    postedAt:       2009-04-06
-    category:       main
-    content:        >
-                    Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
-                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
-                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
-                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
-                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
-                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
-                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
-                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
-
-FThread(thread3):
-    author:         alice
-    title:          I hate dubstep
-    postedAt:       2011-03-06
-    category:       music
-    content:        >
-                    Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Suspendisse eget velit mi, vitae suscipit massa. Morbi elit ante, vehicula at commodo et,
-                    cursus ut massa. Morbi varius vehicula odio ac laoreet. Morbi at suscipit est. Morbi scelerisque enim leo,
-                    eget sollicitudin orci. Aliquam erat volutpat. Sed semper, orci id vestibulum volutpat, nibh eros dictum
-                    libero, vel scelerisque lorem ligula vel augue. Aliquam iaculis nibh vel nibh aliquet dignissim. Morbi
-                    nisi sapien, fermentum non scelerisque id, blandit sed massa. Cras ornare dolor a nisl fringilla
-                    condimentum. Sed lacus neque, cursus eget pellentesque at, fringilla eu erat. Fusce diam nibh, lacinia
-                    eu cursus eu, lacinia nec erat. Sed congue porttitor enim sit amet congue. Integer condimentum facilisis
-                    sollicitudin. Curabitur nec sapien erat. Nam ut mi ut lectus sagittis sodales.
-
-Comment(fc1):
-    author:         bob
-    content:        >
-                    I knew that ...
-    date:           2011-06-15
-    parentObj:      thread3
-
-Comment(fc2):
-    author:         alice
-    content:        >
-                    i love dubstep
-    date:           2011-09-05
-    parentObj:      thread3
-
 Page(cats):
     admin:          alice
     title:          CATS
+    profilePhoto:   2
     info:           >
                     I haz them!!
 
-Page(nachoCheese):
+Page(nachoCheese):                            
     admin:          jeff
     title:          Nacho Cheese
+    profilePhoto:   2
     info:           >
                     What do you call cheese that isn't yours?
 
 Post(cats post1):
     postedObj:      cats
     date:           2009-06-07
-    author:         bob
+    owner:          bob
+    visibility:     FRIENDS
     content:        >
                     I HATE CATZ!!!
 
 Post(cats post2):
     postedObj:      cats
     date:           2009-06-07
-    author:         jeff
+    owner:          jeff
+    visibility:     FRIENDS
     content:        >
                     CHEEZEBURGAHZ!!
-
-UserPage(cats alice):
-    fan:            alice
-    page:           cats
+                    
+Post(nachoCheese post1):
+    postedObj:      nachoCheese
+    date:           2009-06-07
+    owner:          jeff
+    visibility:     FRIENDS
+    content:        >
+                    Nobody likes my page :(
 
 UserPage(nachoCheese jeff):
     fan:            jeff
-    page:           nachoCheese
+    page:           cats
 
 Subscription(sub1):
     subscribed:     alice
@@ -318,3 +232,33 @@ Subscription(sub3):
 Subscription(sub4):
     subscribed:     bob
     subscriber:     alice
+    
+RSSFeed(feed1):
+    subscriber:     bob
+    url:            http://www.nytimes.com/services/xml/rss/nyt/Business.xml
+    is_valid:       true
+    
+RSSFeed(feed2):
+    subscriber:     alice
+    url:            http://www.nytimes.com/services/xml/rss/nyt/Science.xml
+    is_valid:       true
+    
+RSSFeed(feed3):
+    subscriber:     jeff
+    url:            http://www.nytimes.com/services/xml/rss/nyt/Sports.xml
+    is_valid:       true
+
+RSSFeed(feed4):
+    subscriber:     bob
+    url:            http://rss.cnn.com/rss/edition.rss
+    is_valid:       true
+    
+RSSFeed(feed5):
+    subscriber:     alice
+    url:            http://rss.cnn.com/rss/edition_world.rss
+    is_valid:       true
+    
+RSSFeed(feed6):
+    subscriber:     jeff
+    url:            http://rss.cnn.com/rss/edition_space.rss
+    is_valid:       true

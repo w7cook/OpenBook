@@ -28,18 +28,18 @@ public class Note extends Status {
     this.title = title;
     this.text = content;
   }
-  
+
   public String contentTeaser() {
-	  if (this.content.length() < TEASER_LENGTH) {
-		  return this.content;
-	  } else {
-		  return this.content.substring(0, TEASER_LENGTH);
-	  }
+    if (this.content.length() < TEASER_LENGTH) {
+      return this.content;
+    } else {
+      return this.content.substring(0, TEASER_LENGTH);
+    }
   }
 
   public Post previous() {
-    return Post.find("author = ? AND date < ? order by date desc",
-                     this.author, this.createdAt).first();
+    return Post.find("owner = ? AND date < ? order by date desc",
+                     this.owner, this.createdAt).first();
   }
 
   public Post next() {
@@ -48,6 +48,6 @@ public class Note extends Status {
   }
 
   public boolean byCurrentUser() {
-    return author.email.equals( Security.connected() );
+    return owner.email.equals( Security.connected() );
   }
 }

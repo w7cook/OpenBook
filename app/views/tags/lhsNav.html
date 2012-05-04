@@ -1,65 +1,45 @@
+<ul class="nav nav-list well">
+  <li><a href="/users/${_user.id}"> <strong>${_user.name}</strong></a></li>
+  <li>
+    <a href="/profilePicEditor" rel="tooltip" title="Change Picture">
+      <img class="thumbnail" src="@{Thumbnails.get120x120(_user.profile.profilePhoto.id)}" width="120" height="120" />
+    </a>
+  </li>
 
-<div class="profile-pic">
-  <a class="change-img" href="/photos/setProfilePhotoPage">Change picture</a> 
-  #{if (_user.profile.profilePhoto == -1 || _user.profile.profilePhoto == null)} 
-    <img src="@{Photos.getPhoto(2)}" height="120" width="120" /> 
-  #{/if} 
-  #{else} 
-    <img src="@{Photos.getPhoto(_user.profile.profilePhoto.id)}" height="120" width="120" /> 
-  #{/else}
-</div>
-<div style="clear: both;text-align:center;width: 100%;">
-  <a href="@{Application.account()}"> <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${_user.name}</span>
-  </a>
-</div>
-
-<!--  As much as I want to put a DIV around the menu boxes, we cannot afford to do so (a certain amount of padding will be added automatically and make it look bad. -VA -->
-<div class="lhs-navBoxHeader">FAVORITES</div>
-<div class="lhs-navBoxBody">
-	<a href="@{Application.news()}">News Feed</a> 
-	<a href="/timeline/${_user.id}">Timeline</a> 
-	<a href="/users/${_user.id}/events">Events</a> 
-	<a href="@{Checkin.checkin()}">Checkin</a>
-	<a href="@{Messages.inbox()}">Inbox [${_user.unreadCount()}]</a> 
-	<a href="/requests">Friend Requests</a> 
-	<a href="/changeSkin">Change Skin</a>
-	<a href="@{Notes.viewNotes()}">Notes</a>
-</div>
+  <li class="nav-header">FAVORITES</li>
+  <li><a href="@{Application.news()}">News Feed</a></li>
+  <li><a href="/users/${_user.id}/timeline">Timeline</a></li>
+  <li><a href="/users/${_user.id}/events">Events</a></li>
+  <li><a href="@{Checkins.checkin()}">Checkin</a></li>
+  <li><a href="@{Messages.inbox()}">Inbox <span class="badge">${_user.unreadCount()}</span></a></li>
+  <li><a href="/users/${_user.id}/requests">Friend Requests</a></li>
+  <li><a href="/changeSkin">Change Skin</a></li>
+  <li><a href="@{Notes.viewNotes()}">Notes</a></li>
+  <li><a href="@{Categories.listAll()}">Threads</a></li>
 
 
-<div class="lhs-navBoxHeader">GROUPS</div>
-<div class="lhs-navBoxBody">
-  #{list items:_user.getGroups(), as:'Group'} 
-    <a href="@{Groups.group(Group.id)}">${Group.groupName}</a><br />
-  #{/list} <br />
-</div>
+  <li class="nav-header">GROUPS</li>
+  #{list items:_user.getGroups(), as:'Group'}
+    <li><a href="@{Groups.group(Group.id)}">${Group.groupName}</a></li>
+  #{/list}
 
-<div class="lhs-navBoxHeader">PHOTOS</div>
-<div class="lhs-navBoxBody">
-  <a href="@{Photos.photos()}">My Photos</a>
-</div>
+  <li class="nav-header">PHOTOS</li>
+  <li><a href="@{Photos.photos()}">My Photos</a></li>
 
-<div class="lhs-navBoxHeader">PAGES</div>
-<div class="lhs-navBoxBody">
-  <a href="@{Pages.pages()}">All Pages</a>
-  <a href="@{Pages.myPages()}"> My pages </a>
-  
-</div>
+  <li class="nav-header">PAGES</li>
+  <li><a href="@{Pages.pages()}">All Pages</a></li>
+  <li><a href="@{Pages.myPages()}"> My pages </a></li>
 
-<div class="lhs-navBoxHeader">FRIENDS</div>
-<div class="lhs-navBoxBody">
-  #{list items:_user.confirmedFriends(), as:'friendship'}
-  <a href="@{Users.about(friendship.to.id)}">
-    ${ friendship.to.name}
-  </a><br />
-  #{/list} <br />
-  <a href="@{Relationships.relationships(_user.id)}">see all friends..</a><br />
-  <br />
-</div>
+  <li class="nav-header">FRIENDS</li>
+  #{list items:_user.friends, as:'friend'}
+    #{if !friend.equals(_user)}
+      <li><a href="/users/${friend.id}">${friend.name}</a></li>
+    #{/if}
+  #{/list}
+  <li><a href="/users/${_user.id}/friends">see all friends..</a></li>
 
-<div class="lhs-navBoxHeader">INTERESTS</div>
-<div class="lhs-navBoxBody">
+  <li class="nav-header">INTERESTS</li>
   #{if (_user.subscribedTo.size() > 0)}
-    <a href="@{Subscriptions.subscriptions(_user.id)}">Subscriptions</a><br />
+    <li><a href="@{Subscriptions.subscriptions(_user.id)}">Subscriptions</a></li>
   #{/if}
-</div>
+</ul>

@@ -9,34 +9,51 @@ import play.data.validation.*;
 import play.db.jpa.Model;
 
 @Entity
-public class FThread extends Commentable {
+public class FThread extends Commentable
+{
 
-  @Required
-  public String title;
+	@Required
+	public String title;
 
-  @Required
-  @ManyToOne
-  public User author;
+	@Required
+	@As("yyyy-MM-dd")
+	public Date postedAt;
 
-  @Required @As("yyyy-MM-dd")
-  public Date postedAt;
+	@Required
+	@ManyToOne
+	public Category category;
 
-  @Required
-  @ManyToOne
-  public Category category;
+	@Required
+	@Lob
+	public String content;
 
-  @Required
-  @Lob
-  public String content;
+	public FThread(Category category, String title, User author, Date postedAt,
+	        String content)
+	{
+		super(author);
+		this.title = title;
+		this.postedAt = new Date();
+		this.content = content;
+		this.category = category;
+		this.category.latest = this;
+	}
 
-  public FThread(String title, User author, Date postedAt, String content) {
-    this.title = title;
-    this.author = author;
-    this.postedAt = new Date();
-    this.content = content;
-  }
+	public List<Comment> comments()
+	{
+		return Comment.find("parentObj = ? order by createdAt asc", this)
+		        .fetch();
+	}
 
-  public List<Comment> comments() {
-    return Comment.find("parentObj = ? order by createdAt asc", this).fetch();
-  }
+	public Comment last_comment()
+	{
+		Comment last = null;
+		List<Comment> comments = Comment.find(
+		        "parentObj = ? order by createdAt asc", this).fetch();
+		for (Comment elem : comments)
+		{
+			last = elem;
+		}
+		return last;
+	}
+
 }

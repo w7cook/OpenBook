@@ -1,21 +1,52 @@
-<script type="text/JavaScript" src="util.js"></script> 
-<div class="hideable">
-	<a class="triggershow showfirst" href='#' onclick='return false;'>+edit</a>
-	<a class="triggerhide" href='#' onclick='return false;'>-done</a>
-	<div class="post-teaser tohideopp"></div>
-		<div class="post-content tohide hide">
-		Admin: ${page.admin} 
-		<a href="@{Pages.deletePage(page.id)}" style="float: right">Delete this Page</a> <br>Info:<br>
-			#{if page.info != null}
-				<textarea name="post_content" id="pageInfo" class="ui_TextBox" rows="2" cols="45" maxlength="400">${page.info}</textarea>
-				<input type="submit" value="Save" id="pageUpdate" class="button" style="float:right"/>
-			#{/if}
-			#{else}
-				<textarea name="post_content" id="pageInfo$" class="ui_TextBox" rows="2" cols="45" maxlength="400">write something about the page</textarea>
-				<input type="submit" value="Save" id="pageUpdate" class="button" style="float:right"/>
-			#{/else}
-			<div id="pagelet">
-				<a href="">Add a photo</a>
-			</div>
-	</div>
+<head>
+<script type="text/javascript" src="/public/javascripts/tabber.js"></script>
+<link rel="stylesheet" href="/public/stylesheets/page.css" TYPE="text/css" MEDIA="screen">
+</head>
+<div class="tabber">
+
+  <div class="tabbertab">
+    <h3>Update</h3>
+    	#{form @Pages.pageUpdate(page.id, info)}
+      	Admin: ${page.admin}
+      	<a href="@{Pages.deletePage(page.id)}" style="float:right">Delete this Page</a>
+      	<br>Info:
+      	<input type=text name=info value="${page.info}" style="width: 420px; padding: 5px; height: 50px; display: block; font-family: serif; resize: none; overflow-y: hidden;"/><br>
+      	<div style="float:right">
+					<input class="ui_TextBoxButton" style = "width:100%" type=submit value=Save>
+				</div>
+			#{/form}
+  </div>
+
+  <div class="tabbertab">
+  	<h3>Upload Photo</h3>
+    #{ifErrors}
+      <ul class="errors">
+      	#{errors}
+        <li>${error}</li>
+        #{/errors}
+      </ul>
+    	#{/ifErrors}
+    		#{form @Pages.addPhoto(page.id), enctype:'multipart/form-data'}
+      		<input type="file" name="image" style="float:left"/>
+      		<input type="submit" name="submit" value="Upload" class="ui_TextBoxButton" />
+        #{/form}
+  </div>
+  
+  #{if page.photos.size() > 0}
+  <div class="tabbertab">
+  	<h3>All Photos</h3>
+  	#{include 'Pages/pageBox.html' /}
+  </div>
+  #{/if}
 </div>
+
+
+<script>
+	$(function() {
+		$( "#tabs" ).tabs({
+			collapsible: true,
+			selected: -1
+		});
+	});
+</script>
+
