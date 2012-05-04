@@ -17,14 +17,16 @@
       <div class="hideable">
         <div class="left">
           <img src="@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)}" width="50" height="50" />
+          
+          <div class="individual-msg-metadata">
+            #{timeago date:item.updatedAt /}
+            #{if item.owner ==  _currentUser} 
+              <!--  <a id="deleteMsgThread${item.id}" onclick="return false;" href="#">delete thread</a> -->
+              delete
+            #{/if} 
+          </div>
         </div>
-        <div class="individual-msg-metadata">
-          #{timeago date:item.updatedAt /}
-          #{if item.owner ==  _currentUser} 
-            <!--  <a id="deleteMsgThread${item.id}" onclick="return false;" href="#">delete thread</a> -->
-            delete
-          #{/if} 
-        </div>
+        
 
         <div class="individual-msg">
           <div class="msg-author" style="clear: both;">
@@ -32,6 +34,9 @@
           </div>
           <div class="msg-content">      
             ${item.content.markdown().nl2br()}
+          </div>
+          <dif class="msg-link">
+            <a href="/messages/${item.id}">See thread</a>
           </div>
         </div>
         #{/if}
