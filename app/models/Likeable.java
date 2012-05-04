@@ -4,60 +4,70 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import controllers.Comments;
-
 import play.db.jpa.*;
 import play.data.validation.*;
 
 @Entity
 public abstract class Likeable extends Model {
 
-  @OneToMany(mappedBy="parentObj", cascade=CascadeType.ALL)
-  public List<Likes> likes;
-
-  public Likeable() {
-    this.likes = new ArrayList<Likes>();
-  }
+  @Required
+  @ManyToOne
+  public User owner;
 
   public enum Visibility {PRIVATE, FRIENDS, PUBLIC};
+
+  @Required
   public Visibility visibility;
 
-  public Likeable addLike(User user){
-    boolean alreadyLikes = Likes.find("author = ? AND parentObj = ?",
-                                      user, this).first() != null;
-    if (!alreadyLikes) {
-      Likes newLike = new Likes(this, user).save();
-      this.likes.add(newLike);
-      this.save();
-    }
-    return this;
+  @Required
+  @JoinTable(name="whitelist_table")
+  @ManyToMany()
+  public Set<User> whitelist;
+
+  @Required
+  @JoinTable(name="likes_table")
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  public Set<User> thoseWhoLike;
+
+  public Likeable(User owner) {
+    this(owner, Visibility.FRIENDS);
   }
 
-  public Likeable removeLike(User user){
-    Likes relevantLikes = Likes.find("author = ? AND parentObj = ?",
-                                       user, this).first();
-    if (relevantLikes != null) {
-      likes.remove(relevantLikes);
-      relevantLikes.delete();
-      this.save();
-    }
-    return this;
+  public Likeable(User owner, Visibility v) {
+    this.thoseWhoLike = new HashSet<User>();
+    this.whitelist = new HashSet<User>();
+    this.visibility = v;
+    this.owner = owner;
+    this.whitelist.add(owner);
   }
 
-  public void addLike (Likes l){
-    likes.add(l);
+  public boolean addLike(User user) {
+    thoseWhoLike.add(user);
+    boolean changed = user.likes.add(this);
     this.save();
+    return changed;
   }
 
-  public void removeLike(Likes l){
-    likes.remove(l);
-    l.delete();
+  public boolean removeLike(User user) {
+    thoseWhoLike.remove(user);
+    boolean changed = user.likes.remove(this);
     this.save();
+    return changed;
   }
 
-  public boolean currentUserLiked (){
-    User currentUser = Comments.user();
-    return Likes.find("author = ? AND parentObj = ?", currentUser,this).first() != null;
+  public boolean likedBy(User user) {
+    return thoseWhoLike.contains(user);
   }
 
+  public int numLikes() {
+    return thoseWhoLike.size();
+  }
+
+  public boolean visible(User user) {
+    if(visibility == Visibility.PRIVATE)
+      return user.equals(owner);
+    if(visibility == Visibility.FRIENDS)
+      return user.equals(owner) || user.isFriendsWith(owner);
+    return true;
+  }
 }

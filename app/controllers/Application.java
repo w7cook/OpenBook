@@ -14,19 +14,8 @@ import play.libs.Crypto;
 
 
 public class Application extends OBController {
-
-  public static void about(Long userId) {
-    User user = userId == null ? user() : (User) User.findById(userId);
-    render(user);
-  }
-
   public static void news(Long userId) {
     User user = userId == null ? user() : (User) User.findById(userId);
-    render(user);
-  }
-
-  public static void friendRequests() {
-    User user = user();
     render(user);
   }
 
@@ -39,88 +28,16 @@ public class Application extends OBController {
     return val != null && val.length() > 0;
   }
 
-  /** Request to be friends with a given user, changing appropriate Relationship flags where necessary.
-   *
-   * @param id the user to request friendship with
+
+  /**
+   * Create a timeline for the current user
+   * @param id user ID
    */
-
-  public static void requestFriends(Long id) {
-    User user = user();
-    User other = User.findById(id);
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
-
-    if (r1 == null) {
-      r1 = new Relationship(user, other, true);
-      r1.save();
-    }
-
-    if (r2 != null) {
-
-      // If the other user has already requested, this request should make them friends
-      if (r2.requested) {
-        r1.requested = false;
-        r2.requested = false;
-        r1.accepted = true;
-        r2.accepted = true;
-        r1.save();
-        r2.save();
-      } else if (r2.accepted){
-        news(id);
-        return;
-      } else {
-        r1.requested = true;
-      }
-    }
-    // If the user has already made a request for friendship, do nothing
-    else if (r1 != null) {
-      if (r1.requested) {
-        news(id);
-        return;
-      } else {
-        r1.requested = true;
-        r1.save();
-        news(id);
-        return;
-      }
-    }
-    System.out.println(r1.requested);
-    r1.save();
-    news(id);
+  public static void createTimeline(Long id){
+    User user = User.findById(id);
+    user.createTimeline();
+    renderTemplate("Timeline/Timeline.html",user);
   }
-
-  /** Attempt to end a relationship with a user, changing appropriate Relationship flags where necessary
-   *
-   * @param id the user to remove
-   */
-  public static void removeFriends(Long id) {
-    User user = user();
-    User other = User.findById(id);
-    Relationship r1 = Relationship.find("SELECT r FROM Relationship r where r.from = ? AND r.to = ?", user, other).first();
-    Relationship r2 = Relationship.find("SELECT r FROM Relationship r where r.to = ? AND r.from = ?", user, other).first();
-
-    if (r1 != null) {
-      r1.requested = false;
-      r1.accepted = false;
-      r1.save();
-    }
-    if (r2 != null) {
-      r2.accepted = false;
-      r2.requested = false;
-      r2.save();
-    }
-    news(id);
-  }
-
-/**
- * Create a timeline for the current user
- * @param id user ID
- * */
- public static void createTimeline(Long id){
-	User user = User.findById(id);
-	user.createTimeline();
-	renderTemplate("Timeline/Timeline.html",user);
- }
 
   public static void account_save(User update, String old_password) {
     User currentUser = user();
@@ -128,9 +45,7 @@ public class Application extends OBController {
     validation.required(update.first_name).message("First name is required");
     validation.required(update.username).message("Username is required");
     validation.required(update.email).message("Email is required");
-    validation.isTrue(
-        currentUser.password.equals(Crypto.passwordHash(old_password)))
-        .message("Password does not match");
+    validation.isTrue(currentUser.password.equals(Crypto.passwordHash(old_password))).message("Password does not match");
 
     if (validation.hasErrors()) {
       User user = update;
@@ -164,13 +79,6 @@ public class Application extends OBController {
     }
   }
 
-  public static void edit_basic(Long userID) {
-    User user = User.findById(userID);
-	Profile profile = Profile.find("owner = ?", user).first();
-	render(profile);
-  }
-
-
   public static void search(String query) {
     // not implemented yet
   }
@@ -180,51 +88,10 @@ public class Application extends OBController {
     c.delete();
     news(userId);
   }
-  
+
   public static void postComment(Long commentableId, String author, String content) {
     Commentable parent = Commentable.findById(commentableId);
     User au = User.find("email = ?", author).first();
     parent.addComment(au, content);
   }
-
-  public static void notFound() {
-    response.status = Http.StatusCode.NOT_FOUND;
-    renderText("");
-  }
-
-  public static void addLike (Long likeableId, Long userId){
-    Likes newOne = new Likes ((Likeable)Likeable.findById(likeableId),(User)User.findById(userId)).save();
-    Likeable l = Likeable.findById(likeableId);
-    l.addLike(newOne);
-    news(userId);
-  }
-
-  public static void unLike (Long likeableId, Long userId){
-    Likeable c = Likeable.findById(likeableId);
-    User u = User.findById(userId);
-    Likes toRemove = Likes.find("author = ? AND parentObj = ?", u, c).first();
-    c.removeLike(toRemove);
-    news(userId);
-  }
-
-  public static void addLikeAjax (Long likeableId){
-    User u = user();
-    Likeable l = Likeable.findById(likeableId);
-    l.addLike(u);
-    Map<String,String> m = new HashMap<String,String>();
-    m.put("numLikes", Integer.toString(l.likes.size()));
-    m.put("likeableID",likeableId.toString());
-    renderJSON(m);
-  }
-
-  public static void removeLikeAjax (Long likeableId){
-    User u = user();
-    Likeable l = Likeable.findById(likeableId);
-    l.removeLike(u);
-    Map<String,String> m = new HashMap<String,String>();
-    m.put("numLikes", Integer.toString(l.likes.size()));
-    m.put("likeableID",likeableId.toString());
-    renderJSON(m);
-  }
-
 }

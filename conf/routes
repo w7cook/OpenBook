@@ -11,10 +11,26 @@ GET     /es-admin/                              elasticsearch.ElasticSearchAdmin
 # Home page
 GET     /                                       Application.news
 
-GET     /about                                  Application.about
-GET     /edit_basic                             Application.edit_basic
-GET     /account                                Application.account
-GET     /requests                               Application.friendRequests
+
+
+#Account
+GET     /users/?                                Users.users #Get a list of all users
+POST    /users/?                                Signup.signup_user
+PUT     /users/{<[0-9]+>userId}                 Users.updateUser
+GET     /users/{<[0-9]+>userId}                 Users.user #Get account info for a specific user
+DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
+GET     /users/{<[0-9]+>userId}/profile         Users.profile
+GET     /users/{<[0-9]+>userId}/friends         Users.friends
+POST    /users/{<[0-9]+>userId}/friends         Users.requestFriends
+DELETE  /users/{<[0-9]+>userId}/friends         Users.removeFriends
+GET     /users/{<[0-9]+>userId}/requests        Users.friendRequests
+GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
+GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all posts by a user
+GET     /users/{<[0-9]+>userId}/comments/?              Comments.userComments #get all comments by a user
+GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
+
+GET     /testFriends                            Users.testFriends
+
 
 #Skins
 GET     /public/stylesheets/main.css            Skins.stylesheet
@@ -30,6 +46,10 @@ POST    /skins/setBackgroundPhoto               Skins.setBackgroundPhoto
 GET     /threads                                Categories.listAll
 GET     /threads/{<[0-9]+>catId}                Categories.listSingle
 GET     /threads/[0-9]+/{<[0-9]+>threadId}      FThreads.listSingle
+POST    /threads/newCategory                    Categories.newCategory
+POST    /threads/deleteCategory                 Categories.deleteCategory
+POST    /threads/newThread                      FThreads.newThread
+POST    /threads/deleteThread                   FThreads.deleteThread
 
 
 # Profile
@@ -38,17 +58,24 @@ GET     /application.next.gif                   staticFile:/public/images/next.g
 GET     /application.calendar.jpg               staticFile:/public/images/calendar.gif
 
 # Photos
-GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 GET     /photos/?                               Photos.photos
 POST    /photos                                 Photos.addPhoto
 GET     /photos/{<[0-9]+>photoId}               Photos.getPhoto
 GET     /photos/setProfilePhoto                 Photos.setProfilePhoto
+POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 GET     /photos/{<[0-9]+>photoId}/delete        Photos.removePhoto
-GET     /photos/setProfilePhotoPage             Photos.setProfilePhotoPage
 GET     /photos/setProfilePhoto                 Photos.setProfilePhotoPage
 POST    /photos/setProfilePhoto                 Photos.setProfilePhoto
 POST    /photos/addProfilePhoto                 Photos.addProfilePhoto
 GET     /photos/setGravatar                     Photos.setGravatar
+
+# Profile Pic Editor
+GET     /profilePicEditor                       Photos.setProfilePhotoPage
+
+# Thumbnails
+GET     /photos/120x120/{<[0-9]+>photoId}       Thumbnails.get120x120
+GET     /photos/50x50/{<[0-9]+>photoId}         Thumbnails.get50x50
+GET     /photos/30x30/{<[0-9]+>photoId}         Thumbnails.get30x30
 
 #Signup
 GET     /signup                                 Signup.signup
@@ -60,7 +87,7 @@ GET     /messages/createMessage                 Messages.createMessage
 POST    /messages                               Messages.sendMessage
 
 # Notes
-GET     /notes/all                              Notes.viewNotes
+GET     /notes                                  Notes.viewNotes
 GET     /notes/newNote                          Notes.newNote
 POST    /notes                                  Notes.saveNote
 
@@ -68,58 +95,58 @@ POST    /notes                                  Notes.saveNote
 GET     /users/search                           UserSearch.search
 GET     /groups/search                          GroupSearch.search
 
-#Account
-GET     /users/?                                Users.users #Get a list of all users
-#POST    /users/?                                Signup.signup #Add /  a user
-PUT     /users/{<[0-9]+>userId}                 Users.updateUser
-GET     /users/{<[0-9]+>userId}                 Users.about #Get account info for a specific user
-DELETE  /users/{<[0-9]+>userId}                 Users.deleteUser #Delete a user
-
 #Posts
-GET     /posts/?                                Posts.posts #Get all posts
-POST    /posts/?                                Posts.makeNewPost #Add/update post
-GET     /posts/{<[0-9]+>postId}                 Posts.post #Get a specific post
-DELETE  /posts/{<[0-9]+>postId}                 Posts.deletePost #Delete a post
-GET     /users/{<[0-9]+>userId}/posts/?         Posts.posts #get all posts by a user
+GET     /posts/?                                        Posts.posts #Get all posts
+POST    /posts/?                                        Posts.makeNewPost
+GET     /posts/{<[0-9]+>postId}                         Posts.post #Get a specific post
+DELETE  /posts/{<[0-9]+>postId}                         Posts.deletePost #Delete a post
 
 #Links
-#Post    /links/?                                #Add/update link
+#Post    /links/?                                       #Add/update link
+
+#Questions
+POST	/questions					Questions.askQuestion
+GET	/answers/{<[0-9]+>answerId}			Answers.chooseAnswer
 
 #Comments
-GET     /comments/?                              Comments.comments #Get all comments
-GET     /comments/{<[0-9]+>commentId}            Comments.comment #Get a specific comment
-#DELETE  /comments/{<[0-9]+>commentId}            #Delete a comment
-#GET     /status/{<[0-9]+>statusId}/comments/?   #Get all comments for a status
-#POST    /status/{<[0-9]+>statusId}/comments/?   #Add a comment to a status
-GET     /users/{<[0-9]+>userId}/comments/?      Comments.comments #get all comments by a user
+GET     /comments/?                                     Comments.comments #Get all comments
+GET     /comments/{<[0-9]+>commentId}                   Comments.comment #Get a specific comment
+DELETE  /comments/{<[0-9]+>commentId}                   Comments.deleteComment #Delete a comment
+GET     /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.comments #Get all comments for a status
+POST    /{Commentable}/{<[0-9]+>statusId}/comments/?           Comments.addComment #Add a comment to a status
 
 #Events
 GET     /events/?                                       Events.events #all events
 GET     /events/upcoming/?                              Events.upcoming #upcoming events
 GET     /events/past/?                                  Events.past #past events
-GET     /users/{<[0-9]+>userId}/events/?                Events.events #1 user's events
-GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #upcoming events
-GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #past events
+GET     /users/{<[0-9]+>userId}/events/upcoming/?       Events.upcoming #1 users upcoming events
+GET     /users/{<[0-9]+>userId}/events/past/?           Events.past #1 users past events
 GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
 
 GET     /events/eventcreator                            Events.addEvent
 POST    /events                                         Events.addEvent
 
 #Relationships
-GET     /relationships                                                  Relationships.relationships
+GET     /relationships                                  Relationships.relationships
 
 #Timeline
-GET     /timeline/{<[0-9]+>userId}                 Timeline.Timeline #Get timeline for specific user
+GET     /users/{<[0-9]+>userId}/timeline                Timeline.Timeline #Get timeline for specific user
 
 # Checkin
-GET     /checkin                                Checkin.checkin
-GET     /checkin/at                             Checkin.at
+GET     /checkins                                       Checkins.checkin
+GET     /checkins/at                                    Checkins.at
 
-*       /photos/{anything}                      Application.notFound
-*       /users/{anything}/photos/?              Application.notFound
+*       /photos/{anything}                              404
+*       /users/{anything}/photos/?                      404
 
 # Groups
 GET     /groups/{id}                            Groups.group
+
+#Likes
+GET     /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.likes
+POST    /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.like
+DELETE  /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.unLike
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

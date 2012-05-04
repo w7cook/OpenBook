@@ -1,14 +1,24 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+validation.image.type=You must specify a valid image type to upload
 validation.match=Invalid image format
 # "%2$d" returns the second parameter of the max() method in decimal form.
 validation.max=Image size cannot exceed %2$d bytes
+
+#Universal
+accept=Accept
+cancel=Cancel
+
+# Title
+title=openbook
 
 # Checkin
 checkin.at=You checked in at
 checkin.checkin=Checkin
 checkin.iamat=I am at
+checkin.checkedinat=Checked in at: 
+
 
 # Comment
 comment.like = Like
@@ -77,7 +87,24 @@ photo.currentProfilePhoto=Current Profile Photo
 photo.newPhoto=New Photo
 photo.upload=Upload
 photo.setProfilePhoto=Set Your Profile Photo
-photo.setAsProfilePhoto=Set as profile photo
-photo.useGravatar=Use Gravatar
+photo.setAsProfilePhoto=Set as Profile Photo
+photo.useGravatar="Use Gravatar"
 photo.signUpGravatar=Sign up to use Gravatar
 photo.gravatarNote=Note: After signing up, it may take some time for the photo to propagate.
+photo.notFound=That photo does not exist.
+
+#Threads
+thread.title=Public Threads
+thread.forum=Forum
+thread.lastPost=Last post
+thread.postedBy=Posted by
+thread.createNewCategory=Create Category
+thread.deleteCategory=Delete Category
+thread.createNewThread=Create Thread
+thread.thread=Thread
+thread.name=Name
+thread.description=Description
+thread.threadTitle=Title
+thread.none=None
+thread.nocategories=There are no thread categories currently configured. Click the button above to create some.
+thread.postReply=Post Reply

@@ -1,4 +1,5 @@
-#{extends 'two_panel.html' /}
+#{extends 'three_panel.html' /}
+<link type="text/css" rel="Stylesheet" href="/public/stylesheets/page.css" /> 
 
 	<div id="contentArea-BigPage">
 
@@ -6,10 +7,14 @@
 <a href="@{Pages.newPage()}"> Create a Page!</a>
 <hr/>
 
-<div id="content-middle">
+	<div id="content-middle">
 	#{list items:allPages, as:'pages'} 
-		<a href="@{Pages.display(pages.id)}">${pages.title}<br>
+		<a class = "popup" href="@{Pages.display(pages.id)}">
+			<img src="@{Photos.getPhoto(pages.profilePhoto)}"
+					style="height:100px; width:100px"/>
+			<span>${pages.title}</span>
+		</a>	
 	#{/list} 
-</div>
+	</div>
 
 </div>

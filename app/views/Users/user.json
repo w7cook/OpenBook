@@ -1,0 +1,17 @@
+{"user": 
+ {
+   "username"        : "${user.username}",
+   "first_name"      : "${user.first_name}",
+   "middle_name"     : "${user.middle_name}",
+   "last_name"       : "${user.last_name}",
+   "posts"           : "/users/${user.id}/posts",
+   "comments"        : "/users/${user.id}/comments",
+   "events"          : "/users/${user.id}/events",
+   "profile"         : "/users/${user.id}/profile",
+   "timeline"        : "/users/${user.id}/timeline",
+   "friends"         : "/users/${user.id}/friends",
+   "friend-requests" : "/users/${user.id}/requests",
+   "likes"           : "/users/${user.id}/likes",
+   "photos"          : "/users/${user.id}/photos"
+ }
+}
