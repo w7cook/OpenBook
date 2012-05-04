@@ -15,6 +15,7 @@ import play.modules.elasticsearch.annotations.ElasticSearchIgnore;
 import play.modules.elasticsearch.annotations.ElasticSearchable;
 import play.modules.elasticsearch.search.SearchResults;
 import play.libs.Crypto;
+import utils.Bootstrap;
 
 @ElasticSearchable
 @Entity
@@ -53,8 +54,22 @@ public class User extends Postable {
   public String password;
 
   //  User's basic profile information
-  @OneToOne
+  @OneToOne(mappedBy="owner")
   public Profile profile;
+  public Profile getProfile(){
+    if(profile == null){
+      profile = new Profile(this);
+      profile.save();
+    }
+    if (profile.profilePhoto == null) {
+      profile.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    }
+    if (profile.skin == null) {
+      profile.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
+    }
+    return profile;
+  }
+
 
   @OneToOne
   public TimelineModel timeline;
@@ -190,14 +205,6 @@ public class User extends Postable {
   public List<Post> subscriptionNews() {
     return Post.find("SELECT p FROM Post p, IN(p.owner.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
         this.id).fetch();
-  }
-
-  public Profile getProfile(){
-    if(profile == null){
-      profile = new Profile(this);
-      profile.save();
-    }
-    return profile;
   }
 
   public void createTimeline() {
