@@ -224,12 +224,10 @@ padding: 0px;
 /** Shared UI Elements **/
 .ui_TextArea {
   width: 515px;
-  height: 4em;
   resize: none;
   color:grey;
   border: none;
   margin:none;
-  display: none;
 }
 
 .ui_TextAreaButton {
@@ -285,7 +283,7 @@ padding: 0px;
   width: 100%;
   background-color: #CCC;
   float: left;
-  height: 2.5em;
+  height: 30px;
 }
 
 .ui_ButtonText {
@@ -298,7 +296,22 @@ padding: 0px;
 
 .ui_InputButton {
   float: right;
-  height: 2.5em;
+  margin: 3px 3px;
+  background-image: url("/photos/3");
+  color: white;
+}
+
+.ui_ExtraInput {
+  border-top: 1px dashed #CCC;
+  margin: 0;
+  margin-left: 5px;
+  padding-top: 5px;
+}
+
+.ui_Mentions {
+  width: 510px;
+  border: none;
+  
 }
 
 /** pagelet **/ui
@@ -416,8 +429,13 @@ a.logo:active {text-decoration:none;}
 }
 
 .post-content .post-image img{
-  max-width: 350px;
-  max-height: 350px;
+  max-width: 452px;
+  max-height: 452px;
+}
+
+.post-content iframe{
+  width: 452px;
+  height: 255px;
 }
 
 .post .individual-post-metadata {
@@ -510,7 +528,6 @@ border-left-style:groove;
 }
 
 #lhs {
-  margin-left: 0;
   -moz-box-shadow:    1px 1px 3px 1px #CCC;
   -webkit-box-shadow: 1px 1px 3px 1px #CCC;
   box-shadow:         1px 1px 3px 1px #CCC;
@@ -526,4 +543,8 @@ border-left-style:groove;
 
 #ctr {
   z-index: 0;
+}
+
+.hidden {
+  display: none;
 }

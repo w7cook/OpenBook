@@ -17,7 +17,17 @@
       #{/if}
       #{elseif _item.getClass().getName() == "models.Link"}
         <div class="post-link">
-          <iframe src="${((models.Link)_item).external_url}"></iframe>
+          #{if ((models.Link)_item).link_type == "VIDEO"}
+            <iframe src="${((models.Link)_item).external_url}"></iframe>
+          #{/if}
+          #{elseif ((models.Link)_item).link_type == "IMAGE"}
+            <span class="post-image">
+              <img src="${((models.Link)_item).external_url}"></img>
+            </span>
+          #{/elseif}
+          #{elseif ((models.Link)_item).link_type == "OTHER"}
+            <a href="${((models.Link)_item).external_url}">${((models.Link)_item).external_url}</a>
+          #{/elseif}
         </div>
       #{/elseif}
       #{elseif _item.getClass().getName() == "models.Question"}
@@ -25,9 +35,8 @@
     #{question currentUser:currentUser, question:_item /}
         </div>
       #{/elseif}
-      #{else}
-        ${_item.content.markdown().nl2br()}
-      #{/else}
+      
+      ${_item.content.markdown().nl2br()}
     </div>  
 
       <!-- Post Metadata -->  
