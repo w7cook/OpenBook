@@ -89,6 +89,7 @@
               <td><label><b>&{'profile.relationship.status'}: </b></label></td>
               <td>
                 #{select 'relationshipStatus', value:profile.relationshipStatus} 
+                  #{option  ''}#{/option}
                   #{option 'Single'}Single#{/option} 
                   #{option 'In a relationship'}In a relationship#{/option} 
                   #{option 'Engaged'}Engaged#{/option}
@@ -157,7 +158,7 @@
           #{if profile.relationshipStatus}
             <tr>
               <td><label><b>&{'profile.relationship.status'}: </b></label></td>
-              <td class="data">${profile.relationshipStatus}
+              <td class="data">${profile.relationshipStatus.toString()}
               </td>
             </tr>
           #{/if}

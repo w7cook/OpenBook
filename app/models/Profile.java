@@ -55,16 +55,16 @@ public class Profile extends Model {
   public String quotes; // The user's favorite quotes
 
   public enum Relationship {
-    SINGLE ("single"),
-    ENGAGED ("engaged"),
-    MARRIED ("married"),
-    ITSCOMPLICATED ("it's complicated"),
-    OPEN ("open"),
-    WIDOWED ("widowed"),
-    SEPERATED ("seperated"),
-    DIVORCED ("divorced"),
-    CIVILUNION ("civil union"),
-    DOMESTIC ("domestic partnership");
+    SINGLE ("Single"),
+    ENGAGED ("Engaged"),
+    MARRIED ("Married"),
+    ITSCOMPLICATED ("It's complicated"),
+    OPEN ("Open relationship"),
+    WIDOWED ("Widowed"),
+    SEPERATED ("Seperated"),
+    DIVORCED ("Divorced"),
+    CIVILUNION ("Civil union"),
+    DOMESTIC ("Domestic partnership");
 
     private final String text;
     Relationship(String text) {

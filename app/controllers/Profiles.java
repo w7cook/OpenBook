@@ -41,6 +41,7 @@ public class Profiles extends OBController {
     User user = user();
     Profile profile = Profile.find("owner = ?", user).first();
     profile.religion = religion;
+    profile.relationshipStatus = Profile.Relationship.fromString(relationshipStatus);
     DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
     if(birthday != null){
       try{
