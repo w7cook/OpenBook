@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import play.data.validation.Phone;
+import play.data.validation.*;
 
 import utils.Bootstrap;
 
@@ -27,6 +27,7 @@ public class Profile extends Model {
 
   @OneToOne
   public User significantOther; // The user's significant other
+  @Match("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$")
   public Date anniversary; // date of anniversary
 
   public String bio; // The user's biography
@@ -37,7 +38,8 @@ public class Profile extends Model {
   @OneToOne
   public Photo gravatarPhoto;
 
-  public Date birthday; // The user's birthday, uses jJQuery UI
+  @Match("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$")
+  public Date birthday; // The user's birthday, uses JQuery UI
 
   @ManyToOne
   public Location location; // The user's current city
@@ -53,16 +55,16 @@ public class Profile extends Model {
   public String quotes; // The user's favorite quotes
 
   public enum Relationship {
-    SINGLE ("single"),
-    ENGAGED ("engaged"),
-    MARRIED ("married"),
-    ITSCOMPLICATED ("it's complicated"),
-    OPEN ("open"),
-    WIDOWED ("widowed"),
-    SEPERATED ("seperated"),
-    DIVORCED ("divorced"),
-    CIVILUNION ("civil union"),
-    DOMESTIC ("domestic partnership");
+    SINGLE ("Single"),
+    ENGAGED ("Engaged"),
+    MARRIED ("Married"),
+    ITSCOMPLICATED ("It's complicated"),
+    OPEN ("Open relationship"),
+    WIDOWED ("Widowed"),
+    SEPERATED ("Seperated"),
+    DIVORCED ("Divorced"),
+    CIVILUNION ("Civil union"),
+    DOMESTIC ("Domestic partnership");
 
     private final String text;
     Relationship(String text) {
@@ -149,5 +151,6 @@ public class Profile extends Model {
     this.phone = phone;
     this.quotes = quotes;
     this.website = website;
+    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
   }
 }

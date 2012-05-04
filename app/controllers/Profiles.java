@@ -19,6 +19,7 @@ import models.UserLanguage;
 import org.apache.ivy.util.cli.ParseException;
 
 import play.data.validation.Error;
+import play.data.validation.Match;
 
 public class Profiles extends OBController {
 
@@ -40,11 +41,15 @@ public class Profiles extends OBController {
     User user = user();
     Profile profile = Profile.find("owner = ?", user).first();
     profile.religion = religion;
+    profile.relationshipStatus = Profile.Relationship.fromString(relationshipStatus);
     DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
-    try{
-      profile.birthday = (Date) birthday_formatting.parse(birthday);
-    } catch (java.text.ParseException e) {
-      e.printStackTrace();
+    if(birthday != null){
+      try{
+        profile.birthday = (Date) birthday_formatting.parse(birthday);
+      } catch (java.text.ParseException e) {
+        Logger.error("Birthday should be in format: MM/dd/yyyy", e);
+        validation.match(birthday, ("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$"));
+      }
     }
 
     profile.gender = gender;
@@ -54,10 +59,11 @@ public class Profiles extends OBController {
       try {
         profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
       } catch (java.text.ParseException e) {
-        e.printStackTrace();
+        Logger.error("Anniversary should be in format: MM/dd/yyyy", e);
+        validation.match(anniversary, ("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$"));
       }
+
     }
-    //        profile.relationshipStatus = relationshipStatus;
 
     Language lang = Language.find("name = ?", language).first();
     UserLanguage userlang = new UserLanguage(profile, lang);
@@ -74,7 +80,7 @@ public class Profiles extends OBController {
   public static void updateContactInfo(String phone, String address){
     User user = user();
     Profile profile = Profile.find("owner = ?", user).first();
-
+    String previousPhone = profile.phone;
     if(!phone.equals("Add A Phone Number")){
       profile.phone = phone;
     }
@@ -82,10 +88,7 @@ public class Profiles extends OBController {
       profile.phone = "";
     validation.phone(profile.phone);
     if(validation.hasErrors()) {
-      for(Error error: validation.errors()){
-        System.out.println("\n\n\n\n" + error.message() + "\n\n\n\n");
-      }
-      profile.phone = "Add A Phone Number";
+      profile.phone = previousPhone;
     }
 
     if(!address.equals("Add Current Address"))
