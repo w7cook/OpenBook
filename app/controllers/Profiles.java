@@ -79,7 +79,7 @@ public class Profiles extends OBController {
   public static void updateContactInfo(String phone, String address){
     User user = user();
     Profile profile = Profile.find("owner = ?", user).first();
-
+    String previousPhone = profile.phone;
     if(!phone.equals("Add A Phone Number")){
       profile.phone = phone;
     }
@@ -87,10 +87,7 @@ public class Profiles extends OBController {
       profile.phone = "";
     validation.phone(profile.phone);
     if(validation.hasErrors()) {
-      for(Error error: validation.errors()){
-        System.out.println("\n\n\n\n" + error.message() + "\n\n\n\n");
-      }
-      profile.phone = "Add A Phone Number";
+      profile.phone = previousPhone;
     }
 
     if(!address.equals("Add Current Address"))

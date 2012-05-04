@@ -88,7 +88,7 @@
             <tr>
               <td><label><b>&{'profile.relationship.status'}: </b></label></td>
               <td>
-                #{select 'status', value:profile.relationshipStatus} 
+                #{select 'relationshipStatus', value:profile.relationshipStatus} 
                   #{option 'Single'}Single#{/option} 
                   #{option 'In a relationship'}In a relationship#{/option} 
                   #{option 'Engaged'}Engaged#{/option}
@@ -138,38 +138,38 @@
         <table>
           #{if profile.birthday != null}
             <tr>
-              <td><label><b>Birthday:</b></label></td>
+              <td><label><b>&{'profile.birthday'}:</b></label></td>
               <td class="data">${profile.birthday.format("MM/dd/yyyy")}</td>
             </tr>
           #{/if}
           #{if profile.gender}
             <tr>
-              <td><label><b>Sex:</b></label></td>
+              <td><label><b>&{'profile.sex'}:</b></label></td>
               <td class="data">${profile.gender}</td>
             </tr>
           #{/if}
           #{if profile.interestedIn}
             <tr>
-              <td><label><b>Interested in:</b></label></td>
+              <td><label><b>&{'profile.interested.in'}:</b></label></td>
               <td class="data">${profile.interestedIn}</td>
             </tr>
           #{/if}
           #{if profile.relationshipStatus}
             <tr>
-              <td><label><b>Relationship Status: </b></label></td>
+              <td><label><b>&{'profile.relationship.status'}: </b></label></td>
               <td class="data">${profile.relationshipStatus}
               </td>
             </tr>
           #{/if}
           #{if profile.anniversary != null}
             <tr>
-              <td><label><b>Anniversary: </b></br></label></td>
+              <td><label><b>&{'profile.anniversary'}: </b></br></label></td>
               <td class="data">${profile.anniversary.format("MM/dd/yyyy")}</td>
             </tr>
           #{/if}
           #{if profile.languages.size() > 0}
             <tr>
-              <td><label>Languages: </label></td>
+              <td><label>&{'profile.languages'}: </label></td>
               <td>
                 #{list items:profile.languages, as:'lang'}
                   ${lang.toString()}
@@ -180,13 +180,13 @@
           #{/if}
           #{if profile.religion}
             <tr>
-              <td><label><b>Religious views:  </b></label></td>
+              <td><label><b>&{'profile.religious.views'}:  </b></label></td>
               <td>   ${profile.religion}</td>
             </tr>
           #{/if}
           #{if profile.political}
             <tr>
-              <td><label><b>Political Views: </b></label></td>
+              <td><label><b>&{'profile.political.views'}: </b></label></td>
               <td>${profile.political}</td>
             </tr>
           #{/if}
@@ -223,13 +223,13 @@
         <table>
           #{if profile.phone}
             <tr>
-              <td><label><b>Phone: </b></label></td>
+              <td><label><b>&{'profile.phone'}: </b></label></td>
               <td>${profile.phone}</td>
             </tr>
           #{/if}
           #{if profile.address}
             <tr>
-              <td><label><b>Address: </b></label></td>
+              <td><label><b>&{'profile.address'}: </b></label></td>
               <td>${profile.address}</td>
             </tr>
           #{/if}
