@@ -47,6 +47,8 @@ profile.living=Living
 profile.hometown=Hometown
 profile.favorite.quotations=Favorite Quotations
 profile.quote=Quotes
+validation.phone=Please enter a phone number
+validation.match=Please enter a valid date format (MM/dd/yyyy)
 
 # Skin
 skin.editMsg=Edit My Skin

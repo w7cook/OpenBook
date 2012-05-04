@@ -58,9 +58,11 @@ Profile(bobProfile):
 
 Profile(jeffProfile):
     owner:              jeff
+    birthday:           1992-05-05
 
 Profile(aliceProfile):
     owner:              alice
+    birthday:           1991-05-10
 
 Profile(gparkerProfile):
     owner:              gparker

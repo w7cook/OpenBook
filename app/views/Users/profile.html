@@ -5,8 +5,13 @@
 <script type="text/javascript" src="/public/javascripts/profile.js"></script>
 
 <div class="globalContentAbout">  
-  <div class="LeftColumnAbout">   
+  <div class="LeftColumnAbout">  
     <div class="Panel">
+      #{ifErrors}
+        #{errors}
+          <li><b><font color="red"> ${error}</font></b></li>
+        #{/errors}
+      #{/ifErrors} 
       <span class="PanelTitle">&{'profile.about.you'}</span>
       <button class="EditButton" id="AboutMeEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
@@ -49,8 +54,13 @@
               <td><label><b>&{'profile.birthday'}: </b></br> </label>
               </td>
               <td>
-                <input type="text" id="datepicker" name="birthday"
-                       value=""/>
+              	#{if profile.birthday != null}
+                	<input type="text" id="datepicker" name="birthday"
+                       value="${profile.birthday.format("MM/dd/yyyy")}"/>
+                #{/if}
+                #{else}
+                	<input type="text" id="datepicker" name="birthday" value="Add birthday" />
+                #{/else}
               </td>
             </tr>
             <tr>
@@ -63,9 +73,9 @@
             </tr>
             
             <tr>
-              <td><label><b>&{'profile.interested.in'}:</b></label></td>
+              <td><label><b>&{'profile.interested.in'}: </b></label></td>
               <td>
-                #{select 'gender', value:profile.interestedIn} 
+                #{select 'interestedIn', value:profile.interestedIn} 
                   #{option ''}#{/option}
                   #{option 'Men'}Men#{/option} 
                   #{option 'Women'}Women#{/option} 
@@ -78,7 +88,8 @@
             <tr>
               <td><label><b>&{'profile.relationship.status'}: </b></label></td>
               <td>
-                #{select 'status', value:profile.relationshipStatus} 
+                #{select 'relationshipStatus', value:profile.relationshipStatus} 
+                  #{option  ''}#{/option}
                   #{option 'Single'}Single#{/option} 
                   #{option 'In a relationship'}In a relationship#{/option} 
                   #{option 'Engaged'}Engaged#{/option}
@@ -96,7 +107,7 @@
             #{if profile.hasAnniversary()}
               <tr>
                 <td><label><b>&{'profile.anniversary'}: </b></br></label></td>
-                <td><input type="text" id="datepicker" name="anniversary" value=""/></td>
+                <td><input type="text" id="datepicker" name="anniversary" /></td>
               </tr>
             #{/if}
             
@@ -121,44 +132,45 @@
             </tr>
           </table>
           <input type="submit" value="Save" id="updateInformation" />
+          <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="InformationData" style="display:block;">
         <table>
-          #{if profile.birthday}
+          #{if profile.birthday != null}
             <tr>
-              <td><label><b>Birthday:</b></label></td>
+              <td><label><b>&{'profile.birthday'}:</b></label></td>
               <td class="data">${profile.birthday.format("MM/dd/yyyy")}</td>
             </tr>
           #{/if}
           #{if profile.gender}
             <tr>
-              <td><label><b>Sex:</b></label></td>
+              <td><label><b>&{'profile.sex'}:</b></label></td>
               <td class="data">${profile.gender}</td>
             </tr>
           #{/if}
           #{if profile.interestedIn}
             <tr>
-              <td><label><b>Interested in:</b></label></td>
+              <td><label><b>&{'profile.interested.in'}:</b></label></td>
               <td class="data">${profile.interestedIn}</td>
             </tr>
           #{/if}
           #{if profile.relationshipStatus}
             <tr>
-              <td><label><b>Relationship Status: </b></label></td>
-              <td class="data">${profile.relationshipStatus}
+              <td><label><b>&{'profile.relationship.status'}: </b></label></td>
+              <td class="data">${profile.relationshipStatus.toString()}
               </td>
             </tr>
           #{/if}
-          #{if profile.hasAnniversary()}
+          #{if profile.anniversary != null}
             <tr>
-              <td><label><b>Anniversary: </b></br></label></td>
+              <td><label><b>&{'profile.anniversary'}: </b></br></label></td>
               <td class="data">${profile.anniversary.format("MM/dd/yyyy")}</td>
             </tr>
           #{/if}
           #{if profile.languages.size() > 0}
             <tr>
-              <td><label>Languages: </label></td>
+              <td><label>&{'profile.languages'}: </label></td>
               <td>
                 #{list items:profile.languages, as:'lang'}
                   ${lang.toString()}
@@ -169,13 +181,13 @@
           #{/if}
           #{if profile.religion}
             <tr>
-              <td><label><b>Religious views:  </b></label></td>
+              <td><label><b>&{'profile.religious.views'}:  </b></label></td>
               <td>   ${profile.religion}</td>
             </tr>
           #{/if}
           #{if profile.political}
             <tr>
-              <td><label><b>Political Views: </b></label></td>
+              <td><label><b>&{'profile.political.views'}: </b></label></td>
               <td>${profile.political}</td>
             </tr>
           #{/if}
@@ -205,27 +217,20 @@
             </tr>
           </table>
           <input type="submit" value="Save" id="updateContactInfo" />
-	  <input type="reset" value="Cancel">
+	      <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="ContactInfoData" style="display:block;">
         <table>
           #{if profile.phone}
             <tr>
-              <td><label><b>Phone: </b></label></td>
-              #{ifErrors}
-                #{errors}
-                  <li><b>Please enter a phone number</b></li>
-                #{/errors}
-              #{/ifErrors}
-              #{else}
-                <td>${profile.phone}</td>
-              #{/else}
+              <td><label><b>&{'profile.phone'}: </b></label></td>
+              <td>${profile.phone}</td>
             </tr>
           #{/if}
           #{if profile.address}
             <tr>
-              <td><label><b>Address: </b></label></td>
+              <td><label><b>&{'profile.address'}: </b></label></td>
               <td>${profile.address}</td>
             </tr>
           #{/if}
@@ -261,6 +266,7 @@
             </tr>
           </table>
           <input type="submit" value="Save" id="updateWorkEdu" />
+          <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="WorkEduData" style="display:block;">  
@@ -299,7 +305,8 @@
               </td>
             </tr>
           </table>
-	  <input type="submit" value="Save" id="updateLiving" />
+	    <input type="submit" value="Save" id="updateLiving" />
+	    <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="LivingData" style="display:block;">
@@ -342,7 +349,5 @@
         </table>
       </div>
     </div>
-  </div>
-  <div class="demo">
   </div>
 </div>
