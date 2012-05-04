@@ -62,10 +62,11 @@ public class User extends Postable {
       profile.save();
     }
     if (profile.profilePhoto == null) {
-      profile.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+      User defaultUser = User.find("username= ?", "default").first();
+      profile.profilePhoto = Photo.find("owner=? AND caption=?",defaultUser, "Default Profile Photo").first();
     }
     if (profile.skin == null) {
-      profile.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
+      profile.skin = Skins.getSkin("default","default_skin");//the default skin look is used
     }
     return profile;
   }

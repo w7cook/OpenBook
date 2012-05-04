@@ -134,12 +134,13 @@ public class Profile extends Model {
     this.education = new ArrayList<Enrollment>();
     this.work = new ArrayList<Employment>();
     this.feeds = new ArrayList<RSSFeed>();
-    this.skin = Skins.getSkin("default","ut_skin");//the default skin look is used
+    this.skin = Skins.getSkin("default","default_skin");//the default skin look is used
     this.phone = "";
     this.address = "";
     this.website = "";
     this.email = "";
-    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    User defaultUser = User.find("username= ?", "default").first();
+    this.profilePhoto = Photo.find("owner=? AND caption=?",defaultUser, "Default Profile Photo").first();
     this.gravatarPhoto = null;
     this.gravatarEmail = owner.email;
   }
@@ -151,6 +152,7 @@ public class Profile extends Model {
     this.phone = phone;
     this.quotes = quotes;
     this.website = website;
-    this.profilePhoto = Photo.findById(Bootstrap.defaultProfilePhotoID);
+    User defaultUser = User.find("username= ?", "default").first();
+    this.profilePhoto = Photo.find("owner=? AND caption=?",defaultUser, "Default Profile Photo").first();
   }
 }
