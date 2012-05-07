@@ -1,9 +1,0 @@
-# Default data
-User(default):
-    first_name:         default
-    last_name:          user
-    name:               default user
-    username:           default
-    email:              default@example.com
-    password:           secret
-    isAdmin:            false
