@@ -1,0 +1,34 @@
+<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/showUpcomingBirthdays.css'}" />
+
+<base target="_parent" />
+<div class="lhs-navBoxBody">
+  #{if thisWeekBday.size()==0 && todayBday.size() == 0}There are no upcoming birthdays.#{/if} 
+  #{else} 
+    #{if todayBday.size() != 0}
+      <div><img src = "/public/images/cake.png"> </img> <b>Today: </b></div>
+      <button id="hideDiv" onclick ="window.parent.$('#modalHolder').dialog('open')"><i>Write on their wall</i></button>
+      #{list items: todayBday, as:'birthdayPerson'}
+        <p>
+          <span><a href="/users/${birthdayPerson.id}">${birthdayPerson}</a></span>
+          <br />
+          <span>${thisYear- birthdayPerson.getProfile().birthday.getYear()} years old</span>
+          <hr />
+        </p>
+      #{/list}
+    #{/if}
+    
+
+    #{if thisWeekBday.size() != 0}
+      <br />
+      <div><b>This week: </b></div> 
+      #{list items: thisWeekBday, as:'birthdayPerson'}
+        <p>
+          <span><a href="/users/${birthdayPerson.id}">${birthdayPerson}</a></span>
+          <br />
+          <span>${birthdayPerson.getProfile().birthday.format('MMM dd')}</span>
+          <hr />
+        </p>
+      #{/list}
+     #{/if}
+    #{/else}
+    

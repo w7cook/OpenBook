@@ -1,0 +1,5 @@
+{
+  "author"  : "/users/${comment.owner.id}",
+  "content" : "${comment.content}",
+  "comment-on" : "/status/${comment.parentObj.id}"
+} 

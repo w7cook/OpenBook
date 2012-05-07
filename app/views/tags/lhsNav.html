@@ -1,0 +1,45 @@
+<ul class="nav nav-list well">
+  <li><a href="/users/${_user.id}"> <strong>${_user.name}</strong></a></li>
+  <li>
+    <a href="/profilePicEditor" rel="tooltip" title="Change Picture">
+      <img class="thumbnail" src="@{Thumbnails.get120x120(_user.profile.profilePhoto.id)}" width="120" height="120" />
+    </a>
+  </li>
+
+  <li class="nav-header">FAVORITES</li>
+  <li><a href="@{Application.news()}">News Feed</a></li>
+  <li><a href="/users/${_user.id}/timeline">Timeline</a></li>
+  <li><a href="/users/${_user.id}/events">Events</a></li>
+  <li><a href="@{Checkins.checkin()}">Checkin</a></li>
+  <li><a href="@{Messages.inbox()}">Inbox <span class="badge">${_user.unreadCount()}</span></a></li>
+  <li><a href="/users/${_user.id}/requests">Friend Requests</a></li>
+  <li><a href="/changeSkin">Change Skin</a></li>
+  <li><a href="@{Notes.viewNotes()}">Notes</a></li>
+  <li><a href="@{Categories.listAll()}">Threads</a></li>
+
+
+  <li class="nav-header">GROUPS</li>
+  #{list items:_user.getGroups(), as:'Group'}
+    <li><a href="@{Groups.group(Group.id)}">${Group.groupName}</a></li>
+  #{/list}
+
+  <li class="nav-header">PHOTOS</li>
+  <li><a href="@{Photos.photos()}">My Photos</a></li>
+
+  <li class="nav-header">PAGES</li>
+  <li><a href="@{Pages.pages()}">All Pages</a></li>
+  <li><a href="@{Pages.myPages()}"> My pages </a></li>
+
+  <li class="nav-header">FRIENDS</li>
+  #{list items:_user.friends, as:'friend'}
+    #{if !friend.equals(_user)}
+      <li><a href="/users/${friend.id}">${friend.name}</a></li>
+    #{/if}
+  #{/list}
+  <li><a href="/users/${_user.id}/friends">see all friends..</a></li>
+
+  <li class="nav-header">INTERESTS</li>
+  #{if (_user.subscribedTo.size() > 0)}
+    <li><a href="@{Subscriptions.subscriptions(_user.id)}">Subscriptions</a></li>
+  #{/if}
+</ul>

@@ -1,0 +1,49 @@
+#{extends 'main.html' /}
+<div class="span2">
+  <div class="profile-pic">
+    #{if (user.profile.profilePhoto.id == -1 || user.profile.profilePhoto == null)} 
+      <img src="@{Thumbnails.get120x120(2)}" width="120" height="120" />
+    #{/if} 
+    #{else} 
+      <img src="@{Thumbnails.get120x120(user.profile.profilePhoto.id)}" width="120" height="120" />
+    #{/else}
+  </div>
+  <div style="clear: both;text-align:center;width: 100%;">
+    <a href="/users/${user.id}"> 
+      <span style="font-weight: bold; clear: both; text-align: center;margin-left: auto;margin-right:auto;">${user.name}</span>
+    </a>
+  </div>
+  <div>
+    Born: ${ user.profile.birthday}
+    <br/>
+    Lives in: ${ user.profile.location}
+  </div>
+</div>
+<div class="span10" id="postsList">
+  #{if !currentUser.equals(user)}
+    <div id="friends" class="#{if !currentUser.friends.contains(user)}hide#{/if}">
+      You and ${user.first_name} are freinds.
+      <button class="btn btn-warning btn-mini" onclick="unfriend(${user.id})">unfriend</button>
+    </div>
+    <div id="not-friends" class="#{if currentUser.friends.contains(user) || user.friendRequests.contains(currentUser) || currentUser.friendRequests.contains(user)}hide#{/if}">
+      Ask to be freinds with ${user.first_name}.
+      <button class="btn btn-success btn-mini" onclick="friend(${user.id})">Request Friendship</button>
+    </div>
+    <div id="friend-request" class="alert alert-success span4 #{if !currentUser.friendRequests.contains(user)}hide#{/if}">
+      <a class="close" data-dismiss="alert" href="#">×</a>
+      <h4 class="alert-heading">${user.first_name} wants to be friends with you.</h4>
+      <button class="btn btn-success btn-mini span1" onclick="friend(${user.id})">accept</button>
+      <button class="btn btn-warning btn-mini span1" onclick="unfriend(${user.id})">reject</button>
+    </div>
+    <div id="pending-friends" class="#{if !user.friendRequests.contains(currentUser)}hide#{/if}">
+      You have asked ${user.first_name} to be freinds.
+      <button class="btn btn-warning btn-mini" onclick="unfriend(${user.id})">Retract</button>      
+    </div>
+  #{/if}
+  #{list items:user.posts, as:'item'}
+    #{post user:currentUser, item:item /}
+  #{/list}
+</div>
+
+<script src="/public/javascripts/post.js"></script>
+<script src="/public/javascripts/friends.js"></script>

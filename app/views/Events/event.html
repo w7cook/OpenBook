@@ -1,0 +1,111 @@
+#{extends 'two_panel.html' /}
+<link rel="stylesheet" type="text/css" media="screen"
+      href="@{'/public/stylesheets/event.css'}" />
+<script type="text/javascript"
+        src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=place">
+</script>
+<script type="text/javascript"
+        src="/public/javascripts/event.js"> 
+</script>
+
+<div id="contentArea-BigPage">  
+  <h2>Event - ${event.name}</h2>
+  <hr />
+    
+  <table>
+    <tr>
+      <td id="details" width = "100%">
+        <b>Event Name: </b> ${event.name}<br /> 
+        ${privacy} <br /> 
+        <b>Created By: </b>${event.owner.name}<br />
+        <b>Date: </b>${dateString}<br /> 
+        <b>Location: </b>${event.location}<br /> 
+        <b>Details: </b>${event.script}<br />
+      </td>
+        
+      <td id="map" width = "10%">
+        <input id="searchTextField" type="text" size="23%" value="${event.location}">
+        <div id="map_canvas"></div>
+      </td>
+    </tr>
+  </table>
+
+  <h4>Going(${event.getMemberCount()}):</h4>
+  #{list items:event.members, as:'member'}
+    <a href="/users/${member.id}">${member.name}</a>   
+    #{if user.equals(member) && !user.equals(event.owner)}
+      <a class="button" href="@{Events.maybeEvent(event.id, member.id)}">
+        Maybe
+      </a>
+      <a class="button" href="@{Events.leaveEvent(event.id, member.id)}">
+        Not Going
+      </a>
+    #{/if} 
+    <br />
+  #{/list}
+  
+  #{if event.getMaybeCount() > 0}
+  <h4>Maybe(${event.getMaybeCount()}):</h4>
+  #{list items:event.maybe, as:'mmember'}
+    <a href="/users/${mmember.id}">${mmember.name}</a>   
+    #{if user.equals(mmember) && !user.equals(event.owner)}
+      <a class="button" href="@{Events.joinEvent(event.id, mmember.id)}">
+        Going
+      </a>
+      <a class="button" href="@{Events.leaveEvent(event.id, mmember.id)}">
+        Not Going
+      </a>
+    #{/if} 
+    <br />
+  #{/list}
+  #{/if}
+  
+  #{if event.getInvitedCount() > 0}
+  <h4>Invited(${event.getInvitedCount()}):</h4>
+  #{list items:event.awaitreply, as:'imember'}
+    <a href="/users/${imember.id}">${imember.name}</a>   
+    #{if user.equals(imember) && !user.equals(event.owner)}
+      <a class="button" href="@{Events.joinEvent(event.id, imember.id)}">
+        Going
+      </a>
+      <a class="button" href="@{Events.maybeEvent(event.id, imember.id)}">
+        Maybe
+      </a>
+      <a class="button" href="@{Events.leaveEvent(event.id, imember.id)}">
+        Not Going
+      </a>
+    #{/if} 
+    <br />
+  #{/list}
+  #{/if}
+  <br />
+  
+  #{if event.uninvitedFriends(user).size() > 0}
+  <h4>Invite Friends:</h4>
+  #{list items:event.uninvitedFriends(user), as:'guest'}
+    <a href="/users/${guest.id}">${guest.name}</a>
+    <a class="button" href="@{Events.addEventInvite(event.id, guest.id)}">
+      Invite
+    </a>
+    <br />
+  #{/list}
+  #{/if}
+  <br />
+  
+  
+    #{form @Events.newEventPost(event.id,user.id)}
+      <textarea name="post_content" id="postContent" rows="2" cols="45"></textarea>
+      <input type="submit" value="Post" />
+    #{/form}
+
+  
+  <div id="postsList">
+    #{list items:event.getPosts(), as:'item'} 
+      #{post currentUser:currentUser,user:user,item:item /}
+    #{/list}
+  </div>
+  <a class="button" href="@{Events.events(currentUser.id)}"> Events</a>
+  <br />
+  <br />
+</div>
+<script src="/public/javascripts/post.js"></script>

@@ -1,0 +1,8 @@
+{      
+  "author"  : "${post.owner.username}",
+  "parent"  : "/postable/${post.postedObj.id}",
+  "visibility"  : "${post.visibility.toString()}",
+  "content" : "${post.content}",
+  "creationdate" : "${post.createdAt}",
+  "updatedate": "${post.updatedAt}"
+}

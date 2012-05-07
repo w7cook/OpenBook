@@ -1,0 +1,17 @@
+.message-form-list {
+  list-style:none;
+}
+
+.message-form-list li {
+  margin-top: 1em;
+}
+
+.message-form-list li label{
+  font-weight:bold;
+  display:block;
+}
+
+#content {
+  width:90%;
+  height:200px;
+}

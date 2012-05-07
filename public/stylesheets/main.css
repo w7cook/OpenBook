@@ -1,0 +1,439 @@
+/** Main layout **/
+
+html, body {
+  font-family: Helvetica, Arial, Sans !important;
+}
+
+body {
+  height: auto;
+  margin: 0;
+  font-size: 15px;
+  background-image:url(${skin.get("bodyBGPhoto")});
+  background-color: #${skin.get("bodyBGColor")};
+  
+}
+
+a:link {
+  color: #3B5998;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #3B5998;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: black;
+  font-weight: bold;
+}
+
+.note {
+  color: #aaaaaa;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+/** header **/
+#header {
+    width: 100%;
+    color: black;
+  background-image: url(${skin.get("headerBGPhoto")});
+  background-repeat: repeat-x; 
+  background-color: #${skin.get("headerBGColor")};
+  height: 40px;
+  line-height:40px;  
+}
+
+#header a {
+color:white;
+}
+
+#header .dropdown-menu a {
+  color:black;
+}
+
+
+#logo {
+  color: white
+  padding: 0px 10px 0px 20px;
+}
+
+.logo {
+ /** Company's logo/identity should NOT be customizable **/
+  font-weight: bold;
+  font-family: helvetica
+  font-size: 30px;
+}
+
+
+#header .account {
+  float: right;
+  padding-right: 10px;
+  font-size: 13px;
+}
+
+#header .account a {
+  color: #ffdac6;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 5px;
+  border-left: 1px solid #e3986a;
+}
+
+#header .account a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/** left side nav **/
+.left-side-nav {	
+  line-height: 25px;
+  margin-bottom: 10px;
+}
+
+.left-side-nav a {
+	width: 100%;		
+	color: black;
+	display:block;
+}
+
+.left-side-nav a:hover {
+  background-color: #eeeeee;
+  text-decoration: none;
+}
+
+.lhs-navBoxHeader {
+padding: 0px;
+	width: 100%;
+	color: white;
+	background-color:black;
+	padding-left: 0px;	
+  background-image: url(${skin.get("headerBGPhoto")}); /*Little spiffier header bar */
+  background-repeat: repeat-x;
+  background-color: #${skin.get("headerBGColor")};
+  
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-top-style: solid;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-width: 1px;
+	
+	margin-top: 10px;
+  
+}
+
+
+.lhs-navBoxBody {
+	display:block;
+	background-color: white;
+	width: 100%;
+	height: auto;
+	padding: 0px;
+
+  border-color: #CCCCCC; /*Forced to use a border here, because encasing everything in a div will ruin alignment (div within div padding) */ 
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-top-style: none;
+	border-width: 1px;
+	
+	margin-bottom: 10px;			
+	}
+	
+	.lhs-navBoxBody a {
+	width: 100%;		
+	color: black;
+	display:block;
+}
+	
+
+
+
+#name_avatar {
+}
+
+.profile-pic {
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+.profile-pic a{
+  display: none;
+}
+
+.profile-pic img{
+	max-width: 120px;
+	width: 80%;
+  height: 80%; /*Resize the profile-picture here, picture will take up all the space*/
+}
+
+.profile-pic:hover a{
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, .6);
+  font-weight: normal;
+  padding: 4px 6px;
+}
+
+/** contentArea **/
+#contentArea {
+  width: 100%;
+}
+
+#contentArea-BigPage {
+	width: 100%;
+	min-height: 1024px;
+	height: auto;
+  /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
+}
+
+#contentArea-AutoPage {
+	width: 100%;
+	height: auto;
+  /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
+}
+
+
+
+/** Shared UI Elements **/
+.ui_TextArea {
+  width: 88%;
+  resize: none;
+  color:grey;
+  border: none;
+  margin:none;
+  margin-left:5px;
+  display: none;
+  outline: black groove 1px;
+}
+
+.ui_TextAreaButton {
+  width: 100%;
+  height: 100%;
+  margin: none;
+  border: none;
+  padding: none;
+  background-image: url(${skin.get("headerBGPhoto")}); /*Little spiffier header bar */
+  background-repeat: repeat-x;
+  background-color: #${skin.get("headerBGColor")};
+  color: white;
+  display:none;
+}
+
+.ui_TextBox {
+	height:25px;
+	width: 75%;
+	display: inline-block;
+	outline: #000000 groove 1px;
+}
+
+.ui_TextBoxButton {
+	position: relative;
+	height:100%;
+	float: right;
+	display: inline-block;
+	width: 20%;
+	margin: 0px 0px 0px 0px;
+	border-left: 0px;
+	border-right:0px;
+	border-bottom:0px;
+	border-top:0px;
+	outline: #000000 groove 1px;
+}
+
+.ui_InputContainer {
+  outline: black groove 0px;
+	width: 100%;
+	height: auto;
+	background-color: white;
+}
+
+.ui_ButtonText {
+	background-color: #e76509;	
+	color: white;
+	height: 100%;
+	width: 100%;
+}
+
+
+
+/** pagelet **/ui
+.pagelet {
+  height: 40px;
+  width: 100%;
+  border-bottom: 1px solid #bbbbbb;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.pagelet a {
+  padding: 0 5px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.section {
+  vertical-align: ${skin.get("sectionAlign")};
+  padding: 5px 0px 0px 0px;
+}
+
+label {
+  font-size: ${skin.get("labelFontSize")}pt;
+  color: ${skin.get("labelColor")};
+}
+
+.comment {
+  border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
+  background-color: #${skin.get("commentBGColor")};
+}
+
+.comment-textarea {
+  border: ${skin.get("commentBorderSize")}px solid ${skin.get("commentBorderColor")};
+  background-color: #${skin.get("commentBGColor")};
+}
+
+.button {
+  font-size:100%;
+  border-radius:${skin.get("buttonBorderRadius")}px;
+  border: ${skin.get("buttonBorderSize")}px solid ${skin.get("buttonBorderColor")};
+  box-shadow: 1px 1px 2px #${skin.get("buttonBoxShadowColor")};
+  background-color: #${skin.get("buttonBGColor")};
+  text-decoration: ${skin.get("buttonTextDec")};
+  padding: 0px 2px 0px 2px;
+}
+
+a.button:link {color:#${skin.get("buttonLinkUnvisitedColor")};}      /* unvisited link */
+a.button:visited {color:#${skin.get("buttonLinkVisitedColor")};}  /* visited link */
+a.button:hover {background-color:#${skin.get("buttonLinkHoverColor")};}  /* mouse over link */
+a.button:active {color:#${skin.get("buttonLinkSelectedColor")};}  /* selected link */
+
+a.logo:link {text-decoration:none;}
+a.logo:visited {text-decoration:none;}
+a.logo:hover {text-decoration:none;}
+a.logo:active {text-decoration:none;}
+
+.post {
+  width: 100%;
+ /* border-bottom: 1px solid #dddddd;*/
+   /*Code to make the post stick out against changed background */
+  background-color: white;
+  outline: #CCCCCC groove 1px;
+  margin: 10px 0px 10px; /*top (right & left) left*/
+  
+}
+
+.post .left {
+  float: left;
+}
+
+.post .post-author {
+  font-size:14px;
+  font-weight:bold;
+}
+
+.post .individual-post {
+  float: left;
+  margin-left: 5px;
+  width: 440px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 15px;
+  padding: 0 0 10px 0;
+}
+
+.post-content {
+  width: 100%;
+  margin-bottom: 3px;
+}
+
+.post-content .post-image img{
+  max-width: 350px;
+  max-height: 350px;
+}
+
+.post .individual-post-metadata {
+  color: gray;
+  width: 100%;
+  background-color: #e8e8e8;
+}
+
+.comment-content {
+  width: 100%;
+  font-size: 0.95em;
+}
+.post-date {
+  color: gray;
+  font-size: x-small;
+}
+.comment-date {
+  color: gray;
+  font-size: x-small;
+}
+
+.main-content {
+  margin-top:30px;
+  padding-bottom:10px;
+}
+.main-content div {
+  padding:3px;
+  float:left;
+  float:left;
+}
+#content-left {
+  width:160px;
+  margin-top: 20px;
+}
+#content-middle {
+  margin-left:10px;
+  margin-top:10px;
+  width:550px;
+}
+#content-right {
+  margin-left:10px;
+  width:134px;
+}
+
+#footer {
+	margin-left: auto;
+	margin-right: auto;
+  padding:10px;
+  width:878px;
+  margin-top:20px;
+  margin-bottom:10px;
+  text-align: ${skin.get("footerTextAlign")};
+  font: ${skin.get("footerFontSize")}pt italic;
+  color: ${skin.get("footerColor")};  
+  border-top:thin solid;
+}
+
+#leftBorder{
+position:relative;
+height: 100%;
+width: 1px;
+border-width: 1px;
+border-color:grey;
+border-left-style:groove;
+}
+
+.post-content {
+  overflow:hidden;
+}
+
+.comment-content {
+  overflow:hidden;
+}

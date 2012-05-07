@@ -1,0 +1,7 @@
+#{extends 'two_panel.html' /}
+#{if user != null}
+  #{events currentUser:currentUser, events:events, today:today, title_string:"Upcoming Events", title2_string:"Today" /}
+#{/if}
+#{else}
+  #{events currentUser:currentUser, events:events, today:today, title_string:"All Upcoming Events" /}
+#{/else}

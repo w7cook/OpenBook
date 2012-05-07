@@ -1,0 +1,24 @@
+#{extends 'two_panel.html' /}
+
+<div id="contentArea-BigPage">
+  
+  <h2>&{'checkin.checkin'}</h2>
+  <hr />
+  
+  <script
+     src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places"
+     type="text/javascript">
+  </script>
+  <script src="/public/javascripts/checkin.js" type="text/javascript">
+  </script>
+  
+  <link rel="stylesheet" type="text/css" media="screen"
+	href="/public/stylesheets/checkin.css" />
+  
+  <div>
+    <h3>&{'checkin.iamat'}...</h3>
+    <input id="searchTextField" type="text" style="width:500px">
+  </div>
+  <div id="map_canvas"></div>
+  
+</div>

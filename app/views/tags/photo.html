@@ -1,0 +1,14 @@
+<li>
+  <img class="thumbnail" src=@{Thumbnails.get120x120(_photo.id)} width="120" height="120" />
+  #{if _currentUser.equals(_photo.owner)}
+    <br />
+    <a href="@{Photos.removePhoto(_photo.id)}"
+       class="button">Delete picture</a>
+    <br />
+    <a href="@{Photos.setProfilePhoto(_photo.id)}"
+       class="button">&{'photo.setAsProfilePhoto'}</a>
+    <br />
+    <a href="@{Skins.setBackgroundPhoto(_photo.id)}"
+       class="button">Set as background</a>
+  #{/if}
+</li>

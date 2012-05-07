@@ -1,0 +1,32 @@
+#{extends 'two_panel.html' /}
+<head>
+	 <link rel="stylesheet" type='text/css' href="@{'/public/stylesheets/viewNotes.css'}" />
+	
+</head>
+<div id="contentArea">
+  
+  <br> <a href ="@{Notes.newNote()}">Create new note!</a>
+  
+  <h1>Notes</h1>
+  <br />
+  #{list items:user.viewNotes(), as:'item'}
+    <div class="message">
+    	<p class='title'>
+		${item.title}
+		</p>
+      <div class='innerMessage'> 
+      <p>${item.content.nl2br()}</p>
+      </div>
+      <br />
+    </div>
+    <div class='link'><button onclick='makeSelection()'>edit</button></div>
+  #{/list}
+</div>
+
+ <script type="text/javascript">
+    targetElement = null;
+    function makeSelection() {
+
+      var handle = document.open('/users/${user.id}/editNote.html', 'Edit Note', 'width=300, height=250');
+    }
+    </script>

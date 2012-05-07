@@ -1,0 +1,242 @@
+#{extends 'two_panel.html' /}
+
+	<div id="contentArea-BigPage">
+	  <font color="red"><b>${makeSkinOutput}</b></font>
+    <br>
+		<a href="@{Skins.changeSkin}">&{'skin.changeSkinMsg'}</a>
+		<script type="text/javascript" src="/public/javascripts/jscolor/jscolor.js"></script>
+    
+		#{form @Skins.editSkin()}
+		  <br><label><b>&{'skin.editCurrentSkinMsg'}:  ${currentUser.profile.skin.skinName}</b></label>
+		  
+		  <table>
+		  <td class=section width=15%>&{'skin.body'}</td>
+		    <td>
+		      <table>
+    		  <tr>
+    		    <td><a href="/changeBGImage">&{'skin.changeBGImageMsg'}</a></td>
+    		  </tr>
+		      </table>
+		  </table>
+		  
+		  <table>
+		  <td class=section width=15%>&{'skin.header'}</td>
+		    <td>
+		      <table>
+		      <tr>
+		        <td><label>&{'skin.bgColor'}:</label></td>
+		        <input type = "hidden" name = key value = "headerBGColor" />
+		        <td><input class="color" name=val 
+		        	value="${currentUser.profile.skin.get("headerBGColor")}" />
+		        </td>        
+		      </tr>
+		      </table>
+		  </table>
+		  
+		  <table>
+		  <td class=section width=15%>&{'skin.footer'}</td>
+		    <td>
+		      <table>
+		      <tr>
+		        <td><label>&{'skin.txtAlign'}:</label></td>
+		        <input type = "hidden" name = key value = "footerTextAlign" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("footerTextAlign")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.fontSize'}:</label></td>
+		        <input type = "hidden" name = key value = "footerFontSize" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("footerFontSize")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.color'}:</label></td>
+		        <input type = "hidden" name = key value = "footerColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("footerColor")}" />
+		        </td>
+		      </tr>
+		      </table>
+		  </table>
+		  
+		  <table>
+		  <td class=section width=15%>&{'skin.section'}</td>
+		    <td>
+		      <table>
+		      <tr>
+		        <td><label>&{'skin.txtAlign'}:</label></td>
+		        <input type = "hidden" name = key value = "sectionAlign" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("sectionAlign")}" />
+		        </td>
+		      </tr>
+		      </table>
+		  </table>
+		  
+		  <table>
+		  <td class=section width=15%>&{'skin.label'}</td>
+		    <td>
+		      <table>
+		      <tr>
+		        <td><label>&{'skin.fontSize'}:</label></td>
+		        <input type = "hidden" name = key value = "labelFontSize" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("labelFontSize")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.color'}:</label></td>
+		        <input type = "hidden" name = key value = "labelColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("labelColor")}" />
+		        </td>
+		      </tr>
+		      </table>
+		  </table>
+		  
+		  <table>
+		  <td class=section width=15%>&{'skin.comment'}</td>
+		    <td>
+		      <table>
+		      <tr>
+		        <td><label>&{'skin.borderSize'}:</label></td>
+		        <input type = "hidden" name = key value = "commentBorderSize" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("commentBorderSize")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.borderColor'}:</label></td>
+		        <input type = "hidden" name = key value = "commentBorderColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("commentBorderColor")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.bgColor'}:</label></td>
+		        <input type = "hidden" name = key value = "commentBGColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("commentBGColor")}" />
+		        </td>
+		      </tr>
+		      </table>
+		  </table>
+		      
+		  <table>
+		  <td class=section width=15%>&{'skin.buttons'}</td>
+		    <td>
+		      <table>
+		      <tr>
+		        <td><label>&{'skin.borderRadius'}:</label></td>
+		        <input type = "hidden" name = key value = "buttonBorderRadius" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("buttonBorderRadius")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.borderSize'}:</label></td>
+		        <input type = "hidden" name = key value = "buttonBorderSize" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("buttonBorderSize")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.borderColor'}:</label></td>
+		        <input type = "hidden" name = key value = "buttonBorderColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("buttonBorderColor")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.borderBoxShadowColor'}:</label></td>
+		        <input type = "hidden" name = key value = "buttonBoxShadowColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("buttonBoxShadowColor")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.bgColor'}:</label></td>
+		        <input type = "hidden" name = key value = "buttonBGColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("buttonBGColor")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.txtDec'}: </label></td>
+		        <input type = "hidden" name = key value = "buttonTextDec" />
+		        <td><input type=text name=val
+		             value="${currentUser.profile.skin.get("buttonTextDec")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.unvisitedLinkColor'}: </label></td>
+		        <input type = "hidden" name = key value = "buttonLinkUnvisitedColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("buttonLinkUnvisitedColor")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.visitedLinkColor'}: </label></td>
+		        <input type = "hidden" name = key value = "buttonLinkVisitedColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("buttonLinkVisitedColor")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.hoverLinkColor'}: </label></td>
+		        <input type = "hidden" name = key value = "buttonLinkHoverColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("buttonLinkHoverColor")}" />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td><label>&{'skin.selectedLinkColor'}: </label></td>
+		        <input type = "hidden" name = key value = "buttonLinkSelectedColor" />
+		        <td><input class="color" name=val
+		             value="${currentUser.profile.skin.get("buttonLinkSelectedColor")}" />
+		        </td>
+		      </tr>
+		      </table>
+		  </table>
+		  
+		
+		  <table>
+		  <tr>
+		  <td colspan=3><input type=submit value=&{'skin.save'}> 
+		    #{ifErrors}
+		    <ul style="color:red">
+		      #{errors}<li>${error}</li> #{/errors} 
+		    </ul>
+		    #{/ifErrors}
+		  </td>
+		</tr>
+		  </table>
+		#{/form}
+		
+		#{form @Skins.makeSkin()}
+    <br><label><b>&{'skin.makeNewSkinMsg'}</b></label>
+    
+      <table>
+        <td>
+          <table>
+          <tr>
+            <td><label>&{'skin.skinName'}:</label></td>
+            <td><input type= text name=skinName 
+              value="${currentUser.profile.skin.skinName}" />
+            </td>        
+          </tr>
+          </table>
+      </table>
+      
+      <table>
+      <tr>  
+      <td colspan=3><input type=submit value=&{'skin.save'}> 
+      </td>
+    </tr>
+      </table>
+     #{/form}
+		
+	</div>
+

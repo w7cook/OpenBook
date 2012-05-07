@@ -1,0 +1,129 @@
+<div id="contentArea-BigPage">
+
+  #{if _title_string.equals("Upcoming Events")}
+  <h2>Events</h2>
+  #{/if}
+  #{if _title_string.equals("My Past Events")}
+  <h2>Past Events</h2>
+  #{/if}
+  #{if _title_string.equals("Upcoming Declined Events")}
+  <h2>Declined Events</h2>
+  #{/if}
+  
+ 
+  <hr />
+  <a class=button href="/events/eventcreator">+ Create Event</a><br />
+  <br /> 
+  <br />
+  
+  #{if _today.size() > 0}
+  <h3>${_title2_string}</h3>
+  #{list items:_today, as:'todayevent'} 
+    #{if todayevent.owner.equals(_currentUser)}
+      <a href="/events/${todayevent.id}">${todayevent.name}</a>
+      <a class="button" href="@{Events.deleteEvent(todayevent.id)}">
+        Remove Event
+      </a>
+      <br />
+    #{/if}        
+    #{else}
+    
+      #{if _title_string.equals("Upcoming Declined Events")}
+      #{if todayevent.declined.contains(_currentUser)}
+        <a href="/events/${todayevent.id}">${todayevent.name}</a>
+         <a class="button" href="@{Events.joinEvent(todayevent.id, _currentUser.id)}">
+          Join
+         </a>
+         <a class="button" href="@{Events.maybeEvent(todayevent.id, _currentUser.id)}">
+          Maybe
+         </a>
+        <br />
+      #{/if} 
+      #{/if}
+    
+      #{else}
+      #{if todayevent.members.contains(_currentUser)}
+        <a href="/events/${todayevent.id}">${todayevent.name}</a>
+         <i> You're going.</i>
+        <br />
+      #{/if} 
+      #{if todayevent.maybe.contains(_currentUser)}
+        <a href="/events/${todayevent.id}">${todayevent.name}</a>
+         <i> You might go.</i>
+        <br />
+      #{/if}
+      #{if todayevent.awaitreply.contains(_currentUser)}
+        <a href="/events/${todayevent.id}">${todayevent.name}</a>
+         <a class="button" href="@{Events.joinEvent(todayevent.id, _currentUser.id)}">
+          Join
+         </a>
+         <a class="button" href="@{Events.leaveEvent(todayevent.id, _currentUser.id)}">
+          Decline
+         </a>
+        <br />
+      #{/if} 
+      #{/else}
+      
+    #{/else}   
+  #{/list}
+  <br />
+  #{/if}
+  
+  #{if _events.size() > 0}
+  <h3>${_title_string}</h3>
+  #{list items:_events, as:'event'} 
+    #{if event.owner.equals(_currentUser)}
+      <a href="/events/${event.id}">${event.name}</a>
+      <a class="button" href="@{Events.deleteEvent(event.id)}">
+        Remove Event
+      </a>
+      <br />
+    #{/if}        
+    #{else}
+    
+      #{if _title_string.equals("Upcoming Declined Events")}
+      #{if event.declined.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <a class="button" href="@{Events.joinEvent(event.id, _currentUser.id)}">
+         Join
+         </a>
+         <a class="button" href="@{Events.maybeEvent(event.id, _currentUser.id)}">
+         Maybe
+         </a>
+        <br />
+      #{/if} 
+      #{/if}
+      
+      #{else}
+      #{if event.members.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <i> You're going.</i>
+        <br />
+      #{/if}
+      #{if event.maybe.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <i> You might go.</i>
+        <br />
+      #{/if}
+       #{if event.awaitreply.contains(_currentUser)}
+        <a href="/events/${event.id}">${event.name}</a>
+         <a class="button" href="@{Events.joinEvent(event.id, _currentUser.id)}">
+          Join
+         </a>
+         <a class="button" href="@{Events.leaveEvent(event.id, _currentUser.id)}">
+          Decline
+         </a>
+        <br />
+      #{/if}  
+      #{/else}
+      
+    #{/else}   
+  #{/list}
+  #{/if}
+  
+  #{if _title_string.equals("Upcoming Events")}
+  <hr />
+  <a class=button href="@{Events.past(_currentUser.id)}">Past Events</a><br />
+  <a class=button href="@{Events.declinedEvents(_currentUser.id)}">Declined Events</a>
+  #{/if}
+</div>

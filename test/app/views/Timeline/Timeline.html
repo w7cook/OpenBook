@@ -1,0 +1,85 @@
+#{extends 'three_panel.html' /}
+
+<div id="contentArea-AutoPage">
+  <h1>${user.first_name} ${user.last_name}</h1>
+  
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#info" data-toggle="tab" id="btnInfo">Info</a></li>
+    <li><a href="#interests" data-toggle="tab" id="btnInterests">Interests</a></li>
+  </ul>
+  
+  <div class="tab-content">
+    <div class="tab-pane active" id="info">
+      <p>
+        <b>Name</b>: ${user.first_name} ${user.last_name}
+        <br/>
+        <b>Email</b>: ${user.email}
+        <br/>
+        <b>Username</b>: ${user.username}
+        <br/> 
+      </p>   
+    </div>
+    <div class="tab-pane" id="interests">
+      <p>Some listing of interests!</p>
+    </div>
+  </div>
+  
+  <script>
+    /* It look like Twitter Bootstrap isn't working EXACTLY as intended... so I had to help it along with some JS */
+    $("#btnInfo").click(function(){
+    $("#btnInfo").tab('show');
+    });
+    $("#btnInterests").click(function(){
+    $("#btnInterests").tab('show');
+    });    
+  </script>
+</div>
+
+
+  #{if !currentUser.equals(user)}
+<div class="post">
+    <div id="friends" class="#{if !currentUser.friends.contains(user)}hide#{/if}">
+      You and ${user.first_name} are friends.
+      <button class="btn btn-warning btn-mini" onclick="unfriend(${user.id})">unfriend</button>
+    </div>
+    <div id="not-friends" class="#{if currentUser.friends.contains(user) || user.friendRequests.contains(currentUser) || currentUser.friendRequests.contains(user)}hide#{/if}">
+      Ask to be friends with ${user.first_name}.
+      <button class="btn btn-success btn-mini" onclick="friend(${user.id})">Request Friendship</button>
+    </div>
+    <div id="friend-request" class="alert alert-success span4 #{if !currentUser.friendRequests.contains(user)}hide#{/if}">
+      <a class="close" data-dismiss="alert" href="#">×</a>
+      <h4 class="alert-heading">${user.first_name} wants to be friends with you.</h4>
+      <button class="btn btn-success btn-mini span1" onclick="friend(${user.id})">accept</button>
+      <button class="btn btn-warning btn-mini span1" onclick="unfriend(${user.id})">reject</button>
+    </div>
+    <div id="pending-friends" class="#{if !user.friendRequests.contains(currentUser)}hide#{/if}">
+      You have asked ${user.first_name} to be friends.
+      <button class="btn btn-warning btn-mini" onclick="unfriend(${user.id})">Retract</button>
+    </div>
+</div>
+  #{/if}
+
+
+#{if user.timeline != null}
+  <div id="timelinePosts">  
+    #{list items:currentUser.timeline.getEvents(), as:'_item'}
+      #{include 'tags/post.html' /}
+    #{/list} 
+  </div>
+#{/if}
+
+#{else}		
+#{if currentUser.equals(user)}
+  <div class="post">
+    <h3>Don't have Timeline?</h3>
+    <br />
+    <a class="btn btn-primary btn-large" href="@{Application.createTimeline(currentUser.id)}" style="color:white;"> Get Timeline</a> 
+  </div>
+#{/if}
+#{else}
+  <div class="post">
+    <h3>Looks like ${user.first_name} doesn't have timeline yet :(</h3>
+  </div>
+#{/else}
+#{/else}
+

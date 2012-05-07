@@ -1,0 +1,8 @@
+[
+  #{list items:events, as:'item'} 
+    "/events/${item.id}"#{if !item_isLast},#{/if}
+  #{/list}
+  #{list items:today, as:'item2'} 
+    "/events/${item2.id}"#{if !item2_isLast},#{/if}
+  #{/list}
+]
