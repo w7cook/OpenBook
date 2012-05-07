@@ -127,6 +127,13 @@ GET     /events/{<[0-9]+>eventId}                       Events.event #1 event
 GET     /events/eventcreator                            Events.addEvent
 POST    /events                                         Events.addEvent
 
+# Video
+GET               /users/{<[0-9]+>ownerId}/videos/linked/?                    Videos.listLinkedVideos
+GET           /videos/linked                                                                                      Videos.listMyLinkedVideos
+POST           /videos                                                                                                     Videos.createLinkedVideo
+DELETE      /videos/linked/{<[0-9]+>photoId}                                         Videos.removeLinkedVideo
+
+
 #Relationships
 GET     /relationships                                  Relationships.relationships
 
@@ -147,6 +154,12 @@ GET     /groups/{id}                            Groups.group
 GET     /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.likes
 POST    /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.like
 DELETE  /{Likeable}/{<[0-9]+>likeableId}/likes      Likeables.unLike
+
+# Video
+GET /users/{<[0-9]+>ownerId}/videos/linked/? Videos.listLinkedVideos
+GET /videos/linked Videos.listMyLinkedVideos
+POST /videos Videos.createLinkedVideo 
+DELETE /videos/linked/{<[0-9]+>photoId} Videos.removeLinkedVideo
 
 
 # Ignore favicon requests
