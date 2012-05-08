@@ -44,3 +44,11 @@ $(document).ready(function()
 		yearRange: "-100:+0"
 	});
   });
+  
+  $(function() {
+	$( "#datepicker2" ).datepicker({
+		changeMonth: true,
+		changeYear: true,
+		yearRange: "-100:+0"
+	});
+  });

@@ -102,15 +102,19 @@
                   #{option 'In a civil union'}In a civil union#{/option} 
                   #{option 'In a domestic partnership'}In a domestic partnership#{/option} 
                 #{/select}</td>
-            </tr>
-            
+            </tr>      
+            <tr>
             #{if profile.hasAnniversary()}
-              <tr>
-                <td><label><b>&{'profile.anniversary'}: </b></br></label></td>
-                <td><input type="text" id="datepicker" name="anniversary" /></td>
-              </tr>
+                <td><label><b>&{'profile.anniversary'}: </b></label></td>
+              	#{if profile.anniversary != null}
+                	<input type="text" id="datepicker2" name="anniversary"
+                       value="${profile.anniversary.format("MM/dd/yyyy")}"/>
+                #{/if}
+                #{else}
+                	<input type="text" id="datepicker2" name="anniversary" value="Add anniversary" />
+                #{/else}
             #{/if}
-            
+            </tr> 
             <tr>
               <td><label><b>&{'profile.languages'}: </b></label>
               </td>
