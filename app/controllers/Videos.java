@@ -12,6 +12,19 @@ import models.*;
 import java.util.*;
 import java.util.regex.*;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import java.io.IOException;
+
+import java.nio.charset.Charset;
+import java.io.Reader;
+import java.net.URL;
+import java.net.MalformedURLException;
+
+import com.google.gson.*;
+
 
 @With(Secure.class)
 public class Videos extends OBController {
@@ -84,7 +97,7 @@ public class Videos extends OBController {
     
     Pattern YOUTUBE = Pattern.compile("(?:https?://)?(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w\\-]*");
     Pattern DAILYMOTION = Pattern.compile("(?:https?://)?(?:www\\.)?dailymotion\\.com/video/([\\w\\d]{6})(?:_.*)?");
-    Pattern VIMEO = Pattern.compile("(?:https?://)?(?:www\\.)?vimeo\\.com/(\\d)+");
+    Pattern VIMEO = Pattern.compile("(?:https?://)?(?:www\\.)?vimeo\\.com/[\\d+]");
     
     Matcher y = YOUTUBE.matcher(link);
     Matcher d = DAILYMOTION.matcher(link);
@@ -105,7 +118,7 @@ public class Videos extends OBController {
     
     Pattern YOUTUBE = Pattern.compile("https?://(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w\\-]*");
     Pattern DAILYMOTION = Pattern.compile("https?://(?:www\\.)?dailymotion\\.com/video/([\\w\\d]{6})(?:_.*)?");
-    Pattern VIMEO = Pattern.compile("https?://(?:www\\.)?vimeo\\.com/(\\d)+");
+    Pattern VIMEO = Pattern.compile("https?://(?:www\\.)?vimeo\\.com/[\\d+]");
     
     Matcher m;
     String videoId = "";
@@ -117,6 +130,12 @@ public class Videos extends OBController {
     }
     else if(link_type == 'd'){
       m = DAILYMOTION.matcher(link);
+      if(m.find()){
+        videoId = m.group(1);
+      }
+    }
+    else if(link_type == 'd'){
+      m = VIMEO.matcher(link);
       if(m.find()){
         videoId = m.group(1);
       }
@@ -133,9 +152,53 @@ public class Videos extends OBController {
     else if(link_type =='d'){
       return "http://www.dailymotion.com/thumbnail/160x120/video/" + video_id + "/";
     }
+    else if(link_type =='v'){
+      String info_url = "http://wwwvimeo.com/api/v2/video/" + video_id + ".json";
+      String json_text = jsonStringFromUrl(info_url);
+      
+      JsonObject json_object = new Gson().fromJson(json_text, JsonObject.class);
+      
+      Logger.info("thumbnail_address: " + json_object.get("thumbnail_small").getAsString()); 
+      
+      return json_object.get("thumbnail_small").getAsString();
+      
+    }
     
     return "blah";
   }
+  
+  public static String jsonStringFromUrl (String url){
+    
+    String json_text = "";
+    try{
+      URL json_url = new URL(url);
+      
+      InputStream inputstream = json_url.openStream();
+      InputStreamReader is_reader = new InputStreamReader(inputstream, Charset.forName("UTF-8"));
+      BufferedReader b_reader = new BufferedReader(is_reader);
+      
+      json_text = readerToString(b_reader);
+      
+    } catch (MalformedURLException e){
+      e.printStackTrace();
+    } catch (IOException e){
+      e.printStackTrace();
+    }
+
+    
+    return json_text; 
+  }
+  
+  private static String readerToString(Reader reader) throws IOException {
+      StringBuilder builder = new StringBuilder();
+
+      int i = 0;
+      while ((i = reader.read()) != -1) {
+        builder.append((char) i);
+      }
+      
+      return builder.toString();
+    }
   
   private static boolean isValidVideo(String link){
     WS web_serv = new WS();

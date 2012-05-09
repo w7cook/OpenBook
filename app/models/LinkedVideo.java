@@ -51,7 +51,7 @@ public class LinkedVideo extends Post {
       else if (link_type == 'd')
         return "<iframe src=\"http://www.dailymotion.com/embed/video/" + video_id + "/\" width=\"420\" height=\"255\" frameborder=\"0\"></iframe>";
       else if(link_type == 'v')
-        return "";
+        return "<iframe src=\"http://player.vimeo.com/video/" + video_id + "\" width=\"420\" height=\"255\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>";
       else
         return "";
     }
@@ -61,7 +61,7 @@ public class LinkedVideo extends Post {
       else if (link_type == 'd')
         return "<iframe src=\"http://www.dailymotion.com/embed/video/" + video_id + "/\" width=\"560\" height=\"340\" frameborder=\"0\"></iframe>";
       else if(link_type == 'v')
-        return "";
+        return "<iframe src=\"http://player.vimeo.com/video/" + video_id + "\" width=\"560\" height=\"340\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>";
       }
       
       return "";
