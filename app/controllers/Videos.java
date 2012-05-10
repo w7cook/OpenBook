@@ -97,7 +97,7 @@ public class Videos extends OBController {
     
     Pattern YOUTUBE = Pattern.compile("(?:https?://)?(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w\\-]*");
     Pattern DAILYMOTION = Pattern.compile("(?:https?://)?(?:www\\.)?dailymotion\\.com/video/([\\w\\d]{6})(?:_.*)?");
-    Pattern VIMEO = Pattern.compile("(?:https?://)?(?:www\\.)?vimeo\\.com/[\\d+]");
+    Pattern VIMEO = Pattern.compile("(?:https?://)?(?:www\\.)?vimeo\\.com/([\\d]+)");
     
     Matcher y = YOUTUBE.matcher(link);
     Matcher d = DAILYMOTION.matcher(link);
@@ -118,7 +118,7 @@ public class Videos extends OBController {
     
     Pattern YOUTUBE = Pattern.compile("https?://(?:www\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)[?=&+%\\w\\-]*");
     Pattern DAILYMOTION = Pattern.compile("https?://(?:www\\.)?dailymotion\\.com/video/([\\w\\d]{6})(?:_.*)?");
-    Pattern VIMEO = Pattern.compile("https?://(?:www\\.)?vimeo\\.com/[\\d+]");
+    Pattern VIMEO = Pattern.compile("https?://(?:www\\.)?vimeo\\.com/([\\d]+)");
     
     Matcher m;
     String videoId = "";
@@ -134,10 +134,11 @@ public class Videos extends OBController {
         videoId = m.group(1);
       }
     }
-    else if(link_type == 'd'){
+    else if(link_type == 'v'){
       m = VIMEO.matcher(link);
       if(m.find()){
         videoId = m.group(1);
+        Logger.info("MGROUP: " + m.group(1));
       }
     }
     
@@ -153,12 +154,18 @@ public class Videos extends OBController {
       return "http://www.dailymotion.com/thumbnail/160x120/video/" + video_id + "/";
     }
     else if(link_type =='v'){
-      String info_url = "http://wwwvimeo.com/api/v2/video/" + video_id + ".json";
+      String info_url = "http://www.vimeo.com/api/v2/video/" + video_id + ".json";
       String json_text = jsonStringFromUrl(info_url);
       
-      JsonObject json_object = new Gson().fromJson(json_text, JsonObject.class);
+      Logger.info("JSON TEXT: " + json_text);
       
-      Logger.info("thumbnail_address: " + json_object.get("thumbnail_small").getAsString()); 
+      JsonParser parser = new JsonParser();
+      
+      JsonArray json_array = (JsonArray)parser.parse(json_text);
+      JsonElement json_element = json_array.get(0);
+      
+      JsonObject json_object = (JsonObject)parser.parse(json_element.toString()); 
+      
       
       return json_object.get("thumbnail_small").getAsString();
       
@@ -173,6 +180,8 @@ public class Videos extends OBController {
     try{
       URL json_url = new URL(url);
       
+      Logger.info("URL: " + url);
+      
       InputStream inputstream = json_url.openStream();
       InputStreamReader is_reader = new InputStreamReader(inputstream, Charset.forName("UTF-8"));
       BufferedReader b_reader = new BufferedReader(is_reader);
@@ -184,17 +193,21 @@ public class Videos extends OBController {
     } catch (IOException e){
       e.printStackTrace();
     }
-
+    
     
     return json_text; 
   }
   
-  private static String readerToString(Reader reader) throws IOException {
+  private static String readerToString(Reader reader) {
       StringBuilder builder = new StringBuilder();
-
-      int i = 0;
-      while ((i = reader.read()) != -1) {
-        builder.append((char) i);
+      
+      try{
+        int i = 0;
+        while ((i = reader.read()) != -1) {
+          builder.append((char) i);
+        }
+      } catch (IOException e){
+        e.printStackTrace();
       }
       
       return builder.toString();
@@ -233,7 +246,13 @@ public class Videos extends OBController {
     LinkedVideo vid = LinkedVideo.findById(video_id);
     User owner = vid.owner;
     if (!owner.equals(user()))
-      forbidden();  
+      forbidden();
+    List<Comment> comments = vid.comments();
+    
+    for(int i = 0; i < comments.size(); i++){
+      Comment comment = comments.remove(i);
+      comment.delete();
+    }
     vid.delete();
     
     listLinkedVideos(owner.id);
