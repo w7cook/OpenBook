@@ -58,7 +58,7 @@
           #{if currentUser.numFriendRequests() > 0}
             #{list items:currentUser.friendRequests, as:'request'}
               <li>
-                <a href="/users/${request.id}">${request.name} wants to be friends.</a>
+                <a href="/users/${request.id}">${request} wants to be friends.</a>
               </li>
             #{/list}
           #{/if}

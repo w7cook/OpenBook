@@ -12,7 +12,7 @@
   <li><a href="/users/${_user.id}/events">Events</a></li>
   <li><a href="@{Checkins.checkin()}">Checkin</a></li>
   <li><a href="@{Messages.inbox()}">Inbox <span class="badge">${_user.unreadCount()}</span></a></li>
-  <li><a href="/users/${_user.id}/requests">Friend Requests</a></li>
+  <li><a href="/users/${_user.id}/requests">Friend Requests <span class="badge">${_user.numFriendRequests()}</span></a></li>
   <li><a href="/changeSkin">Change Skin</a></li>
   <li><a href="@{Notes.viewNotes()}">Notes</a></li>
   <li><a href="@{Categories.listAll()}">Threads</a></li>
