@@ -23,13 +23,13 @@
               </td>
               
               <td><input size=50 type="text" name="bio" onfocus="if(this.value == 'Write About Yourself'){this.value = '';}"
-onblur="if(this.value == ''){this.value='Write About Yourself';}"
-value="${profile.bio ? profile.bio : 'Write About Yourself'}">
+			  onblur="if(this.value == ''){this.value='Write About Yourself';}"
+			  value="${profile.bio ? profile.bio : 'Write About Yourself'}">
               </td>
             </tr>
           </table>
           <input type="submit" value="Save" id="updateBio" />
-<input type="reset" value="Cancel">
+		  <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="AboutMeData" style="display:block;">
