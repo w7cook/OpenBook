@@ -38,7 +38,7 @@ $(document).ready(function()
   });
   
   $(function() {
-	$( "#datepicker" ).datepicker({
+	$( "#birthdaypicker" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		yearRange: "-100:+0"
@@ -46,7 +46,7 @@ $(document).ready(function()
   });
   
   $(function() {
-	$( "#datepicker2" ).datepicker({
+	$( "#anniversarypicker" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		yearRange: "-100:+0"
