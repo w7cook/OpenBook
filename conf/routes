@@ -23,6 +23,8 @@ GET     /users/{<[0-9]+>userId}/profile         Users.profile
 GET     /users/{<[0-9]+>userId}/friends         Users.friends
 POST    /users/{<[0-9]+>userId}/friends         Users.requestFriends
 DELETE  /users/{<[0-9]+>userId}/friends         Users.removeFriends
+POST    /users/{<[0-9]+>userId}/subscribe       Subscriptions.addSubscription
+DELETE  /users/{<[0-9]+>userId}/subscribe       Subscriptions.removeSubscription
 GET     /users/{<[0-9]+>userId}/requests        Users.friendRequests
 GET     /users/{<[0-9]+>ownerId}/photos/?       Photos.photos
 GET     /users/{<[0-9]+>userId}/posts/?                 Posts.posts #get all posts by a user

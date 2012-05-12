@@ -1,4 +1,4 @@
-#{extends 'three_panel.html' /}
+﻿#{extends 'three_panel.html' /}
 
 <div id="contentArea-AutoPage">
   <h1>${user.first_name} ${user.last_name}</h1>
@@ -55,6 +55,12 @@
     <div id="pending-friends" class="#{if !user.friendRequests.contains(currentUser)}hide#{/if}">
       You have asked ${user.first_name} to be friends.
       <button class="btn btn-warning btn-mini" onclick="unfriend(${user.id})">Retract</button>
+    </div>
+    <div id="subscribedTo" class="#{if currentUser.isSubscribed(user)}hide#{/if}">
+      <button class="btn btn-warning btn-mini" onclick="unfriend(${user.id})">Subscribe</button>
+    </div>
+    <div id="subscribed" class="#{if !currentUser.isSubscribed(user)}hide#{/if}">
+      <button class="btn btn-success btn-mini" onclick="unfriend(${user.id})">Subscribed</button>
     </div>
 </div>
   #{/if}
