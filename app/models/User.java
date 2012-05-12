@@ -118,6 +118,8 @@ public class User extends Postable {
     this.username = username;
     this.friends = new HashSet<User>();
     this.friendRequests = new HashSet<User>();
+    this.subscribedTo = new ArrayList<Subscription>();
+    this.subscribers = new ArrayList<Subscription>();
     this.save();
 
     friends.add(this);
@@ -138,6 +140,8 @@ public class User extends Postable {
 
     this.friends = new HashSet<User>();
     this.friendRequests = new HashSet<User>();
+    this.subscribedTo = new ArrayList<Subscription>();
+    this.subscribers = new ArrayList<Subscription>();
     this.save();
     friends.add(this);
 
@@ -161,6 +165,8 @@ public class User extends Postable {
 
       this.friends = new HashSet<User>();
       this.friendRequests = new HashSet<User>();
+      this.subscribedTo = new ArrayList<Subscription>();
+      this.subscribers = new ArrayList<Subscription>();
       this.save();
       friends.add(this);
 
@@ -206,6 +212,18 @@ public class User extends Postable {
   public List<Post> subscriptionNews() {
     return Post.find("SELECT p FROM Post p, IN(p.owner.subscribers) u WHERE u.subscriber.id = ?1 and p.postedObj.id = u.subscribed.id order by p.updatedAt desc",
         this.id).fetch();
+  }
+  
+  public List<User> subscribedTo() {
+	  return Subscription.find("SELECT s FROM Subscription s WHERE s.subscriber = ?", this).fetch();
+  }
+  
+  public List<User> subscribers() {
+	  return Subscription.find("SELECT s FROM Subscription s WHERE s.subscribed = ?", this).fetch();
+  }
+  
+  public boolean isSubscribed(User user) {
+	  return !(Subscription.find("SELECT s FROM Subscription s WHERE s.subscribed = ?1 AND s.subscriber = ?2", user, this).first() == null);
   }
 
   public void createTimeline() {
