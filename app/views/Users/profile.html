@@ -4,14 +4,14 @@
 
 <script type="text/javascript" src="/public/javascripts/profile.js"></script>
 
-<div class="globalContentAbout">  
-  <div class="LeftColumnAbout">  
+<div class="globalContentAbout">
+  <div class="LeftColumnAbout">
     <div class="Panel">
       #{ifErrors}
         #{errors}
           <li><b><font color="red"> ${error}</font></b></li>
         #{/errors}
-      #{/ifErrors} 
+      #{/ifErrors}
       <span class="PanelTitle">&{'profile.about.you'}</span>
       <button class="EditButton" id="AboutMeEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
@@ -23,13 +23,13 @@
               </td>
               
               <td><input size=50 type="text" name="bio" onfocus="if(this.value == 'Write About Yourself'){this.value = '';}"
-		         onblur="if(this.value == ''){this.value='Write About Yourself';}" 
-		         value="${profile.bio ? profile.bio : 'Write About Yourself'}">
+			       onblur="if(this.value == ''){this.value='Write About Yourself';}"
+			       value="${profile.bio ? profile.bio : 'Write About Yourself'}">
               </td>
             </tr>
           </table>
           <input type="submit" value="Save" id="updateBio" />
-	        <input name="cancel" type="reset" value="Cancel">
+		  <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="AboutMeData" style="display:block;">
@@ -54,33 +54,33 @@
               <td><label><b>&{'profile.birthday'}: </b></br> </label>
               </td>
               <td>
-              	#{if profile.birthday != null}
-                	<input type="text" id="datepicker" name="birthday"
+               #{if profile.birthday != null}
+                 <input type="text" id="birthdaypicker" name="birthday"
                        value="${profile.birthday.format("MM/dd/yyyy")}"/>
                 #{/if}
                 #{else}
-                	<input type="text" id="datepicker" name="birthday" value="Add birthday" />
+                 <input type="text" id="birthdaypicker" name="birthday" value="Add birthday" />
                 #{/else}
               </td>
             </tr>
             <tr>
               <td><label><b>&{'profile.sex'}:</b></label></td>
-              <td>#{select 'gender', value:profile.gender} 
-                #{option 'Male'}Male#{/option} 
+              <td>#{select 'gender', value:profile.gender}
+                #{option 'Male'}Male#{/option}
                 #{option 'Female'}Female#{/option}
                 #{/select}</td>
-              <!--  Show my sex on my timeline  -->
+              <!-- Show my sex on my timeline -->
             </tr>
             
             <tr>
               <td><label><b>&{'profile.interested.in'}: </b></label></td>
               <td>
-                #{select 'interestedIn', value:profile.interestedIn} 
+                #{select 'interestedIn', value:profile.interestedIn}
                   #{option ''}#{/option}
-                  #{option 'Men'}Men#{/option} 
-                  #{option 'Women'}Women#{/option} 
-                  #{option 'Both'}Both#{/option} 
-                  #{option 'Neither'}Neither#{/option} 
+                  #{option 'Men'}Men#{/option}
+                  #{option 'Women'}Women#{/option}
+                  #{option 'Both'}Both#{/option}
+                  #{option 'Neither'}Neither#{/option}
                 #{/select}
               </td>
             </tr>
@@ -88,26 +88,27 @@
             <tr>
               <td><label><b>&{'profile.relationship.status'}: </b></label></td>
               <td>
-                #{select 'relationshipStatus', value:profile.relationshipStatus} 
-                  #{option  ''}#{/option}
-                  #{option 'Single'}Single#{/option} 
-                  #{option 'In a relationship'}In a relationship#{/option} 
+                #{select 'relationshipStatus', value:profile.relationshipStatus}
+                  #{option ''}#{/option}
+                  #{option 'Single'}Single#{/option}
+                  #{option 'In a relationship'}In a relationship#{/option}
                   #{option 'Engaged'}Engaged#{/option}
-                  #{option 'Married'}Married#{/option} 
-                  #{option 'It\'s complicated'}It's complicated#{/option} 
+                  #{option 'Married'}Married#{/option}
+                  #{option 'It\'s complicated'}It's complicated#{/option}
                   #{option 'In an open relationship'}In an open relationship#{/option}
-                  #{option 'Widowed'}Widowed#{/option} 
-                  #{option 'Separated'}Separated#{/option} 
-                  #{option 'Divorced'}Divorced#{/option} 
-                  #{option 'In a civil union'}In a civil union#{/option} 
-                  #{option 'In a domestic partnership'}In a domestic partnership#{/option} 
+                  #{option 'Widowed'}Widowed#{/option}
+                  #{option 'Separated'}Separated#{/option}
+                  #{option 'Divorced'}Divorced#{/option}
+                  #{option 'In a civil union'}In a civil union#{/option}
+                  #{option 'In a domestic partnership'}In a domestic partnership#{/option}
                 #{/select}</td>
             </tr>
             
             #{if profile.hasAnniversary()}
               <tr>
                 <td><label><b>&{'profile.anniversary'}: </b></br></label></td>
-                <td><input type="text" id="datepicker" name="anniversary" /></td>
+                <td><input type="text" id="anniversarypicker" name="anniversary" 
+                	value="${profile.anniversary.format("MM/dd/yyyy")}" /></td>
               </tr>
             #{/if}
             
@@ -174,15 +175,15 @@
               <td>
                 #{list items:profile.languages, as:'lang'}
                   ${lang.toString()}
-                #{/list}  
+                #{/list}
                 <input type=text name=language value="Add language">
               </td>
             </tr>
           #{/if}
           #{if profile.religion}
             <tr>
-              <td><label><b>&{'profile.religious.views'}:  </b></label></td>
-              <td>   ${profile.religion}</td>
+              <td><label><b>&{'profile.religious.views'}: </b></label></td>
+              <td> ${profile.religion}</td>
             </tr>
           #{/if}
           #{if profile.political}
@@ -204,20 +205,20 @@
             <tr>
               <td><label><b>&{'profile.phone'}: </b></label></td>
               <td><input type="text" name="phone" onfocus="if(this.value == 'Add A Phone Number'){this.value = '';}"
-		         onblur="if(this.value == ''){this.value='Add A Phone Number';}"
+                         onblur="if(this.value == ''){this.value='Add A Phone Number';}"
                          value="${profile.phone ? profile.phone : 'Add A Phone Number'}">
               </td>
             </tr>
             <tr>
               <td><label><b>&{'profile.address'}: </b></label></td>
               <td><input type="text" name="address" onfocus="if(this.value == 'Add Current Address'){this.value = '';}"
-		         onblur="if(this.value == ''){this.value='Add Current Address';}"
+                         onblur="if(this.value == ''){this.value='Add Current Address';}"
                          value="${profile.address ? profile.address : 'Add Current Address'}">
               </td>
             </tr>
           </table>
           <input type="submit" value="Save" id="updateContactInfo" />
-	      <input type="reset" value="Cancel">
+          <input type="reset" value="Cancel">
         #{/form}
       </div>
       <div class="Data" id="ContactInfoData" style="display:block;">
@@ -250,18 +251,18 @@
             <tr>
               <td><label>&{'profile.education'}:</label></td>
               <td>
-	        <input size=50 type="text" name="edu" onfocus="if(this.value == 'Add A School'){this.value = '';}"
-		       onblur="if(this.value == ''){this.value='Add A School';}"
-		       value="#{list items:profile.education, as:'enrollment'}
-		              ${enrollment.toString()}, #{/list}Add A School"}>
+                <input size=50 type="text" name="edu" onfocus="if(this.value == 'Add A School'){this.value = '';}"
+                onblur="if(this.value == ''){this.value='Add A School';}"
+                value="#{list items:profile.education, as:'enrollment'}
+                ${enrollment.toString()}, #{/list}Add A School"}>
               </td>
             </tr>
             <tr>
               <td><label>&{'profile.work.history'}:</label></td>
               <td>#{list items:profile.work, as:'work'}
-                ${work.toString()} #{/list} 
-	        <input size=50 type=text name="work"
-              	       value="Add an employer">
+                ${work.toString()} #{/list}
+                <input size=50 type=text name="work"
+                value="Add an employer">
               </td>
             </tr>
           </table>
@@ -269,13 +270,13 @@
 	        <input name="cancel" type="reset" value="Cancel">
         #{/form}
       </div>
-      <div class="Data" id="WorkEduData" style="display:block;">  
+      <div class="Data" id="WorkEduData" style="display:block;">
         <table>
           #{if profile.education.size() > 0}
             <tr>
               <td><label>&{'profile.education'}:</label></td>
               <td>#{list items:profile.education, as:'enrollment'}
-                ${enrollment.toString()} #{/list} 
+                ${enrollment.toString()} #{/list}
               </td>
             </tr>
           #{/if}
@@ -283,7 +284,7 @@
             <tr>
               <td><label>&{'profile.work.history'}:</label></td>
               <td>#{list items:profile.work, as:'work'}
-                ${work.toString()} #{/list} 
+                ${work.toString()} #{/list}
               </td>
             </tr>
           #{/if}
@@ -295,12 +296,12 @@
       <button class="EditButton" id="LivingEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
       <div class="editData" id="EditDataLiving" style="display:none;">
-	#{form @Profiles.updateLiving()}
+      #{form @Profiles.updateLiving()}
           <table>
             <tr>
               <td><label>&{'profile.hometown'}: </label></td>
               <td><input type="text" name="hometown" onfocus="if(this.value == 'Add Hometown'){this.value = '';}"
-		         onblur="if(this.value == ''){this.value='Add Hometown';}"
+              onblur="if(this.value == ''){this.value='Add Hometown';}"
                          value="${profile.hometown ? profile.hometown : 'Add Hometown'}">
               </td>
             </tr>
@@ -325,7 +326,7 @@
       <button class="EditButton" id="QuoteEditButton">Edit<img src="@{'public/images/edit_icon.gif'}" />
       </button><br/>
       <div class="editData" id="EditDataQuote" style="display:none;">
-	#{form @Profiles.updateQuote() }
+      #{form @Profiles.updateQuote() }
           <table>
             <tr>
               <td><label>&{'profile.quote'}: </label></td>

@@ -44,11 +44,13 @@ public class Profiles extends OBController {
     profile.relationshipStatus = Profile.Relationship.fromString(relationshipStatus);
     DateFormat birthday_formatting = new SimpleDateFormat("MM/dd/yyyy");
     if(birthday != null){
-      try{
-        profile.birthday = (Date) birthday_formatting.parse(birthday);
-      } catch (java.text.ParseException e) {
-        Logger.error("Birthday should be in format: MM/dd/yyyy", e);
-        validation.match(birthday, ("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$"));
+      if(!birthday.equals("Add birthday")){
+        try{
+          profile.birthday = (Date) birthday_formatting.parse(birthday);
+        } catch (java.text.ParseException e) {
+          Logger.error("Birthday should be in format: MM/dd/yyyy", e);
+          validation.match(birthday, ("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$"));
+        }
       }
     }
 
@@ -56,11 +58,13 @@ public class Profiles extends OBController {
     profile.interestedIn = interestedIn;
     DateFormat anniversary_formatting = new SimpleDateFormat("MM/dd/yyyy");
     if(anniversary != null){
-      try {
-        profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
-      } catch (java.text.ParseException e) {
-        Logger.error("Anniversary should be in format: MM/dd/yyyy", e);
-        validation.match(anniversary, ("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$"));
+      if(!anniversary.equals("Add anniversary")){
+        try {
+          profile.anniversary = (Date) anniversary_formatting.parse(anniversary);
+        } catch (java.text.ParseException e) {
+          Logger.error("Anniversary should be in format: MM/dd/yyyy", e);
+          validation.match(anniversary, ("\\^\\(0\\[1-9\\]\\|1\\[012\\]\\)\\[-/.\\]\\(0\\[1-9\\]\\|\\[12\\]\\[0-9\\]\\|3\\[01\\]\\)\\[-/.\\]\\(19\\|20\\)\\d\\d\\$"));
+        }
       }
 
     }
@@ -86,9 +90,9 @@ public class Profiles extends OBController {
     }
     else
       profile.phone = "";
-    validation.phone(profile.phone);
-    if(validation.hasErrors()) {
-      profile.phone = previousPhone;
+      validation.phone(profile.phone);
+      if(validation.phone(phone).error != null) {
+        profile.phone = previousPhone;
     }
 
     if(!address.equals("Add Current Address"))
