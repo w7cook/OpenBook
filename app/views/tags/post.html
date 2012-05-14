@@ -18,6 +18,11 @@
           <iframe src="${((models.Link)_item).external_url}"></iframe>
         </div>
       #{/elseif}
+      #{if _item.getClass().getName() == "models.LinkedVideo"}
+        <a href="@{Videos.showLinkedVideo(_item.id)}"><h3>${_item.title}</h3></a>
+        #{verbatim} ${_item.getEmbedHtml(1)} #{/verbatim}
+        <div>${_item.caption}</div>
+      #{/if}
       #{elseif _item.getClass().getName() == "models.Question"}
         <div class="post-question">
 	  #{question currentUser:currentUser, question:_item /}

@@ -1,0 +1,99 @@
+#{extends 'two_panel.html' /}
+
+<div id="contentArea-BigPage">
+  
+  <h2>Subscriptions:</h2>
+  <hr />
+  <br />
+  <div id="contentArea">
+    <div class="subscibeList">
+      <span class="note">On the List</span><br />
+      #{list items:user.subscribedTo, as:'Subscribed'}
+        <a href="@{Application.news(Subscribed.subscribed.id)}">${Subscribed.subscribed.name}</a>
+        <br />
+      #{/list}
+    </div>
+    #{list items:user.subscriptionNews(), as:'item'}
+      <div class="post">
+        <div class="hideable">
+          <div class="left">
+            <img src=@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)} width="50" height="50" />
+          </div>
+          <div class="tohide hide">
+            <div class="post-content">${item.content.markdown().nl2br()}</div>
+            #{list items:item.getComments(), as:'comment'}
+              <div class="comment">
+                <div class="comment-metadata">
+                  <div class="comment-author">by ${comment.owner},</div>
+                  <div class="comment-date">
+                    ${comment.updatedAt.format('dd MMM yy')}
+                  </div>
+                  #{if comment.owner == currentUser.first_name}
+                    <a class="button" href="@{Comments.deleteComment(comment.id,user.id)}">delete</a>
+                  #{/if}
+                  #{ if comment.currentUserLiked()}
+                    <a class="button" href="@{Comments.unLike(comment.id,user.id)}"> Unlike</a>
+                  #{/if}
+                  #{else}
+                    <a class="button" href="@{Comments.addLike(comment.id,user.id)}">Like</a>
+                  #{/else}
+                  <div>${comment.likes.size()} likes</div>
+                </div>
+                <div class="comment-content">
+                  ${comment.content.escape().nl2br()}
+                </div>
+              </div>
+            #{/list}
+            <a class='triggerhide' href='#' onclick='return false;'>
+              -less<br />
+            </a>
+          </div>
+        
+          <div class="individual-post-metadata">
+            ${item.likes.size()}
+            #{if user.isFriendsWith(currentUser) || user==currentUser} 
+              #{ if item.currentUserLiked()}
+                <a href="@{Application.unLike(item.id,user.id)}">Unlike</a>
+              #{/if}
+              #{else}
+                <a href="@{Application.addLike(item.id,user.id)}">Like</a>
+              #{/else}
+            #{/if}
+            
+            . <a href="#" onclick="showDiv('comment ${item.id}')">Comment</a> .
+            ${item.updatedAt.format('dd MMM yy')}
+            #{if item.owner == currentUser}
+              . <a href="@{Posts.deletePost(item.id,user.id)}">delete my post</a>
+            #{/if}
+          
+            <div id="comment ${item.id}" style="clear: both;"
+                 class="comment-textarea">
+              #{form @Comments.postComment(item.id, user.id, commentContent)}
+                <div style="clear: both;">
+                  <textarea name="commentContent" id="commentContent"
+                            style="width: 420px; padding: 2px; height: 20px; display: block; font-family: serif; resize: none; overflow-y: hidden;"></textarea>
+                </div>
+                <input type="submit" value="Comment"
+                       style="clear: right; margin-top: 3px;" />
+              #{/form}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  #{/list}
+
+  <script>
+    $('textarea#postContent').autoResize({
+    maxHeight: 150,
+    minHeight: 50,
+    extraSpace: 30
+    });
+    $('textarea#commentContent').autoResize({
+    maxHeight: 70,
+    minHeight: 20,
+    extraSpace: 20
+    });
+  </script>
+</div>
+  

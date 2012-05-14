@@ -1,0 +1,11 @@
+<div id="question_${_question.id}" class="question">
+	${_question.content}<br />
+	<ul>
+	%{
+	_question.answers.each{println "<li style='width:25%; list-style-type:none;' class='answer' title='"+ it.percentage() +"'><a href='/answers/"+it.id+"'>"+it.answer+"</a> : "+it.numTimesAnswered()+"</li>"}
+	  }%
+  </ul>
+  <script>
+    $(".answer").each(function(e){$(this).progressbar({value:Number($(this).attr('title'))})});
+  </script>
+</div>

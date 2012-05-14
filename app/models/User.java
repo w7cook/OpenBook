@@ -107,6 +107,10 @@ public class User extends Postable {
   @ElasticSearchIgnore
   @OneToMany(mappedBy="owner")
   public Set<Question> questions;
+  
+  @ElasticSearchIgnore
+  @OneToMany(mappedBy = "owner", cascade=CascadeType.ALL)
+  public List<LinkedVideo> videos; //videos of the user
 
   @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
   public List<RSSFeed> feeds;

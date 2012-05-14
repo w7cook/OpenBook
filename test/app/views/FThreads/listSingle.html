@@ -1,0 +1,59 @@
+#{extends 'two_panel.html' /} #{set 'title'} OpenBook :: ${thread.title}
+#{/set}
+
+
+<h2>
+	<a href="/threads">Public Threads</a> / <a
+		href="/threads/${thread.category.id}">${thread.category.name}</a> /
+	${thread.title}
+</h2>
+
+<div class="well">
+
+	<div class="row-fluid category" id="originalPost">
+		<div class="authorDetails">
+		  <a href="/?id=${thread.owner.id}">
+			<img src="/photos/120x120/${thread.owner.id}" class="postAvatar"></a>
+			<h4>
+				<a href="/?id=${thread.owner.id}">${thread.owner}</a>
+			</h4>
+			<span class="postDate">
+			${thread.postedAt.format("M-d-yy, h:mm a")}</span>
+		</div>
+		<div class="postContent">${thread.content.nl2br()}</div>
+	</div>
+
+	#{list items:thread.comments(), as:'comment'}
+	<div class="row-fluid category" id="thd-${comment.id}">
+		<div class="authorDetails">
+			#{if comment.owner == _user} <a href="#"
+				onclick="deleteComment(${comment.id}, event)"><i
+				class="icon-remove"></i></a> #{/if} <a href="/?id=${comment.owner.id}">
+				<img src="/photos/120x120/${comment.owner.id}" class="postAvatar">
+			</a>
+			<h4>
+				<a href="/?id=${comment.owner.id}">${comment.owner}</a>
+			</h4>
+			<span class="postDate">
+			${comment.updatedAt.format("M-d-yy, h:mm a")}</span>
+		</div>
+		<div class="postContent">${comment.content.nl2br()}</div>
+	</div>
+	#{/list}
+
+	<div class="row-fluid category" id="originalPost">
+		<div class="authorDetails"></div>
+		<div class="postContent">
+			<form action="#">
+				<textarea id="threadReply"></textarea>
+				<a class="btn btn-primary" href="#" id="postReply"
+					onclick="postComment(${thread.id}, event)">&{'thread.postReply'}</a>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="/public/javascripts/threads.js"></script>
+
+<div id="userinfo" style="display: none" data-username="${_user.name}"
+	data-userid="${_user.id}"></div>

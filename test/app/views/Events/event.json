@@ -1,0 +1,12 @@
+{
+  "name" : "${event.name}",
+  "location" : "${event.location}",
+  "details" : "${event.script}",
+  "owner" : "/users/${event.owner.id}",
+  "atendees" : 
+    [
+      #{list items:event.members, as:'user'}
+        "users/${user.id}"#{if !user_isLast},#{/if}
+      #{/list}
+    ]
+}

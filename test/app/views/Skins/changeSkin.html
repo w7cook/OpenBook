@@ -1,0 +1,14 @@
+#{extends 'two_panel.html' /}
+<div id="contentArea-BigPage">
+  <h2>Skins</h2>
+  <hr />
+  <br>
+  <a href="@{Skins.editMySkin}">&{'skin.editMsg'}</a>
+  <br>
+  <br>
+  #{list items: skinList, as:'skin'} 
+    <iframe src="@{Skins.sampleSkin(skin.id)}" width = "150" height = "100%"
+	    scrolling = "no" align = "middle" marginheight = "0" 
+	    marginwidth = "0" hspace = "5" vspace = "5" > </iframe>        
+  #{/list}
+</div>

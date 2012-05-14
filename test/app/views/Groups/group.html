@@ -1,0 +1,14 @@
+#{extends 'three_panel.html' /}
+<div id="contentArea-AutoPage">
+  <h1>${group.groupName}</h1>
+  <hr />
+  <h2>${group.description}</h2>
+  <h3>The group is owned by ${group.owner}</h3>
+  <h4>The Group members:</h4>
+  #{list items:group.members, as:'member'}
+    <a href="/users/${member.id}">${member.name}</a>
+    <br>
+  #{/list}
+  <hr />
+  #{include 'Groups/post.html' /}
+</div>

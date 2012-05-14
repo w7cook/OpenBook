@@ -1,0 +1,35 @@
+<div id="comment${_comment.id}" class="row" style="background-color:#e8e8e8; padding:3px 0;">
+  <div class="span1">
+    <img src="@{Thumbnails.get30x30(_comment.owner.profile.profilePhoto.id)}" width="30" height="30" style="float:right;"/>
+    </div>
+  <div class="comment-content span4">
+    <div class="comment-author">              
+      <a href="/users/${_comment.owner.id}">
+        ${_comment.owner.name}
+      </a>
+    </div>
+    ${_comment.content.markdown().nl2br()}
+  </div>
+  <div class="span7"></div>
+  <div id="comment-metadata-${_comment.id}" class="comment-metadata span4 offset1">
+    <span class="num-likes">${_comment.numLikes()}</span>
+    <span class="num-likes-text">
+      Like#{if _comment.numLikes() != 1}s#{/if}.
+    </span>
+    <button class="button unlike-btn #{if !_comment.likedBy(_user)}hide#{/if}"
+            onclick="unlike('/comments/${_comment.id}/likes', 'comment-metadata-${_comment.id}')">
+      &{'comment.unlike'}
+    </button>
+    <button class="button like-btn #{if _comment.likedBy(_user)}hide#{/if}"
+            onclick="like('/comments/${_comment.id}/likes', 'comment-metadata-${_comment.id}')">
+      &{'comment.like'}
+    </button>
+    <span class="comment-date">
+      #{timeago date:_comment.updatedAt /}
+    </span>
+    #{if _comment.owner.id == _user.id} 
+      <button class="button" onclick="deleteThing(${_comment.id}, 'comment')">&{'comment.delete'}</button>
+    #{/if} 
+  </div>
+  <div class="span7"></div>
+</div>

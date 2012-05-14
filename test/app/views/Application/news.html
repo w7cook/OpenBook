@@ -1,0 +1,77 @@
+#{extends 'three_panel.html' /}
+<div id="contentArea">
+  <ul class="nav nav-pills row-fluid">
+    <li><a href="#" onclick="toggleUpdateStatus('PostContainer')">Update Status</a></li>
+    <li><a href="#" onClick="toggleUpdateStatus('photo-upload')">Add Photo</a></li>
+    <li><a href="#" onClick="toggleUpdateStatus('link-upload')">Share Link</a></li>
+    <li><a href="#" onClick="toggleUpdateStatus('question-upload')">Ask Question</a></li>
+    <li><a id="about-button" href="/users/${user.id}/profile">About me</a></li>
+  </ul>
+
+  <div class="ui_InputContainer row-fluid" id="PostContainer">
+    <textarea name="post_content" id="postContent" class="ui_TextArea" placeholder="new post..." rows="3" cols="20" maxlength="400" ></textarea>
+    <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
+           alt="Post" style="vertical-align: bottom;" onclick="submit('postContent', 'post-list', '/posts')"/>    
+  </div>
+  <div class="ui_InputContainer" id="photo-upload" style="display: none;">
+    #{form @Photos.addPhoto(), enctype:'multipart/form-data'} 
+      <input type="file" name="image" />
+      <input type="text" name="content" value="Add a caption" />
+      <input type="submit" name="submit" value="Upload" /> 
+    #{/form}
+  </div>
+  <div class="ui_InputContainer" id="link-upload" style="display: none">
+    #{form @Links.addLink(), enctype:'multipart/form-data'}
+      <input type="text" name="url" value="video url" />
+      <input type="text" name="content" />
+      <input type="submit" name="submit" value="Upload" />
+    #{/form}
+  </div>
+  <div class="ui_InputContainer" id="question-upload" style="display: none">
+    #{form @Questions.addQuestion(), enctype:'multipart/form-data'}
+    Question: <input type="text" name="question" /><br />
+    Answers: <br />
+      <ol id="answer_list">
+        <li><input type="text" name="answers" value="" /></li>
+        <li><input type="text" name="answers" value="" /></li>
+      </ol>
+      <input type="button" value="Add answer" onclick="addFormField('answer_list', 'answers')" />
+      <input type="submit" name="submit" value="Ask Question" />
+    #{/form}
+  </div>
+  
+  <div id="post-list">
+    #{list items:user.news(), as:'item'} 
+      #{post user:user,item:item /}
+    #{/list}
+  </div>
+</div>
+
+<script>
+  function toggleUpdateStatus(id) {
+    jQuery('.ui_InputContainer').hide();
+    jQuery('#' + id).show();
+  }
+</script>
+
+<script>
+  /*Show before resizing, with jQuery to avoid glitchy redisplay*/
+  $('textarea#postContent').css('display','inline-block');
+  $('input#postSubmit').css('display', 'inline-block');
+  
+  /*autoResize*/
+  $('textarea#postContent').autoResize({
+  maxHeight: 150,
+  minHeight: 50,
+  extraSpace: 30
+  });
+  
+  /*autoResize*/
+  $('textarea#commentContent').autoResize({
+  maxHeight: 70,
+  minHeight: 20,
+  extraSpace: 20
+  });   
+</script>
+
+<script src="/public/javascripts/post.js"></script>

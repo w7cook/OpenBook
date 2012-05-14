@@ -1,0 +1,55 @@
+<div class="ui_InputContainer" id="PostContainer">
+  <textarea name="post_content" id="postContent" class="ui_TextArea" rows="3" cols="20" maxlength="400" ></textarea>
+  <input type="image" id="postSubmit" src="@{'/public/images/post.png'}"
+         alt="Post" style="vertical-align: bottom;"/>    
+</div>
+
+<div id="groupPosts">
+  #{list items:group.getPosts(), as:'_item'}
+    #{include 'tags/post.html' /}
+  #{/list} 
+</div>
+<script>
+  $('input#postSubmit').click(function(event) {
+  var postData = {
+  postContent : $("textarea#postContent").val(),
+  gid : ${group.id}
+  };
+  $.post("/posts/makeNewGroupPost", postData, function(data) {
+  var new_item = $(data).hide();
+  $("div#groupPosts").prepend(new_item);
+  new_item.slideDown();
+  $("textarea#postContent").val('');
+  });
+  });
+
+  /*Show before resizing, with jQuery to avoid glitchy redisplay*/
+  $('textarea#postContent').css('display','inline-block');
+  $('input#postSubmit').css('display', 'inline-block');
+
+  /*autoResize*/
+  $('textarea#postContent').autoResize({
+  maxHeight: 150,
+  minHeight: 50,
+  extraSpace: 30
+  });
+  
+  /*autoResize*/
+  $('textarea#commentContent').autoResize({
+  maxHeight: 70,
+  minHeight: 20,
+  extraSpace: 20
+  }); 
+  
+  $('#postContent')
+  .focusin(function() {
+  if ( this.value == 'new post...' ) {
+  this.value = '';    
+  }
+  })
+  .focusout(function() {
+  if ( this.value == '' ) {
+  this.value = 'new post...';    
+  }
+  });
+</script>

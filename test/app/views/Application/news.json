@@ -1,0 +1,10 @@
+[
+  "users" : "/users",
+  "groups" : "/groups",
+  "events" : "/events",
+  "pages" : "/pages",
+  "posts" : "/posts",
+  "comments" : "/comments",
+  "photos" : "/photos",
+  "messages" : "/messages"
+]

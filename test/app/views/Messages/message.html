@@ -1,0 +1,52 @@
+#{extends 'two_panel.html' /}
+
+<ul class="unstyled well" id="msg${item.id}">
+  <li class="individual-msg">
+    <div class="msg-author" style="clear: both;">
+      <a href="/users/${item.owner.id}">
+        <img src="@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)}" width="50" height="50" />
+        ${item.owner.name}
+      </a>
+    </div>
+
+    <div class="msg-content">
+      ${item.content.markdown().nl2br()}
+    </div>  
+  </li>
+
+    <!-- msg Metadata -->  
+  <li id="msg-metadata-${item.id}" class="individual-msg-metadata" style="margins:0.5em 0;">
+    ${item.comments.size()} Comment#{if item.comments.size() != 1}s#{/if}.
+    #{timeago date:item.updatedAt /}.
+    #{if item.owner ==  user} 
+      <button class="button" onclick="deleteThing(${item.id}, 'msg')">remove msg</button> 
+    #{/if}
+  </li>
+
+  <li id="commentsArea"> 
+    <ul id="comment-list${item.id}" class="unstyled commentsList">
+      #{list items:item.getComments(), as:'comment'} 
+        <li style="margin-top:0.5em;">#{comment user:user, comment:comment /}</li>
+      #{/list}
+    </ul>
+  </li>    
+  
+  <li id="new_comment_for_msg${item.id}" style="margin-top:1em;">
+    <img id="new-comment-profile-pic-${item.id}" style="vertical-align: top;" class="hide"      
+         src="@{Thumbnails.get30x30(user.profile.profilePhoto.id)}" display="inline" width="30" height="30" />
+    <textarea name="comment_content${item.id}" id="commentContent${item.id}" placeholder="new comment..." 
+              style="color:grey; width: 350px; height: 30px;" resize="vertical" rows="2" cols="35" maxlength="400" ></textarea>
+    <button class="button" id="commentSubmit${item.id}" onclick="submit('commentContent${item.id}', 'comment-list${item.id}', '/messages/${item.id}/comments')">Reply</button>
+  </li>
+</ul>
+
+<script>
+  $('#commentContent${item.id}').focus(function() {
+    $('#new-comment-profile-pic-${item.id}').removeClass('hide');
+  });
+  $('#commentContent${item.id}').blur(function() {
+    if($('#commentContent${item.id}').val() === '')
+      $('#new-comment-profile-pic-${item.id}').addClass('hide');
+  });
+</script>
+<script src="/public/javascripts/post.js"></script>

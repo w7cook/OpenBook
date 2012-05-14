@@ -1,0 +1,53 @@
+#{extends 'two_panel.html' /}
+
+<div style="margin-top: 20px; margin-bottom: 20px;" id="linked_video">
+  <h2 style="margin-top: 20px;">${vid.title}</h2> Posted by: ${vid.owner}
+  <br />
+  #{verbatim} ${vid.getEmbedHtml(2)} #{/verbatim}
+  #{if vid.owner.equals(currentUser)}
+    <br />
+    <a class="button" href="@{Videos.removeLinkedVideo(vid.id)}">
+      Remove Video
+    </a>
+    <br />
+  #{/if}
+  
+  <div style="border: 1px solid black; padding: 10px; width: 540px">
+    ${vid.caption}
+  </div>
+</div>
+
+#{list items:vid.comments(), as:'comment'}
+ 
+  <div class="row-fluid" style="border-bottom: 1px black solid; width: 600px; margin-left: 10px; padding: 5px; ">
+    #{if comment.owner.equals(currentUser)}
+      <a class="button" href="@{Videos.removeComment(comment.id)}" >
+        Remove Comment
+      </a>
+      <br />
+    #{/if}
+  	<div class="authorDetails" style="margin-left: 0px; text-align: left; width:140px;">
+  		<a href="/?id=${comment.owner.id}">${comment.owner}</a>:<br /> <span
+  			class="postDate">${comment.createdAt.format('M-d-yy, h:mm a')}</span>
+  	</div>
+    <div>
+  	  <div class="postContent" style="width: 400px; margin-left: 180px;" >${comment.content.escape().nl2br()}</div>
+  	</div>
+  </div>
+
+#{/list}
+<br />
+#{form @Videos.addComment(), enctype:'multipart/form-data'} 
+  <div class="forumInner">
+  	<div class="threadAuthorInfo" style="margin-left: 30px">Post reply:</div>
+
+  	<div class="threadContent" style="margin-left: 30px;">
+  	    <input type="hidden" name="vid_id" value=${vid.id}>
+  			<textarea id="threadReply" style="width: 500px;" name="comment"></textarea>
+  			<br />
+  			<input id="threadSubmit" type="submit"
+  				value="Submit reply" />
+  			<div style="clear: both;"></div>
+  	</div>
+#{/form}
+

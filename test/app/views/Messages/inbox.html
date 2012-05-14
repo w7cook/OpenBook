@@ -1,0 +1,62 @@
+#{extends 'two_panel.html' /}
+<link rel="stylesheet" type="text/css" media="screen"
+      href="@{'/public/stylesheets/messages.css'}" />
+
+<div id="contentArea-BigPage">
+  
+  <h1>Inbox</h1>
+  <hr />
+  <br />
+  <a href="@{Messages.createMessage()}">Create Thread</a>
+  
+  <h2>Messages</h2>
+  <div id="message-list">
+    #{list items:user.inbox(), as:'item'}
+      #{if item.getRecent() == null}
+      <div class="message" id="msg${item.id}">
+      <div class="hideable">
+        <div class="left">
+          <img src="@{Thumbnails.get50x50(item.owner.profile.profilePhoto.id)}" width="50" height="50" />
+          
+          <div class="individual-msg-metadata">
+            #{timeago date:item.updatedAt /}
+            #{if item.owner ==  _currentUser} 
+              <!--  <a id="deleteMsgThread${item.id}" onclick="return false;" href="#">delete thread</a> -->
+              delete
+            #{/if} 
+          </div>
+        </div>
+        
+
+        <div class="individual-msg">
+          <div class="msg-author" style="clear: both;">
+            <a href="/users/${item.owner.id}">${item.owner.name}</a>
+          </div>
+          <div class="msg-content">      
+            ${item.content.markdown().nl2br()}
+          </div>
+          <dif class="msg-link">
+            <a href="/messages/${item.id}">See thread</a>
+          </div>
+        </div>
+        #{/if}
+        <!--
+        <script type="text/javascript">
+          $('a#deletePostSubmit${item.id}').click(function(event) {
+          var deleteData = {
+          postId : ${item.id}
+          };
+
+          $.post("/posts/deletepost", deleteData, function() {
+          $('div#post${item.id}').slideUp();
+          });
+          });
+        </script>
+
+-->
+
+      </div>
+    </div>
+    #{/list}
+  </div>
+</div>

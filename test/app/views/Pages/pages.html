@@ -1,0 +1,20 @@
+#{extends 'three_panel.html' /}
+<link type="text/css" rel="Stylesheet" href="/public/stylesheets/page.css" /> 
+
+	<div id="contentArea-BigPage">
+
+<h2>Pages</h2>
+<a href="@{Pages.newPage()}"> Create a Page!</a>
+<hr/>
+
+	<div id="content-middle">
+	#{list items:allPages, as:'pages'} 
+		<a class = "popup" href="@{Pages.display(pages.id)}">
+			<img src="@{Photos.getPhoto(pages.profilePhoto)}"
+					style="height:100px; width:100px"/>
+			<span>${pages.title}</span>
+		</a>	
+	#{/list} 
+	</div>
+
+</div>
